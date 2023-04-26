@@ -24,13 +24,14 @@ TruthUI follows the principles of any truth finders.
 
 To find the truth, we need all the information possible.
 
-Components will be as transparent as possible, no hidden logic.
+Components will be as transparent as possible, no hidden logic, no libraries that hide what needs to be done.
 
 ### Simplicity
 
 The truth is always simple.
 
 Components will be as simple as possible, no unnecessary logic, no unnecessary abstractions.
+Components will use the closest to vanilla Javascript (while using Typescript), pure css, and pure html (with the framework restrictions). No JSX allowed.
 
 ### Solid over adaptable
 
@@ -45,10 +46,10 @@ the core is solid.
 
 Truth doesn't need to be forced. Truth is.
 
-The library will be easy to use as a whole, easy to use
-components à la carte, and easy to replace with your own components.
+The library will be easy to use as a whole, easy to use components à la carte, and easy to replace with your own components.
+Given that components have all the characteristics declared above, you will be able to easily port these to other frameworks if you will.
+And the mantainers will have that ability also, in case there is another framework that can offer the features we need.
 
 
 ---
 
-Learn more about Histoire [here](https://histoire.dev/).
