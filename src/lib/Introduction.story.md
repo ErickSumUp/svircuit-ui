@@ -25,6 +25,7 @@ TruthUI follows the principles of any truth finders.
 To find the truth, we need all the information possible.
 
 Components will be as transparent as possible, no hidden logic, no libraries that hide what needs to be done.
+Components will have no dependencies is possible, and in case is needed, they will have a clear dependency graph with only one deepness level.
 
 ### Simplicity
 
