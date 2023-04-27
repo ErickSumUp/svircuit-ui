@@ -21,7 +21,7 @@
   class:badge--circle--one-char="{circle && text.length === 1}"
   class:badge--circle--more-char="{circle && text.length !== 1}"
 >
-  {text}
+  <slot/>
 </div>
 
 <style>
