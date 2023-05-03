@@ -1,5 +1,4 @@
 <script lang="ts">
-  export let text = 'Badge';
   /**
    * Choose from 4 style variants. Default: 'neutral'
    */
@@ -7,7 +6,7 @@
   /**
    * Use the circular badge to indicate a count of items related to an element.
    */
-  export let circle = false;
+  export let circle: boolean = false;
 </script>
 
 <div
@@ -18,10 +17,8 @@
   class:badge--alert="{variant === 'alert' }"
   class:badge--promo="{variant === 'promo' }"
   class:badge--circle="{circle}"
-  class:badge--circle--one-char="{circle && text.length === 1}"
-  class:badge--circle--more-char="{circle && text.length !== 1}"
 >
-  <slot/>
+  <slot />
 </div>
 
 <style>
@@ -60,12 +57,7 @@
         align-items: center;
         justify-content: center;
         padding: 2px 4px;
-        height: 24px;
-    }
-    .badge--circle--one-char {
         width: 24px;
-    }
-    .badge--circle--more-char {
-        width: auto;
+        height: 24px;
     }
 </style>

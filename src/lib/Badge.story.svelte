@@ -1,16 +1,17 @@
 <script lang="ts">
-    import type { Hst } from '@histoire/plugin-svelte'
+    import type { Hst } from '@histoire/plugin-svelte';
     import Badge from "./Badge.svelte";
 
     export let Hst: Hst
 
-    let text = 'Badge'
-    let variant = 'neutral'
+    let text = 'Badge';
+    let variant = 'neutral';
+    let circle = false;
 </script>
 
 <Hst.Story title="Components/Badge" layout={{ type: 'grid', width: '100%' }}>
     <Hst.Variant title="Default">
-            <Badge {variant}>{text}</Badge>
+            <Badge {variant} {circle}>{text}</Badge>
     </Hst.Variant>
     <Hst.Variant title="Variants">
             <Badge variant="neutral">Badge</Badge>
@@ -31,5 +32,10 @@
                 name="variant"
                 type="select"
                 options={['neutral', 'confirm', 'notify', 'alert', 'promo']} />
+        <Hst.Checkbox
+            bind:value={circle}
+            title="Circle"
+        />
+        <pre>{JSON.stringify({ text, variant, circle })}</pre>
     </svelte:fragment>
 </Hst.Story>

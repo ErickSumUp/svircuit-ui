@@ -8,7 +8,7 @@
    * Change the color from blue to red to signal to the user that the action
    * is irreversible or otherwise dangerous.
    */
-  export let destructive = false;
+  export let destructive: boolean;
   /**
    * Button contents
    */
