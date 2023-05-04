@@ -25,7 +25,7 @@ TruthUI follows the principles of any truth finders.
 To find the truth, we need all the information possible.
 
 Components will be as transparent as possible, no hidden logic, no libraries that hide what needs to be done.
-Components will have no dependencies is possible, and in case is needed, they will have a clear dependency graph with only one deepness level.
+Components will have no dependencies if possible, and in case is needed, they will have a clear dependency graph with only one deepness level.
 
 ### Simplicity
 
@@ -49,7 +49,7 @@ Truth doesn't need to be forced. Truth is.
 
 The library will be easy to use as a whole, easy to use components à la carte, and easy to replace with your own components.
 Given that components have all the characteristics declared above, you will be able to easily port these to other frameworks if you will.
-And the mantainers will have that ability also, in case there is another framework that can offer the features we need.
+And the maintainers will have that ability also, in case there is another framework that can offer the features we need.
 
 
 ---
