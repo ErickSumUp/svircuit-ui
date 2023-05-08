@@ -1,34 +1,31 @@
 <script lang="ts">
     import type { Hst } from '@histoire/plugin-svelte';
-    import Badge from "./Badge.svelte";
+    import Select from "./Select.svelte";
 
     export let Hst: Hst
 
     let text = 'Badge';
     let variant = 'neutral';
     let circle = false;
+    let label = 'Countries';
 </script>
 
-<Hst.Story title="Components/Badge" layout={{ type: 'grid', width: '100%' }}>
+<Hst.Story title="Components/Select" layout={{ type: 'grid', width: '100%' }}>
     <Hst.Variant title="Default">
-            <Badge {variant} {circle}>{text}</Badge>
-    </Hst.Variant>
-    <Hst.Variant title="Variants">
-            <Badge variant="neutral">Badge</Badge>
-        <Badge variant="confirm">Badge</Badge>
-        <Badge variant="notify">Badge</Badge>
-        <Badge variant="alert">Badge</Badge>
-        <Badge variant="promo">Badge</Badge>
-    </Hst.Variant>
-    <Hst.Variant title="Circle">
-        <Badge circle variant="alert">1</Badge>
-        <Badge circle>22</Badge>
+            <Select {label}>
+                <option>Lol</option>
+            </Select>
     </Hst.Variant>
     <svelte:fragment slot="controls">
         <Hst.Text
             bind:value={text}
             label="Title"
             name="title"
+            type="text" />
+        <Hst.Text
+            bind:value={label}
+            label="Label"
+            name="label"
             type="text" />
         <Hst.Select
                 bind:value={variant}
