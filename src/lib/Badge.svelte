@@ -6,7 +6,7 @@
   /**
    * Use the circular badge to indicate a count of items related to an element.
    */
-  export let circle: boolean = false;
+  export let circle = false;
 </script>
 
 <div
