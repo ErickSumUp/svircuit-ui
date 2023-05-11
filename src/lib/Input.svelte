@@ -15,9 +15,11 @@
         <span class="label-span">{label}</span>
     </label>
     <div class="input-wrapper">
-        <span class="prefix-wrapper">
-            {prefix}
-        </span>
+        {#if readonly.length > 0}
+            <span class="prefix-wrapper">
+                {prefix}
+            </span>
+        {/if}
         <input id="input"
            class:input--warning="{!disabled && hasWarning}"
            class:input--invalid="{!disabled && invalid}"
@@ -27,7 +29,6 @@
            class:input-has-prefix="{prefix.length > 0}"
                class:input-has-suffix="{suffix.length > 0}"
            {placeholder}
-               type="text"
         >
         {#if suffix.length > 0}
             <span class="suffix-wrapper">
@@ -84,53 +85,53 @@
         border: none;
         outline: 0;
         border-radius: 8px;
-        padding: 12px 16px 12px 16px;
+        padding: 12px 16px;
         transition: box-shadow 120ms ease-in-out,
              padding 120ms ease-in-out;
         width: 100%;
         margin: 0;
 
-        box-shadow: 0 0 0 1px #999999;
+        box-shadow: inset 0 0 0 1px #999999;
     }
     input:hover {
-        box-shadow: 0 0 0 1px #666666;
+        box-shadow: inset 0 0 0 1px #666666;
     }
     input:focus {
-        box-shadow: 0 0 0 4px #3063E9;
+        box-shadow: inset 0 0 0 2px #3063E9;
     }
     input:active {
-        box-shadow: 0 0 0 1px #3063E9;
+        box-shadow: inset 0 0 0 1px #3063E9;
     }
     input::placeholder {
         color: #999999;
         transition: color 120ms ease-in-out;
     }
     .input--warning {
-        box-shadow: 0 0 0 1px #F5A720;
+        box-shadow: inset 0 0 0 1px #F5A720;
     }
     .input--warning:hover {
-        box-shadow: 0 0 0 1px #AD7A14;
+        box-shadow: inset 0 0 0 1px #AD7A14;
     }
     .input--warning:focus {
-        box-shadow: 0 0 0 2px #F5A720;
+        box-shadow: inset 0 0 0 2px #F5A720;
     }
     .input--warning:active {
-        box-shadow: 0 0 0 1px #F5A720;
+        box-shadow: inset 0 0 0 1px #F5A720;
     }
     .input--warning:not(:focus)::placeholder {
         color: #F5A720;
     }
     .input--invalid {
-        box-shadow: 0 0 0 1px #DE331D;
+        box-shadow: inset 0 0 0 1px #DE331D;
     }
     .input--invalid:hover {
-        box-shadow: 0 0 0 1px #B22426;
+        box-shadow: inset 0 0 0 1px #B22426;
     }
     .input--invalid:focus {
-        box-shadow: 0 0 0 2px #DE331D;
+        box-shadow: inset 0 0 0 2px #DE331D;
     }
     .input--invalid:active {
-        box-shadow: 0 0 0 1px #DE331D;
+        box-shadow: inset 0 0 0 1px #DE331D;
     }
     .input--invalid:not(:focus)::placeholder {
         color: #DE331D;
@@ -144,7 +145,7 @@
     }
     .disabled {
         background-color: #E6E6E6;
-        box-shadow: 0 0 0 1px #999999;
+        box-shadow: inset 0 0 0 1px #999999;
     }
     .input-has-prefix {
         padding-left: 48px;

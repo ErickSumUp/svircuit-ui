@@ -30,6 +30,10 @@
                     {suffix}
             />
     </Hst.Variant>
+    <Hst.Variant title="Various">
+        <Input ></Input>
+        <Input ></Input>
+    </Hst.Variant>
     <svelte:fragment slot="controls">
         <Hst.Text
             bind:value={label}
