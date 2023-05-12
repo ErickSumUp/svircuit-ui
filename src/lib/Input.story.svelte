@@ -8,12 +8,14 @@
     let disabled = false;
     let label = 'First name';
     let placeholder = 'Jane';
-    let prefix = 'Ms.'
-    let suffix = 'Doe'
+    let prefix = ''
+    let suffix = ''
     let hasWarning = false;
+    let showValid = false;
     let invalid = false;
     let textAlignRight = false;
     let readonly = false;
+    let validationMessage = 'Maximum 100 characters';
 </script>
 
 <Hst.Story title="Components/Input" layout={{ type: 'grid', width: '100%' }}>
@@ -22,12 +24,14 @@
                     {label}
                     {disabled}
                     {placeholder}
+                    {showValid}
                     {hasWarning}
                     {invalid}
                     {textAlignRight}
                     {readonly}
                     {prefix}
                     {suffix}
+                    {validationMessage}
             />
     </Hst.Variant>
     <Hst.Variant title="Various">
@@ -44,6 +48,10 @@
         <Hst.Checkbox
             bind:value={disabled}
             title="Disabled"
+        />
+        <Hst.Checkbox
+           bind:value={showValid}
+                title="Show valid"
         />
         <Hst.Checkbox
             bind:value={hasWarning}
@@ -80,6 +88,13 @@
             title="Suffix"
             label="Suffix"
             name="suffix"
+            type="text"
+        />
+        <Hst.Text
+            bind:value={validationMessage}
+            title="Validation message"
+            label="Validation message"
+            name="validationMessage"
             type="text"
         />
         <pre>{JSON.stringify({ text, disabled })}</pre>
