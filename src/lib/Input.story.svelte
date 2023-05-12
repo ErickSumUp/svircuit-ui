@@ -16,6 +16,7 @@
     let textAlignRight = false;
     let readonly = false;
     let validationMessage = 'Maximum 100 characters';
+    let value = 'Jane';
 </script>
 
 <Hst.Story title="Components/Input" layout={{ type: 'grid', width: '100%' }}>
@@ -32,7 +33,9 @@
                     {prefix}
                     {suffix}
                     {validationMessage}
+                    bind:value={value}
             />
+        <span>{value}</span>
     </Hst.Variant>
     <Hst.Variant title="Various">
         <Input ></Input>

@@ -10,6 +10,7 @@
     export let textAlignRight = false;
     export let readonly = false;
     export let validationMessage = '';
+    export let value = '';
 </script>
 
 <div class:wrapper-disabled={disabled}>
@@ -31,6 +32,7 @@
                class:input-has-suffix="{suffix.length > 0}"
                {disabled}
            {placeholder}
+               bind:value={value}
         >
         {#if suffix.length > 0}
             <span class="suffix-wrapper">
