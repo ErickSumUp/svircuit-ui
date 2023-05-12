@@ -4,10 +4,12 @@
     export let suffix = '';
     export let label = '';
     export let placeholder = '';
+    export let showValid = false;
     export let hasWarning = false;
     export let invalid = false;
     export let textAlignRight = false;
     export let readonly = false;
+    export let validationMessage = '';
 </script>
 
 <div class:disabled={disabled}>
@@ -28,6 +30,7 @@
            class:disabled="{disabled}"
            class:input-has-prefix="{prefix.length > 0}"
                class:input-has-suffix="{suffix.length > 0}"
+               {disabled}
            {placeholder}
         >
         {#if suffix.length > 0}
@@ -36,6 +39,14 @@
             </span>
         {/if}
     </div>
+    {#if validationMessage.length > 0}
+        <span class="validation-message" role="status" aria-live="polite"
+              class:validation-message--valid={showValid}
+              class:validation-message--invalid={invalid}
+              class:validation-message--warning={hasWarning}>
+            {validationMessage}
+        </span>
+    {/if}
 </div>
 
 <style>
@@ -152,5 +163,34 @@
     }
     .input-has-suffix {
         padding-right: 48px;
+    }
+    .validation-message {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+
+        display: block;
+        margin-top: 4px;
+        color: #6A737C;
+        transition: color 120ms ease-in-out;
+    }
+    .validation-message:disabled {
+        color: rgba(102, 102, 102, 0.4);
+    }
+    .validation-message--valid {
+        color: #018850;
+    }.validation-message--valid:disabled {
+        color: rgba(1, 135, 48, 0.4);
+    }
+    .validation-message--invalid {
+        color: #DE331D;
+    }
+    .validation-message--invalid:disabled {
+        color: rgba(222, 51, 29, 0.4);
+    }
+    .validation-message--warning {
+        color: #E27900;
+    }
+    .validation-message--warning:disabled {
+        color: rgba(232, 124, 0, 0.4);
     }
 </style>
