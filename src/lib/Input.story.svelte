@@ -11,6 +11,7 @@
     let prefix = ''
     let suffix = ''
     let hasWarning = false;
+    let showValid = false;
     let invalid = false;
     let textAlignRight = false;
     let readonly = false;
@@ -23,6 +24,7 @@
                     {label}
                     {disabled}
                     {placeholder}
+                    {showValid}
                     {hasWarning}
                     {invalid}
                     {textAlignRight}
@@ -46,6 +48,10 @@
         <Hst.Checkbox
             bind:value={disabled}
             title="Disabled"
+        />
+        <Hst.Checkbox
+           bind:value={showValid}
+                title="Show valid"
         />
         <Hst.Checkbox
             bind:value={hasWarning}
