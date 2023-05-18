@@ -165,6 +165,20 @@
     /* Special colors */
     --cui-bg-overlay: rgba(0, 0, 0, 0.4);
     --cui-border-focus: #ebf4ff;
+
+    --cui-font-weight-normal: 400;
+    --cui-font-weight-bold: 700;
+
+    --cui-ty-body-font-size-one: 1rem;
+    --cui-ty-body-line-height-one: 1.5rem;
+
+    --cui-ty-body-font-size-two: 0.875rem;
+    --cui-ty-body-line-height-two: 1.25rem;
+
+    --cui-spacing-byte: 8px;
+    --cui-spacing-kilo: 12px;
+    --cui-spacing-mega: 16px;
+    --cui-spacing-giga: 24px;
 }
 
 /**
