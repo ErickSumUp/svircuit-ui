@@ -5,13 +5,13 @@
     export let Hst: Hst
 
     let text = 'Badge';
-    let variant = 'neutral';
+    let variant: 'neutral' | 'confirm' | 'notify' | 'alert' | 'promo' = 'neutral';
     let circle = false;
 </script>
 
 <Hst.Story title="Components/Badge" layout={{ type: 'grid', width: '100%' }}>
     <Hst.Variant title="Default">
-            <Badge {variant} {circle}>{text}</Badge>
+        <Badge {variant} {circle}>{text}</Badge>
     </Hst.Variant>
     <Hst.Variant title="Variants">
             <Badge variant="neutral">Badge</Badge>
