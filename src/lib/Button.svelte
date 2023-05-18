@@ -35,7 +35,9 @@
   {disabled}
   on:click
 >
-  <slot />
+  <span class="content-wrapper">
+    <slot />
+  </span>
 </button>
 
 <style>
@@ -59,10 +61,9 @@
             background-color var(--cui-transitions-default),
             border-color var(--cui-transitions-default);
     }
-    button:disabled {
-        opacity: 0.5;
+    button:disabled,
+    [disabled] {
         pointer-events: none;
-        box-shadow: none;
     }
     button:focus {
         outline: 0;
@@ -224,5 +225,15 @@
     }
     .stretch {
         width: 100%;
+    }
+    .content-wrapper {
+      display: inline-flex;
+      align-items: center;
+      opacity: 1;
+      visibility: inherit;
+      transform: scale3d(1, 1, 1);
+      transition: opacity var(--cui-transitions-default),
+        transform var(--cui-transitions-default),
+        visibility var(--cui-transitions-default);
     }
 </style>
