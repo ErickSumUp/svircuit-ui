@@ -169,6 +169,15 @@
     --cui-font-weight-normal: 400;
     --cui-font-weight-bold: 700;
 
+    --cui-ty-headline-font-size-one: 2rem;
+    --cui-ty-headline-line-height-one: 2.25rem;
+    --cui-ty-headline-font-size-two: 1.5rem;
+    --cui-ty-headline-line-height-two: 1.75rem;
+    --cui-ty-headline-font-size-three: 1.25rem;
+    --cui-ty-headline-line-height-three: 1.5rem;
+    --cui-ty-headline-font-size-four: 1.125rem;
+    --cui-ty-headline-line-height-four: 1.5rem;
+
     --cui-ty-body-font-size-one: 1rem;
     --cui-ty-body-line-height-one: 1.5rem;
 

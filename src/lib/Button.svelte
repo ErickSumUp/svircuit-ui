@@ -31,7 +31,7 @@
         line-height: var(--cui-ty-body-line-height-one);
         display: inline-flex;
         justify-content: center;
-        width: auto;
+        width: fit-content;
         height: auto;
         margin: 0;
         cursor: pointer;
