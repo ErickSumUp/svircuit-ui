@@ -18,7 +18,7 @@
         <span class="label-span" class:label-span-disabled={disabled}>{label}</span>
     </label>
     <div class="input-wrapper">
-        {#if readonly.length > 0}
+        {#if readonly}
             <span class="prefix-wrapper">
                 {prefix}
             </span>
@@ -104,6 +104,7 @@
         line-height: 1.5rem;
 
         -webkit-appearance: none;
+        appearance: none;
         background-color: #FFFFFF;
         border: none;
         outline: 0;

@@ -27,14 +27,10 @@
     <svelte:fragment slot="controls">
         <Hst.Text
             bind:value={text}
-            label="Title"
-            name="title"
-            type="text" />
+            title="title" />
         <Hst.Select
                 bind:value={variant}
-                label="Variant"
-                name="variant"
-                type="select"
+                title="variant"
                 options={['neutral', 'confirm', 'notify', 'alert', 'promo']} />
         <Hst.Checkbox
             bind:value={circle}
