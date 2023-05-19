@@ -37,69 +37,18 @@
             />
         <span>{value}</span>
     </Hst.Variant>
-    <Hst.Variant title="Various">
-        <Input ></Input>
-        <Input ></Input>
-    </Hst.Variant>
     <svelte:fragment slot="controls">
-        <Hst.Text
-            bind:value={label}
-            title="Label"
-            label="Label"
-            name="label"
-            type="text" />
-        <Hst.Checkbox
-            bind:value={disabled}
-            title="Disabled"
-        />
-        <Hst.Checkbox
-           bind:value={showValid}
-                title="Show valid"
-        />
-        <Hst.Checkbox
-            bind:value={hasWarning}
-            title="Has warning"
-        />
-        <Hst.Checkbox
-            bind:value={invalid}
-            title="Invalid"
-        />
-        <Hst.Checkbox
-            bind:value={textAlignRight}
-            title="Text align right"
-        />
-        <Hst.Checkbox
-            bind:value={readonly}
-            title="Readonly"
-        />
-        <Hst.Text
-            bind:value={placeholder}
-            title="Placeholder"
-            label="Placeholder"
-            name="placeholder"
-            type="text"
-        />
-        <Hst.Text
-            bind:value={prefix}
-            title="Prefix"
-            label="Prefix"
-            name="prefix"
-            type="text"
-        />
-        <Hst.Text
-            bind:value={suffix}
-            title="Suffix"
-            label="Suffix"
-            name="suffix"
-            type="text"
-        />
-        <Hst.Text
-            bind:value={validationMessage}
-            title="Validation message"
-            label="Validation message"
-            name="validationMessage"
-            type="text"
-        />
+        <Hst.Text bind:value={label} title="Label" />
+        <Hst.Checkbox bind:value={disabled} title="Disabled" />
+        <Hst.Checkbox bind:value={showValid} title="Show valid" />
+        <Hst.Checkbox bind:value={hasWarning} title="Has warning" />
+        <Hst.Checkbox bind:value={invalid} title="Invalid" />
+        <Hst.Checkbox bind:value={textAlignRight} title="Text align right" />
+        <Hst.Checkbox bind:value={readonly} title="Readonly" />
+        <Hst.Text bind:value={placeholder} title="Placeholder" />
+        <Hst.Text bind:value={prefix} title="Prefix" />
+        <Hst.Text bind:value={suffix} title="Suffix" />
+        <Hst.Text bind:value={validationMessage} title="Validation message" />
         <pre>{JSON.stringify({ text, disabled })}</pre>
     </svelte:fragment>
 </Hst.Story>

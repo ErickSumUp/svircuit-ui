@@ -1,24 +1,9 @@
 <script lang="ts">
   export let variant: 'primary' | 'secondary' | 'tertiary' = 'primary';
-  /**
-   * How large should the button be?
-   */
   export let size: 'kilo' | 'giga' = 'giga'
-  /**
-   * Change the color from blue to red to signal to the user that the action
-   * is irreversible or otherwise dangerous.
-   */
-  export let destructive: boolean;
-  /**
-   * Button contents
-   */
-  export let label = '';
-  /**
-   * Optional Stretch the button across the full width of its parent.
-   */
-  export let stretch: boolean;
-
-  export let disabled: boolean;
+  export let destructive = false;
+  export let stretch = false;
+  export let disabled = false;
 </script>
 
 <button

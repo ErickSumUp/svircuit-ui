@@ -45,14 +45,8 @@
       options={['kilo', 'giga']}
       title="Size"
     />
-    <Hst.Checkbox
-      bind:value={disabled}
-      title="Disabled"
-    />
-    <Hst.Checkbox
-      bind:value={destructive}
-      title="Destructive"
-    />
+    <Hst.Checkbox bind:value={disabled} title="Disabled" />
+    <Hst.Checkbox bind:value={destructive} title="Destructive" />
     <pre>{JSON.stringify({ text, variant, size, disabled, destructive }, null, 2)}</pre>
   </svelte:fragment>
 </Hst.Story>
