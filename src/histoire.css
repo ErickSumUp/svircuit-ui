@@ -181,6 +181,11 @@
     --cui-spacing-mega: 16px;
     --cui-spacing-giga: 24px;
 
+    --cui-icon-size-kilo: 16px;
+    --cui-icon-size-mega: 24px;
+    --cui-icon-size-giga: 32px;
+    --cui-icon-size-tera: 48px;
+
     --cui-border-radius-bit: 4px;
     --cui-border-radius-byte: 8px;
     --cui-border-radius-kilo: 12px;
