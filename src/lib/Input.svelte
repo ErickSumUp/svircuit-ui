@@ -29,10 +29,12 @@
            class:text-align-right={textAlignRight}
            class:readonly="{readonly}"
            class:input-has-prefix="{prefix.length > 0}"
-               class:input-has-suffix="{suffix.length > 0}"
-               {disabled}
+           class:input-has-suffix="{suffix.length > 0}"
+           {disabled}
            {placeholder}
-               bind:value={value}
+           bind:value
+           on:blur
+           on:change
         >
         {#if suffix.length > 0}
             <span class="suffix-wrapper">
