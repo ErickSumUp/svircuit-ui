@@ -22,20 +22,22 @@
             <span class='prefix-wrapper'>
                 {prefix}
             </span>
-		{/if}
-		<input bind:value={value}
-					 class:input--invalid='{!disabled && invalid}'
-					 class:input--warning='{!disabled && hasWarning}'
-					 class:input-has-prefix='{prefix.length > 0}'
-					 class:input-has-suffix='{suffix.length > 0}'
-					 class:readonly='{readonly}'
-					 class:text-align-right={textAlignRight}
-					 {disabled}
-					 id='input'
-					 {placeholder}
-		>
-		{#if suffix.length > 0}
-            <span class='suffix-wrapper'>
+        {/if}
+        <input id="input"
+           class:input--warning="{!disabled && hasWarning}"
+           class:input--invalid="{!disabled && invalid}"
+           class:text-align-right={textAlignRight}
+           class:readonly="{readonly}"
+           class:input-has-prefix="{prefix.length > 0}"
+           class:input-has-suffix="{suffix.length > 0}"
+           {disabled}
+           {placeholder}
+           bind:value
+           on:blur
+           on:change
+        >
+        {#if suffix.length > 0}
+            <span class="suffix-wrapper">
                 {suffix}
             </span>
 		{/if}
