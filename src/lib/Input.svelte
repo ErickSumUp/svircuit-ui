@@ -1,4 +1,9 @@
 <script lang='ts'>
+
+	import Confirm from '$lib/icons/Confirm.svelte';
+	import Alert from '$lib/icons/Alert.svelte';
+	import Notify from '$lib/icons/Notify.svelte';
+
 	export let disabled = false;
 	export let prefix = '';
 	export let suffix = '';
@@ -52,7 +57,20 @@
 							class:validation-message--warning={hasWarning}
 							class:validation-message--warning--disabled={hasWarning && disabled}
 				>
-            {validationMessage}
+            {#if invalid}
+                <div class='icon-wrapper'>
+                    <Alert size='16' />
+                </div>
+            {:else if hasWarning}
+                <div class='icon-wrapper'>
+                    <Notify size='16' />
+                </div>
+            {:else if showValid}
+                <div class='icon-wrapper'>
+                    <Confirm size='16' />
+                </div>
+            {/if}
+					{validationMessage}
         </span>
 	{/if}
 </div>
@@ -246,5 +264,14 @@
 
     .validation-message--warning--disabled {
         color: rgba(232, 124, 0, 0.4);
+    }
+
+    .icon-wrapper {
+        display: inline-block;
+        position: relative;
+        width: var(--cui-icon-size-kilo);
+        height: var(--cui-icon-size-kilo);
+        vertical-align: text-top;
+        margin-right: var(--cui-spacing-bit);
     }
 </style>
