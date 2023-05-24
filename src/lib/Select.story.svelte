@@ -8,7 +8,7 @@
 	let variant = 'neutral';
 	let circle = false;
 	let label = 'Countries';
-	let value = '';
+	let value = { id: 0, text: 'Select a country' };
 	let countries = [
 		{ id: 1, text: `Germany` },
 		{ id: 2, text: `United States` },
@@ -20,7 +20,7 @@
 	<Hst.Variant title="Default">
 		<div style="margin: 10px">
 			<Select bind:value {label}>
-				<option value="" disabled selected>Select a country</option>
+				<option {value} disabled selected>Select a country</option>
 				{#each countries as country}
 					<option value={country}>
 						{country.text}
@@ -32,11 +32,11 @@
 	</Hst.Variant>
 	<Hst.Variant title="Together">
 		<div style="display: flex; margin: 10px;">
-			<Select>
-				<option>Merchant Code</option>
+			<Select value={{ id: 0, text: 'MC' }}>
+				<option value={{ id: 0, text: 'MC' }}>Merchant Code</option>
 			</Select>
-			<Select>
-				<option>Countries</option>
+			<Select value={{ id: 0, text: 'c' }}>
+				<option value={{ id: 0, text: 'c' }}>Countries</option>
 			</Select>
 		</div>
 	</Hst.Variant>

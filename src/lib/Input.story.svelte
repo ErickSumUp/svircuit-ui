@@ -17,6 +17,7 @@
 	let readonly = false;
 	let validationMessage = 'Maximum 100 characters';
 	let value = 'Jane';
+	let maxlength = 100;
 </script>
 
 <Hst.Story title="Components/Input" layout={{ type: 'grid', width: '100%' }}>
@@ -33,6 +34,7 @@
 			{prefix}
 			{suffix}
 			{validationMessage}
+			{maxlength}
 			bind:value
 			type="number"
 		/>
@@ -50,6 +52,7 @@
 		<Hst.Text bind:value={prefix} title="Prefix" />
 		<Hst.Text bind:value={suffix} title="Suffix" />
 		<Hst.Text bind:value={validationMessage} title="Validation message" />
+		<Hst.Number bind:value={maxlength} title="Max Length" />
 		<pre>{JSON.stringify({ text, disabled })}</pre>
 	</svelte:fragment>
 </Hst.Story>
