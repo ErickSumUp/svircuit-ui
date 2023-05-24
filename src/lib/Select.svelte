@@ -5,7 +5,7 @@
 	export let invalid = false;
 	export let prefix = '';
 	export let label = '';
-	export let value;
+	export let value: { id: number, text: string };
 </script>
 
 <label class="label-wrapper">

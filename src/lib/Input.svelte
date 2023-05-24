@@ -16,6 +16,7 @@
 	export let validationMessage = '';
 	export let value = '';
 	export let type = 'text';
+	export let maxlength = 10;
 	function typeAction(node: HTMLInputElement) {
 		node.type = type;
 	}
@@ -41,6 +42,7 @@
 			class:input-has-suffix={suffix.length > 0}
 			{disabled}
 			{placeholder}
+			{maxlength}
 			bind:value
 			on:blur
 			on:change
