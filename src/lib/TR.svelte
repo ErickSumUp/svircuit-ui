@@ -2,11 +2,11 @@
 </script>
 
 <tr>
-  <slot />
+	<slot />
 </tr>
 
 <style>
-    tr {
-      vertical-align: middle;
-    }
+	tr {
+		vertical-align: middle;
+	}
 </style>

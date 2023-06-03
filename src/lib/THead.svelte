@@ -2,7 +2,7 @@
 </script>
 
 <thead>
-  <slot />
+	<slot />
 </thead>
 
 <style>

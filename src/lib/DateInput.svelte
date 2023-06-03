@@ -10,14 +10,7 @@
 		<span class="label-span" class:label-span-disabled={disabled}>{label}</span>
 	</label>
 	<div class="input-wrapper">
-		<input
-			id="input"
-			{disabled}
-			bind:value
-			on:blur
-			on:change
-			type="date"
-		/>
+		<input id="input" {disabled} bind:value on:blur on:change type="date" />
 	</div>
 	{#if validationMessage.length > 0}
 		<span
