@@ -1,4 +1,3 @@
-
 ---
 group: 'top'
 icon: 'carbon:bookmark'
@@ -51,6 +50,4 @@ The library will be easy to use as a whole, easy to use components à la carte, 
 Given that components have all the characteristics declared above, you will be able to easily port these to other frameworks if you will.
 And the maintainers will have that ability also, in case there is another framework that can offer the features we need.
 
-
 ---
-
