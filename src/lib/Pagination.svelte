@@ -63,7 +63,7 @@
 		size="kilo"
 		--cui-spacing-bit="12px"
 		--cui-spacing-mega="12px"
-		on:click={() => currentPage -= 1}
+		on:click={() => (currentPage -= 1)}
 	>
 		<ChevronLeft />
 	</Button>
@@ -75,7 +75,9 @@
 			{:else if page === currentPage.toString()}
 				<CircleButton>{page}</CircleButton>
 			{:else}
-				<CircleButton on:click={() => currentPage = Number(page)} variant="tertiary">{page}</CircleButton>
+				<CircleButton on:click={() => (currentPage = Number(page))} variant="tertiary"
+					>{page}</CircleButton
+				>
 			{/if}
 		{/each}
 	</ol>
@@ -86,7 +88,7 @@
 		size="kilo"
 		--cui-spacing-bit="12px"
 		--cui-spacing-mega="12px"
-		on:click={() => currentPage += 1}
+		on:click={() => (currentPage += 1)}
 	>
 		<ChevronRight />
 	</Button>

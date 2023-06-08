@@ -14,8 +14,7 @@
 			on:click={() => {
 				alert('Hello!');
 			}}
-			{variant}
-			>{text}</CircleButton
+			{variant}>{text}</CircleButton
 		>
 	</Hst.Variant>
 	<Hst.Variant title="Variants">
@@ -24,11 +23,7 @@
 	</Hst.Variant>
 	<svelte:fragment slot="controls">
 		<Hst.Text bind:value={text} title="Text" />
-		<Hst.Select
-			bind:value={variant}
-			options={['primary', 'tertiary']}
-			title="Variant"
-		/>
+		<Hst.Select bind:value={variant} options={['primary', 'tertiary']} title="Variant" />
 		<pre>{JSON.stringify({ text, variant }, null, 2)}</pre>
 	</svelte:fragment>
 </Hst.Story>

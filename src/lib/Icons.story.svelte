@@ -3,8 +3,8 @@
 	import ChevronDown from '$lib/icons/ChevronDown.svelte';
 	import Alert from '$lib/icons/Alert.svelte';
 	import Confirm from '$lib/icons/Confirm.svelte';
-	import ChevronLeft from "$lib/icons/ChevronLeft.svelte";
-	import ChevronRight from "$lib/icons/ChevronRight.svelte";
+	import ChevronLeft from '$lib/icons/ChevronLeft.svelte';
+	import ChevronRight from '$lib/icons/ChevronRight.svelte';
 	export let Hst: Hst;
 </script>
 

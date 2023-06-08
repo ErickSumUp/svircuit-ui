@@ -1,2 +1,2 @@
-import './histoire.css'
-import './app.css'
+import './histoire.css';
+import './app.css';
