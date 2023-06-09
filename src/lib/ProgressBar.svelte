@@ -11,14 +11,13 @@
 	}
 </script>
 
-<div class="wrapper">
-	<span
-		class="progress-background"
-		class:byte={size === 'byte'}
-		class:kilo={size === 'kilo'}
-		class:mega={size === 'mega'}
-	/>
-	<span
+<div
+	class="container"
+	class:byte={size === 'byte'}
+	class:kilo={size === 'kilo'}
+	class:mega={size === 'mega'}
+>
+	<div
 		class="progress-bar"
 		class:primary={variant === 'primary'}
 		class:secondary={variant === 'secondary'}
@@ -26,20 +25,14 @@
 		class:kilo={size === 'kilo'}
 		class:mega={size === 'mega'}
 		style="width: {width}%"
-	/>
+	></div>
 </div>
 
 <style>
-	.wrapper {
-		display: flex;
-		align-items: center;
-	}
-	.progress-background {
+	.container {
 		background-color: var(--cui-bg-highlight);
 		border-radius: var(--cui-border-radius-pill);
-		position: relative;
 		width: 100%;
-		overflow: hidden;
 		height: 16px;
 	}
 	.progress-bar {
