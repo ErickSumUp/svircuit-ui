@@ -8,7 +8,7 @@
 	let variant = 'neutral';
 	let circle = false;
 	let label = 'Countries';
-	let value = { id: 0, text: 'Select a country' };
+	let selectedValue;
 	let countries = [
 		{ id: 1, text: `Germany` },
 		{ id: 2, text: `United States` },
@@ -19,16 +19,15 @@
 <Hst.Story title="Components/Select" layout={{ type: 'grid', width: '100%' }}>
 	<Hst.Variant title="Default">
 		<div style="margin: 10px">
-			<Select bind:value {label}>
-				<option {value} disabled selected>Select a country</option>
+			<Select placeholder="Select a country" bind:selectedValue {label}>
 				{#each countries as country}
-					<option value={country}>
+					<option value={country.text}>
 						{country.text}
 					</option>
 				{/each}
 			</Select>
 		</div>
-		Option selected: id: {value.id} text: {value.text}
+		Option selected: id: {selectedValue}
 	</Hst.Variant>
 	<Hst.Variant title="Together">
 		<div style="display: flex; margin: 10px;">

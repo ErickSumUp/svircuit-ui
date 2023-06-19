@@ -6,6 +6,7 @@
 	export let prefix = '';
 	export let label = '';
 	export let value: { id: number; text: string };
+	export let placeholder = 'Select';
 </script>
 
 <label class="label-wrapper">
@@ -19,6 +20,9 @@
 			on:change
 			bind:value
 		>
+			{#if placeholder}
+				<option id={0} value={""} disabled selected>{placeholder}</option>
+			{/if}
 			<slot />
 		</select>
 		<div class="chevron">
