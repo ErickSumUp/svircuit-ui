@@ -5,7 +5,7 @@
 	export let invalid = false;
 	export let prefix = '';
 	export let label = '';
-	export let value: { id: number; text: string };
+	export let selectedValue = '';
 	export let placeholder = 'Select';
 </script>
 
@@ -18,10 +18,10 @@
 			class:select--prefix={prefix.length > 0}
 			class:select--disabled={disabled}
 			on:change
-			bind:value
+			bind:value={selectedValue}
 		>
 			{#if placeholder}
-				<option id={0} value={""} disabled selected>{placeholder}</option>
+				<option value="" disabled selected>{placeholder}</option>
 			{/if}
 			<slot />
 		</select>
