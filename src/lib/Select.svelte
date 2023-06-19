@@ -6,32 +6,38 @@
 	export let prefix = '';
 	export let label = '';
 	export let selectedValue = '';
-	export let placeholder = 'Select';
+	export let placeholder = '';
+	export let placeholderValue: number | string = '';
 </script>
 
-<label class="label-wrapper">
-	<span>{label}</span>
-	<div class="select--wrapper">
-		{prefix}
-		<select
-			class:select--invalid={invalid && !disabled}
-			class:select--prefix={prefix.length > 0}
-			class:select--disabled={disabled}
-			on:change
-			bind:value={selectedValue}
-		>
-			{#if placeholder}
-				<option value="" disabled selected>{placeholder}</option>
-			{/if}
-			<slot />
-		</select>
-		<div class="chevron">
-			<ChevronDown />
+<div class="wrapper">
+	<label class="label-wrapper">
+		<span>{label}</span>
+		<div class="select--wrapper">
+			{prefix}
+			<select
+				class:select--invalid={invalid && !disabled}
+				class:select--prefix={prefix.length > 0}
+				class:select--disabled={disabled}
+				on:change
+				bind:value={selectedValue}
+			>
+				{#if placeholder}
+					<option value={placeholderValue} disabled selected>{placeholder}</option>
+				{/if}
+				<slot />
+			</select>
+			<div class="chevron">
+				<ChevronDown />
+			</div>
 		</div>
-	</div>
-</label>
+	</label>
+</div>
 
 <style>
+	.wrapper {
+		flex-grow: 1;
+	}
 	.label-wrapper {
 		font-size: var(--cui-ty-body-font-size-two);
 		line-height: var(--cui-ty-body-line-height-two);

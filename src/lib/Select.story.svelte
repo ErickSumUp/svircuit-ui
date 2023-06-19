@@ -37,6 +37,9 @@
 			<Select value={{ id: 0, text: 'c' }}>
 				<option value={{ id: 0, text: 'c' }}>Countries</option>
 			</Select>
+			<Select value={{ id: 0, text: 'c' }}>
+				<option value={{ id: 0, text: 'c' }}>Countries</option>
+			</Select>
 		</div>
 	</Hst.Variant>
 	<svelte:fragment slot="controls">
