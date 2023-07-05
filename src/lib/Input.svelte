@@ -22,7 +22,7 @@
 	}
 </script>
 
-<div class:wrapper-disabled={disabled}>
+<div class="wrapper" class:wrapper-disabled={disabled}>
 	<label for="input">
 		<span class="label-span" class:label-span-disabled={disabled}>{label}</span>
 	</label>
@@ -86,6 +86,9 @@
 </div>
 
 <style>
+	.wrapper {
+		flex-grow: 1;
+	}
 	.wrapper-disabled {
 		pointer-events: none;
 	}

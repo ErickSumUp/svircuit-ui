@@ -40,7 +40,6 @@
 		overflow: hidden;
 		content: '';
 		display: block;
-		position: absolute;
 		top: 0;
 		bottom: 0;
 		left: 0;
