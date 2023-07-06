@@ -2,6 +2,7 @@
 	import type { Hst } from '@histoire/plugin-svelte';
 	import ChevronDown from '$lib/icons/ChevronDown.svelte';
 	import Alert from '$lib/icons/Alert.svelte';
+	import Close from '$lib/icons/Close.svelte';
 	import Confirm from '$lib/icons/Confirm.svelte';
 	import ChevronLeft from '$lib/icons/ChevronLeft.svelte';
 	import ChevronRight from '$lib/icons/ChevronRight.svelte';
@@ -23,5 +24,8 @@
 	</Hst.Variant>
 	<Hst.Variant title="ChevronRight">
 		<ChevronRight />
+	</Hst.Variant>
+	<Hst.Variant title="Close">
+		<Close />
 	</Hst.Variant>
 </Hst.Story>
