@@ -66,7 +66,7 @@
 		width: 100%;
 		margin: 0;
 
-		box-shadow: inset 0 0 0 1px #999999;
+		box-shadow: inset 0 0 0 1px var(--cui-border-normal);
 
 		height: 48px;
 		min-width: 8ch;
@@ -82,15 +82,15 @@
 	}
 
 	input:hover {
-		box-shadow: inset 0 0 0 1px #666666;
+		box-shadow: inset 0 0 0 1px var(--cui-border-normal-hovered);
 	}
 
 	input:focus {
-		box-shadow: inset 0 0 0 2px #3063e9;
+		box-shadow: inset 0 0 0 2px var(--cui-border-accent);
 	}
 
 	input:active {
-		box-shadow: inset 0 0 0 1px #3063e9;
+		box-shadow: inset 0 0 0 1px var(--cui-border-accent);
 	}
 
 	input::placeholder {
