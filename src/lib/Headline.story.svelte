@@ -18,7 +18,7 @@
 		<Headline as="h4" size="four">This is a headline four</Headline>
 	</Hst.Variant>
 	<svelte:fragment slot="controls">
-		<Hst.Select bind:value={size} options={['one', 'two', 'three']} title="variant" />
+		<Hst.Select bind:value={size} options={['one', 'two', 'three', 'four']} title="variant" />
 		<Hst.Select bind:value={as} options={['h1', 'h2', 'h3', 'h4', 'h5', 'h6']} title="as" />
 		<pre>{JSON.stringify({ size })}</pre>
 	</svelte:fragment>

@@ -12,7 +12,7 @@
 </script>
 
 <Hst.Story title="Components/Button" layout={{ type: 'grid', width: '100%' }}>
-	<Hst.Variant title="Default">
+	<Hst.Variant title="Custom">
 		<Button
 			on:click={() => {
 				alert('Hello!');
@@ -22,6 +22,9 @@
 			{disabled}
 			{destructive}>{text}</Button
 		>
+	</Hst.Variant>
+	<Hst.Variant title="Default">
+		<Button>Default</Button>
 	</Hst.Variant>
 	<Hst.Variant title="Variants">
 		<Button variant="primary">Primary</Button>
