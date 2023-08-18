@@ -11,12 +11,12 @@
 
 # Install dependencies
 
-    yarn
+    pnpm install
 
 # How to run histoire (interface to explore components)
 
-    yarn story:dev
+    pnpm run story:dev
 
-# You can then see the components in
+# You can then (probably) see the components in
 
     http://localhost:6006
