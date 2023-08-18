@@ -1,10 +1,12 @@
 <script lang="ts">
 	export let variant: 'primary' | 'tertiary' = 'primary';
+	export let disabled = false;
 </script>
 
 <button
 	class:primary={variant === 'primary'}
 	class:tertiary={variant === 'tertiary'}
+	{disabled}
 	on:click
 	type="button"
 >
