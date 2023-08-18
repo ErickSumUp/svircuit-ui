@@ -16,8 +16,11 @@
 	let textAlignRight = false;
 	let readonly = false;
 	let validationMessage = 'Maximum 100 characters';
-	let value = 'Jane';
+	let value: number | string = 'Jane';
 	let maxlength = 100;
+	let type = 'text';
+
+	let valueNumber: number | string = 1001;
 </script>
 
 <Hst.Story title="Components/Input" layout={{ type: 'grid', width: '100%' }}>
@@ -35,13 +38,23 @@
 			{suffix}
 			{validationMessage}
 			{maxlength}
+			{type}
 			bind:value
-			type="number"
 		/>
-		<span>{value}</span>
+		<br/>
+		<span>Value read: {value}</span>
+	</Hst.Variant>
+	<Hst.Variant title="Number" >
+		<Input
+				type="number"
+				bind:value={valueNumber}
+		/>
+		<br/>
+		<span>Value read: {valueNumber}</span>
 	</Hst.Variant>
 	<svelte:fragment slot="controls">
 		<Hst.Text bind:value={label} title="Label" />
+		<Hst.Select bind:value={type} options={['text', 'number']} title="Type" />
 		<Hst.Checkbox bind:value={disabled} title="Disabled" />
 		<Hst.Checkbox bind:value={showValid} title="Show valid" />
 		<Hst.Checkbox bind:value={hasWarning} title="Has warning" />

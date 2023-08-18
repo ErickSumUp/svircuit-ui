@@ -8,7 +8,7 @@
 	let variant = 'neutral';
 	let circle = false;
 	let label = 'Countries';
-	let selectedValue;
+	let selectedValue = '';
 	let countries = [
 		{ id: 1, text: `Germany` },
 		{ id: 2, text: `United States` },
