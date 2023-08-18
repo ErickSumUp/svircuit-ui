@@ -5,7 +5,7 @@
 	export let invalid = false;
 	export let prefix = '';
 	export let label = '';
-	export let selectedValue = '';
+	export let selectedValue: number | string = '';
 	export let placeholder = '';
 	export let placeholderValue: number | string = '';
 </script>

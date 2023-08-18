@@ -6,7 +6,7 @@
 	export let disabled = false;
 	export let prefix = '';
 	export let suffix = '';
-	export let label: string;
+	export let label = '';
 	export let placeholder = '';
 	export let showValid = false;
 	export let hasWarning = false;
@@ -14,7 +14,7 @@
 	export let textAlignRight = false;
 	export let readonly = false;
 	export let validationMessage = '';
-	export let value = '';
+	export let value: number | string = '';
 	export let type = 'text';
 	export let maxlength = 10;
 	function typeAction(node: HTMLInputElement) {
