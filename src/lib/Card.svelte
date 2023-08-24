@@ -16,9 +16,9 @@
 		justify-content: space-between;
 	}
 	.mega {
-		padding: var(--cui-spacing-mega) var(--cui-spacing-mega);
+		padding: var(--cui-spacings-mega) var(--cui-spacings-mega);
 	}
 	.giga {
-		padding: var(--cui-spacing-mega) var(--cui-spacing-giga);
+		padding: var(--cui-spacings-mega) var(--cui-spacings-giga);
 	}
 </style>

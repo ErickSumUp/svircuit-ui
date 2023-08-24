@@ -18,10 +18,10 @@
 	<div class="content-wrapper" on:click|stopPropagation>
 		<slot />
 	</div>
-	<button autofocus on:click={() => dialog.close()} class="close-button close-button-colors close-button-position">
-		<div class="close-button-content-wrapper">
+	<button on:click={() => dialog.close()} class="close-button close-button-colors close-button-position">
+		<span class="close-button-content-wrapper">
 			<Close />
-		</div>
+		</span>
 	</button>
 </dialog>
 
@@ -69,15 +69,15 @@
 	@media (max-width: 479px) {
 		.content-wrapper {
 			-webkit-overflow-scrolling: touch;
-			padding: var(--cui-spacing-mega);
-			padding-bottom: calc(env(safe-area-inset-bottom) + var(--cui-spacing-mega));
+			padding: var(--cui-spacings-mega);
+			padding-bottom: calc(env(safe-area-inset-bottom) + var(--cui-spacings-mega));
 			width: 100vw;
 		}
 	}
 	@media (min-width: 480px) {
 		.content-wrapper {
-			padding: var(--cui-spacing-giga);
-			padding-bottom: calc(env(safe-area-inset-bottom) + var(--cui-spacing-giga));
+			padding: var(--cui-spacings-giga);
+			padding-bottom: calc(env(safe-area-inset-bottom) + var(--cui-spacings-giga));
 			max-height: 90vh;
 			min-width: 480px;
 			max-width: 90vh;
@@ -100,7 +100,7 @@
 		border-radius: var(--cui-border-radius-pill);
 		transition: opacity var(--cui-transitions-default), color var(--cui-transitions-default),
 			background-color var(--cui-transitions-default), border-color var(--cui-transitioons-default);
-		padding: calc(var(--cui-spacing-kilo) - 1px);
+		padding: calc(var(--cui-spacings-kilo) - 1px);
 	}
 	.close-button:focus {
 		outline: 0;
@@ -127,8 +127,8 @@
 	}
 	.close-button-position {
 		position: absolute;
-		top: var(--cui-spacing-byte);
-		right: var(--cui-spacing-byte);
+		top: var(--cui-spacings-byte);
+		right: var(--cui-spacings-byte);
 		z-index: var(--cui-zindex-absolute);
 	}
 	.close-button-content-wrapper {

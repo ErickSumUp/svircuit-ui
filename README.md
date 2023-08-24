@@ -1,13 +1,13 @@
 # Stack
 
 - Svelte
-    - Javascript framework
+  - Javascript framework
 - Vite
-    - Run and build tool
+  - Run and build tool
 - Histoire
-    - Story libraries to explore components
+  - Story libraries to explore components
 - Vitest
-    - Test library for Vite
+  - Test library for Vite
 
 # Install dependencies
 

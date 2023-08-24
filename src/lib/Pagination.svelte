@@ -100,7 +100,7 @@
 		align-items: center;
 		justify-content: center;
 		width: 100%;
-		padding: var(--cui-spacing-kilo);
+		padding: var(--cui-spacings-kilo);
 	}
 	.pagination-list {
 		list-style: none;
