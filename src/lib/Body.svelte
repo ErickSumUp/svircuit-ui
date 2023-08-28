@@ -1,0 +1,52 @@
+<script lang="ts">
+	export let size: 'one' | 'two' = 'one';
+	export let variant: 'highlight' | 'quote' | 'confirm' | 'alert' | 'subtle' = 'p';
+	export let as: string = 'p';
+</script>
+
+<svelte:element
+	this={as}
+	class="base"
+	class:one={size === 'one'}
+	class:two={size === 'two'}
+	class:highlight={variant === 'highlight'}
+	class:quote={variant === 'quote'}
+	class:confirm={variant === 'confirm'}
+	class:alert={variant === 'alert'}
+	class:subtle={variant === 'subtle'}><slot /></svelte:element
+>
+
+<style>
+	.base, p {
+		font-weight: var(--cui-font-weight-regular);
+	}
+	.one {
+		font-size: var(--cui-ty-body-font-size-one);
+		line-height: var(--cui-ty-body-line-height-one);
+	}
+	.two {
+		font-size: var(--cui-ty-body-font-size-two);
+		line-height: var(--cui-ty-body-line-height-two);
+	}
+	.highlight,
+	strong {
+		font-weight: var(--cui-font-weight-bold);
+	}
+	.quote,
+	blockquote {
+		padding-left: var(--cui-spacings-kilo);
+		font-style: italic;
+		border-left: var(--cui-border-width-mega) solid var(--cui-border-accent);
+	}
+	.confirm {
+		color: var(--cui-fg-success);
+	}
+
+	.alert {
+		color: var(--cui-fg-danger);
+	}
+
+	.subtle {
+		color: var(--cui-fg-subtle);
+	}
+</style>
