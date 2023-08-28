@@ -17,7 +17,7 @@ We don't really know what the final truth is, from flat to round earth, from law
 
 To be able to find the truth, we need to be able to question everything, think freely.
 
-TruthUI follows the principles of any truth finders.
+TruthUI follows the principles of any truth finder.
 
 ### Transparency
 
@@ -49,5 +49,15 @@ Truth doesn't need to be forced. Truth is.
 The library will be easy to use as a whole, easy to use components à la carte, and easy to replace with your own components.
 Given that components have all the characteristics declared above, you will be able to easily port these to other frameworks if you will.
 And the maintainers will have that ability also, in case there is another framework that can offer the features we need.
+
+### Truth requires collective building
+
+Truth finding is a collective effort.
+
+The library will be open to contributions. In case you need to add a component or edit an existing components, code suggestions
+will be accepted into /components as long as they comply with definitions. In case you want to suggest a new variant of a component,
+that doesn't comply with the definitions, you can add it to different folders like /variants or /custom.
+
+New stories will also be accepted into /stories, as long as they comply with the definitions using basic components.
 
 ---

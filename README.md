@@ -1,22 +1,22 @@
 # Stack
 
 - Svelte
-    - Javascript framework
+  - Javascript framework
 - Vite
-    - Run and build tool
+  - Run and build tool
 - Histoire
-    - Story libraries to explore components
+  - Story libraries to explore components
 - Vitest
-    - Test library for Vite
+  - Test library for Vite
 
 # Install dependencies
 
-    yarn
+    pnpm install
 
 # How to run histoire (interface to explore components)
 
-    yarn story:dev
+    pnpm run story:dev
 
-# You can then see the components in
+# You can then (probably) see the components in
 
     http://localhost:6006

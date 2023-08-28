@@ -24,7 +24,7 @@
 		line-height: 1.25rem;
 		color: var(--cui-fg-subtle);
 		font-weight: var(--cui-font-weight-bold);
-		padding: var(--cui-spacing-byte) var(--cui-spacing-giga);
+		padding: var(--cui-spacings-byte) var(--cui-spacings-giga);
 		vertical-align: middle;
 		white-space: nowrap;
 	}
@@ -59,7 +59,7 @@
 		font-size: var(--cui-ty-body-font-size-two);
 		line-height: var(--cui-ty-body-line-height-two);
 		vertical-align: middle;
-		padding: var(--cui-spacing-byte) var(--cui-spacing-mega) var(--cui-spacing-byte)
-			var(--cui-spacing-giga);
+		padding: var(--cui-spacings-byte) var(--cui-spacings-mega) var(--cui-spacings-byte)
+			var(--cui-spacings-giga);
 	}
 </style>

@@ -1,10 +1,10 @@
 <script lang="ts">
 	export let variant: 'primary' | 'secondary' = 'primary';
 	export let size: 'byte' | 'kilo' | 'mega' = 'kilo';
-	export let max;
-	export let value;
+	export let max: number;
+	export let value: number;
 
-	let width;
+	let width: number;
 
 	$: {
 		width = value && max ? (value / max) * 100 : 0;
@@ -58,12 +58,12 @@
 		background-color: var(--cui-bg-strong);
 	}
 	.byte {
-		height: var(--cui-spacing-bit);
+		height: var(--cui-spacings-bit);
 	}
 	.kilo {
-		height: var(--cui-spacing-byte);
+		height: var(--cui-spacings-byte);
 	}
 	.mega {
-		height: var(--cui-spacing-mega);
+		height: var(--cui-spacings-mega);
 	}
 </style>

@@ -5,7 +5,7 @@
 	export let invalid = false;
 	export let prefix = '';
 	export let label = '';
-	export let selectedValue: number | string = '';
+	export let value: number | string = '';
 	export let placeholder = '';
 	export let placeholderValue: number | string = '';
 </script>
@@ -20,7 +20,7 @@
 				class:select--prefix={prefix.length > 0}
 				class:select--disabled={disabled}
 				on:change
-				bind:value={selectedValue}
+				bind:value
 			>
 				{#if placeholder}
 					<option value={placeholderValue} disabled selected>{placeholder}</option>
@@ -58,9 +58,9 @@
 		border: 0;
 		border-radius: var(--cui-border-radius-byte);
 		color: var(--cui-fg-normal);
-		margin: var(--cui-spacing-bit) 0 0;
-		padding: var(--cui-spacing-kilo) var(--cui-spacing-exa) var(--cui-spacing-kilo)
-			var(--cui-spacing-mega);
+		margin: var(--cui-spacings-bit) 0 0;
+		padding: var(--cui-spacings-kilo) var(--cui-spacings-exa) var(--cui-spacings-kilo)
+			var(--cui-spacings-mega);
 		position: relative;
 		width: 100%;
 		z-index: var(--cui-zindex-input);
@@ -81,10 +81,10 @@
 		box-shadow: 0 0 0 1px var(--cui-fg-subtle);
 	}
 	.select--invalid {
-		padding-right: var(--cui-spacing-zetta);
+		padding-right: var(--cui-spacings-zetta);
 	}
 	.select--prefix {
-		padding-left: var(--cui-spacing-exa);
+		padding-left: var(--cui-spacings-exa);
 	}
 	select:hover {
 		box-shadow: 0 0 0 1px var(--cui-border-normal-hovered);
@@ -101,11 +101,11 @@
 		z-index: calc(var(--cui-zindex-input) + 1);
 		pointer-events: none;
 		position: absolute;
-		height: var(--cui-spacing-exa);
-		width: var(--cui-spacing-exa);
+		height: var(--cui-spacings-exa);
+		width: var(--cui-spacings-exa);
 		top: 0;
 		right: 0;
-		padding: var(--cui-spacing-mega);
+		padding: var(--cui-spacings-mega);
 	}
 	.select--wrapper {
 		color: var(--cui-fg-normal);

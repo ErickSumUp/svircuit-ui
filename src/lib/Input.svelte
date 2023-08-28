@@ -284,6 +284,6 @@
 		width: var(--cui-icon-size-kilo);
 		height: var(--cui-icon-size-kilo);
 		vertical-align: text-top;
-		margin-right: var(--cui-spacing-bit);
+		margin-right: var(--cui-spacings-bit);
 	}
 </style>
