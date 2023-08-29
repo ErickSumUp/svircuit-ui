@@ -31,10 +31,10 @@
 	</Hst.Variant>
 	<Hst.Variant title="Together">
 		<div style="display: flex; margin: 10px;">
-			<Select value='MC'>
+			<Select value="MC">
 				<option value={{ id: 0, text: 'MC' }}>Merchant Code</option>
 			</Select>
-			<Select value='c'>
+			<Select value="c">
 				<option value={{ id: 0, text: 'c' }}>Countries</option>
 			</Select>
 			<Select value={'c'}>

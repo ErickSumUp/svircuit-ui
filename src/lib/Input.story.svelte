@@ -41,15 +41,12 @@
 			{type}
 			bind:value
 		/>
-		<br/>
+		<br />
 		<span>Value read: {value}</span>
 	</Hst.Variant>
-	<Hst.Variant title="Number" >
-		<Input
-				type="number"
-				bind:value={valueNumber}
-		/>
-		<br/>
+	<Hst.Variant title="Number">
+		<Input type="number" bind:value={valueNumber} />
+		<br />
 		<span>Value read: {valueNumber}</span>
 	</Hst.Variant>
 	<svelte:fragment slot="controls">

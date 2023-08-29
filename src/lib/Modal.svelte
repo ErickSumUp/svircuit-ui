@@ -18,7 +18,10 @@
 	<div class="content-wrapper" on:click|stopPropagation>
 		<slot />
 	</div>
-	<button on:click={() => dialog.close()} class="close-button close-button-colors close-button-position">
+	<button
+		on:click={() => dialog.close()}
+		class="close-button close-button-colors close-button-position"
+	>
 		<span class="close-button-content-wrapper">
 			<Close />
 		</span>

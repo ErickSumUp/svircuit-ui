@@ -25,7 +25,7 @@
 		class:kilo={size === 'kilo'}
 		class:mega={size === 'mega'}
 		style="width: {width}%"
-	></div>
+	/>
 </div>
 
 <style>
