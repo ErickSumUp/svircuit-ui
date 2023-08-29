@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let size: 'one' | 'two' = 'one';
-	export let variant: 'highlight' | 'quote' | 'confirm' | 'alert' | 'subtle' = 'p';
+	export let variant: 'highlight' | 'quote' | 'confirm' | 'alert' | 'subtle' | 'p' = 'p';
 	export let as: string = 'p';
 </script>
 
