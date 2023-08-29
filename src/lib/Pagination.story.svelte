@@ -13,8 +13,8 @@
 		<Pagination {currentPage} {totalPages} />
 	</Hst.Variant>
 	<svelte:fragment slot="controls">
-		<Hst.Number bind:value={currentPage} title="Current Page" min={1} step={1} max={totalPages} />
-		<Hst.Number bind:value={totalPages} title="Total Pages" min={1} step={1} max={100} />
+		<Hst.Number bind:value={currentPage} title="Current Page" step={1} />
+		<Hst.Number bind:value={totalPages} title="Total Pages" step={1} />
 		<pre>{JSON.stringify({ currentPage, totalPages })}</pre>
 	</svelte:fragment>
 </Hst.Story>

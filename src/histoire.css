@@ -188,15 +188,15 @@
 	--cui-ty-body-font-size-two: 0.875rem;
 	--cui-ty-body-line-height-two: 1.25rem;
 
-	--cui-spacing-bit: 4px;
-	--cui-spacing-byte: 8px;
-	--cui-spacing-kilo: 12px;
-	--cui-spacing-mega: 16px;
-	--cui-spacing-giga: 24px;
-	--cui-spacing-tera: 32px;
-	--cui-spacing-peta: 40px;
-	--cui-spacing-exa: 48px;
-	--cui-spacing-zetta: 56px;
+	--cui-spacings-bit: 4px;
+	--cui-spacings-byte: 8px;
+	--cui-spacings-kilo: 12px;
+	--cui-spacings-mega: 16px;
+	--cui-spacings-giga: 24px;
+	--cui-spacings-tera: 32px;
+	--cui-spacings-peta: 40px;
+	--cui-spacings-exa: 48px;
+	--cui-spacings-zetta: 56px;
 
 	--cui-icon-size-kilo: 16px;
 	--cui-icon-size-mega: 24px;
@@ -213,12 +213,13 @@
 	--cui-border-width-kilo: 1px;
 	--cui-border-width-mega: 2px;
 
-	--cui-transitions-default: 120 ms ease-in-out;
+	--cui-transitions-default: 120ms ease-in-out;
 
 	--cui-zindex-default: 0;
 	--cui-zindex-absolute: 1;
 	--cui-zindex-input: 20;
 	--cui-zindex-popover: 30;
+	--cui-zindex-navigation: 800;
 }
 
 /**

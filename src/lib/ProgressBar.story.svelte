@@ -16,8 +16,8 @@
 	<Hst.Variant title="Variants" />
 	<Hst.Variant title="Circle" />
 	<svelte:fragment slot="controls">
-		<Hst.Number bind:value={max} max={100} min={0} step={1} title="Max" />
-		<Hst.Number bind:value {max} min={0} step={1} title="Value" />
+		<Hst.Number bind:value={max} step={1} title="Max" />
+		<Hst.Number bind:value step={1} title="Value" />
 		<Hst.Select bind:value={variant} options={['primary', 'secondary']} title="Variant" />
 		<pre>{JSON.stringify({ variant, max, value })}</pre>
 	</svelte:fragment>
