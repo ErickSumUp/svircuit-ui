@@ -17,7 +17,8 @@
 >
 
 <style>
-	.base, p {
+	.base,
+	p {
 		font-weight: var(--cui-font-weight-regular);
 	}
 	.one {

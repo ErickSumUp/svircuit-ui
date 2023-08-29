@@ -2,8 +2,7 @@
 	font-family: 'aktiv-grotesk';
 	font-weight: 400;
 	font-display: swap;
-	src:
-		url('https://static.sumup.com/fonts/latin-greek-cyrillic/aktiv-grotest-400.woff2')
+	src: url('https://static.sumup.com/fonts/latin-greek-cyrillic/aktiv-grotest-400.woff2')
 			format('woff2'),
 		url('https://static.sumup.com/fonts/latin-greek-cyrillic/aktiv-grotest-400.woff') format('woff'),
 		url('https://static.sumup.com/fonts/latin-greek-cyrillic/aktiv-grotest-400.eot')
@@ -13,8 +12,7 @@
 	font-family: 'aktiv-grotesk';
 	font-weight: 700;
 	font-display: swap;
-	src:
-		url('https://static.sumup.com/fonts/latin-greek-cyrillic/aktiv-grotest-700.woff2')
+	src: url('https://static.sumup.com/fonts/latin-greek-cyrillic/aktiv-grotest-700.woff2')
 			format('woff2'),
 		url('https://static.sumup.com/fonts/latin-greek-cyrillic/aktiv-grotest-700.woff') format('woff'),
 		url('https://static.sumup.com/fonts/latin-greek-cyrillic/aktiv-grotest-700.eot')
@@ -392,18 +390,8 @@ optgroup,
 textarea,
 button {
 	font-weight: var(--cui-font-weight-regular);
-	font-family:
-		aktiv-grotesk,
-		-apple-system,
-		BlinkMacSystemFont,
-		'Segoe UI',
-		Roboto,
-		Helvetica,
-		Arial,
-		sans-serif,
-		'Apple Color Emoji',
-		'Segoe UI Emoji',
-		'Segoe UI Symbol';
+	font-family: aktiv-grotesk, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+		Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 	font-feature-settings: 'kern';
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -412,11 +400,5 @@ button {
 
 pre,
 code {
-	font-family:
-		Menlo,
-		Consolas,
-		Monaco,
-		Liberation Mono,
-		Lucida Console,
-		monospace;
+	font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
 }
