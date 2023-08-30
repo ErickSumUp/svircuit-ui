@@ -119,6 +119,7 @@
 		display: flex;
 		width: 100%;
 		height: 80px;
+		align-items: center;
 		padding: var(--cui-spacings-giga);
 		color: var(--cui-fg-normal);
 		text-align: left;

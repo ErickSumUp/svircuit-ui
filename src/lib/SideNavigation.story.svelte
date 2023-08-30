@@ -46,7 +46,7 @@
 
 <Hst.Story title="Stories/SideNavigation" layout={{ type: 'grid', width: '100%' }}>
 	<Hst.Variant title="Default">
-		<div style="margin: 10px;height: 500px">
+		<div style="height: 500px">
 			<SideNavigation {links} />
 		</div>
 	</Hst.Variant>
