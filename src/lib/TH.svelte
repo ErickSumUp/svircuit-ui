@@ -19,7 +19,9 @@
 		background-color: #ffffff;
 		border-bottom: 1px solid #cccccc;
 		text-align: left;
-		transition: background-color 120ms ease-in-out, color 120ms ease-in-out;
+		transition:
+			background-color 120ms ease-in-out,
+			color 120ms ease-in-out;
 		font-size: 0.875rem;
 		line-height: 1.25rem;
 		color: var(--cui-fg-subtle);

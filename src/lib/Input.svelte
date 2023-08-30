@@ -150,7 +150,9 @@
 		outline: 0;
 		border-radius: 8px;
 		padding: 12px 16px;
-		transition: box-shadow 120ms ease-in-out, padding 120ms ease-in-out;
+		transition:
+			box-shadow 120ms ease-in-out,
+			padding 120ms ease-in-out;
 		width: 100%;
 		margin: 0;
 

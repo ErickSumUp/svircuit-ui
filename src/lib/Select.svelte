@@ -67,7 +67,9 @@
 		overflow-x: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		transition: box-shadow var(--cui-transitions-default), padding var(--cui-transitions-default);
+		transition:
+			box-shadow var(--cui-transitions-default),
+			padding var(--cui-transitions-default);
 		box-shadow: 0 0 0 1px var(--cui-border-normal);
 	}
 	select:-moz-focusring {

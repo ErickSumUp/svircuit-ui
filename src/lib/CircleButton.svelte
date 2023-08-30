@@ -30,8 +30,11 @@
 		cursor: pointer;
 		text-decoration: none;
 		border-width: var(--cui-border-width-kilo);
-		transition: opacity var(--cui-transitions-default), color var(--cui-transitions-default),
-			background-color var(--cui-transitions-default), border-color var(--cui-transitions-default);
+		transition:
+			opacity var(--cui-transitions-default),
+			color var(--cui-transitions-default),
+			background-color var(--cui-transitions-default),
+			border-color var(--cui-transitions-default);
 	}
 
 	button:disabled,

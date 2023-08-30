@@ -101,8 +101,11 @@
 		border-width: var(--cui-border-width-kilo);
 		border-style: solid;
 		border-radius: var(--cui-border-radius-pill);
-		transition: opacity var(--cui-transitions-default), color var(--cui-transitions-default),
-			background-color var(--cui-transitions-default), border-color var(--cui-transitioons-default);
+		transition:
+			opacity var(--cui-transitions-default),
+			color var(--cui-transitions-default),
+			background-color var(--cui-transitions-default),
+			border-color var(--cui-transitioons-default);
 		padding: calc(var(--cui-spacings-kilo) - 1px);
 	}
 	.close-button:focus {
@@ -140,7 +143,9 @@
 		opacity: 1;
 		visibility: inherit;
 		transform: scale3d(1, 1, 1);
-		transition: opacity var(--cui-transitions-default), transform var(--cui-transitions-default),
+		transition:
+			opacity var(--cui-transitions-default),
+			transform var(--cui-transitions-default),
 			visibility var(--cui-transitions-default);
 	}
 </style>

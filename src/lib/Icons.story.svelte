@@ -7,12 +7,12 @@
 	import ChevronRight from '$lib/icons/ChevronRight.svelte';
 	export let Hst: Hst;
 
-	let size: '16' | '24' = '16'
+	let size: '16' | '24' = '16';
 </script>
 
 <Hst.Story title="Icons" layout={{ type: 'grid', width: '100%' }}>
 	<Hst.Variant title="Default">
-		<Confirm {size}/>
+		<Confirm {size} />
 	</Hst.Variant>
 	<Hst.Variant title="Alert">
 		<Alert />
