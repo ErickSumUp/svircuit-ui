@@ -1,38 +1,23 @@
+<script context="module" lang="ts">
+	export type Link = {
+		icon: typeof Home;
+		label: string;
+		href: string;
+		isActive?: boolean;
+		isNew?: boolean;
+	};
+</script>
+
 <script lang="ts">
 	import Body from '$lib/Body.svelte';
 	import Home from '$lib/icons/Home.svelte';
-	import Shop from '$lib/icons/Shop.svelte';
-	import Package from '$lib/icons/Package.svelte';
-	import Like from '$lib/icons/Like.svelte';
-	import LiveChat from '$lib/icons/LiveChat.svelte';
-	let menuItems = [
+	export let links: Link[] = [
 		{
 			icon: Home,
 			label: 'Home',
-			href: '/taxes',
-			isInternal: true,
-			isActive: false
-		},
-		{
-			icon: Shop,
-			label: 'Shop',
-			href: '/shop',
+			href: '/home',
 			isActive: true,
-			isNew: true
-		},
-		{
-			icon: Package,
-			label: 'Orders',
-			href: '/orders'
-		},
-		{
-			icon: Like,
-			label: 'Wishlist',
-			href: '/wishlist'
-		},
-		{
-			icon: LiveChat,
-			label: 'Support'
+			isNew: false
 		}
 	];
 	const iconsSize = '24';
@@ -41,18 +26,18 @@
 <div class="wrapper">
 	<nav class="hide-scrollbar" aria-label="Primary">
 		<ul>
-			{#each menuItems as menuItem}
+			{#each links as link}
 				<li>
 					<a
-						href={menuItem.href}
+						href={link.href}
 						class="base focus-visible-inset"
-						aria-current={menuItem.isActive ? 'page' : undefined}
+						aria-current={link.isActive ? 'page' : undefined}
 					>
-						<span class="icon" class:icon-badge={menuItem.isNew}>
-							<svelte:component this={menuItem.icon} size={iconsSize} />
+						<span class="icon" class:icon-badge={link.isNew}>
+							<svelte:component this={link.icon} size={iconsSize} />
 						</span>
 						<span class="label">
-							<Body as="span">{menuItem.label}</Body>
+							<Body as="span">{link.label}</Body>
 						</span>
 					</a>
 				</li>
