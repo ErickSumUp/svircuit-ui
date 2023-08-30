@@ -4,7 +4,7 @@
 
 	export let Hst: Hst;
 	let size: 'one' | 'two' = 'one';
-	let variant: 'alert' | 'highlight' | 'quote' | 'confirm' | 'subtle' = 'p';
+	let variant: 'alert' | 'highlight' | 'quote' | 'confirm' | 'subtle' | 'p' = 'p';
 	let as: string = 'p';
 </script>
 
