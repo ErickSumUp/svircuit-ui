@@ -1,43 +1,48 @@
-<script context="module" lang="ts">
-	export type Link = {
-		icon: typeof Home;
+<script context='module' lang='ts'>
+	export type SecondaryGroup = {
+		label: string;
+		links: SecondaryLink[];
+	};
+	export type SecondaryLink = {
 		label: string;
 		href: string;
-		isActive?: boolean;
-		isNew?: boolean;
+		isActive: boolean;
+		isNew: boolean;
 	};
 </script>
 
-<script lang="ts">
+<script lang='ts'>
 	import Body from '$lib/Body.svelte';
-	import Home from '$lib/icons/Home.svelte';
-	export let links: Link[] = [
+
+	export let groups: SecondaryGroup[] = [
 		{
-			icon: Home,
 			label: 'Home',
-			href: '/home',
-			isActive: true,
-			isNew: false
+			links: [{
+				label: 'Home',
+				href: '/home',
+				isActive: true,
+				isNew: false
+			}]
 		}
 	];
 	const iconsSize = '24';
 </script>
 
-<div class="wrapper">
-	<nav class="hide-scrollbar" aria-label="Primary">
+<div class='wrapper'>
+	<nav class='hide-scrollbar' aria-label='Primary'>
 		<ul>
-			{#each links as link}
+			{#each groups as group}
 				<li>
 					<a
-						href={link.href}
-						class="base focus-visible-inset"
+						href={group.label}
+						class='base focus-visible-inset'
 						aria-current={link.isActive ? 'page' : undefined}
 					>
-						<span class="icon" class:icon-badge={link.isNew}>
+						<span class='icon' class:icon-badge={link.isNew}>
 							<svelte:component this={link.icon} size={iconsSize} />
 						</span>
-						<span class="label">
-							<Body as="span">{link.label}</Body>
+						<span class='label'>
+							<Body as='span'>{link.label}</Body>
 						</span>
 					</a>
 				</li>
@@ -54,17 +59,20 @@
 		--primary-navigation-width: var(--cui-icon-size-tera);
 		--primary-navigation-width-open: 220px;
 	}
+
 	@media (max-width: 1900px) {
 		.wrapper {
 			flex-shrink: 0;
 			min-width: var(--primary-navigation-width);
 		}
 	}
+
 	@media (min-width: 1900px) {
 		.wrapper {
 			min-width: var(--primary-navigation-width-open);
 		}
 	}
+
 	nav {
 		position: absolute;
 		z-index: var(--cui-zindex-navigation);
@@ -80,22 +88,25 @@
 		overflow-y: auto;
 		overflow-x: hidden;
 		box-shadow: 1px 0 var(--cui-border-divider);
-		transition:
-			width var(--cui-transitions-default),
-			box-shadow var(--cui-transitions-default);
+		transition: width var(--cui-transitions-default),
+		box-shadow var(--cui-transitions-default);
 	}
+
 	nav:hover,
 	nav:focus-within {
 		width: var(--primary-navigation-width-open);
 		box-shadow: 0 3px 8px 0 rgb(0 0 0 / 20%);
 	}
+
 	.hide-scrollbar {
 		-ms-overflow-style: none;
 		scrollbar-width: none;
 	}
+
 	.hide-scrollbar::-webkit-scrollbar {
 		display: none;
 	}
+
 	@media (min-width: 1900px) {
 		nav {
 			width: var(--primary-navigation-width-open);
@@ -106,9 +117,11 @@
 			box-shadow: 1px 0 var(--cui-border-divider);
 		}
 	}
+
 	ul {
 		list-style: none;
 	}
+
 	.base {
 		position: relative;
 		display: flex;
@@ -123,18 +136,20 @@
 		background: none;
 		border: none;
 		outline: none;
-		transition:
-			color var(--cui-transitions-default),
-			background-color var(--cui-transitions-default);
+		transition: color var(--cui-transitions-default),
+		background-color var(--cui-transitions-default);
 	}
+
 	.base:hover {
 		color: var(--cui-fg-normal-hovered);
 		background-color: var(--cui-bg-normal-hovered);
 	}
+
 	.base:active {
 		color: var(--cui-fg-normal-pressed);
 		background-color: var(--cui-bg-normal-pressed);
 	}
+
 	.base:disabled {
 		color: var(--cui-fg-normal-disabled);
 		pointer-events: none;
@@ -152,6 +167,7 @@
 	.base[aria-current='page']:active {
 		background-color: var(--cui-bg-accent-pressed);
 	}
+
 	@media (min-width: 0px) {
 		.base {
 			width: 220px;
@@ -160,9 +176,11 @@
 			margin-bottom: var(--cui-spacings-kilo);
 		}
 	}
+
 	[aria-current='page'] .label {
 		font-weight: var(--cui-font-weight-bold);
 	}
+
 	.focus-visible-inset:focus {
 		outline: 0;
 		box-shadow: inset 0 0 0 4px var(--cui-border-focus);
@@ -175,9 +193,11 @@
 	.focus-visible-inset:focus:not(:focus-visible) {
 		box-shadow: none;
 	}
+
 	[aria-current='page'] .label {
 		font-weight: var(--cui-font-weight-bold);
 	}
+
 	.icon {
 		position: relative;
 		flex-shrink: 0;
@@ -185,6 +205,7 @@
 		height: var(--cui-icon-sizes-mega);
 		margin-right: var(--cui-spacings-kilo);
 	}
+
 	.icon-badge::before {
 		position: absolute;
 		top: -8px;
