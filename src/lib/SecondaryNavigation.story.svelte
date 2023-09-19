@@ -1,57 +1,63 @@
-<script lang="ts">
+<script lang='ts'>
 	import type { Hst } from '@histoire/plugin-svelte';
-	import SideNavigation from '$lib/SideNavigation.svelte';
-	import type { Link } from '$lib/SideNavigation.svelte';
-	import Home from '$lib/icons/Home.svelte';
-	import Shop from '$lib/icons/Shop.svelte';
-	import Package from '$lib/icons/Package.svelte';
-	import Like from '$lib/icons/Like.svelte';
-	import LiveChat from '$lib/icons/LiveChat.svelte';
+	import SecondaryNavigation from '$lib/SecondaryNavigation.svelte';
+	import type { SecondaryGroup } from '$lib/SecondaryNavigation.svelte';
 
 	export let Hst: Hst;
 
 	let text = 'Hello World';
 
-	let links: Link[] = [
+	let groups: SecondaryGroup[] = [
 		{
-			icon: Home,
-			label: 'Home',
-			href: '/home',
-			isActive: true
+			label: 'clothes',
+			links: [
+				{
+					label: 'Shirts',
+					isActive: false,
+					href: '/shirts',
+					badge: {
+						'label': 'New',
+						variant: 'promo'
+					}
+				},
+				{
+					isActive: false,
+					href: '/pants',
+					label: 'Pants'
+				},
+				{
+					isActive: true,
+					href: '/socks',
+					label: 'Socks'
+				}
+			]
 		},
 		{
-			icon: Shop,
-			label: 'Shop',
-			href: '/shop',
-			isActive: false,
-			isNew: true
-		},
-		{
-			icon: Package,
-			label: 'Orders',
-			href: '/orders'
-		},
-		{
-			icon: Like,
-			label: 'Wishlist',
-			href: '/wishlist'
-		},
-		{
-			icon: LiveChat,
-			label: 'Support',
-			href: '/support'
+			label: 'For kids',
+			links: [
+				{
+					isActive: false,
+					href: '/toys',
+					label: 'Toys'
+				},
+				{
+					isActive: false,
+					href: '/books',
+					label: 'Books'
+				},
+			]
 		}
 	];
 </script>
 
-<Hst.Story title="Stories/SideNavigation" layout={{ type: 'grid', width: '100%' }}>
-	<Hst.Variant title="Default">
-		<div style="height: 500px">
-			<SideNavigation {links} />
+<Hst.Story title='Stories/SecondaryNavigation' layout={{ type: 'grid', width: '100%' }}>
+	<Hst.Variant title='Default'>
+		<div style='height: 500px'>
+			<SecondaryNavigation {groups} />
 		</div>
 	</Hst.Variant>
-	<svelte:fragment slot="controls">
-		<Hst.Text bind:value={text} title="title" />
+	<svelte:fragment slot='controls'>
+		<Hst.Text bind:value={text} title='title' />
 		<pre>{JSON.stringify({ text })}</pre>
 	</svelte:fragment>
 </Hst.Story>

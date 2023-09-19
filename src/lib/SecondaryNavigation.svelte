@@ -1,18 +1,24 @@
 <script context='module' lang='ts'>
 	export type SecondaryGroup = {
-		label: string;
+		label?: string;
 		links: SecondaryLink[];
 	};
 	export type SecondaryLink = {
 		label: string;
 		href: string;
 		isActive: boolean;
-		isNew: boolean;
+		badge?: {
+			label?: string;
+			circle?: boolean;
+			variant?: 'promo' | 'alert' | 'confirm' | 'neutral';
+		};
 	};
 </script>
 
 <script lang='ts'>
 	import Body from '$lib/Body.svelte';
+	import SubHeadline from '$lib/SubHeadline.svelte';
+	import Badge from '$lib/Badge.svelte';
 
 	export let groups: SecondaryGroup[] = [
 		{
@@ -21,30 +27,44 @@
 				label: 'Home',
 				href: '/home',
 				isActive: true,
-				isNew: false
+				badge: {
+					label: 'New',
+					circle: true,
+					variant: 'promo'
+				}
 			}]
 		}
 	];
-	const iconsSize = '24';
 </script>
 
 <div class='wrapper'>
-	<nav class='hide-scrollbar' aria-label='Primary'>
+	<nav aria-label='secondary navigation'>
 		<ul>
 			{#each groups as group}
 				<li>
-					<a
-						href={group.label}
-						class='base focus-visible-inset'
-						aria-current={link.isActive ? 'page' : undefined}
-					>
-						<span class='icon' class:icon-badge={link.isNew}>
-							<svelte:component this={link.icon} size={iconsSize} />
+					{#if group.label}
+						<span class='group-headline-wrapper'>
+							<SubHeadline as='h3'>{group.label}</SubHeadline>
 						</span>
-						<span class='label'>
-							<Body as='span'>{link.label}</Body>
-						</span>
-					</a>
+					{/if}
+					<ul style='list-style: none;'>
+						{#each group.links as link}
+							<li>
+								<a
+									href={link.href}
+									class='anchor navigation-item focus-visible-inset'
+									aria-current={link.isActive ? 'page' : undefined}
+								>
+									<span class='label'>
+										<Body size='one' variant={link.isActive ? 'highlight' : 'p'}>{link.label}</Body>
+									</span>
+									{#if link.badge}
+										<Badge variant={link.badge.variant} circle={link.badge.circle}>{link.badge.label}</Badge>
+									{/if}
+								</a>
+							</li>
+						{/each}
+					</ul>
 				</li>
 			{/each}
 		</ul>
@@ -74,37 +94,21 @@
 	}
 
 	nav {
-		position: absolute;
-		z-index: var(--cui-zindex-navigation);
-		top: 0;
-		bottom: 0;
-		left: 0;
-		height: 100%;
-		width: var(--cui-icon-size-tera);
+		position: sticky;
+		top: var(--top-navigation-height, 0);
 		display: flex;
 		flex-direction: column;
-		background-color: var(--cui-bg-normal);
-		padding-top: var(--cui-spacings-kilo);
+		width: 200px;
+		height: calc(100vh - var(--top-navigation-height, 0px));
 		overflow-y: auto;
-		overflow-x: hidden;
-		box-shadow: 1px 0 var(--cui-border-divider);
-		transition: width var(--cui-transitions-default),
-		box-shadow var(--cui-transitions-default);
+		background-color: var(--cui-bg-normal);
+		border-right: var(--cui-border-width-kilo) solid var(--cui-border-divider);
 	}
 
-	nav:hover,
-	nav:focus-within {
-		width: var(--primary-navigation-width-open);
-		box-shadow: 0 3px 8px 0 rgb(0 0 0 / 20%);
-	}
-
-	.hide-scrollbar {
-		-ms-overflow-style: none;
-		scrollbar-width: none;
-	}
-
-	.hide-scrollbar::-webkit-scrollbar {
-		display: none;
+	@media only screen and (min-width: 1900px) {
+		nav {
+			margin-left: var(--primary-navigation-width-open);
+		}
 	}
 
 	@media (min-width: 1900px) {
@@ -120,61 +124,6 @@
 
 	ul {
 		list-style: none;
-	}
-
-	.base {
-		position: relative;
-		display: flex;
-		width: 100%;
-		height: 80px;
-		align-items: center;
-		padding: var(--cui-spacings-giga);
-		color: var(--cui-fg-normal);
-		text-align: left;
-		text-decoration: none;
-		cursor: pointer;
-		background: none;
-		border: none;
-		outline: none;
-		transition: color var(--cui-transitions-default),
-		background-color var(--cui-transitions-default);
-	}
-
-	.base:hover {
-		color: var(--cui-fg-normal-hovered);
-		background-color: var(--cui-bg-normal-hovered);
-	}
-
-	.base:active {
-		color: var(--cui-fg-normal-pressed);
-		background-color: var(--cui-bg-normal-pressed);
-	}
-
-	.base:disabled {
-		color: var(--cui-fg-normal-disabled);
-		pointer-events: none;
-		background-color: var(--cui-bg-normal-disabled);
-	}
-
-	.base[aria-current='page'] {
-		color: var(--cui-fg-accent);
-	}
-
-	.base[aria-current='page']:hover {
-		background-color: var(--cui-bg-accent-hovered);
-	}
-
-	.base[aria-current='page']:active {
-		background-color: var(--cui-bg-accent-pressed);
-	}
-
-	@media (min-width: 0px) {
-		.base {
-			width: 220px;
-			height: 48px;
-			padding: var(--cui-spacings-kilo);
-			margin-bottom: var(--cui-spacings-kilo);
-		}
 	}
 
 	[aria-current='page'] .label {
@@ -198,23 +147,84 @@
 		font-weight: var(--cui-font-weight-bold);
 	}
 
-	.icon {
-		position: relative;
-		flex-shrink: 0;
-		width: var(--cui-icon-sizes-mega);
-		height: var(--cui-icon-sizes-mega);
-		margin-right: var(--cui-spacings-kilo);
+	.anchor {
+		flex-wrap: wrap;
+		padding: var(--cui-spacings-mega) var(--cui-spacings-giga);
+		hyphens: auto;
+		text-decoration: none;
+		word-break: break-word;
 	}
 
-	.icon-badge::before {
-		position: absolute;
-		top: -8px;
-		right: -8px;
-		display: block;
-		width: 10px;
-		height: 10px;
-		content: '';
-		background-color: var(--cui-fg-promo);
-		border-radius: var(--cui-border-radius-circle);
+	.label {
+		margin-right: var(--cui-spacings-byte);
 	}
+
+	.group-headline-wrapper {
+		display: inline-block;
+		margin: var(--cui-spacings-tera) var(--cui-spacings-mega) var(--cui-spacings-byte);
+	}
+
+
+	.navigation-item {
+		display: flex;
+		align-items: center;
+		color: var(--cui-fg-normal);
+		text-align: left;
+		cursor: pointer;
+		background-color: var(--cui-bg-normal);
+		border: none;
+		outline: none;
+		transition: color var(--cui-transitions-default),
+		background-color var(--cui-transitions-default);
+	}
+
+	.navigation-item:hover {
+		color: var(--cui-fg-normal-hovered);
+		background-color: var(--cui-bg-normal-hovered);
+	}
+
+	.navigation-item:active {
+		color: var(--cui-fg-normal-pressed);
+		background-color: var(--cui-bg-normal-pressed);
+	}
+
+	.navigation-item:disabled {
+		color: var(--cui-fg-normal-disabled);
+		pointer-events: none;
+		background-color: var(--cui-bg-normal-disabled);
+	}
+
+	.navigation-item[aria-current='page'] {
+		color: var(--cui-fg-accent);
+		background-color: var(--cui-bg-accent);
+	}
+
+	.navigation-item[aria-current='page']:hover {
+		color: var(--cui-fg-accent-hovered);
+		background-color: var(--cui-bg-accent-hovered);
+	}
+
+	.navigation-item[aria-current='page']:active {
+		color: var(--cui-fg-accent-pressed);
+		background-color: var(--cui-bg-accent-pressed);
+	}
+
+	.navigation-item[aria-current='page']:disabled {
+		color: var(--cui-fg-accent-disabled);
+		background-color: var(--cui-bg-accent-disabled);
+	}
+
+	.focus-visible-inset:focus {
+		outline: 0;
+		box-shadow: inset 0 0 0 4px var(--cui-border-focus);
+	}
+
+	.focus-visible-inset:focus::-moz-focus-inner {
+		border: 0;
+	}
+
+	.focus-visible-inset:focus:not(:focus-visible) {
+		box-shadow: none;
+	}
+
 </style>
