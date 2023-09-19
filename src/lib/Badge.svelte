@@ -9,7 +9,7 @@
 	export let circle = false;
 </script>
 
-<div
+<span
 	class="badge"
 	class:badge--neutral={variant === 'neutral'}
 	class:badge--confirm={variant === 'confirm'}
@@ -19,7 +19,7 @@
 	class:badge--circle={circle}
 >
 	<slot />
-</div>
+</span>
 
 <style>
 	.badge {
@@ -33,24 +33,24 @@
 		letter-spacing: 0.25px;
 	}
 	.badge--neutral {
-		background-color: #e6e6e6;
-		color: #1a1a1a;
+		background-color: var(--cui-bg-highlight);
+		color: var(--cui-fg-normal);
 	}
 	.badge--confirm {
-		background-color: #138849;
-		color: #fff;
+		background-color: var(--cui-bg-success-strong);
+		color: var(--cui-fg-on-strong);
 	}
 	.badge--notify {
-		background-color: #f6cc1b;
-		color: #1a1a1a;
+		background-color: var(--cui-bg-warning-strong);
+		color: var(--cui-fg-on-strong);
 	}
 	.badge--alert {
-		background-color: #d23f47;
-		color: #fff;
+		background-color: var(--cui-bg-danger-strong);
+		color: var(--cui-fg-on-strong);
 	}
 	.badge--promo {
-		background-color: #ca58ff;
-		color: #fff;
+		background-color: var(--cui-bg-promo-strong);
+		color: var(--cui-fg-on-strong);
 	}
 	.badge--circle {
 		display: flex;
