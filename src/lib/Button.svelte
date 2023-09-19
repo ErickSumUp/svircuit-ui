@@ -4,6 +4,7 @@
 	export let destructive = false;
 	export let stretch = false;
 	export let disabled = false;
+	export let type: 'button' | 'reset' | 'submit' | null | undefined = 'button';
 </script>
 
 <button
@@ -18,7 +19,7 @@
 	class:tertiary--destructive={variant === 'tertiary' && destructive}
 	{disabled}
 	on:click
-	type="button"
+	{type}
 >
 	<span class="content-wrapper">
 		<slot />
@@ -222,12 +223,12 @@
 
 	.kilo {
 		padding: calc(var(--cui-spacings-bit) - var(--cui-border-width-kilo))
-			calc(var(--cui-spacings-mega) - var(--cui-border-width-kilo));
+		calc(var(--cui-spacings-mega) - var(--cui-border-width-kilo));
 	}
 
 	.giga {
 		padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo))
-			calc(var(--cui-spacings-giga) - var(--cui-border-width-kilo));
+		calc(var(--cui-spacings-giga) - var(--cui-border-width-kilo));
 	}
 
 	.stretch {

@@ -50,7 +50,7 @@
 	.wrapper {
 		position: relative;
 		display: flex;
-		height: 100%;
+		height: 100vh;
 		--primary-navigation-width: var(--cui-icon-size-tera);
 		--primary-navigation-width-open: 220px;
 	}
@@ -71,7 +71,7 @@
 		top: 0;
 		bottom: 0;
 		left: 0;
-		height: 100%;
+		height: 100vh;
 		width: var(--cui-icon-size-tera);
 		display: flex;
 		flex-direction: column;
