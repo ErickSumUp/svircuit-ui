@@ -105,12 +105,6 @@
 		border-right: var(--cui-border-width-kilo) solid var(--cui-border-divider);
 	}
 
-	@media only screen and (min-width: 1900px) {
-		nav {
-			margin-left: var(--primary-navigation-width-open);
-		}
-	}
-
 	@media (min-width: 1900px) {
 		nav {
 			width: var(--primary-navigation-width-open);
