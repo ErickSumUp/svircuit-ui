@@ -5,6 +5,7 @@
 	import Confirm from '$lib/icons/Confirm.svelte';
 	import ChevronLeft from '$lib/icons/ChevronLeft.svelte';
 	import ChevronRight from '$lib/icons/ChevronRight.svelte';
+	import Info from '$lib/icons/Info.svelte';
 	export let Hst: Hst;
 
 	let size: '16' | '24' = '16';
@@ -15,19 +16,22 @@
 		<Confirm {size} />
 	</Hst.Variant>
 	<Hst.Variant title="Alert">
-		<Alert />
+		<Alert {size}/>
 	</Hst.Variant>
 	<Hst.Variant title="Confirm">
-		<Confirm />
+		<Confirm {size}/>
 	</Hst.Variant>
 	<Hst.Variant title="ChevronLeft">
-		<ChevronLeft />
+		<ChevronLeft {size}/>
 	</Hst.Variant>
 	<Hst.Variant title="ChevronRight">
-		<ChevronRight />
+		<ChevronRight {size}/>
 	</Hst.Variant>
 	<Hst.Variant title="Close">
-		<Close />
+		<Close {size}/>
+	</Hst.Variant>
+	<Hst.Variant title="Info">
+		<Info {size}/>
 	</Hst.Variant>
 	<svelte:fragment slot="controls">
 		<Hst.Select bind:value={size} options={['16', '24']} title="size" />
