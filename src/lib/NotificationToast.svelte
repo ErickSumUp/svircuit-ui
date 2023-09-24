@@ -1,3 +1,48 @@
+<script context="module" lang="ts">
+	import { writable } from 'svelte/store';
+	import type { Writable } from 'svelte/store';
+
+	type NotificationToast = {
+		id?: number;
+		variant: 'info' | 'success' | 'warning' | 'danger';
+		headline?: string;
+		body: string;
+		dismissible?: boolean;
+		timeout?: number;
+	};
+
+	export const toasts: Writable<Array<NotificationToast>> = writable([]);
+
+	export const addToast = (toast: NotificationToast) => {
+		// Create a unique ID, so we can easily find/remove it
+		// if it is dismissible/has a timeout.
+		const id = Math.floor(Math.random() * 10000);
+
+		const timeoutSeconds = 5 + toast.body.length / 120;
+		const timeout = toast.timeout || timeoutSeconds * 1000;
+
+		// Push the toast to the top of the list of toasts
+		toasts.update((all) => [
+			{
+				id,
+				variant: toast.variant,
+				headline: toast.headline,
+				body: toast.body,
+				dismissible: false,
+				timeout
+			},
+			...all
+		]);
+
+		// If toast is dismissible, dismiss it after "timeout" amount of time.
+		if (timeout) setTimeout(() => dismissToast(id), timeout);
+	};
+
+	export const dismissToast = (id: number) => {
+		toasts.update((all) => all.filter((t: NotificationToast) => t.id !== id));
+	};
+</script>
+
 <script lang="ts">
 	export let variant: 'info' | 'success' | 'warning' | 'danger' = 'info';
 	export let headline: string = '';
