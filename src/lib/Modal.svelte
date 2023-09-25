@@ -136,7 +136,7 @@
 		position: absolute;
 		top: var(--cui-spacings-byte);
 		right: var(--cui-spacings-byte);
-		z-index: var(--cui-zindex-absolute);
+		z-index: var(--cui-z-index-absolute);
 	}
 	.close-button-content-wrapper {
 		display: inline-flex;

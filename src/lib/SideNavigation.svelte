@@ -67,7 +67,7 @@
 	}
 	nav {
 		position: absolute;
-		z-index: var(--cui-zindex-navigation);
+		z-index: var(--cui-z-index-navigation);
 		top: 0;
 		bottom: 0;
 		left: 0;

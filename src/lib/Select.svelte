@@ -63,7 +63,7 @@
 			var(--cui-spacings-mega);
 		position: relative;
 		width: 100%;
-		z-index: var(--cui-zindex-input);
+		z-index: var(--cui-z-index-input);
 		overflow-x: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
@@ -100,7 +100,7 @@
 	.chevron {
 		color: var(--cui-fg-subtle);
 		display: block;
-		z-index: calc(var(--cui-zindex-input) + 1);
+		z-index: calc(var(--cui-z-index-input) + 1);
 		pointer-events: none;
 		position: absolute;
 		height: var(--cui-spacings-exa);

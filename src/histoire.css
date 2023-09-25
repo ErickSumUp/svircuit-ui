@@ -220,11 +220,12 @@
 	--cui-transitions-default: 120ms ease-in-out;
 	--cui-transitions-slow: 300ms ease-in-out;
 
-	--cui-zindex-default: 0;
-	--cui-zindex-absolute: 1;
-	--cui-zindex-input: 20;
-	--cui-zindex-popover: 30;
-	--cui-zindex-navigation: 800;
+	--cui-z-index-default: 0;
+	--cui-z-index-absolute: 1;
+	--cui-z-index-input: 20;
+	--cui-z-index-popover: 30;
+	--cui-z-index-navigation: 800;
+	--cui-z-index-toast: 1100;
 }
 
 /**
