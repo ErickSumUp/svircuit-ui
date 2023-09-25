@@ -7,7 +7,6 @@
 		variant: 'info' | 'success' | 'warning' | 'danger';
 		headline?: string;
 		body: string;
-		dismissible?: boolean;
 		timeout?: number;
 	};
 
@@ -28,7 +27,6 @@
 				variant: toast.variant,
 				headline: toast.headline,
 				body: toast.body,
-				dismissible: false,
 				timeout
 			},
 			...all
