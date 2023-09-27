@@ -14,13 +14,13 @@
 <style>
 	.table-container {
 		position: relative;
-		border: 1px solid #cccccc;
+		border: 1px solid var(--cui-border-normal);
 	}
 	.table-container--scrollable {
 		height: 100%;
 	}
 	table {
-		background-color: #ffffff;
+		background-color: var(--cui-bg-normal);
 		border-collapse: separate;
 		width: 100%;
 	}
@@ -28,7 +28,7 @@
 		border-collapse: collapse;
 	}
 	.scroll-container {
-		border-radius: 4px;
+		border-radius: var(--cui-spacings-bit);
 	}
 	@media (min-width: 767px) {
 		.scroll-container {

@@ -1,6 +1,4 @@
 <script lang="ts">
-	import ChevronDown from '$lib/icons/ChevronDown.svelte';
-
 	export let disabled = false;
 	export let invalid = false;
 	export let prefix = '';
@@ -28,7 +26,18 @@
 				<slot />
 			</select>
 			<div class="chevron">
-				<ChevronDown />
+				<svg
+					width="24"
+					height="24"
+					viewBox="0 0 24 24"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path
+						d="M12 15c-.265 0-.52-.104-.71-.29l-4-4A1.013 1.013 0 0 1 7 10a1 1 0 0 1 1-1c.266 0 .52.104.71.29L12 12.58l3.29-3.29c.19-.186.445-.29.71-.29a1 1 0 0 1 1 1c0 .265-.104.52-.29.71l-4 4c-.19.186-.445.29-.71.29z"
+						fill="currentColor"
+					/>
+				</svg>
 			</div>
 		</div>
 	</label>
@@ -39,8 +48,8 @@
 		flex-grow: 1;
 	}
 	.label-wrapper {
-		font-size: var(--cui-ty-body-font-size-two);
-		line-height: var(--cui-ty-body-line-height-two);
+		font-size: var(--cui-typography-body-two-font-size);
+		line-height: var(--cui-typography-body-two-line-height);
 		display: block;
 	}
 	.label-wrapper:disabled {
@@ -49,8 +58,8 @@
 		box-shadow: none;
 	}
 	select {
-		font-size: var(--cui-ty-body-font-size-one);
-		line-height: var(--cui-ty-body-line-height-one);
+		font-size: var(--cui-typography-body-one-font-size);
+		line-height: var(--cui-typography-body-one-line-height);
 		appearance: none;
 		cursor: pointer;
 		background-color: var(--cui-bg-normal);

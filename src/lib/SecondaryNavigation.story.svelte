@@ -1,4 +1,4 @@
-<script lang='ts'>
+<script lang="ts">
 	import type { Hst } from '@histoire/plugin-svelte';
 	import SecondaryNavigation from '$lib/SecondaryNavigation.svelte';
 	import type { SecondaryGroup } from '$lib/SecondaryNavigation.svelte';
@@ -16,7 +16,7 @@
 					isActive: false,
 					href: '/shirts',
 					badge: {
-						'label': 'New',
+						label: 'New',
 						variant: 'promo'
 					}
 				},
@@ -44,20 +44,20 @@
 					isActive: false,
 					href: '/books',
 					label: 'Books'
-				},
+				}
 			]
 		}
 	];
 </script>
 
-<Hst.Story title='Stories/SecondaryNavigation' layout={{ type: 'grid', width: '100%' }}>
-	<Hst.Variant title='Default'>
-		<div style='height: 500px'>
+<Hst.Story title="Stories/SecondaryNavigation" layout={{ type: 'grid', width: '100%' }}>
+	<Hst.Variant title="Default">
+		<div style="height: 500px">
 			<SecondaryNavigation {groups} />
 		</div>
 	</Hst.Variant>
-	<svelte:fragment slot='controls'>
-		<Hst.Text bind:value={text} title='title' />
+	<svelte:fragment slot="controls">
+		<Hst.Text bind:value={text} title="title" />
 		<pre>{JSON.stringify({ text })}</pre>
 	</svelte:fragment>
 </Hst.Story>

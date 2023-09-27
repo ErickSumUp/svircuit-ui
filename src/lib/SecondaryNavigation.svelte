@@ -1,4 +1,4 @@
-<script context='module' lang='ts'>
+<script context="module" lang="ts">
 	export type SecondaryGroup = {
 		label?: string;
 		links: SecondaryLink[];
@@ -10,12 +10,12 @@
 		badge?: {
 			label?: string;
 			circle?: boolean;
-			variant?: 'promo' | 'alert' | 'confirm' | 'neutral';
+			variant?: 'promo' | 'danger' | 'neutral' | 'success' | 'warning'
 		};
 	};
 </script>
 
-<script lang='ts'>
+<script lang="ts">
 	import Body from '$lib/Body.svelte';
 	import SubHeadline from '$lib/SubHeadline.svelte';
 	import Badge from '$lib/Badge.svelte';
@@ -23,43 +23,47 @@
 	export let groups: SecondaryGroup[] = [
 		{
 			label: 'Home',
-			links: [{
-				label: 'Home',
-				href: '/home',
-				isActive: true,
-				badge: {
-					label: 'New',
-					circle: true,
-					variant: 'promo'
+			links: [
+				{
+					label: 'Home',
+					href: '/home',
+					isActive: true,
+					badge: {
+						label: 'New',
+						circle: true,
+						variant: 'promo'
+					}
 				}
-			}]
+			]
 		}
 	];
 </script>
 
-<div class='wrapper'>
-	<nav aria-label='secondary navigation'>
+<div class="wrapper">
+	<nav aria-label="secondary navigation">
 		<ul>
 			{#each groups as group}
 				<li>
 					{#if group.label}
-						<span class='group-headline-wrapper'>
-							<SubHeadline as='h3'>{group.label}</SubHeadline>
+						<span class="group-headline-wrapper">
+							<SubHeadline as="h3">{group.label}</SubHeadline>
 						</span>
 					{/if}
-					<ul style='list-style: none;'>
+					<ul style="list-style: none;">
 						{#each group.links as link}
 							<li>
 								<a
 									href={link.href}
-									class='anchor navigation-item focus-visible-inset'
+									class="anchor navigation-item focus-visible-inset"
 									aria-current={link.isActive ? 'page' : undefined}
 								>
-									<span class='label'>
-										<Body size='one' variant={link.isActive ? 'highlight' : 'p'}>{link.label}</Body>
+									<span class="label">
+										<Body size="one" variant={link.isActive ? 'highlight' : 'p'}>{link.label}</Body>
 									</span>
 									{#if link.badge}
-										<Badge variant={link.badge.variant} circle={link.badge.circle}>{link.badge.label}</Badge>
+										<Badge variant={link.badge.variant} circle={link.badge.circle}
+											>{link.badge.label}</Badge
+										>
 									{/if}
 								</a>
 							</li>
@@ -158,7 +162,6 @@
 		margin: var(--cui-spacings-tera) var(--cui-spacings-mega) var(--cui-spacings-byte);
 	}
 
-
 	.navigation-item {
 		display: flex;
 		align-items: center;
@@ -168,8 +171,9 @@
 		background-color: var(--cui-bg-normal);
 		border: none;
 		outline: none;
-		transition: color var(--cui-transitions-default),
-		background-color var(--cui-transitions-default);
+		transition:
+			color var(--cui-transitions-default),
+			background-color var(--cui-transitions-default);
 	}
 
 	.navigation-item:hover {
@@ -220,5 +224,4 @@
 	.focus-visible-inset:focus:not(:focus-visible) {
 		box-shadow: none;
 	}
-
 </style>

@@ -8,7 +8,7 @@
 	let totalPages = 10;
 </script>
 
-<Hst.Story title="Components/Pagination" layout={{ type: 'grid', width: '100%' }}>
+<Hst.Story title="Stories/Pagination" layout={{ type: 'grid', width: '100%' }}>
 	<Hst.Variant title="Default">
 		<Pagination {currentPage} {totalPages} />
 	</Hst.Variant>

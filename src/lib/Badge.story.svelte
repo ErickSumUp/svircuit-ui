@@ -5,7 +5,7 @@
 	export let Hst: Hst;
 
 	let text = 'Badge';
-	let variant: 'neutral' | 'confirm' | 'notify' | 'alert' | 'promo' = 'neutral';
+	let variant: 'neutral' | 'success' | 'warning' | 'danger' | 'promo' = 'neutral';
 	let circle = false;
 </script>
 
@@ -15,13 +15,13 @@
 	</Hst.Variant>
 	<Hst.Variant title="Variants">
 		<Badge variant="neutral">Badge</Badge>
-		<Badge variant="confirm">Badge</Badge>
-		<Badge variant="notify">Badge</Badge>
-		<Badge variant="alert">Badge</Badge>
+		<Badge variant="success">Badge</Badge>
+		<Badge variant="warning">Badge</Badge>
+		<Badge variant="danger">Badge</Badge>
 		<Badge variant="promo">Badge</Badge>
 	</Hst.Variant>
 	<Hst.Variant title="Circle">
-		<Badge circle variant="alert">1</Badge>
+		<Badge circle variant="danger">1</Badge>
 		<Badge circle>22</Badge>
 	</Hst.Variant>
 	<svelte:fragment slot="controls">
@@ -29,7 +29,7 @@
 		<Hst.Select
 			bind:value={variant}
 			title="variant"
-			options={['neutral', 'confirm', 'notify', 'alert', 'promo']}
+			options={['neutral', 'success', 'warning', 'danger', 'promo']}
 		/>
 		<Hst.Checkbox bind:value={circle} title="Circle" />
 		<pre>{JSON.stringify({ text, variant, circle })}</pre>

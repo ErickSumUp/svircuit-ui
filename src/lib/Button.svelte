@@ -28,8 +28,8 @@
 
 <style>
 	button {
-		font-size: var(--cui-ty-body-font-size-one);
-		line-height: var(--cui-ty-body-line-height-one);
+		font-size: var(--cui-typography-body-one-font-size);
+		line-height: var(--cui-typography-body-one-line-height);
 		display: inline-flex;
 		justify-content: center;
 		width: fit-content;
@@ -223,12 +223,12 @@
 
 	.kilo {
 		padding: calc(var(--cui-spacings-bit) - var(--cui-border-width-kilo))
-		calc(var(--cui-spacings-mega) - var(--cui-border-width-kilo));
+			calc(var(--cui-spacings-mega) - var(--cui-border-width-kilo));
 	}
 
 	.giga {
 		padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo))
-		calc(var(--cui-spacings-giga) - var(--cui-border-width-kilo));
+			calc(var(--cui-spacings-giga) - var(--cui-border-width-kilo));
 	}
 
 	.stretch {

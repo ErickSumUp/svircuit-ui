@@ -2,7 +2,7 @@
 	/**
 	 * Choose from 4 style variants. Default: 'neutral'
 	 */
-	export let variant: 'neutral' | 'confirm' | 'notify' | 'alert' | 'promo' = 'confirm';
+	export let variant: 'neutral' | 'success' | 'warning' | 'danger' | 'promo' = 'success';
 	/**
 	 * Use the circular badge to indicate a count of items related to an element.
 	 */
@@ -10,54 +10,54 @@
 </script>
 
 <span
-	class="badge"
-	class:badge--neutral={variant === 'neutral'}
-	class:badge--confirm={variant === 'confirm'}
-	class:badge--notify={variant === 'notify'}
-	class:badge--alert={variant === 'alert'}
-	class:badge--promo={variant === 'promo'}
-	class:badge--circle={circle}
+	class="base"
+	class:neutral={variant === 'neutral'}
+	class:success={variant === 'success'}
+	class:warning={variant === 'warning'}
+	class:danger={variant === 'danger'}
+	class:promo={variant === 'promo'}
+	class:circle
 >
 	<slot />
 </span>
 
 <style>
-	.badge {
-		font-size: 0.875rem;
-		line-height: 1.25rem;
-		border-radius: 999999px;
+	.base {
 		display: inline-block;
-		padding: 2px 8px;
-		font-weight: 700;
+		padding: 2px var(--cui-spacings-byte);
+		font-size: var(--cui-typography-body-two-font-size);
+		font-weight: var(--cui-font-weight-bold);
+		line-height: var(--cui-typography-body-two-line-height);
 		text-align: center;
 		letter-spacing: 0.25px;
+		border-radius: var(--cui-border-radius-pill);
 	}
-	.badge--neutral {
-		background-color: var(--cui-bg-highlight);
-		color: var(--cui-fg-normal);
-	}
-	.badge--confirm {
-		background-color: var(--cui-bg-success-strong);
-		color: var(--cui-fg-on-strong);
-	}
-	.badge--notify {
-		background-color: var(--cui-bg-warning-strong);
-		color: var(--cui-fg-on-strong);
-	}
-	.badge--alert {
-		background-color: var(--cui-bg-danger-strong);
-		color: var(--cui-fg-on-strong);
-	}
-	.badge--promo {
-		background-color: var(--cui-bg-promo-strong);
-		color: var(--cui-fg-on-strong);
-	}
-	.badge--circle {
+	.circle {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 2px 4px;
 		width: 24px;
 		height: 24px;
+		padding: 2px 4px;
+	}
+	.success {
+		color: var(--cui-fg-on-strong);
+		background-color: var(--cui-bg-success-strong);
+	}
+	.warning {
+		color: var(--cui-fg-on-strong);
+		background-color: var(--cui-bg-warning-strong);
+	}
+	.danger {
+		color: var(--cui-fg-on-strong);
+		background-color: var(--cui-bg-danger-strong);
+	}
+	.neutral {
+		color: var(--cui-fg-normal);
+		background-color: var(--cui-bg-highlight);
+	}
+	.promo {
+		color: var(--cui-fg-on-strong);
+		background-color: var(--cui-bg-promo-strong);
 	}
 </style>

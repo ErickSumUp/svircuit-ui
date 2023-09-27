@@ -6,7 +6,7 @@
 
 	let text = 'Badge';
 	let disabled = false;
-	let label = 'First name';
+	let label = 'Date of birth';
 	let validationMessage = 'You must be at least 18 years old';
 	let value = '2023-05-24';
 </script>

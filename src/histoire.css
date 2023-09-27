@@ -2,7 +2,8 @@
 	font-family: 'aktiv-grotesk';
 	font-weight: 400;
 	font-display: swap;
-	src: url('https://static.sumup.com/fonts/latin-greek-cyrillic/aktiv-grotest-400.woff2')
+	src:
+		url('https://static.sumup.com/fonts/latin-greek-cyrillic/aktiv-grotest-400.woff2')
 			format('woff2'),
 		url('https://static.sumup.com/fonts/latin-greek-cyrillic/aktiv-grotest-400.woff') format('woff'),
 		url('https://static.sumup.com/fonts/latin-greek-cyrillic/aktiv-grotest-400.eot')
@@ -12,7 +13,8 @@
 	font-family: 'aktiv-grotesk';
 	font-weight: 700;
 	font-display: swap;
-	src: url('https://static.sumup.com/fonts/latin-greek-cyrillic/aktiv-grotest-700.woff2')
+	src:
+		url('https://static.sumup.com/fonts/latin-greek-cyrillic/aktiv-grotest-700.woff2')
 			format('woff2'),
 		url('https://static.sumup.com/fonts/latin-greek-cyrillic/aktiv-grotest-700.woff') format('woff'),
 		url('https://static.sumup.com/fonts/latin-greek-cyrillic/aktiv-grotest-700.eot')
@@ -174,6 +176,9 @@
 	--cui-font-weight-regular: 400;
 	--cui-font-weight-bold: 700;
 
+	--cui-icon-sizes-kilo: 16px;
+	--cui-icon-sizes-mega: 24px;
+
 	--cui-ty-headline-font-size-one: 2rem;
 	--cui-ty-headline-line-height-one: 2.25rem;
 	--cui-ty-headline-font-size-two: 1.5rem;
@@ -186,11 +191,11 @@
 	--cui-ty-sub-headline-font-size: 0.875rem;
 	--cui-ty-sub-headline-line-height: 1.25rem;
 
-	--cui-ty-body-font-size-one: 1rem;
-	--cui-ty-body-line-height-one: 1.5rem;
+	--cui-typography-body-one-font-size: 1rem;
+	--cui-typography-body-one-line-height: 1.5rem;
 
-	--cui-ty-body-font-size-two: 0.875rem;
-	--cui-ty-body-line-height-two: 1.25rem;
+	--cui-typography-body-two-font-size: 0.875rem;
+	--cui-typography-body-two-line-height: 1.25rem;
 
 	--cui-spacings-bit: 4px;
 	--cui-spacings-byte: 8px;
@@ -396,8 +401,18 @@ optgroup,
 textarea,
 button {
 	font-weight: var(--cui-font-weight-regular);
-	font-family: aktiv-grotesk, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-		Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+	font-family:
+		aktiv-grotesk,
+		-apple-system,
+		BlinkMacSystemFont,
+		'Segoe UI',
+		Roboto,
+		Helvetica,
+		Arial,
+		sans-serif,
+		'Apple Color Emoji',
+		'Segoe UI Emoji',
+		'Segoe UI Symbol';
 	font-feature-settings: 'kern';
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -406,5 +421,11 @@ button {
 
 pre,
 code {
-	font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+	font-family:
+		Menlo,
+		Consolas,
+		Monaco,
+		Liberation Mono,
+		Lucida Console,
+		monospace;
 }

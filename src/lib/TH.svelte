@@ -16,14 +16,14 @@
 
 <style>
 	th {
-		background-color: #ffffff;
-		border-bottom: 1px solid #cccccc;
+		background-color: var(--cui-bg-normal);
+		border-bottom: 1px solid var(--cui-border-normal);
 		text-align: left;
 		transition:
-			background-color 120ms ease-in-out,
-			color 120ms ease-in-out;
-		font-size: 0.875rem;
-		line-height: 1.25rem;
+			background-color var(--cui-transitions-default),
+			color var(--cui-transitions-default);
+		font-size: var(--cui-typography-body-two-font-size);
+		line-height: var(--cui-typography-body-two-line-height);
 		color: var(--cui-fg-subtle);
 		font-weight: var(--cui-font-weight-bold);
 		padding: var(--cui-spacings-byte) var(--cui-spacings-giga);
@@ -58,8 +58,8 @@
 		text-align: center;
 	}
 	.condensed {
-		font-size: var(--cui-ty-body-font-size-two);
-		line-height: var(--cui-ty-body-line-height-two);
+		font-size: var(--cui-typography-body-two-font-size);
+		line-height: var(--cui-typography-body-two-line-height);
 		vertical-align: middle;
 		padding: var(--cui-spacings-byte) var(--cui-spacings-mega) var(--cui-spacings-byte)
 			var(--cui-spacings-giga);

@@ -1,8 +1,4 @@
 <script lang="ts">
-	import Confirm from '$lib/icons/Confirm.svelte';
-	import Alert from '$lib/icons/Alert.svelte';
-	import Notify from '$lib/icons/Notify.svelte';
-
 	export let disabled = false;
 	export let prefix = '';
 	export let suffix = '';
@@ -13,10 +9,12 @@
 	export let invalid = false;
 	export let textAlignRight = false;
 	export let readonly = false;
+	export let required = false;
 	export let validationMessage = '';
 	export let value: number | string = '';
 	export let type = 'text';
 	export let maxlength = 10;
+	export let descriptionId = '';
 	function typeAction(node: HTMLInputElement) {
 		node.type = type;
 	}
@@ -27,29 +25,31 @@
 		<span class="label-span" class:label-span-disabled={disabled}>{label}</span>
 	</label>
 	<div class="input-wrapper">
-		{#if readonly}
-			<span class="prefix-wrapper">
-				{prefix}
-			</span>
-		{/if}
+		<span class="prefix">
+			{prefix}
+		</span>
 		<input
 			id="input"
-			class:input--warning={!disabled && hasWarning}
+			class="base"
+			class:warning={!disabled && hasWarning}
 			class:input--invalid={!disabled && invalid}
 			class:text-align-right={textAlignRight}
-			class:readonly
-			class:input-has-prefix={prefix.length > 0}
-			class:input-has-suffix={suffix.length > 0}
+			class:has-prefix={prefix.length > 0}
+			class:has-suffix={suffix.length > 0}
+			{readonly}
+			{required}
 			{disabled}
 			{placeholder}
 			{maxlength}
-			bind:value
+			aria-invalid={invalid && 'true'}
+			aria-describedby={descriptionId}
 			on:blur
 			on:change
 			use:typeAction
+			bind:value
 		/>
 		{#if suffix.length > 0}
-			<span class="suffix-wrapper">
+			<span class="suffix">
 				{suffix}
 			</span>
 		{/if}
@@ -67,17 +67,34 @@
 			class:validation-message--warning={hasWarning}
 			class:validation-message--warning--disabled={hasWarning && disabled}
 		>
-			{#if invalid}
+			{#if invalid || hasWarning || showValid}
 				<div class="icon-wrapper">
-					<Alert size="16" />
-				</div>
-			{:else if hasWarning}
-				<div class="icon-wrapper">
-					<Notify size="16" />
-				</div>
-			{:else if showValid}
-				<div class="icon-wrapper">
-					<Confirm size="16" />
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 16 16"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						{#if invalid}
+							<path
+								d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3 11a1 1 0 0 1-1.41 0L8 9.41 6.41 11A1 1 0 0 1 5 9.59L6.59 8 5 6.41A1 1 0 0 1 5 5a1 1 0 0 1 1.41 0L8 6.59 9.59 5A1 1 0 0 1 11 5a1 1 0 0 1 0 1.41L9.41 8 11 9.59A1 1 0 0 1 11 11z"
+								fill="currentColor"
+							/>
+						{:else if hasWarning}
+							<path
+								fill-rule="evenodd"
+								clip-rule="evenodd"
+								d="M10.534 1.5c-1.126-2-3.942-2-5.069 0l-5.069 9C-.73 12.5.678 15 2.931 15h10.138c2.253 0 3.661-2.5 2.534-4.5l-5.069-9zm-3.229 8.687a1.25 1.25 0 1 1 1.39 2.08 1.25 1.25 0 0 1-1.39-2.08zM7.293 4.27A1 1 0 0 1 9 4.977v3a1 1 0 0 1-2 0v-3a1 1 0 0 1 .293-.708z"
+								fill="currentColor"
+							/>
+						{:else if showValid}
+							<path
+								d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.78 6.62-4 5a.993.993 0 0 1-.72.38H7a1 1 0 0 1-.71-.29l-2-2a1.004 1.004 0 0 1 1.42-1.42L6.92 9.5l3.3-4.12a1 1 0 1 1 1.56 1.24z"
+								fill="currentColor"
+							/>
+						{/if}
+					</svg>
 				</div>
 			{/if}
 			{validationMessage}
@@ -95,114 +112,138 @@
 
 	label {
 		display: block;
-		font-size: 0.875rem;
-		line-height: 1.25rem;
+		font-size: var(--cui-typography-body-two-font-size);
+		line-height: var(--cui-typography-body-two-line-height);
 	}
 
 	.label-span {
 		display: inline-block;
-		margin-bottom: 4px;
+		margin-bottom: var(--cui-spacings-bit);
 	}
 
 	.label-span-disabled {
-		color: rgba(26, 26, 26, 0.4);
+		color: var(--cui-fg-normal-disabled);
 	}
 
 	.input-wrapper {
 		position: relative;
 	}
 
-	.prefix-wrapper {
-		font-size: 1rem;
-		line-height: 1.5rem;
-
-		position: absolute;
-		pointer-events: none;
-		color: #666666;
-		padding: 12px 16px;
-		height: 48px;
-		width: 48px;
-	}
-
-	.suffix-wrapper {
-		font-size: 1rem;
-		line-height: 1.5rem;
-
-		position: absolute;
-		top: 0;
-		right: 0;
-		pointer-events: none;
-		color: #666666;
-		padding: 12px 16px;
-		height: 48px;
-		width: 48px;
-		transition: right 120ms ease-in-out;
-	}
-
-	input {
-		font-size: 1rem;
-		line-height: 1.5rem;
-
-		-webkit-appearance: none;
-		appearance: none;
-		background-color: #ffffff;
-		border: none;
-		outline: 0;
-		border-radius: 8px;
-		padding: 12px 16px;
-		transition:
-			box-shadow 120ms ease-in-out,
-			padding 120ms ease-in-out;
+	.base {
 		width: 100%;
+		padding: var(--cui-spacings-kilo) var(--cui-spacings-mega);
 		margin: 0;
-
+		font-size: var(--cui-typography-body-one-font-size);
+		line-height: var(--cui-typography-body-one-line-height);
+		appearance: none;
+		-webkit-appearance: none;
+		background-color: var(--cui-bg-normal);
+		border: none;
+		border-radius: var(--cui-border-radius-byte);
+		outline: 0;
 		box-shadow: inset 0 0 0 1px var(--cui-border-normal);
+		transition:
+			box-shadow var(--cui-transitions-default),
+			padding var(--cui-transitions-default);
 	}
 
-	input:disabled {
-		background-color: rgba(255, 255, 255, 0.4);
-		box-shadow: inset 0 0 0 1px rgba(204, 204, 204, 0.4);
-	}
-
-	input:disabled[disabled] {
-		background-color: rgba(255, 255, 255, 0.4);
-	}
-
-	input:hover {
+	.base:hover {
 		box-shadow: inset 0 0 0 1px var(--cui-border-normal-hovered);
 	}
 
-	input:focus {
+	.base:focus {
 		box-shadow: inset 0 0 0 2px var(--cui-border-accent);
 	}
 
-	input:active {
+	.base:active {
 		box-shadow: inset 0 0 0 1px var(--cui-border-accent);
 	}
 
-	input::placeholder {
-		color: #999999;
-		transition: color 120ms ease-in-out;
+	.base::placeholder {
+		color: var(--cui-fg-placeholder);
+		transition: color var(--cui-transitions-default);
 	}
 
-	.input--warning {
-		box-shadow: inset 0 0 0 1px #f5a720;
+	.base:disabled,
+	.base[disabled] {
+		background-color: var(--cui-bg-normal-disabled);
+		box-shadow: inset 0 0 0 1px var(--cui-border-normal-disabled);
 	}
 
-	.input--warning:hover {
-		box-shadow: inset 0 0 0 1px #ad7a14;
+	.base[readonly] {
+		background-color: var(--cui-bg-subtle-disabled);
 	}
 
-	.input--warning:focus {
-		box-shadow: inset 0 0 0 2px #f5a720;
+	/* Validations */
+
+	.base[aria-invalid='true'] {
+		box-shadow: 0 0 0 1px var(--cui-border-danger);
 	}
 
-	.input--warning:active {
-		box-shadow: inset 0 0 0 1px #f5a720;
+	.base[aria-invalid='true']:hover {
+		box-shadow: 0 0 0 1px var(--cui-border-danger-hovered);
 	}
 
-	.input--warning:not(:focus)::placeholder {
-		color: #f5a720;
+	.base[aria-invalid='true']:focus {
+		box-shadow: 0 0 0 2px var(--cui-border-danger);
+	}
+
+	.base[aria-invalid='true']:active {
+		box-shadow: 0 0 0 1px var(--cui-border-danger-pressed);
+	}
+
+	.base[aria-invalid='true']:not(:focus):not([disabled])::placeholder {
+		color: var(--cui-fg-danger);
+	}
+
+	.warning {
+		box-shadow: inset 0 0 0 1px var(--cui-border-warning);
+	}
+
+	.warning:hover {
+		box-shadow: inset 0 0 0 1px var(--cui-border-warning-hovered);
+	}
+
+	.warning:focus {
+		box-shadow: inset 0 0 0 2px var(--cui-border-warning);
+	}
+
+	.warning:active {
+		box-shadow: inset 0 0 0 1px var(--cui-border-warning-pressed);
+	}
+
+	.warning:not(:focus):not([disabled])::placeholder {
+		color: var(--cui-fg-warning);
+	}
+
+	.text-align-right {
+		text-align: right;
+	}
+
+	.has-prefix {
+		padding-left: var(--cui-spacings-exa);
+	}
+
+	.has-suffix {
+		padding-right: var(--cui-spacings-exa);
+	}
+
+	.prefix,
+	.suffix {
+		position: absolute;
+		width: var(--cui-spacings-exa);
+		height: var(--cui-spacings-exa);
+		padding: var(--cui-spacings-kilo) var(--cui-spacings-mega);
+		color: var(--cui-fg-normal);
+		pointer-events: none;
+		font-size: 1rem;
+		line-height: 1.5rem;
+	}
+
+	.suffix {
+		top: 0;
+		right: 0;
+		transition: right var(--cui-transitions-default);
 	}
 
 	.input--invalid {
@@ -226,66 +267,50 @@
 		opacity: 0.5;
 	}
 
-	.text-align-right {
-		text-align: right;
-	}
-
-	.readonly {
-		background-color: #f5f5f5;
-	}
-
-	.input-has-prefix {
-		padding-left: 48px;
-	}
-
-	.input-has-suffix {
-		padding-right: 48px;
-	}
-
 	.validation-message {
-		font-size: 0.875rem;
-		line-height: 1.25rem;
-
-		display: block;
-		margin-top: 4px;
-		color: #6a737c;
-		transition: color 120ms ease-in-out;
+		display: flex;
+		margin-top: var(--cui-spacings-bit);
+		font-size: var(--cui-typography-body-two-font-size);
+		line-height: var(--cui-typography-body-two-line-height);
+		color: var(--cui-fg-subtle);
+		transition: color var(--cui-transitions-default);
 	}
 
 	.validation-message--disabled {
-		color: rgba(102, 102, 102, 0.4);
+		color: var(--cui-fg-subtle-disabled);
 	}
 
 	.validation-message--valid {
-		color: #018850;
+		color: var(--cui-fg-success);
 	}
 
 	.validation-message--valid--disabled {
-		color: rgba(1, 135, 48, 0.4);
+		color: var(--cui-fg-success-disabled);
 	}
 
 	.validation-message--invalid {
-		color: #de331d;
+		color: var(--cui-fg-danger);
 	}
 
 	.validation-message--invalid--disabled {
-		color: rgba(222, 51, 29, 0.4);
+		color: var(--cui-fg-danger-disabled);
 	}
 
 	.validation-message--warning {
-		color: #e27900;
+		color: var(--cui-fg-warning);
 	}
 
 	.validation-message--warning--disabled {
-		color: rgba(232, 124, 0, 0.4);
+		color: var(--cui-fg-warning-disabled);
 	}
 
 	.icon-wrapper {
-		display: inline-block;
-		position: relative;
-		width: var(--cui-icon-size-kilo);
-		height: var(--cui-icon-size-kilo);
-		vertical-align: text-top;
+		display: block;
+		flex-shrink: 0;
+		align-self: flex-start;
+		width: var(--cui-icon-sizes-kilo);
+		height: var(--cui-icon-sizes-kilo);
+		margin-top: calc((var(--cui-typography-body-two-line-height) - var(--cui-icon-sizes-kilo)) / 2);
 		margin-right: var(--cui-spacings-bit);
 	}
 </style>
