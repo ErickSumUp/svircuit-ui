@@ -58,7 +58,7 @@
 		text-align: center;
 	}
 	.condensed {
-		font-size: var(--cui-ty-body-font-size-two);
+		font-size: var(--cui-typography-body-two-font-size);
 		line-height: var(--cui-typography-body-two-line-height);
 		vertical-align: middle;
 		padding: var(--cui-spacings-byte) var(--cui-spacings-mega) var(--cui-spacings-byte)

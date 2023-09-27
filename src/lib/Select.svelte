@@ -39,7 +39,7 @@
 		flex-grow: 1;
 	}
 	.label-wrapper {
-		font-size: var(--cui-ty-body-font-size-two);
+		font-size: var(--cui-typography-body-two-font-size);
 		line-height: var(--cui-typography-body-two-line-height);
 		display: block;
 	}

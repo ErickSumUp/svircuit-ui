@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let disabled = false;
+	export let readonly = false;
 	export let label: string;
 	export let validationMessage = '';
 	export let value = '';
@@ -10,7 +11,7 @@
 		<span class="label-span" class:label-span-disabled={disabled}>{label}</span>
 	</label>
 	<div class="input-wrapper">
-		<input id="input" {disabled} bind:value on:blur on:change type="date" />
+		<input id="input" class="base" {disabled} {readonly} bind:value on:blur on:change type="date" />
 	</div>
 	{#if validationMessage.length > 0}
 		<span
@@ -34,83 +35,79 @@
 
 	label {
 		display: block;
-		font-size: 0.875rem;
-		line-height: 1.25rem;
+		font-size: var(--cui-typography-body-two-font-size);
+		line-height: var(--cui-typography-body-two-line-height);
 	}
 
 	.label-span {
 		display: inline-block;
-		margin-bottom: 4px;
+		margin-bottom: var(--cui-spacings-bit);
 	}
 
 	.label-span-disabled {
-		color: rgba(26, 26, 26, 0.4);
+		color: var(--cui-fg-normal-disabled);
 	}
 
 	.input-wrapper {
 		position: relative;
 	}
 
-	input {
-		font-size: 1rem;
-		line-height: 1.5rem;
-
-		-webkit-appearance: none;
-		appearance: none;
-		background-color: #ffffff;
-		border: none;
-		outline: 0;
-		border-radius: 8px;
-		padding: 12px 16px;
-		transition:
-			box-shadow 120ms ease-in-out,
-			padding 120ms ease-in-out;
+	.base {
 		width: 100%;
+		padding: var(--cui-spacings-kilo) var(--cui-spacings-mega);
 		margin: 0;
-
-		box-shadow: inset 0 0 0 1px var(--cui-border-normal);
-
-		height: 48px;
-		min-width: 8ch;
+		font-size: var(--cui-typography-body-one-font-size);
+		line-height: var(--cui-typography-body-one-line-height);
+		appearance: none;
+		-webkit-appearance: none;
+		background-color: var(--cui-bg-normal);
+		border: none;
+		border-radius: var(--cui-border-radius-byte);
+		outline: 0;
+		box-shadow: 0 0 0 1px var(--cui-border-normal);
+		transition:
+			box-shadow var(--cui-transitions-default),
+			padding var(--cui-transitions-default);
+		min-width: 10ch;
 	}
 
-	input:disabled {
-		background-color: rgba(255, 255, 255, 0.4);
-		box-shadow: inset 0 0 0 1px rgba(204, 204, 204, 0.4);
+	.base:hover {
+		box-shadow: 0 0 0 1px var(--cui-border-normal-hovered);
 	}
 
-	input:disabled[disabled] {
-		background-color: rgba(255, 255, 255, 0.4);
+	.base:focus {
+		box-shadow: 0 0 0 2px var(--cui-border-accent);
 	}
 
-	input:hover {
-		box-shadow: inset 0 0 0 1px var(--cui-border-normal-hovered);
+	.base:active {
+		box-shadow: 0 0 0 1px var(--cui-border-accent);
 	}
 
-	input:focus {
-		box-shadow: inset 0 0 0 2px var(--cui-border-accent);
+	.base::placeholder {
+		color: var(--cui-fg-placeholder);
+		transition: color var(--cui-transitions-default);
 	}
 
-	input:active {
-		box-shadow: inset 0 0 0 1px var(--cui-border-accent);
+	.base:disabled,
+	.base[disabled] {
+		background-color: var(--cui-bg-normal-disabled);
+		box-shadow: 0 0 0 1px var(--cui-border-normal-disabled);
 	}
 
-	input::placeholder {
-		color: #999999;
-		transition: color 120ms ease-in-out;
+	.base[readonly] {
+		background-color: var(--cui-bg-subtle-disabled);
 	}
 
 	.validation-message {
-		font-size: 0.875rem;
-		line-height: 1.25rem;
-
-		display: block;
-		margin-top: 4px;
-		color: #6a737c;
-		transition: color 120ms ease-in-out;
+		display: flex;
+		margin-top: var(--cui-spacings-bit);
+		font-size: var(--cui-typography-body-two-font-size);
+		line-height: var(--cui-typography-body-two-line-height);
+		color: var(--cui-fg-subtle);
+		transition: color var(--cui-transitions-default);
 	}
 
 	.validation-message--disabled {
-		color: rgba(102, 102, 102, 0.4);
+		color: var(--cui-fg-subtle-disabled);
 	}
 </style>

@@ -112,8 +112,8 @@
 
 	label {
 		display: block;
-		font-size: 0.875rem;
-		line-height: 1.25rem;
+		font-size: var(--cui-typography-body-two-font-size);
+		line-height: var(--cui-typography-body-two-line-height);
 	}
 
 	.label-span {
@@ -268,17 +268,16 @@
 	}
 
 	.validation-message {
-		font-size: 0.875rem;
-		line-height: 1.25rem;
-
-		display: block;
-		margin-top: 4px;
-		color: #6a737c;
-		transition: color 120ms ease-in-out;
+		display: flex;
+		margin-top: var(--cui-spacings-bit);
+		font-size: var(--cui-typography-body-two-font-size);
+		line-height: var(--cui-typography-body-two-line-height);
+		color: var(--cui-fg-subtle);
+		transition: color var(--cui-transitions-default);
 	}
 
 	.validation-message--disabled {
-		color: rgba(102, 102, 102, 0.4);
+		color: var(--cui-fg-subtle-disabled);
 	}
 
 	.validation-message--valid {
@@ -306,11 +305,12 @@
 	}
 
 	.icon-wrapper {
-		display: inline-block;
-		position: relative;
-		width: var(--cui-icon-size-kilo);
-		height: var(--cui-icon-size-kilo);
-		vertical-align: text-top;
+		display: block;
+		flex-shrink: 0;
+		align-self: flex-start;
+		width: var(--cui-icon-sizes-kilo);
+		height: var(--cui-icon-sizes-kilo);
+		margin-top: calc((var(--cui-typography-body-two-line-height) - var(--cui-icon-sizes-kilo)) / 2);
 		margin-right: var(--cui-spacings-bit);
 	}
 </style>

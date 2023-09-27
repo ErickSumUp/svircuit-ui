@@ -26,7 +26,7 @@
 		line-height: var(--cui-typography-body-one-line-height);
 	}
 	.two {
-		font-size: var(--cui-ty-body-font-size-two);
+		font-size: var(--cui-typography-body-two-font-size);
 		line-height: var(--cui-typography-body-two-line-height);
 	}
 	.highlight,

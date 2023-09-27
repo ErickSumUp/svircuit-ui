@@ -10,13 +10,13 @@
 </script>
 
 <span
-	class='base'
+	class="base"
 	class:neutral={variant === 'neutral'}
 	class:success={variant === 'success'}
 	class:warning={variant === 'warning'}
 	class:danger={variant === 'danger'}
 	class:promo={variant === 'promo'}
-	class:circle={circle}
+	class:circle
 >
 	<slot />
 </span>
