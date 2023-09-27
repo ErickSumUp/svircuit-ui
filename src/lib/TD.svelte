@@ -15,15 +15,15 @@
 <style>
 	td {
 		text-align: left;
-		background-color: #ffffff;
-		border-bottom: 1px solid #cccccc;
-		padding: 24px;
-		transition: background-color 120ms ease-in-out;
+		background-color: var(--cui-bg-normal);
+		border-bottom: 1px solid var(--cui-border-normal);
+		padding: var(--cui-spacings-giga);
+		transition: background-color var(--cui-transitions-default);
 		vertical-align: middle;
 		overflow-wrap: break-word;
 	}
 	td:hover {
-		background-color: #f5f5f5;
+		background-color: var(--cui-bg-normal-hovered);
 	}
 	.align-left {
 		text-align: left;
@@ -35,8 +35,9 @@
 		text-align: right;
 	}
 	.condensed {
-		padding: 12px 16px 12px 24px;
-		font-size: 0.875rem;
-		line-height: 1.25rem;
+		padding: var(--cui-spacings-kilo) var(--cui-spacings-mega) var(--cui-spacings-kilo)
+			var(--cui-spacings-giga);
+		font-size: var(--cui-typography-body-two-font-size);
+		line-height: var(--cui-typography-body-two-line-height);
 	}
 </style>
