@@ -18,7 +18,7 @@
 		border-radius: var(--cui-border-radius-pill);
 		display: inline-block;
 		font-size: var(--cui-ty-body-font-size-two);
-		line-height: var(--cui-ty-body-line-height-one);
+		line-height: var(--cui-typography-body-one-line-height);
 		font-weight: var(--cui-font-weight-bold);
 		text-align: center;
 		min-width: var(--cui-icon-size-giga);

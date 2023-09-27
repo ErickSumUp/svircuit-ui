@@ -40,7 +40,7 @@
 	}
 	.label-wrapper {
 		font-size: var(--cui-ty-body-font-size-two);
-		line-height: var(--cui-ty-body-line-height-two);
+		line-height: var(--cui-typography-body-two-line-height);
 		display: block;
 	}
 	.label-wrapper:disabled {
@@ -49,8 +49,8 @@
 		box-shadow: none;
 	}
 	select {
-		font-size: var(--cui-ty-body-font-size-one);
-		line-height: var(--cui-ty-body-line-height-one);
+		font-size: var(--cui-typography-body-one-font-size);
+		line-height: var(--cui-typography-body-one-line-height);
 		appearance: none;
 		cursor: pointer;
 		background-color: var(--cui-bg-normal);

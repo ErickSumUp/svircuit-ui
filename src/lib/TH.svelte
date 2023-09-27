@@ -59,7 +59,7 @@
 	}
 	.condensed {
 		font-size: var(--cui-ty-body-font-size-two);
-		line-height: var(--cui-ty-body-line-height-two);
+		line-height: var(--cui-typography-body-two-line-height);
 		vertical-align: middle;
 		padding: var(--cui-spacings-byte) var(--cui-spacings-mega) var(--cui-spacings-byte)
 			var(--cui-spacings-giga);

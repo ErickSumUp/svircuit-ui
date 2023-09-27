@@ -28,8 +28,8 @@
 
 <style>
 	button {
-		font-size: var(--cui-ty-body-font-size-one);
-		line-height: var(--cui-ty-body-line-height-one);
+		font-size: var(--cui-typography-body-one-font-size);
+		line-height: var(--cui-typography-body-one-line-height);
 		display: inline-flex;
 		justify-content: center;
 		width: fit-content;
