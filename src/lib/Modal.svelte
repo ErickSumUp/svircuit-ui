@@ -8,24 +8,15 @@
 	$: if (dialog && showModal) dialog.showModal();
 </script>
 
-<dialog
-	bind:this={dialog}
-	on:keydown={(e) => {
-		if (e.key === 'Escape') dialog.close();
-	}}
-	on:close={() => (showModal = false)}
-	on:click|self={() => dialog.close()}
->
-	<div class="content-wrapper" on:click|stopPropagation on:keydown|stopPropagation>
+<dialog bind:this={dialog} on:close={() => (showModal = false)}>
+	<div class="content-wrapper">
 		<slot />
 	</div>
 	<button
 		on:click={() => dialog.close()}
-		class="close-button close-button-colors close-button-position"
+		class="close-button close-button-colors close-button-position close-button-content-wrapper"
 	>
-		<div class="close-button-content-wrapper">
-			<Close />
-		</div>
+		<Close />
 	</button>
 </dialog>
 
