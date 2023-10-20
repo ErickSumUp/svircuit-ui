@@ -93,7 +93,7 @@
 			{iconLabel}
 		</span>
 		<div class="content">
-			{#if headline !== ''}
+			{#if headline !== undefined && headline !== ''}
 				<h3 class="headline">{headline}</h3>
 			{/if}
 			<p class="body">{body}</p>
