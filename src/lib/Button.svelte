@@ -5,6 +5,7 @@
 	export let stretch = false;
 	export let disabled = false;
 	export let type: 'button' | 'reset' | 'submit' | null | undefined = 'button';
+	export let circle = false;
 </script>
 
 <button
@@ -17,6 +18,8 @@
 	class:stretch
 	class:tertiary={variant === 'tertiary' && !destructive}
 	class:tertiary--destructive={variant === 'tertiary' && destructive}
+	class:circle-giga={circle && size === 'giga'}
+	class:circle-kilo={circle && size === 'kilo'}
 	{disabled}
 	on:click
 	{type}
@@ -245,5 +248,13 @@
 			opacity var(--cui-transitions-default),
 			transform var(--cui-transitions-default),
 			visibility var(--cui-transitions-default);
+	}
+
+	.circle-kilo {
+		padding: calc(var(--cui-spacings-byte) - var(--cui-border-width-kilo));
+	}
+
+	.circle-giga {
+		padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo));
 	}
 </style>

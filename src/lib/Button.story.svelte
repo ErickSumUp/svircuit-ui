@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { Hst } from '@histoire/plugin-svelte';
 	import Button from './Button.svelte';
+	import Close from '$lib/icons/Close.svelte';
+	import Plus from '$lib/icons/Plus.svelte';
 
 	export let Hst: Hst;
 
@@ -39,6 +41,11 @@
 	<Hst.Variant title="Sizes">
 		<Button size="kilo" variant="secondary">Kilo</Button>
 		<Button size="giga" variant="secondary">Giga</Button>
+	</Hst.Variant>
+	<Hst.Variant title="Circle button with icon">
+		<Button circle={true} size="giga" variant="secondary">
+			<Plus size="24" />
+		</Button>
 	</Hst.Variant>
 	<svelte:fragment slot="controls">
 		<Hst.Text bind:value={text} title="Text" />
