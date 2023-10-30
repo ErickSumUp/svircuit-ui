@@ -10,7 +10,7 @@
 		badge?: {
 			label?: string;
 			circle?: boolean;
-			variant?: 'promo' | 'danger' | 'neutral' | 'success' | 'warning'
+			variant?: 'promo' | 'danger' | 'neutral' | 'success' | 'warning';
 		};
 	};
 </script>

@@ -15,15 +15,11 @@
 <style>
 	td {
 		text-align: left;
-		background-color: var(--cui-bg-normal);
 		border-bottom: 1px solid var(--cui-border-normal);
 		padding: var(--cui-spacings-giga);
 		transition: background-color var(--cui-transitions-default);
 		vertical-align: middle;
 		overflow-wrap: break-word;
-	}
-	td:hover {
-		background-color: var(--cui-bg-normal-hovered);
 	}
 	.align-left {
 		text-align: left;
