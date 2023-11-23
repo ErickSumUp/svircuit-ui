@@ -1,16 +1,17 @@
 <script lang="ts">
 	import type { Hst } from '@histoire/plugin-svelte';
 	import Button from './Button.svelte';
-	import Close from '$lib/icons/Close.svelte';
 	import Plus from '$lib/icons/Plus.svelte';
+	import DownloadCloud from '$lib/icons/DownloadCloud.svelte';
 
 	export let Hst: Hst;
 
-	let text = 'Say hello';
-	let variant: 'primary' | 'secondary' = 'secondary';
+	let text = 'Download';
+	let variant: 'primary' | 'secondary' | 'tertiary' = 'primary';
 	let size: 'kilo' | 'giga' = 'giga';
 	let disabled = false;
 	let destructive = false;
+	let stretch = false;
 </script>
 
 <Hst.Story title="Components/Button" layout={{ type: 'grid', width: '100%' }}>
@@ -21,9 +22,13 @@
 			}}
 			{variant}
 			{size}
+			{stretch}
 			{disabled}
-			{destructive}>{text}</Button
+			{destructive}
 		>
+			<DownloadCloud slot="descriptive-icon" />
+			{text}
+		</Button>
 	</Hst.Variant>
 	<Hst.Variant title="Default">
 		<Button>Default</Button>
@@ -56,6 +61,7 @@
 		/>
 		<Hst.Select bind:value={size} options={['kilo', 'giga']} title="Size" />
 		<Hst.Checkbox bind:value={disabled} title="Disabled" />
+		<Hst.Checkbox bind:value={stretch} title="Stretch" />
 		<Hst.Checkbox bind:value={destructive} title="Destructive" />
 		<pre>{JSON.stringify({ text, variant, size, disabled, destructive }, null, 2)}</pre>
 	</svelte:fragment>

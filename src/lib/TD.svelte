@@ -1,6 +1,7 @@
 <script lang="ts">
 	export let align: 'left' | 'center' | 'right' = 'left';
 	export let condensed = false;
+  export let wrap = false;
 </script>
 
 <td
@@ -8,6 +9,7 @@
 	class:align-center={align === 'center'}
 	class:align-right={align === 'right'}
 	class:condensed
+  class:wrap={wrap}
 >
 	<slot />
 </td>
@@ -19,7 +21,7 @@
 		padding: var(--cui-spacings-giga);
 		transition: background-color var(--cui-transitions-default);
 		vertical-align: middle;
-		overflow-wrap: break-word;
+		white-space: nowrap;
 	}
 	.align-left {
 		text-align: left;
@@ -36,4 +38,7 @@
 		font-size: var(--cui-typography-body-two-font-size);
 		line-height: var(--cui-typography-body-two-line-height);
 	}
+  .wrap {
+    white-space: normal;
+  }
 </style>

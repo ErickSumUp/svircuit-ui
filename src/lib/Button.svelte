@@ -6,6 +6,7 @@
 	export let disabled = false;
 	export let type: 'button' | 'reset' | 'submit' | null | undefined = 'button';
 	export let circle = false;
+	export let wrap = false;
 </script>
 
 <button
@@ -24,9 +25,16 @@
 	on:click
 	{type}
 >
-	<span class="content-wrapper">
+	<slot name="descriptive-icon" />
+	<span
+		class="content-wrapper"
+		class:w-desc-icon={$$slots['descriptive-icon']}
+		class:w-trai-icon={$$slots['trailing-icon']}
+		class:wrap
+	>
 		<slot />
 	</span>
+	<slot name="trailing-icon" />
 </button>
 
 <style>
@@ -37,7 +45,6 @@
 		justify-content: center;
 		width: fit-content;
 		height: auto;
-		margin: 0;
 		cursor: pointer;
 		text-align: center;
 		text-decoration: none;
@@ -240,6 +247,7 @@
 
 	.content-wrapper {
 		display: inline-flex;
+		white-space: nowrap;
 		align-items: center;
 		opacity: 1;
 		visibility: inherit;
@@ -256,5 +264,17 @@
 
 	.circle-giga {
 		padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo));
+	}
+
+	.wrap {
+		white-space: normal;
+	}
+
+	.w-desc-icon {
+		margin-left: var(--cui-spacings-byte);
+	}
+
+	.w-trai-icon {
+		margin-right: var(--cui-spacings-byte);
 	}
 </style>
