@@ -44,7 +44,7 @@
 		display: inline-flex;
 		justify-content: center;
 		width: fit-content;
-		height: auto;
+		height: fit-content;
 		cursor: pointer;
 		text-align: center;
 		text-decoration: none;
