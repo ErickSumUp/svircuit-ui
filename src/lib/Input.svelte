@@ -15,8 +15,12 @@
 	export let type = 'text';
 	export let maxlength = 10;
 	export let descriptionId = '';
+	export let name: string = '';
 	function typeAction(node: HTMLInputElement) {
 		node.type = type;
+	}
+	function nameAction(node: HTMLInputElement) {
+		node.name = name;
 	}
 </script>
 
@@ -45,7 +49,9 @@
 			aria-describedby={descriptionId}
 			on:blur
 			on:change
+			on:input
 			use:typeAction
+			use:nameAction
 			bind:value
 		/>
 		{#if suffix.length > 0}
