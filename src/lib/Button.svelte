@@ -234,11 +234,13 @@
 	.kilo {
 		padding: calc(var(--cui-spacings-bit) - var(--cui-border-width-kilo))
 			calc(var(--cui-spacings-mega) - var(--cui-border-width-kilo));
+		border-radius: var(--cui-border-radius-kilo);
 	}
 
 	.giga {
 		padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo))
 			calc(var(--cui-spacings-giga) - var(--cui-border-width-kilo));
+		border-radius: var(--cui-border-radius-kilo);
 	}
 
 	.stretch {

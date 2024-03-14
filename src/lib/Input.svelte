@@ -1,4 +1,5 @@
 <script lang="ts">
+	export let id = 'input';
 	export let disabled = false;
 	export let prefix = '';
 	export let suffix = '';
@@ -33,7 +34,7 @@
 			{prefix}
 		</span>
 		<input
-			id="input"
+			{id}
 			class="base"
 			class:warning={!disabled && hasWarning}
 			class:input--invalid={!disabled && invalid}

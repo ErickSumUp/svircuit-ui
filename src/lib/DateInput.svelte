@@ -1,4 +1,5 @@
 <script lang="ts">
+	export let id = 'date-input';
 	export let disabled = false;
 	export let readonly = false;
 	export let label: string;
@@ -11,7 +12,7 @@
 		<span class="label-span" class:label-span-disabled={disabled}>{label}</span>
 	</label>
 	<div class="input-wrapper">
-		<input id="input" class="base" {disabled} {readonly} bind:value on:blur on:change type="date" />
+		<input {id} class="base" {disabled} {readonly} bind:value on:blur on:change type="date" />
 	</div>
 	{#if validationMessage.length > 0}
 		<span
