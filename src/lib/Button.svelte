@@ -1,5 +1,8 @@
 <script lang="ts">
-	export let variant: 'primary' | 'secondary' | 'tertiary' = 'primary';
+	/**
+	 * Choose from 3 style variants. Default: 'secondary'.
+	 */
+	export let variant: 'primary' | 'secondary' | 'tertiary' = 'secondary';
 	export let size: 'kilo' | 'giga' = 'giga';
 	export let destructive = false;
 	export let stretch = false;
@@ -51,7 +54,6 @@
 		font-weight: var(--cui-font-weight-bold);
 		border-width: var(--cui-border-width-kilo);
 		border-style: solid;
-		border-radius: var(--cui-border-radius-pill);
 		transition:
 			opacity var(--cui-transitions-default),
 			color var(--cui-transitions-default),
