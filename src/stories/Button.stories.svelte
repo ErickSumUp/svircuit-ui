@@ -7,26 +7,30 @@
 		argTypes: {
 			variant: {
 				control: { type: 'radio', defaultValue: 'secondary' },
-				options: ['primary', 'secondary', 'tertiary'],
+				options: ['primary', 'secondary', 'tertiary']
+			},
+			slot: {
+				control: { type: 'text', defaultValue: 'Click me' }
 			},
 		},
 		parameters: {
-			layout: 'centered',
+			layout: 'centered'
 		}
 	};
 </script>
 
 <script lang="ts">
 	import { Story } from '@storybook/addon-svelte-csf';
+	import Plus from '$lib/icons/Plus.svelte';
+	import ArrowSlanted from '$lib/icons/ArrowSlanted.svelte';
 
 	function handleClick() {
 		alert('Hello!');
 	}
-
 </script>
 
 <Story name="Base" let:args>
-	<Button {...args} on:click={handleClick}>Say hello</Button>
+	<Button {...args} on:click={handleClick}>{args.slot || 'Say Hello'}</Button>
 </Story>
 
 <Story name="Variants">
@@ -36,16 +40,31 @@
 </Story>
 
 <Story name="Destructive">
-	<div style="display: flex; justify-content: space-around">
-		<Button variant="primary" destructive={true}>Primary</Button>
-		<Button variant="secondary" destructive={true}>Secondary</Button>
-		<Button variant="tertiary" destructive={true}>Tertiary</Button>
+	<Button variant="primary" destructive={true}>Primary</Button>
+	<Button variant="secondary" destructive={true}>Secondary</Button>
+	<Button variant="tertiary" destructive={true}>Tertiary</Button>
+</Story>
+
+<Story name="Sizes">
+	<Button size="s">Small</Button>
+	<Button size="m">Medium</Button>
+</Story>
+
+<Story name="WithIcons">
+	<div style="display: flex; gap: 1rem;">
+		<Button size="m">
+			<Plus size="24" slot="descriptive-icon" />
+			Add to cart
+		</Button>
+		<Button size="m">
+			<ArrowSlanted size="16" slot="trailing-icon" />
+			Terms & Conditions
+		</Button>
 	</div>
 </Story>
 
-<Story name="Square" source args={{ rounded: false }} />
-
 <!-- Dynamic snippet should be disabled for this story -->
-<Story name="Button No Args">
-	<Button>Label</Button>
+<Story name="ButtonGroup">
+	<Button>Go elsewhere</Button>
+	<Button variant="primary">Look again</Button>
 </Story>

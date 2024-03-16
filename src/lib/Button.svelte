@@ -3,7 +3,10 @@
 	 * Choose from 3 style variants. Default: 'secondary'.
 	 */
 	export let variant: 'primary' | 'secondary' | 'tertiary' = 'secondary';
-	export let size: 'kilo' | 'giga' = 'giga';
+	/**
+	 * Choose from 2 sizes. Default: 'm'.
+	 */
+	export let size: 's' | 'm' = 'm';
 	export let destructive = false;
 	export let stretch = false;
 	export let disabled = false;
@@ -13,8 +16,8 @@
 </script>
 
 <button
-	class:giga={size === 'giga'}
-	class:kilo={size === 'kilo'}
+	class:medium="{size === 'm'}"
+	class:small="{size === 's'}"
 	class:primary={variant === 'primary' && !destructive}
 	class:primary--destructive={variant === 'primary' && destructive}
 	class:secondary={variant === 'secondary' && !destructive}
@@ -22,8 +25,8 @@
 	class:stretch
 	class:tertiary={variant === 'tertiary' && !destructive}
 	class:tertiary--destructive={variant === 'tertiary' && destructive}
-	class:circle-giga={circle && size === 'giga'}
-	class:circle-kilo={circle && size === 'kilo'}
+	class:circle-medium="{circle && size === 'm'}"
+	class:circle-small="{circle && size === 's'}"
 	{disabled}
 	on:click
 	{type}
@@ -46,6 +49,8 @@
 		line-height: var(--cui-typography-body-one-line-height);
 		display: inline-flex;
 		justify-content: center;
+		align-items: center;
+		gap: var(--cui-content-gap);
 		width: fit-content;
 		height: fit-content;
 		cursor: pointer;
@@ -233,16 +238,18 @@
 		border-color: transparent;
 	}
 
-	.kilo {
+	.small {
 		padding: calc(var(--cui-spacings-bit) - var(--cui-border-width-kilo))
 			calc(var(--cui-spacings-mega) - var(--cui-border-width-kilo));
 		border-radius: var(--cui-border-radius-kilo);
+		--content-gap: var(--cui-spacings-bit);
 	}
 
-	.giga {
+	.medium {
 		padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo))
 			calc(var(--cui-spacings-giga) - var(--cui-border-width-kilo));
 		border-radius: var(--cui-border-radius-kilo);
+		--content-gap: var(--cui-spacings-byte);
 	}
 
 	.stretch {
@@ -262,11 +269,11 @@
 			visibility var(--cui-transitions-default);
 	}
 
-	.circle-kilo {
+	.circle-small {
 		padding: calc(var(--cui-spacings-byte) - var(--cui-border-width-kilo));
 	}
 
-	.circle-giga {
+	.circle-medium {
 		padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo));
 	}
 
