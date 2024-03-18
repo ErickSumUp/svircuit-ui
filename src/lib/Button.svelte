@@ -13,27 +13,30 @@
 	export let type: 'button' | 'reset' | 'submit' | null | undefined = 'button';
 	export let circle = false;
 	export let wrap = false;
+	export let isLoading = false;
 </script>
 
 <button
-	class:medium="{size === 'm'}"
-	class:small="{size === 's'}"
-	class:primary={variant === 'primary' && !destructive}
-	class:primary--destructive={variant === 'primary' && destructive}
-	class:secondary={variant === 'secondary' && !destructive}
-	class:secondary--destructive={variant === 'secondary' && destructive}
+	class:medium={size === 'm'}
+	class:small={size === 's'}
+	class:circle-medium={circle && size === 'm'}
+	class:circle-small={circle && size === 's'}
+	class:primary={variant === 'primary'}
+	class:primary--destructive={variant === 'primary'}
+	class:secondary={variant === 'secondary'}
+	class:secondary--destructive={variant === 'secondary'}
+	class:tertiary={variant === 'tertiary'}
+	class:tertiary--destructive={variant === 'tertiary'}
+	aria-busy={isLoading}
+	class:destructive
 	class:stretch
-	class:tertiary={variant === 'tertiary' && !destructive}
-	class:tertiary--destructive={variant === 'tertiary' && destructive}
-	class:circle-medium="{circle && size === 'm'}"
-	class:circle-small="{circle && size === 's'}"
 	{disabled}
 	on:click
 	{type}
 >
 	<slot name="descriptive-icon" />
 	<span
-		class="content-wrapper"
+		class="label content-wrapper"
 		class:w-desc-icon={$$slots['descriptive-icon']}
 		class:w-trai-icon={$$slots['trailing-icon']}
 		class:wrap
@@ -84,158 +87,144 @@
 		box-shadow: none;
 	}
 
+	.label {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
 	.primary {
+		color: var(--cui-fg-on-strong);
 		background-color: var(--cui-bg-accent-strong);
 		border-color: transparent;
-		color: var(--cui-fg-on-strong);
 	}
 
 	.primary:hover {
+		color: var(--cui-fg-on-strong-hovered);
 		background-color: var(--cui-bg-accent-strong-hovered);
 		border-color: transparent;
-		color: var(--cui-fg-on-strong-hovered);
 	}
 
 	.primary:active {
+		color: var(--cui-fg-on-strong-pressed);
 		background-color: var(--cui-bg-accent-strong-pressed);
 		border-color: transparent;
-		color: var(--cui-fg-on-strong-pressed);
 	}
 
-	.primary:disabled,
-	[disabled] {
-		background-color: var(--cui-bg-accent-strong-disabled);
-		border-color: transparent;
-		color: var(--cui-fg-on-strong-disabled);
-	}
-
-	.primary--destructive {
+	.primary.destructive {
 		background-color: var(--cui-bg-danger-strong);
-		border-color: transparent;
-		color: var(--cui-fg-on-strong);
 	}
 
-	.primary--destructive:hover {
+	.primary.destructive:hover {
 		background-color: var(--cui-bg-danger-strong-hovered);
-		border-color: transparent;
-		color: var(--cui-fg-on-strong-hovered);
 	}
 
-	.primary--destructive:active {
+	.primary.destructive:active {
 		background-color: var(--cui-bg-danger-strong-pressed);
-		border-color: transparent;
-		color: var(--cui-fg-on-strong-pressed);
-	}
-
-	.primary--destructive:disabled,
-	[disabled] {
-		background-color: var(--cui-bg-danger-strong-disabled);
-		border-color: transparent;
-		color: var(--cui-fg-on-strong-disabled);
 	}
 
 	.secondary {
+		color: var(--cui-fg-normal);
 		background-color: var(--cui-bg-normal);
 		border-color: var(--cui-border-normal);
-		color: var(--cui-fg-normal);
 	}
 
 	.secondary:hover {
+		color: var(--cui-fg-normal-hovered);
 		background-color: var(--cui-bg-normal-hovered);
 		border-color: var(--cui-border-normal-hovered);
-		color: var(--cui-fg-normal-hovered);
 	}
 
 	.secondary:active {
+		color: var(--cui-fg-normal-pressed);
 		background-color: var(--cui-bg-normal-pressed);
 		border-color: var(--cui-border-normal-pressed);
-		color: var(--cui-fg-normal-pressed);
 	}
 
-	.secondary:disabled,
-	[disabled] {
-		background-color: var(--cui-bg-normal-disabled);
-		border-color: var(--cui-border-normal-disabled);
-		color: var(--cui-fg-normal-disabled);
-	}
-
-	.secondary--destructive {
-		background-color: var(--cui-bg-normal);
-		border-color: var(--cui-border-danger);
+	.secondary.destructive {
 		color: var(--cui-fg-danger);
 	}
 
-	.secondary--destructive:hover {
-		background-color: var(--cui-bg-normal-hovered);
-		border-color: var(--cui-border-danger-hovered);
+	.secondary.destructive:hover {
 		color: var(--cui-fg-danger-hovered);
+		background-color: var(--cui-bg-danger-hovered);
+		border-color: var(--cui-border-danger-hovered);
 	}
 
-	.secondary--destructive:active {
-		background-color: var(--cui-bg-normal-pressed);
-		border-color: var(--cui-border-danger-pressed);
+	.secondary.destructive:active {
 		color: var(--cui-fg-danger-pressed);
-	}
-
-	.secondary--destructive:disabled,
-	[disabled] {
-		background-color: var(--cui-bg-normal-disabled);
-		border-color: var(--cui-border-danger-disabled);
-		color: var(--cui-fg-danger-disabled);
+		background-color: var(--cui-bg-danger-pressed);
+		border-color: var(--cui-border-danger-pressed);
 	}
 
 	.tertiary {
+		color: var(--cui-fg-accent);
 		background-color: transparent;
 		border-color: transparent;
-		color: var(--cui-fg-accent);
-		padding-left: 0;
-		padding-right: 0;
 	}
 
 	.tertiary:hover {
 		color: var(--cui-fg-accent-hovered);
-		background-color: transparent;
+		background-color: var(--cui-bg-accent-hovered);
 		border-color: transparent;
 	}
 
 	.tertiary:active {
 		color: var(--cui-fg-accent-pressed);
-		background-color: transparent;
+		background-color: var(--cui-bg-accent-pressed);
 		border-color: transparent;
 	}
 
-	.tertiary:disabled,
-	[disabled] {
-		color: var(--cui-fg-accent-disabled);
-		background-color: transparent;
-		border-color: transparent;
+	.tertiary:focus-visible {
+		background-color: var(--cui-bg-accent-hovered);
 	}
 
-	.tertiary--destructive {
-		background-color: transparent;
-		border-color: transparent;
+	.tertiary.destructive {
 		color: var(--cui-fg-danger);
-		padding-left: 0;
-		padding-right: 0;
 	}
 
-	.tertiary--destructive:hover {
+	.tertiary.destructive:hover {
 		color: var(--cui-fg-danger-hovered);
-		background-color: transparent;
-		border-color: transparent;
+		background-color: var(--cui-bg-danger-hovered);
 	}
 
-	.tertiary--destructive:active {
+	.tertiary.destructive:active {
 		color: var(--cui-fg-danger-pressed);
-		background-color: transparent;
-		border-color: transparent;
+		background-color: var(--cui-bg-danger-pressed);
 	}
 
-	.tertiary--destructive:disabled,
-	[disabled] {
-		color: var(--cui-fg-danger-disabled);
-		background-color: transparent;
-		border-color: transparent;
+	.tertiary.destructive:focus-visible {
+		background-color: var(--cui-bg-danger-hovered);
+	}
+
+	.tertiary .label {
+		position: relative;
+	}
+
+	.tertiary .label::after {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		width: 100%;
+		content: '';
+		border-top: var(--cui-border-width-kilo) dashed var(--cui-border-normal);
+		opacity: 1;
+		transition:
+			transform var(--cui-transitions-default),
+			opacity var(--cui-transitions-default);
+	}
+
+	.tertiary:focus-visible .label::after {
+		opacity: 0;
+		transform: translateY(2px);
+	}
+
+	.tertiary:hover .label::after,
+	.tertiary:active .label::after .tertiary[aria-busy='true'] .label::after,
+	.tertiary:disabled .label::after,
+	.tertiary[disabled] .label::after {
+		opacity: 0;
+		transform: translateY(2px);
 	}
 
 	.small {
