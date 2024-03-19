@@ -5,3 +5,5 @@
 .svelte-kit/
 
 *storybook.log
+
+storybook-static/

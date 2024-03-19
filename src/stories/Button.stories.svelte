@@ -12,6 +12,10 @@
 			slot: {
 				control: { type: 'text', defaultValue: 'Click me' }
 			},
+			size: {
+				control: { type: 'radio', defaultValue: 'm' },
+				options: ['s', 'm']
+			},
 		},
 		parameters: {
 			layout: 'centered'
@@ -30,7 +34,7 @@
 </script>
 
 <Story name="Base" let:args>
-	<Button {...args} on:click={handleClick}>{args.slot || 'Say Hello'}</Button>
+	<Button {...args} on:click={handleClick}>{args.slot || ''}</Button>
 </Story>
 
 <Story name="Variants">

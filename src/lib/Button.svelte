@@ -11,57 +11,57 @@
 	export let stretch = false;
 	export let disabled = false;
 	export let type: 'button' | 'reset' | 'submit' | null | undefined = 'button';
-	export let circle = false;
 	export let wrap = false;
 	export let isLoading = false;
+	export let loadingLabel = '';
 </script>
 
 <button
-	class:medium={size === 'm'}
-	class:small={size === 's'}
-	class:circle-medium={circle && size === 'm'}
-	class:circle-small={circle && size === 's'}
+	class="base focus-visible"
 	class:primary={variant === 'primary'}
-	class:primary--destructive={variant === 'primary'}
 	class:secondary={variant === 'secondary'}
-	class:secondary--destructive={variant === 'secondary'}
 	class:tertiary={variant === 'tertiary'}
-	class:tertiary--destructive={variant === 'tertiary'}
-	aria-busy={isLoading}
+	class:m={size === 'm'}
+	class:s={size === 's'}
 	class:destructive
 	class:stretch
-	{disabled}
+	disabled={disabled || isLoading}
+	aria-busy={isLoading}
+	aria-live={isLoading ? 'polite' : null}
 	on:click
 	{type}
 >
-	<slot name="descriptive-icon" />
-	<span
-		class="label content-wrapper"
-		class:w-desc-icon={$$slots['descriptive-icon']}
-		class:w-trai-icon={$$slots['trailing-icon']}
-		class:wrap
-	>
-		<slot />
+	<span class="loader" aria-hidden={!isLoading}>
+		<span class="dot" />
+		<span class="dot" />
+		<span class="dot" />
+		<span class="hide-visually">{loadingLabel}</span>
 	</span>
-	<slot name="trailing-icon" />
+	<span class="content">
+		<slot aria-hidden="true" name="leading-icon" class="leading-icon" />
+		<span class="label">
+			<slot />
+		</span>
+		<slot aria-hidden='true' name="trailing-icon" class="trailing-icon" />
+	</span>
 </button>
 
 <style>
-	button {
-		font-size: var(--cui-typography-body-one-font-size);
-		line-height: var(--cui-typography-body-one-line-height);
+	.base {
+		position: relative;
 		display: inline-flex;
-		justify-content: center;
 		align-items: center;
-		gap: var(--cui-content-gap);
-		width: fit-content;
-		height: fit-content;
-		cursor: pointer;
+		justify-content: center;
+		width: auto;
+		height: auto;
+		margin: 0;
+		font-size: var(--cui-typography-body-one-font-size);
+		font-weight: var(--cui-font-weight-bold);
 		text-align: center;
 		text-decoration: none;
-		font-weight: var(--cui-font-weight-bold);
-		border-width: var(--cui-border-width-kilo);
+		cursor: pointer;
 		border-style: solid;
+		border-width: var(--cui-border-width-kilo);
 		transition:
 			opacity var(--cui-transitions-default),
 			color var(--cui-transitions-default),
@@ -69,22 +69,131 @@
 			border-color var(--cui-transitions-default);
 	}
 
-	button:disabled,
-	[disabled] {
-		pointer-events: none;
+	.base[aria-busy='true'] {
+		position: relative;
+		overflow: hidden;
 	}
 
-	button:focus {
-		outline: 0;
-		box-shadow: inset 0 0 0 4px var(--cui-border-focus);
+	/* Loader */
+	.loader {
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: grid;
+		grid-auto-flow: column;
+		gap: var(--loader-gap);
+		place-content: center;
+		width: 100%;
+		height: 100%;
+		visibility: hidden;
+		opacity: 0;
+		transition:
+			opacity var(--cui-transitions-default),
+			visibility var(--cui-transitions-default);
 	}
 
-	button:focus::-moz-focus-inner {
-		border: 0;
+	/* The animation of the dots consists of five phases: an 80ms pause
+		 and four 160ms transitions between each dot being highlighted */
+
+	.dot {
+		--loader-opacity: 0.25;
+
+		display: block;
+		width: var(--loader-diameter);
+		height: var(--loader-diameter);
+		background-color: var(--cui-fg-normal);
+		border-radius: var(--cui-border-radius-circle);
+		animation-duration: 720ms; /* 80ms + 4 * 160ms */
+		animation-play-state: paused;
+		animation-timing-function: cubic-bezier(0.75, 0, 1, 1);
+		animation-iteration-count: infinite;
 	}
 
-	button:focus:not(:focus-visible) {
-		box-shadow: none;
+	@keyframes pulse1 {
+		0%,
+		11%,
+		55%,
+		100% {
+			opacity: var(--loader-opacity);
+			transform: scale(100%);
+		}
+
+		33% {
+			opacity: 1;
+			transform: var(--loader-transform);
+		}
+	}
+
+	.dot:nth-child(1) {
+		animation-name: pulse1;
+	}
+
+	@keyframes pulse2 {
+		0%,
+		33%,
+		77%,
+		100% {
+			opacity: var(--loader-opacity);
+			transform: scale(100%);
+		}
+
+		55% {
+			opacity: 1;
+			transform: var(--loader-transform);
+		}
+	}
+
+	.dot:nth-child(2) {
+		animation-name: pulse2;
+	}
+
+	@keyframes pulse3 {
+		0%,
+		55%,
+		100% {
+			opacity: var(--loader-opacity);
+			transform: scale(100%);
+		}
+
+		77% {
+			opacity: 1;
+			transform: var(--loader-transform);
+		}
+	}
+
+	.dot:nth-child(3) {
+		animation-name: pulse3;
+	}
+
+	.base[aria-busy='true'] .loader {
+		visibility: inherit;
+		opacity: 1;
+	}
+
+	.base[aria-busy='true'] .dot {
+		animation-play-state: running;
+	}
+
+	/* Content */
+	.content {
+		display: flex;
+		gap: var(--content-gap);
+		place-content: center;
+		align-items: center;
+		min-width: 24px;
+		min-height: 24px;
+		opacity: 1;
+		transition: opacity var(--cui-transitions-default);
+	}
+
+	.base:active .content,
+	.base[aria-expanded='true'] .content,
+	.base[aria-pressed='true'] .content {
+		transform: translate(0, 1px);
+	}
+
+	.base[aria-busy='true'] .content {
+		opacity: 0;
 	}
 
 	.label {
@@ -93,6 +202,48 @@
 		white-space: nowrap;
 	}
 
+	.leading-icon {
+		width: var(--leading-icon-size);
+		height: var(--leading-icon-size);
+	}
+
+	.trailing-icon {
+		width: var(--cui-icon-sizes-kilo);
+		height: var(--cui-icon-sizes-kilo);
+	}
+
+	/* Sizes */
+	.s {
+		--content-gap: var(--cui-spacings-bit);
+		--leading-icon-size: var(--cui-icon-sizes-kilo);
+		--loader-diameter: 4px;
+		--loader-gap: 3px;
+		--loader-transform: scale(150%);
+
+		font-size: var(--cui-typography-body-two-font-size);
+		line-height: var(--cui-typography-body-two-line-height);
+		border-radius: 10px;
+
+		padding: calc(var(--cui-spacings-bit) - var(--cui-border-width-kilo))
+			calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo));
+	}
+
+	.m {
+		--content-gap: var(--cui-spacings-byte);
+		--leading-icon-size: var(--cui-icon-sizes-mega);
+		--loader-diameter: 6px;
+		--loader-gap: 5px;
+		--loader-transform: scale(133%);
+
+		font-size: var(--cui-typography-body-one-font-size);
+		line-height: var(--cui-typography-body-one-line-height);
+		border-radius: var(--cui-border-radius-kilo);
+
+		padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo))
+			calc(var(--cui-spacings-giga) - var(--cui-border-width-kilo));
+	}
+
+	/* Variants */
 	.primary {
 		color: var(--cui-fg-on-strong);
 		background-color: var(--cui-bg-accent-strong);
@@ -105,7 +256,9 @@
 		border-color: transparent;
 	}
 
-	.primary:active {
+	.primary:active,
+	.primary[aria-expanded='true'],
+	.primary[aria-pressed='true'] {
 		color: var(--cui-fg-on-strong-pressed);
 		background-color: var(--cui-bg-accent-strong-pressed);
 		border-color: transparent;
@@ -119,7 +272,9 @@
 		background-color: var(--cui-bg-danger-strong-hovered);
 	}
 
-	.primary.destructive:active {
+	.primary.destructive:active,
+	.primary.destructive[aria-expanded='true'],
+	.primary.destructive[aria-pressed='true'] {
 		background-color: var(--cui-bg-danger-strong-pressed);
 	}
 
@@ -135,7 +290,9 @@
 		border-color: var(--cui-border-normal-hovered);
 	}
 
-	.secondary:active {
+	.secondary:active,
+	.secondary[aria-expanded='true'],
+	.secondary[aria-pressed='true'] {
 		color: var(--cui-fg-normal-pressed);
 		background-color: var(--cui-bg-normal-pressed);
 		border-color: var(--cui-border-normal-pressed);
@@ -151,7 +308,9 @@
 		border-color: var(--cui-border-danger-hovered);
 	}
 
-	.secondary.destructive:active {
+	.secondary.destructive:active,
+	.secondary.destructive[aria-expanded='true'],
+	.secondary.destructive[aria-pressed='true'] {
 		color: var(--cui-fg-danger-pressed);
 		background-color: var(--cui-bg-danger-pressed);
 		border-color: var(--cui-border-danger-pressed);
@@ -169,7 +328,9 @@
 		border-color: transparent;
 	}
 
-	.tertiary:active {
+	.tertiary:active,
+	.tertiary[aria-expanded='true'],
+	.tertiary[aria-pressed='true'] {
 		color: var(--cui-fg-accent-pressed);
 		background-color: var(--cui-bg-accent-pressed);
 		border-color: transparent;
@@ -188,7 +349,9 @@
 		background-color: var(--cui-bg-danger-hovered);
 	}
 
-	.tertiary.destructive:active {
+	.tertiary.destructive:active,
+	.tertiary.destructive[aria-expanded='true'],
+	.tertiary.destructive[aria-pressed='true'] {
 		color: var(--cui-fg-danger-pressed);
 		background-color: var(--cui-bg-danger-pressed);
 	}
@@ -220,61 +383,113 @@
 	}
 
 	.tertiary:hover .label::after,
-	.tertiary:active .label::after .tertiary[aria-busy='true'] .label::after,
+	.tertiary:active .label::after,
+	.tertiary[aria-expanded='true'] .label::after,
+	.tertiary[aria-pressed='true'] .label::after,
+	.tertiary[aria-busy='true'] .label::after,
 	.tertiary:disabled .label::after,
-	.tertiary[disabled] .label::after {
+	.tertiary[disabled] .label::after,
+	.tertiary[aria-disabled='true'] .label::after {
 		opacity: 0;
 		transform: translateY(2px);
 	}
 
-	.small {
-		padding: calc(var(--cui-spacings-bit) - var(--cui-border-width-kilo))
-			calc(var(--cui-spacings-mega) - var(--cui-border-width-kilo));
-		border-radius: var(--cui-border-radius-kilo);
-		--content-gap: var(--cui-spacings-bit);
+	/* ButtonGroup */
+	@container cui-button-group (width < 360px) {
+		.base {
+			width: 100%;
+		}
 	}
 
-	.medium {
-		padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo))
-			calc(var(--cui-spacings-giga) - var(--cui-border-width-kilo));
-		border-radius: var(--cui-border-radius-kilo);
-		--content-gap: var(--cui-spacings-byte);
+	@container cui-button-group (width > 370px) {
+		/* Keep in sync with the .secondary class above */
+		.tertiary {
+			color: var(--cui-fg-normal);
+			background-color: var(--cui-bg-normal);
+			border-color: var(--cui-border-normal);
+		}
+
+		.tertiary:hover {
+			color: var(--cui-fg-normal-hovered);
+			background-color: var(--cui-bg-normal-hovered);
+			border-color: var(--cui-border-normal-hovered);
+		}
+
+		.tertiary:active,
+		.tertiary[aria-expanded='true'],
+		.tertiary[aria-pressed='true'] {
+			color: var(--cui-fg-normal-pressed);
+			background-color: var(--cui-bg-normal-pressed);
+			border-color: var(--cui-border-normal-pressed);
+		}
+
+		.tertiary.destructive {
+			color: var(--cui-fg-danger);
+		}
+
+		.tertiary.destructive:hover {
+			color: var(--cui-fg-danger-hovered);
+			background-color: var(--cui-bg-danger-hovered);
+			border-color: var(--cui-border-danger-hovered);
+		}
+
+		.tertiary.destructive:active,
+		.tertiary.destructive[aria-expanded='true'],
+		.tertiary.destructive[aria-pressed='true'] {
+			color: var(--cui-fg-danger-pressed);
+			background-color: var(--cui-bg-danger-pressed);
+			border-color: var(--cui-border-danger-pressed);
+		}
+
+		.tertiary .label::after {
+			display: none;
+		}
 	}
 
-	.stretch {
+	/* Disabled */
+	.base:disabled,
+	.base[disabled],
+	.base[aria-disabled='true'] {
+		color: var(--cui-fg-normal-disabled);
+		cursor: not-allowed;
+		background-color: var(--cui-bg-highlight-disabled);
+		border-color: transparent;
+	}
+
+	.base:disabled .content,
+	.base[disabled] .content,
+	.base[aria-disabled='true'] .content {
+		transform: translate(0);
+	}
+
+	.stretch.stretch {
 		width: 100%;
 	}
 
-	.content-wrapper {
-		display: inline-flex;
+	.focus-visible:focus {
+		outline: 0;
+		box-shadow:
+			0 0 0 2px var(--cui-bg-normal),
+			0 0 0 4px var(--cui-border-focus);
+	}
+
+	.focus-visible:focus::-moz-focus-inner {
+		border: 0;
+	}
+
+	.focus-visible:focus:not(:focus-visible) {
+		box-shadow: none;
+	}
+
+	.hide-visually {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
 		white-space: nowrap;
-		align-items: center;
-		opacity: 1;
-		visibility: inherit;
-		transform: scale3d(1, 1, 1);
-		transition:
-			opacity var(--cui-transitions-default),
-			transform var(--cui-transitions-default),
-			visibility var(--cui-transitions-default);
-	}
-
-	.circle-small {
-		padding: calc(var(--cui-spacings-byte) - var(--cui-border-width-kilo));
-	}
-
-	.circle-medium {
-		padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo));
-	}
-
-	.wrap {
-		white-space: normal;
-	}
-
-	.w-desc-icon {
-		margin-left: var(--cui-spacings-byte);
-	}
-
-	.w-trai-icon {
-		margin-right: var(--cui-spacings-byte);
+		border: 0;
 	}
 </style>
