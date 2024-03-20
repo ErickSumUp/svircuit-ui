@@ -4,7 +4,7 @@
   - Javascript framework
 - Vite
   - Run and build tool
-- Histoire
+- Storybook
   - Story libraries to explore components
 - Vitest
   - Test library for Vite
@@ -13,10 +13,10 @@
 
     pnpm install
 
-# How to run histoire (interface to explore components)
+# How to run Storybook (interface to explore components)
 
-    pnpm run story:dev
+    pnpm run storybook
 
-# You can then (probably) see the components in
+# You can then see the components in
 
     http://localhost:6006
