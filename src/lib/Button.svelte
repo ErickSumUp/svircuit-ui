@@ -1,57 +1,89 @@
 <script lang="ts">
-	export let variant: 'primary' | 'secondary' | 'tertiary' = 'primary';
-	export let size: 'kilo' | 'giga' = 'giga';
+	/**
+	 * Choose from 3 style variants. Default: 'secondary'.
+	 */
+	export let variant: 'primary' | 'secondary' | 'tertiary' = 'secondary';
+	/**
+	 * Choose from 2 sizes. Default: 'm'.
+	 */
+	export let size: 's' | 'm' = 'm';
+	/**
+	 * Change the color from accent to danger to signal to the user that the action
+	 * is irreversible or otherwise dangerous.
+	 */
 	export let destructive = false;
+	/**
+	 * Stretch the button across the full width of its parent.
+	 */
 	export let stretch = false;
+	/**
+	 * Visually and functionally disable the button.
+	 */
 	export let disabled = false;
+	/**
+	 * Change the button type. Default: 'button'.
+	 */
 	export let type: 'button' | 'reset' | 'submit' | null | undefined = 'button';
-	export let circle = false;
-	export let wrap = false;
+	/**
+	 * Visually disables the button and shows a loading spinner.
+	 */
+	export let isLoading = false;
+	/**
+	 * Visually hidden label to communicate the loading state to visually
+	 * impaired users.
+	 */
+	export let loadingLabel = 'Loading';
 </script>
 
 <button
-	class:giga={size === 'giga'}
-	class:kilo={size === 'kilo'}
-	class:primary={variant === 'primary' && !destructive}
-	class:primary--destructive={variant === 'primary' && destructive}
-	class:secondary={variant === 'secondary' && !destructive}
-	class:secondary--destructive={variant === 'secondary' && destructive}
+	class="base focus-visible"
+	class:primary={variant === 'primary'}
+	class:secondary={variant === 'secondary'}
+	class:tertiary={variant === 'tertiary'}
+	class:m={size === 'm'}
+	class:s={size === 's'}
+	class:destructive
 	class:stretch
-	class:tertiary={variant === 'tertiary' && !destructive}
-	class:tertiary--destructive={variant === 'tertiary' && destructive}
-	class:circle-giga={circle && size === 'giga'}
-	class:circle-kilo={circle && size === 'kilo'}
-	{disabled}
+	disabled={disabled || isLoading}
+	aria-disabled={disabled}
+	aria-busy={isLoading}
+	aria-live={isLoading ? 'polite' : null}
 	on:click
 	{type}
 >
-	<slot name="descriptive-icon" />
-	<span
-		class="content-wrapper"
-		class:w-desc-icon={$$slots['descriptive-icon']}
-		class:w-trai-icon={$$slots['trailing-icon']}
-		class:wrap
-	>
-		<slot />
+	{#if isLoading}
+		<span class="loader" aria-hidden={!isLoading}>
+			<span class="dot" />
+			<span class="dot" />
+			<span class="dot" />
+			<span class="hide-visually">{loadingLabel}</span>
+		</span>
+	{/if}
+	<span class="content">
+		<slot aria-hidden="true" name="leading-icon" class="leading-icon" />
+		<span class="label">
+			<slot />
+		</span>
+		<slot aria-hidden="true" name="trailing-icon" class="trailing-icon" />
 	</span>
-	<slot name="trailing-icon" />
 </button>
 
 <style>
-	button {
-		font-size: var(--cui-typography-body-one-font-size);
-		line-height: var(--cui-typography-body-one-line-height);
+	.base {
+		position: relative;
 		display: inline-flex;
+		align-items: center;
 		justify-content: center;
-		width: fit-content;
-		height: fit-content;
-		cursor: pointer;
+		width: auto;
+		height: auto;
+		margin: 0;
+		font-size: var(--cui-typography-body-one-font-size);
+		font-weight: var(--cui-font-weight-bold);
 		text-align: center;
 		text-decoration: none;
-		font-weight: var(--cui-font-weight-bold);
-		border-width: var(--cui-border-width-kilo);
+		cursor: pointer;
 		border-style: solid;
-		border-radius: var(--cui-border-radius-pill);
+		border-width: var(--cui-border-width-kilo);
 		transition:
 			opacity var(--cui-transitions-default),
 			color var(--cui-transitions-default),
@@ -59,224 +91,411 @@
 			border-color var(--cui-transitions-default);
 	}
 
-	button:disabled,
-	[disabled] {
-		pointer-events: none;
+	.base[aria-busy='true'] {
+		position: relative;
+		overflow: hidden;
 	}
 
-	button:focus {
-		outline: 0;
-		box-shadow: inset 0 0 0 4px var(--cui-border-focus);
+	/* Loader */
+	.loader {
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: grid;
+		grid-auto-flow: column;
+		gap: var(--loader-gap);
+		place-content: center;
+		width: 100%;
+		height: 100%;
+		visibility: hidden;
+		opacity: 0;
+		transition:
+			opacity var(--cui-transitions-default),
+			visibility var(--cui-transitions-default);
 	}
 
-	button:focus::-moz-focus-inner {
-		border: 0;
+	/* The animation of the dots consists of five phases: an 80ms pause
+		 and four 160ms transitions between each dot being highlighted */
+
+	.dot {
+		--loader-opacity: 0.25;
+
+		display: block;
+		width: var(--loader-diameter);
+		height: var(--loader-diameter);
+		background-color: var(--cui-fg-normal);
+		border-radius: var(--cui-border-radius-circle);
+		animation-duration: 720ms; /* 80ms + 4 * 160ms */
+		animation-play-state: paused;
+		animation-timing-function: cubic-bezier(0.75, 0, 1, 1);
+		animation-iteration-count: infinite;
 	}
 
-	button:focus:not(:focus-visible) {
-		box-shadow: none;
+	@keyframes pulse1 {
+		0%,
+		11%,
+		55%,
+		100% {
+			opacity: var(--loader-opacity);
+			transform: scale(100%);
+		}
+
+		33% {
+			opacity: 1;
+			transform: var(--loader-transform);
+		}
 	}
 
+	.dot:nth-child(1) {
+		animation-name: pulse1;
+	}
+
+	@keyframes pulse2 {
+		0%,
+		33%,
+		77%,
+		100% {
+			opacity: var(--loader-opacity);
+			transform: scale(100%);
+		}
+
+		55% {
+			opacity: 1;
+			transform: var(--loader-transform);
+		}
+	}
+
+	.dot:nth-child(2) {
+		animation-name: pulse2;
+	}
+
+	@keyframes pulse3 {
+		0%,
+		55%,
+		100% {
+			opacity: var(--loader-opacity);
+			transform: scale(100%);
+		}
+
+		77% {
+			opacity: 1;
+			transform: var(--loader-transform);
+		}
+	}
+
+	.dot:nth-child(3) {
+		animation-name: pulse3;
+	}
+
+	.base[aria-busy='true'] .loader {
+		visibility: inherit;
+		opacity: 1;
+	}
+
+	.base[aria-busy='true'] .dot {
+		animation-play-state: running;
+	}
+
+	/* Content */
+	.content {
+		display: flex;
+		gap: var(--content-gap);
+		place-content: center;
+		align-items: center;
+		min-width: 24px;
+		min-height: 24px;
+		opacity: 1;
+		transition: opacity var(--cui-transitions-default);
+	}
+
+	.base:active .content {
+		transform: translate(0, 1px);
+	}
+
+	.base[aria-busy='true'] .content {
+		opacity: 0;
+	}
+
+	.label {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.leading-icon {
+		width: var(--leading-icon-size);
+		height: var(--leading-icon-size);
+	}
+
+	.trailing-icon {
+		width: var(--cui-icon-sizes-kilo);
+		height: var(--cui-icon-sizes-kilo);
+	}
+
+	/* Sizes */
+	.s {
+		--content-gap: var(--cui-spacings-bit);
+		--leading-icon-size: var(--cui-icon-sizes-kilo);
+		--loader-diameter: 4px;
+		--loader-gap: 3px;
+		--loader-transform: scale(150%);
+
+		font-size: var(--cui-typography-body-two-font-size);
+		line-height: var(--cui-typography-body-two-line-height);
+		border-radius: 10px;
+
+		padding: calc(var(--cui-spacings-bit) - var(--cui-border-width-kilo))
+			calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo));
+	}
+
+	.m {
+		--content-gap: var(--cui-spacings-byte);
+		--leading-icon-size: var(--cui-icon-sizes-mega);
+		--loader-diameter: 6px;
+		--loader-gap: 5px;
+		--loader-transform: scale(133%);
+
+		font-size: var(--cui-typography-body-one-font-size);
+		line-height: var(--cui-typography-body-one-line-height);
+		border-radius: var(--cui-border-radius-kilo);
+
+		padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo))
+			calc(var(--cui-spacings-giga) - var(--cui-border-width-kilo));
+	}
+
+	/* Variants */
 	.primary {
+		color: var(--cui-fg-on-strong);
 		background-color: var(--cui-bg-accent-strong);
 		border-color: transparent;
-		color: var(--cui-fg-on-strong);
 	}
 
 	.primary:hover {
+		color: var(--cui-fg-on-strong-hovered);
 		background-color: var(--cui-bg-accent-strong-hovered);
 		border-color: transparent;
-		color: var(--cui-fg-on-strong-hovered);
 	}
 
 	.primary:active {
+		color: var(--cui-fg-on-strong-pressed);
 		background-color: var(--cui-bg-accent-strong-pressed);
 		border-color: transparent;
-		color: var(--cui-fg-on-strong-pressed);
 	}
 
-	.primary:disabled,
-	[disabled] {
-		background-color: var(--cui-bg-accent-strong-disabled);
-		border-color: transparent;
-		color: var(--cui-fg-on-strong-disabled);
-	}
-
-	.primary--destructive {
+	.primary.destructive {
 		background-color: var(--cui-bg-danger-strong);
-		border-color: transparent;
-		color: var(--cui-fg-on-strong);
 	}
 
-	.primary--destructive:hover {
+	.primary.destructive:hover {
 		background-color: var(--cui-bg-danger-strong-hovered);
-		border-color: transparent;
-		color: var(--cui-fg-on-strong-hovered);
 	}
 
-	.primary--destructive:active {
+	.primary.destructive:active {
 		background-color: var(--cui-bg-danger-strong-pressed);
-		border-color: transparent;
-		color: var(--cui-fg-on-strong-pressed);
-	}
-
-	.primary--destructive:disabled,
-	[disabled] {
-		background-color: var(--cui-bg-danger-strong-disabled);
-		border-color: transparent;
-		color: var(--cui-fg-on-strong-disabled);
 	}
 
 	.secondary {
+		color: var(--cui-fg-normal);
 		background-color: var(--cui-bg-normal);
 		border-color: var(--cui-border-normal);
-		color: var(--cui-fg-normal);
 	}
 
 	.secondary:hover {
+		color: var(--cui-fg-normal-hovered);
 		background-color: var(--cui-bg-normal-hovered);
 		border-color: var(--cui-border-normal-hovered);
-		color: var(--cui-fg-normal-hovered);
 	}
 
 	.secondary:active {
+		color: var(--cui-fg-normal-pressed);
 		background-color: var(--cui-bg-normal-pressed);
 		border-color: var(--cui-border-normal-pressed);
-		color: var(--cui-fg-normal-pressed);
 	}
 
-	.secondary:disabled,
-	[disabled] {
-		background-color: var(--cui-bg-normal-disabled);
-		border-color: var(--cui-border-normal-disabled);
-		color: var(--cui-fg-normal-disabled);
-	}
-
-	.secondary--destructive {
-		background-color: var(--cui-bg-normal);
-		border-color: var(--cui-border-danger);
+	.secondary.destructive {
 		color: var(--cui-fg-danger);
 	}
 
-	.secondary--destructive:hover {
-		background-color: var(--cui-bg-normal-hovered);
-		border-color: var(--cui-border-danger-hovered);
+	.secondary.destructive:hover {
 		color: var(--cui-fg-danger-hovered);
+		background-color: var(--cui-bg-danger-hovered);
+		border-color: var(--cui-border-danger-hovered);
 	}
 
-	.secondary--destructive:active {
-		background-color: var(--cui-bg-normal-pressed);
-		border-color: var(--cui-border-danger-pressed);
+	.secondary.destructive:active {
 		color: var(--cui-fg-danger-pressed);
-	}
-
-	.secondary--destructive:disabled,
-	[disabled] {
-		background-color: var(--cui-bg-normal-disabled);
-		border-color: var(--cui-border-danger-disabled);
-		color: var(--cui-fg-danger-disabled);
+		background-color: var(--cui-bg-danger-pressed);
+		border-color: var(--cui-border-danger-pressed);
 	}
 
 	.tertiary {
+		color: var(--cui-fg-accent);
 		background-color: transparent;
 		border-color: transparent;
-		color: var(--cui-fg-accent);
-		padding-left: 0;
-		padding-right: 0;
 	}
 
 	.tertiary:hover {
 		color: var(--cui-fg-accent-hovered);
-		background-color: transparent;
+		background-color: var(--cui-bg-accent-hovered);
 		border-color: transparent;
 	}
 
 	.tertiary:active {
 		color: var(--cui-fg-accent-pressed);
-		background-color: transparent;
+		background-color: var(--cui-bg-accent-pressed);
 		border-color: transparent;
 	}
 
-	.tertiary:disabled,
-	[disabled] {
-		color: var(--cui-fg-accent-disabled);
-		background-color: transparent;
-		border-color: transparent;
+	.tertiary:focus-visible {
+		background-color: var(--cui-bg-accent-hovered);
 	}
 
-	.tertiary--destructive {
-		background-color: transparent;
-		border-color: transparent;
+	.tertiary.destructive {
 		color: var(--cui-fg-danger);
-		padding-left: 0;
-		padding-right: 0;
 	}
 
-	.tertiary--destructive:hover {
+	.tertiary.destructive:hover {
 		color: var(--cui-fg-danger-hovered);
-		background-color: transparent;
-		border-color: transparent;
+		background-color: var(--cui-bg-danger-hovered);
 	}
 
-	.tertiary--destructive:active {
+	.tertiary.destructive:active {
 		color: var(--cui-fg-danger-pressed);
-		background-color: transparent;
+		background-color: var(--cui-bg-danger-pressed);
+	}
+
+	.tertiary.destructive:focus-visible {
+		background-color: var(--cui-bg-danger-hovered);
+	}
+
+	.tertiary .label {
+		position: relative;
+	}
+
+	.tertiary .label::after {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		width: 100%;
+		content: '';
+		border-top: var(--cui-border-width-kilo) dashed var(--cui-border-normal);
+		opacity: 1;
+		transition:
+			transform var(--cui-transitions-default),
+			opacity var(--cui-transitions-default);
+	}
+
+	.tertiary:focus-visible .label::after {
+		opacity: 0;
+		transform: translateY(2px);
+	}
+
+	.tertiary:hover .label::after,
+	.tertiary:active .label::after,
+	.tertiary[aria-busy='true'] .label::after,
+	.tertiary:disabled .label::after,
+	.tertiary[disabled] .label::after,
+	.tertiary[aria-disabled='true'] .label::after {
+		opacity: 0;
+		transform: translateY(2px);
+	}
+
+	/* ButtonGroup */
+	@container cui-button-group (width < 360px) {
+		.base {
+			width: 100%;
+		}
+	}
+
+	@container cui-button-group (width > 370px) {
+		/* Keep in sync with the .secondary class above */
+		.tertiary {
+			color: var(--cui-fg-normal);
+			background-color: var(--cui-bg-normal);
+			border-color: var(--cui-border-normal);
+		}
+
+		.tertiary:hover {
+			color: var(--cui-fg-normal-hovered);
+			background-color: var(--cui-bg-normal-hovered);
+			border-color: var(--cui-border-normal-hovered);
+		}
+
+		.tertiary:active,
+		.tertiary[aria-expanded='true'],
+		.tertiary[aria-pressed='true'] {
+			color: var(--cui-fg-normal-pressed);
+			background-color: var(--cui-bg-normal-pressed);
+			border-color: var(--cui-border-normal-pressed);
+		}
+
+		.tertiary.destructive {
+			color: var(--cui-fg-danger);
+		}
+
+		.tertiary.destructive:hover {
+			color: var(--cui-fg-danger-hovered);
+			background-color: var(--cui-bg-danger-hovered);
+			border-color: var(--cui-border-danger-hovered);
+		}
+
+		.tertiary.destructive:active,
+		.tertiary.destructive[aria-expanded='true'],
+		.tertiary.destructive[aria-pressed='true'] {
+			color: var(--cui-fg-danger-pressed);
+			background-color: var(--cui-bg-danger-pressed);
+			border-color: var(--cui-border-danger-pressed);
+		}
+
+		.tertiary .label::after {
+			display: none;
+		}
+	}
+
+	/* Disabled */
+	.base:disabled,
+	.base[disabled],
+	.base[aria-disabled='true'] {
+		color: var(--cui-fg-normal-disabled);
+		cursor: not-allowed;
+		background-color: var(--cui-bg-highlight-disabled);
 		border-color: transparent;
 	}
 
-	.tertiary--destructive:disabled,
-	[disabled] {
-		color: var(--cui-fg-danger-disabled);
-		background-color: transparent;
-		border-color: transparent;
-	}
-
-	.kilo {
-		padding: calc(var(--cui-spacings-bit) - var(--cui-border-width-kilo))
-			calc(var(--cui-spacings-mega) - var(--cui-border-width-kilo));
-		border-radius: var(--cui-border-radius-kilo);
-	}
-
-	.giga {
-		padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo))
-			calc(var(--cui-spacings-giga) - var(--cui-border-width-kilo));
-		border-radius: var(--cui-border-radius-kilo);
+	.base:disabled .content,
+	.base[disabled] .content,
+	.base[aria-disabled='true'] .content {
+		transform: translate(0);
 	}
 
 	.stretch {
 		width: 100%;
 	}
 
-	.content-wrapper {
-		display: inline-flex;
+	.focus-visible:focus {
+		outline: 0;
+		box-shadow:
+			0 0 0 2px var(--cui-bg-normal),
+			0 0 0 4px var(--cui-border-focus);
+	}
+
+	.focus-visible:focus::-moz-focus-inner {
+		border: 0;
+	}
+
+	.focus-visible:focus:not(:focus-visible) {
+		box-shadow: none;
+	}
+
+	.hide-visually {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
 		white-space: nowrap;
-		align-items: center;
-		opacity: 1;
-		visibility: inherit;
-		transform: scale3d(1, 1, 1);
-		transition:
-			opacity var(--cui-transitions-default),
-			transform var(--cui-transitions-default),
-			visibility var(--cui-transitions-default);
-	}
-
-	.circle-kilo {
-		padding: calc(var(--cui-spacings-byte) - var(--cui-border-width-kilo));
-	}
-
-	.circle-giga {
-		padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo));
-	}
-
-	.wrap {
-		white-space: normal;
-	}
-
-	.w-desc-icon {
-		margin-left: var(--cui-spacings-byte);
-	}
-
-	.w-trai-icon {
-		margin-right: var(--cui-spacings-byte);
+		border: 0;
 	}
 </style>
