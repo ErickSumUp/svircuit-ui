@@ -64,7 +64,6 @@
 	</div>
 </Story>
 
-<!-- Dynamic snippet should be disabled for this story -->
 <Story name="ButtonGroup">
 	<Button>Go elsewhere</Button>
 	<Button variant="primary">Look again</Button>
