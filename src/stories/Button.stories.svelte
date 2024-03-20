@@ -9,9 +9,6 @@
 				control: { type: 'radio', defaultValue: 'secondary' },
 				options: ['primary', 'secondary', 'tertiary']
 			},
-			slot: {
-				control: { type: 'text', defaultValue: 'Click me' }
-			},
 			size: {
 				control: { type: 'radio', defaultValue: 'm' },
 				options: ['s', 'm']
@@ -25,7 +22,6 @@
 
 <script lang="ts">
 	import { Story } from '@storybook/addon-svelte-csf';
-	import Plus from '$lib/icons/Plus.svelte';
 	import ArrowSlanted from '$lib/icons/ArrowSlanted.svelte';
 	import Placeholder from '$lib/icons/Placeholder.svelte';
 

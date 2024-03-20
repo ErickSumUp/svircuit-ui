@@ -5,7 +5,7 @@
 - Vite
   - Run and build tool
 - Storybook
-  - Story libraries to explore components
+  - Story library to explore components
 - Vitest
   - Test library for Vite
 
