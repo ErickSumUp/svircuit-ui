@@ -60,7 +60,7 @@
 	<Button
 		disabled={currentPage === 1}
 		variant="tertiary"
-		size="kilo"
+		size="s"
 		--cui-spacing-bit="12px"
 		--cui-spacing-mega="12px"
 		on:click={() => (currentPage -= 1)}
@@ -85,7 +85,7 @@
 	<Button
 		disabled={currentPage === totalPages}
 		variant="tertiary"
-		size="kilo"
+		size="s"
 		--cui-spacing-bit="12px"
 		--cui-spacing-mega="12px"
 		on:click={() => (currentPage += 1)}

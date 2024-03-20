@@ -8,7 +8,7 @@
 
 	let text = 'Download';
 	let variant: 'primary' | 'secondary' | 'tertiary' = 'primary';
-	let size: 'kilo' | 'giga' = 'giga';
+	let size: 's' | 'm' = 'm';
 	let disabled = false;
 	let destructive = false;
 	let stretch = false;
@@ -26,7 +26,7 @@
 			{disabled}
 			{destructive}
 		>
-			<DownloadCloud slot="descriptive-icon" />
+			<DownloadCloud slot="leading-icon" />
 			{text}
 		</Button>
 	</Hst.Variant>
@@ -44,11 +44,11 @@
 		<Button variant="tertiary" destructive>Tertiary</Button>
 	</Hst.Variant>
 	<Hst.Variant title="Sizes">
-		<Button size="kilo" variant="secondary">Kilo</Button>
-		<Button size="giga" variant="secondary">Giga</Button>
+		<Button size="s" variant="secondary">Kilo</Button>
+		<Button size="m" variant="secondary">Giga</Button>
 	</Hst.Variant>
 	<Hst.Variant title="Circle button with icon">
-		<Button circle={true} size="giga" variant="secondary">
+		<Button size="m" variant="secondary">
 			<Plus size="24" />
 		</Button>
 	</Hst.Variant>

@@ -60,11 +60,11 @@
 		</span>
 	{/if}
 	<span class="content">
-		<slot aria-hidden="true" name="leading-icon" class="leading-icon" />
+		<slot name="leading-icon" class="leading-icon" />
 		<span class="label">
 			<slot />
 		</span>
-		<slot aria-hidden="true" name="trailing-icon" class="trailing-icon" />
+		<slot name="trailing-icon" class="trailing-icon" />
 	</span>
 </button>
 
