@@ -1,69 +1,176 @@
-<script lang="ts">
-	export let variant: 'primary' | 'secondary' = 'primary';
-	export let size: 'byte' | 'kilo' | 'mega' = 'kilo';
-	export let max: number;
-	export let value: number;
-
-	let width: number;
-
-	$: {
-		width = value && max ? (value / max) * 100 : 0;
+<script context="module">
+	function getWidth(value = 0, max = 1) {
+		const width = value && max ? ((value / max) * 100).toFixed(2) : 0;
+		return `${width}%`;
 	}
 </script>
 
-<div
-	class="container"
-	class:byte={size === 'byte'}
-	class:kilo={size === 'kilo'}
-	class:mega={size === 'mega'}
->
-	<div
-		class="progress-bar"
-		class:primary={variant === 'primary'}
-		class:secondary={variant === 'secondary'}
-		class:byte={size === 'byte'}
-		class:kilo={size === 'kilo'}
-		class:mega={size === 'mega'}
-		style="width: {width}%"
-	/>
+<script lang="ts">
+	export let id: string = 'progress-bar';
+	/**
+	 * Choose from 3 sizes. Default: 'm'.
+	 */
+	export let size: 's' | 'm' | 'l' = 'm';
+	/**
+	 * A number greater than zero, indicating how much work the task requires.
+	 */
+	export let max: number = 0;
+	/**
+	 * A number between 0 and max, indicating how much of the task has been
+	 * completed.
+	 */
+	export let value: number = 0;
+	/**
+	 * Whether the progress animation should loop indefinitely.
+	 */
+	export let loop = false;
+	/**
+	 * The time it takes the progress bar to fill up in milliseconds.
+	 */
+	export let duration = 3000;
+	/**
+	 * Whether the animation should the paused.
+	 */
+	export let paused = false;
+	/**
+	 * A descriptive label that is used by screen readers.
+	 */
+	export let label = '';
+	/**
+	 * Visually hide the label. This should only be used in rare cases and only
+	 * if the purpose of the field can be inferred from other context.
+	 */
+	export let hideLabel = false;
+</script>
+
+<div class="wrapper">
+	{#if max || value}
+		<span
+			role="progressbar"
+			class="base {size}"
+			aria-valuenow={value}
+			aria-valuemin={0}
+			aria-valuemax={max}
+			aria-labelledby={id}
+			style="--pagination-width: {getWidth(value, max)};"
+		/>
+	{:else}
+		<span
+			role="progressbar"
+			aria-labelledby={id}
+			class="base {size}"
+			data-loop={loop}
+			style="--pagination-animation-duration: {duration}ms; --pagination-animation-play-state: {paused
+				? 'paused'
+				: 'running'};"
+		/>
+	{/if}
+	<span {id} class="label" class:hide-visually={hideLabel}>{label}</span>
 </div>
 
 <style>
-	.container {
+	.wrapper {
+		display: flex;
+		align-items: center;
+		width: 100%;
+	}
+
+	.base {
+		position: relative;
+		width: 100%;
+		overflow: hidden;
 		background-color: var(--cui-bg-highlight);
 		border-radius: var(--cui-border-radius-pill);
-		width: 100%;
-		height: 16px;
 	}
-	.progress-bar {
-		border-radius: var(--cui-border-radius-pill);
-		overflow: hidden;
-		content: '';
-		display: block;
+
+	.base::after {
+		position: absolute;
 		top: 0;
 		bottom: 0;
 		left: 0;
+		display: block;
+		width: 1px;
+		height: 100%;
+		content: '';
+		background-color: var(--cui-bg-accent-strong);
 		transition: width 0.05s ease-out;
-		height: 16px;
-		animation-name: loop;
+	}
+
+	/* Task */
+	.base[aria-valuenow]::after {
+		width: var(--pagination-width);
+	}
+
+	/* Timed */
+	@keyframes one {
+		0% {
+			width: 0;
+		}
+
+		100% {
+			width: 100%;
+		}
+	}
+
+	@keyframes loop {
+		0% {
+			width: 0;
+			transform: translateX(0%);
+		}
+
+		90% {
+			width: 100%;
+			transform: translateX(0%);
+		}
+
+		100% {
+			width: 100%;
+			transform: translateX(100%);
+		}
+	}
+
+	.base:not([aria-valuenow])::after {
+		border-radius: var(--cui-border-radius-pill);
+		animation-name: one;
+		animation-duration: var(--pagination-animation-duration);
+		animation-play-state: var(--pagination-animation-play-state);
 		animation-fill-mode: forwards;
-		animation-play-state: running;
-		animation-duration: 3000ms;
+	}
+
+	.base:not([aria-valuenow])[data-loop]::after {
+		animation-name: loop;
 		animation-iteration-count: infinite;
 	}
-	.primary {
-		background-color: var(--cui-bg-accent-strong);
-	}
-	.secondary {
-		background-color: var(--cui-bg-strong);
-	}
-	.byte {
+
+	/* Sizes */
+	.s {
 		height: var(--cui-spacings-bit);
 	}
-	.kilo {
+
+	.m {
 		height: var(--cui-spacings-byte);
 	}
-	.mega {
+
+	.l {
 		height: var(--cui-spacings-mega);
+	}
+
+	.label {
+		flex-shrink: 0;
+		margin-left: var(--cui-spacings-byte);
+		font-size: var(--cui-typography-body-two-font-size);
+		line-height: var(--cui-typography-body-two-line-height);
+	}
+
+	.hide-visually {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+		border: 0;
 	}
 </style>
