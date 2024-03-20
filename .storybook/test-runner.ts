@@ -13,10 +13,10 @@ const config: TestRunnerConfig = {
 		await checkA11y(page, '#storybook-root', {
 			detailedReport: true,
 			detailedReportOptions: {
-				html: true,
-			},
+				html: true
+			}
 		});
-	},
+	}
 };
 
 export default config;

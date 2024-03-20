@@ -1,20 +1,9 @@
-/// <reference types="histoire" />
-import { defineConfig } from 'vite';
 import { sveltekit } from '@sveltejs/kit/vite';
-import { HstSvelte } from '@histoire/plugin-svelte';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
 	plugins: [sveltekit()],
-	histoire: {
-		plugins: [HstSvelte()],
-		setupFile: './src/histoire.setup.ts',
-		tree: {
-			groups: [
-				{
-					id: 'top',
-					title: ''
-				}
-			]
-		}
+	test: {
+		include: ['src/**/*.{test,spec}.{js,ts}']
 	}
 });

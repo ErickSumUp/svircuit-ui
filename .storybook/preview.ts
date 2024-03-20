@@ -11,7 +11,7 @@ const preview: Preview = {
 				headingSelector: 'h2, h3'
 			},
 			theme: themes.light
-		},
+		}
 	}
 };
 
