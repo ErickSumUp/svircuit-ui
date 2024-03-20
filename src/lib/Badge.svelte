@@ -2,7 +2,7 @@
 	/**
 	 * Choose from 4 style variants. Default: 'neutral'
 	 */
-	export let variant: 'neutral' | 'success' | 'warning' | 'danger' | 'promo' = 'success';
+	export let variant: 'neutral' | 'success' | 'warning' | 'danger' | 'promo' = 'neutral';
 	/**
 	 * Use the circular badge to indicate a count of items related to an element.
 	 */
