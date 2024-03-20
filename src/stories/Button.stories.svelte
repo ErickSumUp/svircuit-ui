@@ -27,6 +27,7 @@
 	import { Story } from '@storybook/addon-svelte-csf';
 	import Plus from '$lib/icons/Plus.svelte';
 	import ArrowSlanted from '$lib/icons/ArrowSlanted.svelte';
+	import Placeholder from '$lib/icons/Placeholder.svelte';
 
 	function handleClick() {
 		alert('Hello!');
@@ -56,8 +57,8 @@
 
 <Story name="WithIcons">
 	<div style="display: flex; gap: 1rem;">
-		<Button size="m">
-			<Plus size="24" slot="descriptive-icon" />
+		<Button>
+			<Placeholder slot="leading-icon" />
 			Add to cart
 		</Button>
 		<Button size="m">
