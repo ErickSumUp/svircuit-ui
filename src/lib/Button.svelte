@@ -7,13 +7,32 @@
 	 * Choose from 2 sizes. Default: 'm'.
 	 */
 	export let size: 's' | 'm' = 'm';
+	/**
+	 * Change the color from accent to danger to signal to the user that the action
+	 * is irreversible or otherwise dangerous.
+	 */
 	export let destructive = false;
+	/**
+	 * Stretch the button across the full width of its parent.
+	 */
 	export let stretch = false;
+	/**
+	 * Visually and functionally disable the button.
+	 */
 	export let disabled = false;
+	/**
+	 * Change the button type. Default: 'button'.
+	 */
 	export let type: 'button' | 'reset' | 'submit' | null | undefined = 'button';
-	export let wrap = false;
+	/**
+	 * Visually disables the button and shows a loading spinner.
+	 */
 	export let isLoading = false;
-	export let loadingLabel = '';
+	/**
+	 * Visually hidden label to communicate the loading state to visually
+	 * impaired users.
+	 */
+	export let loadingLabel = 'Loading';
 </script>
 
 <button
@@ -26,23 +45,26 @@
 	class:destructive
 	class:stretch
 	disabled={disabled || isLoading}
+	aria-disabled={disabled}
 	aria-busy={isLoading}
 	aria-live={isLoading ? 'polite' : null}
 	on:click
 	{type}
 >
-	<span class="loader" aria-hidden={!isLoading}>
-		<span class="dot" />
-		<span class="dot" />
-		<span class="dot" />
-		<span class="hide-visually">{loadingLabel}</span>
-	</span>
+	{#if isLoading}
+		<span class="loader" aria-hidden={!isLoading}>
+			<span class="dot" />
+			<span class="dot" />
+			<span class="dot" />
+			<span class="hide-visually">{loadingLabel}</span>
+		</span>
+	{/if}
 	<span class="content">
 		<slot aria-hidden="true" name="leading-icon" class="leading-icon" />
 		<span class="label">
 			<slot />
 		</span>
-		<slot aria-hidden='true' name="trailing-icon" class="trailing-icon" />
+		<slot aria-hidden="true" name="trailing-icon" class="trailing-icon" />
 	</span>
 </button>
 
@@ -186,9 +208,7 @@
 		transition: opacity var(--cui-transitions-default);
 	}
 
-	.base:active .content,
-	.base[aria-expanded='true'] .content,
-	.base[aria-pressed='true'] .content {
+	.base:active .content {
 		transform: translate(0, 1px);
 	}
 
@@ -256,9 +276,7 @@
 		border-color: transparent;
 	}
 
-	.primary:active,
-	.primary[aria-expanded='true'],
-	.primary[aria-pressed='true'] {
+	.primary:active {
 		color: var(--cui-fg-on-strong-pressed);
 		background-color: var(--cui-bg-accent-strong-pressed);
 		border-color: transparent;
@@ -272,9 +290,7 @@
 		background-color: var(--cui-bg-danger-strong-hovered);
 	}
 
-	.primary.destructive:active,
-	.primary.destructive[aria-expanded='true'],
-	.primary.destructive[aria-pressed='true'] {
+	.primary.destructive:active {
 		background-color: var(--cui-bg-danger-strong-pressed);
 	}
 
@@ -290,9 +306,7 @@
 		border-color: var(--cui-border-normal-hovered);
 	}
 
-	.secondary:active,
-	.secondary[aria-expanded='true'],
-	.secondary[aria-pressed='true'] {
+	.secondary:active {
 		color: var(--cui-fg-normal-pressed);
 		background-color: var(--cui-bg-normal-pressed);
 		border-color: var(--cui-border-normal-pressed);
@@ -308,9 +322,7 @@
 		border-color: var(--cui-border-danger-hovered);
 	}
 
-	.secondary.destructive:active,
-	.secondary.destructive[aria-expanded='true'],
-	.secondary.destructive[aria-pressed='true'] {
+	.secondary.destructive:active {
 		color: var(--cui-fg-danger-pressed);
 		background-color: var(--cui-bg-danger-pressed);
 		border-color: var(--cui-border-danger-pressed);
@@ -328,9 +340,7 @@
 		border-color: transparent;
 	}
 
-	.tertiary:active,
-	.tertiary[aria-expanded='true'],
-	.tertiary[aria-pressed='true'] {
+	.tertiary:active {
 		color: var(--cui-fg-accent-pressed);
 		background-color: var(--cui-bg-accent-pressed);
 		border-color: transparent;
@@ -349,9 +359,7 @@
 		background-color: var(--cui-bg-danger-hovered);
 	}
 
-	.tertiary.destructive:active,
-	.tertiary.destructive[aria-expanded='true'],
-	.tertiary.destructive[aria-pressed='true'] {
+	.tertiary.destructive:active {
 		color: var(--cui-fg-danger-pressed);
 		background-color: var(--cui-bg-danger-pressed);
 	}
@@ -384,8 +392,6 @@
 
 	.tertiary:hover .label::after,
 	.tertiary:active .label::after,
-	.tertiary[aria-expanded='true'] .label::after,
-	.tertiary[aria-pressed='true'] .label::after,
 	.tertiary[aria-busy='true'] .label::after,
 	.tertiary:disabled .label::after,
 	.tertiary[disabled] .label::after,
@@ -462,7 +468,7 @@
 		transform: translate(0);
 	}
 
-	.stretch.stretch {
+	.stretch {
 		width: 100%;
 	}
 
