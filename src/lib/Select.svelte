@@ -1,9 +1,33 @@
 <script lang="ts">
 	/**
+	 * Label for the select element.
+	 * @type {string}
+	 */
+	export let label: string = '';
+	/**
+	 * Name of the select form element.
+	 * @type {string}
+	 */
+	export let name: string = 'select';
+	/**
 	 * Whether the select is disabled or not.
 	 * @type {boolean}
 	 */
 	export let disabled: boolean = false;
+	/**
+	 * Whether the select is invalid or not.
+	 * @type {boolean}
+	 */
+	export let invalid: boolean = false;
+	/**
+	 * Value of the select element.
+	 * @type {number | string}
+	 */
+	export let value: number | string = '';
+	/**
+	 * An information or error message, displayed below the select.
+	 */
+	export let validationHint: string = '';
 	/**
 	 * Label to indicate that the select is optional. Only displayed when the
 	 * `required` prop is falsy.
@@ -15,21 +39,6 @@
 	 * @type {string}
 	 */
 	export let ariaDescribedBy: string;
-	/**
-	 * Whether the select is invalid or not.
-	 * @type {boolean}
-	 */
-	export let invalid: boolean = false;
-	/**
-	 * Label for the select element.
-	 * @type {string}
-	 */
-	export let label: string = '';
-	/**
-	 * Value of the select element.
-	 * @type {number | string}
-	 */
-	export let value: number | string = '';
 	/**
 	 * Whether the field is required or not.
 
@@ -46,11 +55,6 @@
 	 * @type {string}
 	 */
 	export let id: string;
-	/**
-	 * Name of the select form element.
-	 * @type {string}
-	 */
-	export let name: string = 'select';
 </script>
 
 <div class="field-wrapper" data-disabled={disabled}>
@@ -96,6 +100,43 @@
 			/>
 		</svg>
 	</div>
+	{#if validationHint && !invalid}
+		<div
+			class="validation-hint"
+			data-disabled={disabled}
+			class:validation-hint-disabled={disabled}
+			class:validation-hint-invalid={!disabled && invalid}
+		>
+			{validationHint}
+		</div>
+	{/if}
+	<span role="status" aria-live="polite">
+		{#if validationHint && invalid}
+			<div
+				class="validation-hint"
+				data-disabled={disabled}
+				class:validation-hint-disabled={disabled}
+				class:validation-hint-invalid={invalid}
+			>
+				<div class="validation-hint-icon">
+					<svg
+						aria-hidden="true"
+						width="16"
+						height="16"
+						viewBox="0 0 16 16"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3 11a1 1 0 0 1-1.41 0L8 9.41 6.41 11A1 1 0 0 1 5 9.59L6.59 8 5 6.41A1 1 0 0 1 5 5a1 1 0 0 1 1.41 0L8 6.59 9.59 5A1 1 0 0 1 11 5a1 1 0 0 1 0 1.41L9.41 8 11 9.59A1 1 0 0 1 11 11z"
+							fill="currentColor"
+						/>
+					</svg>
+				</div>
+				{validationHint}
+			</div>
+		{/if}
+	</span>
 </div>
 
 <style>
@@ -119,7 +160,8 @@
 		position: relative;
 		z-index: var(--cui-z-index-input);
 		width: 100%;
-		padding: var(--cui-spacings-kilo) var(--cui-spacings-exa) var(--cui-spacings-kilo) var(--cui-spacings-mega);
+		padding: var(--cui-spacings-kilo) var(--cui-spacings-exa) var(--cui-spacings-kilo)
+			var(--cui-spacings-mega);
 		margin: 0;
 		overflow-x: hidden;
 		font-size: var(--cui-typography-body-one-font-size);
@@ -236,5 +278,36 @@
 
 	[data-disabled='true'] .label-text-optional {
 		color: var(--cui-fg-subtle-disabled);
+	}
+
+	.validation-hint {
+		display: flex;
+		margin-top: var(--cui-spacings-bit);
+		font-size: var(--cui-typography-body-two-font-size);
+		line-height: var(--cui-typography-body-two-line-height);
+		color: var(--cui-fg-subtle);
+		transition: color var(--cui-transitions-default);
+	}
+
+	.validation-hint-disabled {
+		color: var(--cui-fg-subtle-disabled);
+	}
+
+	.validation-hint-invalid {
+		color: var(--cui-fg-danger);
+	}
+
+	[data-disabled='true'] .validation-hint {
+		color: var(--cui-fg-danger-disabled);
+	}
+
+	.validation-hint-icon {
+		display: block;
+		flex-shrink: 0;
+		align-self: flex-start;
+		width: var(--cui-icon-sizes-kilo);
+		height: var(--cui-icon-sizes-kilo);
+		margin-top: calc((var(--cui-typography-body-two-line-height) - var(--cui-icon-sizes-kilo)) / 2);
+		margin-right: var(--cui-spacings-bit);
 	}
 </style>
