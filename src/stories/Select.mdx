@@ -26,9 +26,13 @@ consider using the radio button component.
 - **Do not** use it to save space or tidy up a form.
 - **Do not** use it as a way to filter content
 
-## Prefix
+## Placeholders
 
-The prefix is an optional element that can be added to the select dropdown. It is used to provide additional context
-to the user about the options available. An example of this would be a currency symbol or a country code.
+Placeholders are used to indicate what options are available in the select dropdown. They are not selectable
+but should be clear and concise.
 
-<Canvas withToolbar={true} of={Stories.Prefix} />
+Placeholders should be used to indicate what options are available in the select dropdown.
+
+Use **selected** and **disabled** properties in an option to create a placeholder.
+
+<Canvas withToolbar={true} of={Stories.Placeholder} />

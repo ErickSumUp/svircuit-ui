@@ -30,11 +30,8 @@
 	</Select>
 </Story>
 
-<Story name='Prefix'>
-	<Select label='How much do you want?' id='money' ariaDescribedBy='money request'>
-		<option value="" disabled selected>Select a range</option>
-		<option value="A">0-100</option>
-		<option value="B">101-200</option>
-		<option value="C">201-300</option>
+<Story name='Placeholder'>
+	<Select label='Countries' id='country' ariaDescribedBy='country selected'>
+		<option value="" disabled selected>Select an option</option>
 	</Select>
 </Story>

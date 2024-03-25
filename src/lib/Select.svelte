@@ -1,18 +1,35 @@
 <script lang="ts">
-	export let disabled = false;
+	/**
+	 * Whether the select is disabled or not.
+	 * @type {boolean}
+	 */
+	export let disabled: boolean = false;
 	/**
 	 * Label to indicate that the select is optional. Only displayed when the
 	 * `required` prop is falsy.
 	 * @type {string}
 	 */
 	export let optionalLabel: string = '';
+	/**
+	 * Aria-describedby attribute for the select element.
+	 * @type {string}
+	 */
 	export let ariaDescribedBy: string;
-	export let invalid = false;
-	export let prefix = '';
-	export let label = '';
+	/**
+	 * Whether the select is invalid or not.
+	 * @type {boolean}
+	 */
+	export let invalid: boolean = false;
+	/**
+	 * Label for the select element.
+	 * @type {string}
+	 */
+	export let label: string = '';
+	/**
+	 * Value of the select element.
+	 * @type {number | string}
+	 */
 	export let value: number | string = '';
-	export let placeholder = '';
-	export let placeholderValue: number | string = '';
 	/**
 	 * Whether the field is required or not.
 
@@ -63,9 +80,6 @@
 			on:change
 			aria-label={label}
 		>
-			{#if placeholder}
-				<option value={placeholderValue} selected>{placeholder}</option>
-			{/if}
 			<slot />
 		</select>
 		<svg
@@ -105,10 +119,7 @@
 		position: relative;
 		z-index: var(--cui-z-index-input);
 		width: 100%;
-		padding-top: var(--cui-spacings-kilo);
-		padding-right: var(--cui-spacings-exa);
-		padding-bottom: var(--cui-spacings-kilo);
-		padding-left: var(--cui-spacings-mega);
+		padding: var(--cui-spacings-kilo) var(--cui-spacings-exa) var(--cui-spacings-kilo) var(--cui-spacings-mega);
 		margin: 0;
 		overflow-x: hidden;
 		font-size: var(--cui-typography-body-one-font-size);
@@ -122,7 +133,6 @@
 		border: 0;
 		border-radius: var(--cui-border-radius-byte);
 		outline: none;
-		box-shadow: none;
 		box-shadow: 0 0 0 1px var(--cui-border-normal);
 		transition:
 			box-shadow var(--cui-transitions-default),
