@@ -1,10 +1,12 @@
 <script lang="ts">
 	/**
-	 * Choose from 3 style variants. Default: 'secondary'.
+	 * Choose from 3 style variants.
+	 * @type {('primary' | 'secondary' | 'tertiary')}
 	 */
 	export let variant: 'primary' | 'secondary' | 'tertiary' = 'secondary';
 	/**
-	 * Choose from 2 sizes. Default: 'm'.
+	 * Choose from 2 sizes.
+	 * @type {('s' | 'm')}
 	 */
 	export let size: 's' | 'm' = 'm';
 	/**
@@ -33,6 +35,7 @@
 	 * impaired users.
 	 */
 	export let loadingLabel = 'Loading';
+	export let hideLabel = false;
 </script>
 
 <button
@@ -42,6 +45,8 @@
 	class:tertiary={variant === 'tertiary'}
 	class:m={size === 'm'}
 	class:s={size === 's'}
+	class:hide-label-m={hideLabel && size === 'm'}
+	class:hide-label-s={hideLabel && size === 's'}
 	class:destructive
 	class:stretch
 	disabled={disabled || isLoading}
@@ -61,7 +66,7 @@
 	{/if}
 	<span class="content">
 		<slot name="leading-icon" class="leading-icon" />
-		<span class="label">
+		<span class="label" class:hide-label={hideLabel}>
 			<slot />
 		</span>
 		<slot name="trailing-icon" class="trailing-icon" />
@@ -75,7 +80,7 @@
 		align-items: center;
 		justify-content: center;
 		width: auto;
-		height: auto;
+		height: max-content;
 		margin: 0;
 		font-size: var(--cui-typography-body-one-font-size);
 		font-weight: var(--cui-font-weight-bold);
@@ -488,6 +493,27 @@
 	}
 
 	.hide-visually {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	.hide-label-s {
+		padding: calc(var(--cui-spacings-bit) - var(--cui-border-width-kilo));
+	}
+
+	.hide-label-m {
+		padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo));
+	}
+
+	.hide-label {
+		/* .hide-visually */
 		position: absolute;
 		width: 1px;
 		height: 1px;
