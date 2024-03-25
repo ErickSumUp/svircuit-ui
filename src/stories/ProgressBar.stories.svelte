@@ -2,7 +2,7 @@
 	import ProgressBar from '$lib/ProgressBar.svelte';
 
 	export const meta = {
-		title: 'ProgressBar',
+		title: 'Components/ProgressBar',
 		component: ProgressBar,
 		argTypes: {
 			size: {

@@ -2,7 +2,7 @@
 	import Badge from '$lib/Badge.svelte';
 
 	export const meta = {
-		title: 'Badge',
+		title: 'Components/Badge',
 		component: Badge,
 		argTypes: {
 			variant: {
