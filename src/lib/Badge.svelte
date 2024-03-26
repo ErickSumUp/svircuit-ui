@@ -47,6 +47,7 @@
 	.warning {
 		color: var(--cui-fg-on-strong);
 		background-color: var(--cui-bg-warning-strong);
+
 	}
 	.danger {
 		color: var(--cui-fg-on-strong);

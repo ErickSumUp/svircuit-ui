@@ -35,12 +35,12 @@
 	/**
 	 * A descriptive label that is used by screen readers.
 	 */
-	export let label = '';
+	export let label = 'Loading...';
 	/**
 	 * Visually hide the label. This should only be used in rare cases and only
 	 * if the purpose of the field can be inferred from other context.
 	 */
-	export let hideLabel = false;
+	export let hideLabel = true;
 </script>
 
 <div class="wrapper">
@@ -52,6 +52,7 @@
 			aria-valuemin={0}
 			aria-valuemax={max}
 			aria-labelledby={id}
+			aria-label={label}
 			style="--pagination-width: {getWidth(value, max)};"
 		/>
 	{:else}
@@ -60,6 +61,7 @@
 			aria-labelledby={id}
 			class="base {size}"
 			data-loop={loop}
+			aria-label={label}
 			style="--pagination-animation-duration: {duration}ms; --pagination-animation-play-state: {paused
 				? 'paused'
 				: 'running'};"

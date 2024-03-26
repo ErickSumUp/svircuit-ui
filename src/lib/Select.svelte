@@ -75,7 +75,6 @@
 			aria-invalid={invalid}
 			{required}
 			{disabled}
-			aria-pressed
 			{name}
 			class="base"
 			class:has-prefix={$$slots.prefix}
@@ -83,6 +82,7 @@
 			class:select--disabled={disabled}
 			on:change
 			aria-label={label}
+			{...$$restProps}
 		>
 			<slot />
 		</select>

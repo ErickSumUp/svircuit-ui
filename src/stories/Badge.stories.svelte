@@ -38,6 +38,6 @@
 	<div style="display: flex; gap: 1rem;">
 		<Badge variant="neutral" circle={true}>1</Badge>
 		<Badge variant="neutral" circle={true}>42</Badge>
-		<Badge variant="neutral" circle={true}>999</Badge>
+		<Badge variant="neutral" circle={true}>99</Badge>
 	</div>
 </Story>
