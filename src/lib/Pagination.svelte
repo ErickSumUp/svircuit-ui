@@ -47,56 +47,91 @@
 <script lang="ts">
 	import ChevronLeft from '$lib/icons/ChevronLeft.svelte';
 	import ChevronRight from '$lib/icons/ChevronRight.svelte';
-	import CircleButton from '$lib/CircleButton.svelte';
 	import Button from '$lib/Button.svelte';
 
-	export let currentPage = 1;
-	export let totalPages = 1;
+	/**
+	 * The currently active page
+	 * @type {number}
+	 */
+	export let currentPage: number = 1;
+	/**
+	 * The total number of pages
+	 * @type {number}
+	 */
+	export let totalPages: number = 1;
+	/**
+	 * Label to describe the type of navigation, e.g. "Pagination"
+	 * @type {string}
+	 */
+	export let ariaLabel: string = 'Pagination';
+	/**
+	 * Label for the previous button
+	 * @type {string}
+	 */
+	export let previousLabel: string = 'Previous page';
+	/**
+	 * Label for the previous button
+	 * @type {string}
+	 */
+	export let nextLabel: string = 'Next page';
+	/**
+	 * Label for the page buttons
+	 * @type {(page: number) => string}
+	 */
+	export let pageLabel: (page: number) => string = (page: number) => 'Go to page ' + page;
 
 	$: pages = generatePages(totalPages, currentPage);
 </script>
 
-<nav>
+<nav class="nav" aria-label={ariaLabel} {...$$restProps}>
 	<Button
 		disabled={currentPage === 1}
-		variant="tertiary"
+		variant="secondary"
 		size="s"
-		--cui-spacing-bit="12px"
-		--cui-spacing-mega="12px"
+		hideLabel={true}
+		aria-label={previousLabel}
 		on:click={() => (currentPage -= 1)}
 	>
-		<ChevronLeft />
+		<ChevronLeft slot="leading-icon" />
 	</Button>
 
 	<ol class="pagination-list">
 		{#each pages as page}
-			{#if page === '...'}
-				<CircleButton variant="tertiary">...</CircleButton>
-			{:else if page === currentPage.toString()}
-				<CircleButton>{page}</CircleButton>
-			{:else}
-				<CircleButton on:click={() => (currentPage = Number(page))} variant="tertiary"
-					>{page}</CircleButton
-				>
-			{/if}
+			<li>
+				{#if page === '...'}
+					<Button size="s" variant="tertiary" role="link" compress={true}>...</Button>
+				{:else if page === currentPage.toString()}
+					<Button size="s" variant="primary" role="link" compress={true}>{page}</Button>
+				{:else}
+					<Button
+						size="s"
+						variant="tertiary"
+						role="link"
+						compress={	true}
+						aria-label={pageLabel(Number(page))}
+						on:click={() => (currentPage = Number(page))}>{page}</Button
+					>
+				{/if}
+			</li>
 		{/each}
 	</ol>
 
 	<Button
 		disabled={currentPage === totalPages}
-		variant="tertiary"
+		variant="secondary"
 		size="s"
-		--cui-spacing-bit="12px"
-		--cui-spacing-mega="12px"
+		hideLabel={true}
+		aria-label={nextLabel}
 		on:click={() => (currentPage += 1)}
 	>
-		<ChevronRight />
+		<ChevronRight slot="trailing-icon" />
 	</Button>
 </nav>
 
 <style>
 	nav {
 		display: flex;
+		gap: var(--cui-spacings-kilo);
 		align-items: center;
 		justify-content: center;
 		width: 100%;

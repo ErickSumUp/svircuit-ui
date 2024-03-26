@@ -12,30 +12,40 @@
 	/**
 	 * Change the color from accent to danger to signal to the user that the action
 	 * is irreversible or otherwise dangerous.
+	 * @type {boolean}
 	 */
-	export let destructive = false;
+	export let destructive: boolean = false;
 	/**
 	 * Stretch the button across the full width of its parent.
+	 * @type {boolean}
 	 */
-	export let stretch = false;
+	export let stretch: boolean = false;
 	/**
 	 * Visually and functionally disable the button.
+	 * @type {boolean}
 	 */
-	export let disabled = false;
-	/**
-	 * Change the button type. Default: 'button'.
-	 */
-	export let type: 'button' | 'reset' | 'submit' | null | undefined = 'button';
+	export let disabled: boolean = false;
 	/**
 	 * Visually disables the button and shows a loading spinner.
+	 * @type {boolean}
 	 */
-	export let isLoading = false;
+	export let isLoading: boolean = false;
 	/**
 	 * Visually hidden label to communicate the loading state to visually
 	 * impaired users.
+	 * @type {string}
 	 */
-	export let loadingLabel = 'Loading';
-	export let hideLabel = false;
+	export let loadingLabel: string = 'Loading';
+	/**
+	 * Hide the label text.
+	 * @type {boolean}
+	 */
+	export let hideLabel: boolean = false;
+	/**
+	 * Reduce the padding and margin of the button.
+	 * @type {boolean}
+	 */
+	export let compress: boolean = false;
 </script>
 
 <button
@@ -49,12 +59,13 @@
 	class:hide-label-s={hideLabel && size === 's'}
 	class:destructive
 	class:stretch
+	class:compress
 	disabled={disabled || isLoading}
 	aria-disabled={disabled}
 	aria-busy={isLoading}
 	aria-live={isLoading ? 'polite' : null}
 	on:click
-	{type}
+	{...$$restProps}
 >
 	{#if isLoading}
 		<span class="loader" aria-hidden={!isLoading}>
@@ -523,5 +534,10 @@
 		clip: rect(0 0 0 0);
 		white-space: nowrap;
 		border: 0;
+	}
+
+	.compress {
+		padding: var(--cui-spacings-bit);
+		margin-right: var(--cui-spacings-bit);
 	}
 </style>
