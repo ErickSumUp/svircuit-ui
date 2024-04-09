@@ -2,12 +2,12 @@
 	import Input from '$lib/Input.svelte';
 
 	export const meta = {
-		title: 'Components/Input',
+		title: 'Forms/Input',
 		component: Input,
 		argTypes: {
 			label: {
-				control: { type: 'text', defaultValue: 'Input' },
-			},
+				control: { type: 'text', defaultValue: 'Input' }
+			}
 		},
 		parameters: {
 			layout: 'centered'
@@ -17,21 +17,120 @@
 
 <script lang="ts">
 	import { Story } from '@storybook/addon-svelte-csf';
+	import Search from '$lib/icons/Search.svelte';
+	import Close from '$lib/icons/Close.svelte';
 
-	export let label = 'Countries';
+	export let label = 'First name';
+	export let placeholder = 'Jane';
+	export let maxLength = 100;
+	$: validationHint = `Maximum ${maxLength} characters`;
 </script>
 
 <Story name="Base" let:args>
-	<Input {label} {...args} >
-		<option value="" disabled Inputed>Input an option</option>
-		<option value="US">United States</option>
-		<option value="DE">Germany</option>
-		<option value="FR">France</option>
-	</Input>
+	<Input {label} {maxLength} {validationHint} {placeholder} {...args} />
 </Story>
 
-<Story name='Placeholder'>
-	<Input label='Countries' id='country' ariaDescribedBy='country Inputed'>
-		<option value="" disabled Inputed>Input an option</option>
+<Story name="Validations">
+	<div style="display: flex; flex-direction: row; gap: 2rem;">
+		<Input
+			id="invalid"
+			label="Username"
+			placeholder="jane123"
+			validationHint="This field is required."
+			invalid
+		/>
+		<Input
+			id="warning"
+			label="Username"
+			value="poop"
+			validationHint="Choose an appropriate name."
+			hasWarning
+		/>
+		<Input
+			id="valid"
+			label="Username"
+			value="jhon.doe"
+			validationHint="Yay! That username is available."
+			showValid
+		/>
+	</div>
+</Story>
+
+<Story name="Optional">
+	<Input
+		id="optional"
+		optionalLabel="optional"
+		label="First name"
+		placeholder="Jane"
+		validationHint="Maximum 100 characters"
+	/>
+</Story>
+
+<Story name="Readonly">
+	<Input
+		id="optional"
+		label="API token"
+		value="a3b2c1"
+		validationHint="Select and copy me."
+		readOnly
+	/>
+</Story>
+
+<Story name="Disabled">
+	<Input
+		id="disabled"
+		label="First name"
+		value="You can't edit me"
+		validationHint="Maximum 100 characters"
+		disabled
+	/>
+</Story>
+
+<Story name="Inline">
+	<div style="display: flex; gap: var(--cui-spacings-mega); grid-template-columns: repeat(2, 1fr)">
+		<Input
+			id="first-name"
+			label="First name"
+			placeholder="Jane"
+			validationHint="Maximum 100 characters"
+		/>
+		<Input
+			id="second-name"
+			label="Last name"
+			placeholder="Doe"
+			validationHint="Maximum 100 characters"
+		/>
+	</div>
+</Story>
+
+<Story name="Hidden Label">
+	<Input id="email" label="Email" hideLabel={true} placeholder="Email"/>
+</Story>
+
+<Story name="Date">
+	<Input id="date" label="Date of birth" type="date" validationHint="You must be at least 18 years old" />
+</Story>
+
+<Story name="SearchStory">
+	<Input id="xd" label="Search" placeholder="Search...">
+		<Search
+			slot="prefix"
+			style="position: absolute; z-index: calc(var(--cui-z-index-input) + 1); display: block; width: var(--cui-spacings-exa); height: var(--cui-spacings-exa); padding: var(--cui-spacings-mega); pointer-events: auto;"
+		/>
+		<Close
+			slot="suffix"
+			style="position: absolute;
+		width: var(--cui-spacings-exa);
+		height: var(--cui-spacings-exa);
+				z-index: calc(var(--cui-z-index-input) + 1);
+
+		padding: var(--cui-spacings-kilo) var(--cui-spacings-mega);
+		color: var(--cui-fg-subtle);
+		pointer-events: none;
+top: 0;
+		right: 0;
+		transition: right var(--cui-transitions-default);
+"
+		/>
 	</Input>
 </Story>

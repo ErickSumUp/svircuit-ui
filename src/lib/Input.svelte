@@ -1,82 +1,115 @@
 <script lang="ts">
-	export let id = 'input';
+	/**
+	 * A clear and concise description of the input purpose. Required for accessibility purposes.
+	 * @type {string}
+	 */
+	export let label: string;
+	/**
+	 * A unique identifier for the input field. Must be provided for accessibility.
+	 * @type {string} @default
+	 */
+	export let id: string;
+	/**
+	 * An information, warning or error message, displayed below the input.
+	 * @type {string} @default ''
+	 */
+	export let validationHint: string = '';
+	/**
+	 * Label to indicate that the input is optional. Only displayed when the
+	 * `required` prop is falsy.
+	 * @type {string} @default ''
+	 */
+	export let optionalLabel: string = '';
+	/**
+	 * Triggers error styles on the component. Important for accessibility.
+	 * @type {boolean} @default false
+	 */
+	export let invalid: boolean = false;
+	/**
+	 * Triggers warning styles on the component.
+	 * @type {boolean} @default false
+	 */
+	export let hasWarning: boolean = false;
+	/**
+	 * Enables valid styles on the component.
+	 * @type {boolean} @default false
+	 */
+	export let showValid: boolean = false;
+	/**
+	 * Aligns text in the input
+	 * @type {'left'|'right} @default 'left'
+	 */
+	export let textAlign: 'right' | 'left' = 'left';
+	/**
+	 * Visually hide the label. This should only be used in rare cases and only
+	 * if the purpose of the field can be inferred from other context.
+	 * @type {boolean} @default false
+	 */
+	export let hideLabel: boolean = false;
+
 	export let disabled = false;
-	export let prefix = '';
-	export let suffix = '';
-	export let label = '';
-	export let placeholder = '';
-	export let showValid = false;
-	export let hasWarning = false;
-	export let invalid = false;
+
+	export let ariaDescribedBy = '';
+
 	export let textAlignRight = false;
-	export let readonly = false;
 	export let required = false;
-	export let validationMessage = '';
 	export let value: number | string = '';
-	export let type = 'text';
-	export let maxlength = 10;
 	export let descriptionId = '';
-	export let name: string = '';
-	function typeAction(node: HTMLInputElement) {
-		node.type = type;
-	}
-	function nameAction(node: HTMLInputElement) {
-		node.name = name;
-	}
 </script>
 
-<div class="wrapper" class:wrapper-disabled={disabled}>
-	<label for="input">
-		<span class="label-span" class:label-span-disabled={disabled}>{label}</span>
-	</label>
-	<div class="input-wrapper">
-		<span class="prefix">
-			{prefix}
+<div class="input-wrapper" data-disabled={disabled}>
+	<label for={id} class="label" data-disabled={disabled}>
+		<span class="label-text" class:label-hide-visually={hideLabel} data-disabled={disabled}>
+			{label}
+			{#if optionalLabel && !required}
+				<span class="label-text-optional"> ({optionalLabel})</span>
+			{/if}
 		</span>
+	</label>
+	<div class="wrapper">
+		<slot name="prefix" />
 		<input
 			{id}
+			bind:value
+			aria-describedby={ariaDescribedBy}
 			class="base"
 			class:warning={!disabled && hasWarning}
-			class:input--invalid={!disabled && invalid}
-			class:text-align-right={textAlignRight}
-			class:has-prefix={prefix.length > 0}
-			class:has-suffix={suffix.length > 0}
-			{readonly}
-			{required}
+			class:has-prefix={$$slots.prefix}
+			class:has-suffix={$$slots.suffix}
+			class:select--invalid={invalid && !disabled}
+			class:select--disabled={disabled}
+			aria-invalid={invalid}
 			{disabled}
-			{placeholder}
-			{maxlength}
-			aria-invalid={invalid && 'true'}
-			aria-describedby={descriptionId}
-			on:blur
+			{required}
 			on:change
-			on:input
-			use:typeAction
-			use:nameAction
-			bind:value
+			aria-label={label}
+			{...$$restProps}
 		/>
-		{#if suffix.length > 0}
-			<span class="suffix">
-				{suffix}
-			</span>
-		{/if}
+		<slot name="suffix" class="suffix" />
 	</div>
-	{#if validationMessage.length > 0}
-		<span
-			class="validation-message"
-			role="status"
-			aria-live="polite"
-			class:validation-message--disabled={disabled}
-			class:validation-message--valid={showValid}
-			class:validation-message--valid--disabled={showValid && disabled}
-			class:validation-message--invalid={invalid}
-			class:validation-message--invalid--disabled={invalid && disabled}
-			class:validation-message--warning={hasWarning}
-			class:validation-message--warning--disabled={hasWarning && disabled}
+	{#if validationHint && (!(invalid || hasWarning || showValid) || disabled)}
+		<div
+			class="validation-hint"
+			data-disabled={disabled}
+			class:validation-hint-invalid={!disabled && invalid}
+			class:validation-hint-warning={!disabled && hasWarning}
+			class:validation-hint-valid={!disabled && showValid}
 		>
-			{#if invalid || hasWarning || showValid}
-				<div class="icon-wrapper">
+			{validationHint}
+		</div>
+	{/if}
+	<span role="status" aria-live="polite">
+		{#if validationHint && !disabled && (invalid || hasWarning || showValid)}
+			<div
+				class="validation-hint"
+				data-disabled={disabled}
+				class:validation-hint-invalid={invalid}
+				class:validation-hint-warning={hasWarning}
+				class:validation-hint-valid={showValid}
+			>
+				<div class="validation-hint-icon">
 					<svg
+						aria-hidden="true"
 						width="16"
 						height="16"
 						viewBox="0 0 16 16"
@@ -103,36 +136,24 @@
 						{/if}
 					</svg>
 				</div>
-			{/if}
-			{validationMessage}
-		</span>
-	{/if}
+				{validationHint}
+			</div>
+		{/if}
+	</span>
 </div>
 
 <style>
-	.wrapper {
-		flex-grow: 1;
-	}
-	.wrapper-disabled {
+	.input-wrapper[data-disabled='true'] {
 		pointer-events: none;
 	}
 
-	label {
+	.label {
 		display: block;
 		font-size: var(--cui-typography-body-two-font-size);
 		line-height: var(--cui-typography-body-two-line-height);
 	}
 
-	.label-span {
-		display: inline-block;
-		margin-bottom: var(--cui-spacings-bit);
-	}
-
-	.label-span-disabled {
-		color: var(--cui-fg-normal-disabled);
-	}
-
-	.input-wrapper {
+	.wrapper {
 		position: relative;
 	}
 
@@ -143,27 +164,26 @@
 		font-size: var(--cui-typography-body-one-font-size);
 		line-height: var(--cui-typography-body-one-line-height);
 		appearance: none;
-		-webkit-appearance: none;
 		background-color: var(--cui-bg-normal);
-		border: none;
+		border: 0;
 		border-radius: var(--cui-border-radius-byte);
 		outline: 0;
-		box-shadow: inset 0 0 0 1px var(--cui-border-normal);
+		box-shadow: 0 0 0 1px var(--cui-border-normal);
 		transition:
 			box-shadow var(--cui-transitions-default),
 			padding var(--cui-transitions-default);
 	}
 
 	.base:hover {
-		box-shadow: inset 0 0 0 1px var(--cui-border-normal-hovered);
+		box-shadow: 0 0 0 1px var(--cui-border-normal-hovered);
 	}
 
 	.base:focus {
-		box-shadow: inset 0 0 0 2px var(--cui-border-accent);
+		box-shadow: 0 0 0 2px var(--cui-border-accent);
 	}
 
 	.base:active {
-		box-shadow: inset 0 0 0 1px var(--cui-border-accent);
+		box-shadow: 0 0 0 1px var(--cui-border-accent);
 	}
 
 	.base::placeholder {
@@ -171,14 +191,17 @@
 		transition: color var(--cui-transitions-default);
 	}
 
-	.base:disabled,
-	.base[disabled] {
-		background-color: var(--cui-bg-normal-disabled);
-		box-shadow: inset 0 0 0 1px var(--cui-border-normal-disabled);
+	.base:placeholder-shown {
+		text-overflow: ellipsis;
 	}
 
-	.base[readonly] {
-		background-color: var(--cui-bg-subtle-disabled);
+	.base:-moz-focusring {
+		color: transparent;
+		text-shadow: 0 0 0 #000;
+	}
+
+	.base::-ms-expand {
+		display: none;
 	}
 
 	/* Validations */
@@ -199,33 +222,160 @@
 		box-shadow: 0 0 0 1px var(--cui-border-danger-pressed);
 	}
 
-	.base[aria-invalid='true']:not(:focus):not([disabled])::placeholder {
+	.has-prefix {
+		padding-left: var(--cui-spacings-exa);
+	}
+
+	.prefix {
+		position: absolute;
+		z-index: calc(var(--cui-z-index-input) + 1);
+		display: block;
+		width: var(--cui-spacings-exa);
+		height: var(--cui-spacings-exa);
+		padding: var(--cui-spacings-mega);
+		pointer-events: auto;
+	}
+
+	.icon {
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: calc(var(--cui-z-index-input) + 1);
+		display: block;
+		width: var(--cui-spacings-exa);
+		height: var(--cui-spacings-exa);
+		padding: var(--cui-spacings-mega);
+		color: var(--cui-fg-subtle);
+		pointer-events: none;
+	}
+
+	.label-hide-visually {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	.label-text {
+		display: inline-block;
+		margin-bottom: var(--cui-spacings-bit);
+	}
+
+	[data-disabled='true'] .label-text {
+		color: var(--cui-fg-normal-disabled);
+	}
+
+	.label-text-optional {
+		color: var(--cui-fg-subtle);
+	}
+
+	[data-disabled='true'] .label-text-optional {
+		color: var(--cui-fg-subtle-disabled);
+	}
+
+	.validation-hint {
+		display: flex;
+		margin-top: var(--cui-spacings-bit);
+		font-size: var(--cui-typography-body-two-font-size);
+		line-height: var(--cui-typography-body-two-line-height);
+		color: var(--cui-fg-subtle);
+		transition: color var(--cui-transitions-default);
+	}
+
+	[data-disabled='true'] .validation-hint {
+		color: var(--cui-fg-subtle-disabled);
+	}
+
+	.validation-hint-invalid {
 		color: var(--cui-fg-danger);
 	}
 
+	[data-disabled='true'] .validation-hint-invalid {
+		color: var(--cui-fg-danger-disabled);
+	}
+
+	.validation-hint-icon {
+		display: block;
+		flex-shrink: 0;
+		align-self: flex-start;
+		width: var(--cui-icon-sizes-kilo);
+		height: var(--cui-icon-sizes-kilo);
+		margin-top: calc((var(--cui-typography-body-two-line-height) - var(--cui-icon-sizes-kilo)) / 2);
+		margin-right: var(--cui-spacings-bit);
+	}
+
+	.wrapper .prefix,
+	.wrapper .suffix {
+		position: absolute;
+		width: var(--cui-spacings-exa);
+		height: var(--cui-spacings-exa);
+		padding: var(--cui-spacings-kilo) var(--cui-spacings-mega);
+		color: var(--cui-fg-subtle);
+		pointer-events: none;
+	}
+
+	.wrapper .suffix {
+		top: 0;
+		right: 0;
+		transition: right var(--cui-transitions-default);
+	}
+
+	.wrapper button.prefix,
+	.wrapper button.suffix,
+	.wrapper .prefix button,
+	.wrapper .suffix button {
+		pointer-events: auto;
+	}
+
+	.wrapper {
+		position: relative;
+	}
+
 	.warning {
-		box-shadow: inset 0 0 0 1px var(--cui-border-warning);
+		box-shadow: 0 0 0 1px var(--cui-border-warning);
 	}
 
 	.warning:hover {
-		box-shadow: inset 0 0 0 1px var(--cui-border-warning-hovered);
+		box-shadow: 0 0 0 1px var(--cui-border-warning-hovered);
 	}
 
 	.warning:focus {
-		box-shadow: inset 0 0 0 2px var(--cui-border-warning);
+		box-shadow: 0 0 0 2px var(--cui-border-warning);
 	}
 
 	.warning:active {
-		box-shadow: inset 0 0 0 1px var(--cui-border-warning-pressed);
+		box-shadow: 0 0 0 1px var(--cui-border-warning-pressed);
 	}
 
 	.warning:not(:focus):not([disabled])::placeholder {
 		color: var(--cui-fg-warning);
 	}
 
-	.text-align-right {
+	.base:disabled,
+	.base[disabled],
+	.base[data-disabled='true'],
+	.base[aria-disabled='true'] {
+		color: var(--cui-fg-normal-disabled);
+		background-color: var(--cui-bg-normal-disabled);
+		box-shadow: 0 0 0 1px var(--cui-border-normal-disabled);
+	}
+
+	.base[readonly] {
+		background-color: var(--cui-bg-subtle-disabled);
+	}
+
+	/* Alignment */
+
+	.align-right {
 		text-align: right;
 	}
+
+	/* Prefix & suffix */
 
 	.has-prefix {
 		padding-left: var(--cui-spacings-exa);
@@ -235,89 +385,54 @@
 		padding-right: var(--cui-spacings-exa);
 	}
 
-	.prefix,
-	.suffix {
+	.wrapper .prefix,
+	.wrapper .suffix {
 		position: absolute;
 		width: var(--cui-spacings-exa);
 		height: var(--cui-spacings-exa);
 		padding: var(--cui-spacings-kilo) var(--cui-spacings-mega);
-		color: var(--cui-fg-normal);
+		color: var(--cui-fg-subtle);
 		pointer-events: none;
-		font-size: 1rem;
-		line-height: 1.5rem;
 	}
 
-	.suffix {
+	.wrapper .suffix {
 		top: 0;
 		right: 0;
 		transition: right var(--cui-transitions-default);
 	}
 
-	.input--invalid {
-		box-shadow: inset 0 0 0 1px #de331d;
+	.wrapper button.prefix,
+	.wrapper button.suffix,
+	.wrapper .prefix button,
+	.wrapper .suffix button {
+		pointer-events: auto;
 	}
 
-	.input--invalid:hover {
-		box-shadow: inset 0 0 0 1px #b22426;
-	}
-
-	.input--invalid:focus {
-		box-shadow: inset 0 0 0 2px #de331d;
-	}
-
-	.input--invalid:active {
-		box-shadow: inset 0 0 0 1px #de331d;
-	}
-
-	.input--invalid:not(:focus)::placeholder {
-		color: #de331d;
-		opacity: 0.5;
-	}
-
-	.validation-message {
-		display: flex;
-		margin-top: var(--cui-spacings-bit);
-		font-size: var(--cui-typography-body-two-font-size);
-		line-height: var(--cui-typography-body-two-line-height);
-		color: var(--cui-fg-subtle);
-		transition: color var(--cui-transitions-default);
-	}
-
-	.validation-message--disabled {
-		color: var(--cui-fg-subtle-disabled);
-	}
-
-	.validation-message--valid {
+	/* Field */
+	.validation-hint-valid {
 		color: var(--cui-fg-success);
 	}
 
-	.validation-message--valid--disabled {
+	[disabled] .validation-hint-valid,
+	:global([data-disabled='true']) .validation-hint-valid {
 		color: var(--cui-fg-success-disabled);
 	}
 
-	.validation-message--invalid {
-		color: var(--cui-fg-danger);
-	}
-
-	.validation-message--invalid--disabled {
-		color: var(--cui-fg-danger-disabled);
-	}
-
-	.validation-message--warning {
+	.validation-hint-warning {
 		color: var(--cui-fg-warning);
 	}
 
-	.validation-message--warning--disabled {
+	[disabled] .validation-hint-warning,
+	:global([data-disabled='true']) .warning {
 		color: var(--cui-fg-warning-disabled);
 	}
 
-	.icon-wrapper {
-		display: block;
-		flex-shrink: 0;
-		align-self: flex-start;
-		width: var(--cui-icon-sizes-kilo);
-		height: var(--cui-icon-sizes-kilo);
-		margin-top: calc((var(--cui-typography-body-two-line-height) - var(--cui-icon-sizes-kilo)) / 2);
-		margin-right: var(--cui-spacings-bit);
+	.validation-hint-invalid {
+		color: var(--cui-fg-danger);
+	}
+
+	[disabled] .validation-hint-invalid,
+	:global([data-disabled='true']) .validation-hint-invalid {
+		color: var(--cui-fg-danger-disabled);
 	}
 </style>
