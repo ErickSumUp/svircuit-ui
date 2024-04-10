@@ -1,11 +1,32 @@
 <script lang="ts">
+	/**
+	 * Choose from size variants.
+	 * @type {('one' | 'two')}
+	 */
 	export let size: 'one' | 'two' = 'one';
+	/**
+	 * Choose from variant styles.
+	 * @type {('highlight' | 'quote' | 'confirm' | 'alert' | 'subtle' | 'p')}
+	 */
 	export let variant: 'highlight' | 'quote' | 'confirm' | 'alert' | 'subtle' | 'p' = 'p';
+	/**
+	 * Render the text using any HTML element.
+	 */
 	export let as: string = 'p';
+
+	$: element = 'p';
+
+	$: if (variant === 'highlight') {
+		element = 'strong';
+	} else if (variant === 'quote') {
+		element = 'blockquote';
+	} else {
+		element = 'p';
+	}
 </script>
 
 <svelte:element
-	this={as}
+	this={as || element}
 	class="base"
 	class:one={size === 'one'}
 	class:two={size === 'two'}
@@ -13,7 +34,8 @@
 	class:quote={variant === 'quote'}
 	class:confirm={variant === 'confirm'}
 	class:alert={variant === 'alert'}
-	class:subtle={variant === 'subtle'}><slot /></svelte:element
+	class:subtle={variant === 'subtle'}
+	{...$$restProps}><slot /></svelte:element
 >
 
 <style>
@@ -29,6 +51,7 @@
 		font-size: var(--cui-typography-body-two-font-size);
 		line-height: var(--cui-typography-body-two-line-height);
 	}
+
 	.highlight,
 	strong {
 		font-weight: var(--cui-font-weight-bold);
@@ -39,6 +62,7 @@
 		font-style: italic;
 		border-left: var(--cui-border-width-mega) solid var(--cui-border-accent);
 	}
+
 	.confirm {
 		color: var(--cui-fg-success);
 	}

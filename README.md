@@ -18,7 +18,7 @@ Components:
 
 - [X] Anchor
 - [X] Badge
-- [ ] Body
+- [X] Body
 - [X] Button
 - [ ] Card
 - [ ] DateInput
