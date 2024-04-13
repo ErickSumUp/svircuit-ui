@@ -33,14 +33,14 @@ Components:
 
 Icons:
 
-- [ ] Alert
-- [ ] ChevronDown
-- [ ] ChevronLeft
-- [ ] ChevronRight
-- [ ] ChevronUp
-- [ ] Close
-- [ ] Confirm
-- [ ] Notify
+- [X] Alert
+- [X] ChevronDown
+- [X] ChevronLeft
+- [X] ChevronRight
+- [X] ChevronUp
+- [X] Close
+- [X] Confirm
+- [X] Notify
 
 All of these components must follow the guidelines to be approved for the 0.1.0 release.
 
