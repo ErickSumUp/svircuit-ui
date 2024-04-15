@@ -5,7 +5,7 @@
 	export let showCloseButton = false;
 </script>
 
-<header class="base" {...$$restProps}>
+<div class="base" {...$$restProps}>
 	<slot />
 	{#if showCloseButton}
 		<div class="close">
@@ -15,7 +15,7 @@
 			</Button>
 		</div>
 	{/if}
-</header>
+</div>
 
 <style>
 	.base {

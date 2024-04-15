@@ -25,12 +25,10 @@
 	import Button from '$lib/components/Button.svelte';
 	import ButtonGroup from '$lib/stories/ButtonGroup.svelte';
 	import Stack from '$lib/stories/Stack.svelte';
-
-	export let content = 'Content';
 </script>
 
 <Story name="Base" let:args>
-	<Card {...args}>{args.slot || content}</Card>
+	<Card {...args}>{args.slot || 'Content'}</Card>
 </Story>
 
 <Story name="Spacings">
@@ -66,7 +64,7 @@
 		</Card>
 		<Card>
 			<CardHeader title="Title" subtitle="Subtitle" showCloseButton={true}>
-				<Headline size="four" as="h2">Card Heading</Headline>
+				<Headline size="four" as="h2">Card Heading w/Button </Headline>
 			</CardHeader>
 			<Body>This is some text showing in my card</Body>
 		</Card>

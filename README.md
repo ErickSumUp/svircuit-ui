@@ -20,8 +20,8 @@ Components:
 - [X] Badge
 - [X] Body
 - [X] Button
-- [ ] Card
-- [ ] DateInput
+- [X] Card
+- [X] DateInput
 - [ ] Headline
 - [ ] Input
 - [ ] Modal

@@ -2,9 +2,9 @@
 	export let align: 'left' | 'right' = 'right';
 </script>
 
-<footer class="base" class:left={align === 'left'} class:right={align === 'right'} {...$$restProps}>
+<div class="base" class:left={align === 'left'} class:right={align === 'right'} {...$$restProps}>
 	<slot />
-</footer>
+</div>
 
 <style>
 	.base {
