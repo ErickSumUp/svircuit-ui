@@ -1,5 +1,5 @@
 <script context="module">
-	import Badge from '$lib/Badge.svelte';
+	import Badge from '$lib/components/Badge.svelte';
 
 	export const meta = {
 		title: 'Components/Badge',

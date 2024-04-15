@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Hst } from '@histoire/plugin-svelte';
 	import NotificationToast, { toasts, addToast } from '$lib/NotificationToast.svelte';
-	import Button from '$lib/Button.svelte';
+	import Button from '$lib/components/Button.svelte';
 
 	export let Hst: Hst;
 

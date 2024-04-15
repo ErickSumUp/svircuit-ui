@@ -1,5 +1,5 @@
 <script context="module">
-	import Body from '$lib/Body.svelte';
+	import Body from '$lib/components/Body.svelte';
 
 	export const meta = {
 		title: 'Typography/Body',

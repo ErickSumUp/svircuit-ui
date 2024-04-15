@@ -16,9 +16,9 @@
 </script>
 
 <script lang="ts">
-	import Body from '$lib/Body.svelte';
+	import Body from '$lib/components/Body.svelte';
 	import SubHeadline from '$lib/SubHeadline.svelte';
-	import Badge from '$lib/Badge.svelte';
+	import Badge from '$lib/components/Badge.svelte';
 
 	export let groups: SecondaryGroup[] = [
 		{

@@ -1,5 +1,5 @@
 <script context="module">
-	import Button from '$lib/Button.svelte';
+	import Button from '$lib/components/Button.svelte';
 
 	export const meta = {
 		title: 'Components/Button',
@@ -80,11 +80,11 @@
 			<DownloadCloud slot="leading-icon" />
 			Download
 		</Button>
-		<Button size="m" variant="primary" destructive={true} hideLabel={true}>
+		<Button size="m" variant="secondary" hideLabel={true}>
 			<Close size="24" slot="leading-icon" />
 			Close
 		</Button>
-		<Button size="m" disabled={true} hideLabel={true}>
+		<Button size="m" on:click disabled={true} hideLabel={true}>
 			<Shop size="24" slot="leading-icon" />
 			Cart
 		</Button>

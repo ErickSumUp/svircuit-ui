@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Hst } from '@histoire/plugin-svelte';
 	import Modal from './Modal.svelte';
-	import Button from './Button.svelte';
+	import Button from './components/Button.svelte';
 	import Headline from './Headline.svelte';
 
 	export let Hst: Hst;

@@ -9,7 +9,7 @@
 </script>
 
 <script lang="ts">
-	import Body from '$lib/Body.svelte';
+	import Body from '$lib/components/Body.svelte';
 	import Home from '$lib/icons/Home.svelte';
 	export let links: Link[] = [
 		{

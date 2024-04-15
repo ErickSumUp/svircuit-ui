@@ -384,10 +384,6 @@
 		background-color: var(--cui-bg-danger-hovered);
 	}
 
-	.tertiary .label {
-		position: relative;
-	}
-
 	.tertiary .label::after {
 		position: absolute;
 		right: 0;

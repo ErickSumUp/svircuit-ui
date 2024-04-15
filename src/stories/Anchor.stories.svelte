@@ -1,5 +1,5 @@
 <script context="module">
-	import Anchor from '$lib/Anchor.svelte';
+	import Anchor from '$lib/components/Anchor.svelte';
 
 	export const meta = {
 		title: 'Typography/Anchor',
