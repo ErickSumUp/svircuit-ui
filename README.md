@@ -22,7 +22,7 @@ Components:
 - [X] Button
 - [X] Card
 - [X] DateInput
-- [ ] Headline
+- [X] Headline
 - [ ] Input
 - [ ] Modal
 - [ ] NotificationToast

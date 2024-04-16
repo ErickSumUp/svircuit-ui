@@ -19,7 +19,7 @@
 <script lang="ts">
 	import { Story } from '@storybook/addon-svelte-csf';
 	import CardHeader from '$lib/stories/CardHeader.svelte';
-	import Headline from '$lib/Headline.svelte';
+	import Headline from '$lib/components/Headline.svelte';
 	import Body from '$lib/components/Body.svelte';
 	import CardFooter from '$lib/stories/CardFooter.svelte';
 	import Button from '$lib/components/Button.svelte';

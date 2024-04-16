@@ -2,7 +2,7 @@
 	import type { Hst } from '@histoire/plugin-svelte';
 	import Modal from './Modal.svelte';
 	import Button from './components/Button.svelte';
-	import Headline from './Headline.svelte';
+	import Headline from './components/Headline.svelte';
 
 	export let Hst: Hst;
 	let showModal = false;
