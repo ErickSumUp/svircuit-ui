@@ -54,7 +54,6 @@
 	export let textAlignRight = false;
 	export let required = false;
 	export let value: number | string = '';
-	export let descriptionId = '';
 </script>
 
 <div class="input-wrapper" data-disabled={disabled}>
