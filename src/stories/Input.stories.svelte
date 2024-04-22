@@ -1,5 +1,5 @@
 <script context="module">
-	import Input from '$lib/Input.svelte';
+	import Input from '$lib/components/Input.svelte';
 
 	export const meta = {
 		title: 'Forms/Input',
