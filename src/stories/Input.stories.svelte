@@ -17,10 +17,6 @@
 
 <script lang="ts">
 	import { Story } from '@storybook/addon-svelte-csf';
-	import Search from '$lib/icons/Search.svelte';
-	import SearchInput from '$lib/SearchInput.svelte';
-	import SearchInputDev from '$lib/dev/SearchInput.svelte';
-	import CloseButtonSecondary from '$lib/dev/CloseButtonSecondary.svelte';
 
 	export let label = 'First name';
 	export let placeholder = 'Jane';
@@ -111,18 +107,4 @@
 
 <Story name="Date">
 	<Input id="date" label="Date of birth" type="date" validationHint="You must be at least 18 years old" />
-</Story>
-
-<Story name="SearchStory">
-	<Input id="xd" label="Search" placeholder="Search...">
-		<Search
-			slot="prefix"
-			style="position: absolute; z-index: calc(var(--cui-z-index-input) + 1); display: block; width: var(--cui-spacings-exa); height: var(--cui-spacings-exa); padding: var(--cui-spacings-mega); pointer-events: auto;"
-		/>
-		<CloseButtonSecondary
-			slot="suffix" />
-	</Input>
-	<CloseButtonSecondary />
-	<SearchInput id="search" label="Search" placeholder="Search..." />
-	<SearchInputDev id="search" label="Search" placeholder="Search..." />
 </Story>
