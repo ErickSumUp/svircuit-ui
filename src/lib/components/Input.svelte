@@ -36,10 +36,10 @@
 	 */
 	export let showValid: boolean = false;
 	/**
-	 * Aligns text in the input
-	 * @type {'left'|'right} @default 'left'
+	 * Aligns text to the right in the input
+	 * @type {boolean} @default false
 	 */
-	export let textAlign: 'right' | 'left' = 'left';
+	export let textAlignRight = false;
 	/**
 	 * Visually hide the label. This should only be used in rare cases and only
 	 * if the purpose of the field can be inferred from other context.
@@ -51,12 +51,11 @@
 
 	export let ariaDescribedBy = '';
 
-	export let textAlignRight = false;
 	export let required = false;
 	export let value: number | string = '';
 </script>
 
-<div class="input-wrapper" data-disabled={disabled}>
+<div data-disabled={disabled} aria-disabled={disabled}>
 	<label for={id} class="label" data-disabled={disabled}>
 		<span class="label-text" class:label-hide-visually={hideLabel} data-disabled={disabled}>
 			{label}
@@ -66,7 +65,7 @@
 		</span>
 	</label>
 	<div class="wrapper">
-		<slot name="prefix" />
+		<slot name="prefix" class="prefix" />
 		<input
 			{id}
 			bind:value
@@ -77,6 +76,7 @@
 			class:has-suffix={$$slots.suffix}
 			class:select--invalid={invalid && !disabled}
 			class:select--disabled={disabled}
+			class:align-right={textAlignRight}
 			aria-invalid={invalid}
 			{disabled}
 			{required}
@@ -142,10 +142,6 @@
 </div>
 
 <style>
-	.input-wrapper[data-disabled='true'] {
-		pointer-events: none;
-	}
-
 	.label {
 		display: block;
 		font-size: var(--cui-typography-body-two-font-size);
@@ -286,7 +282,9 @@
 		transition: color var(--cui-transitions-default);
 	}
 
-	[data-disabled='true'] .validation-hint {
+	[data-disabled='true'] .validation-hint,
+	:global([data-disabled="true"]) .validation-hint{
+		pointer-events: none;
 		color: var(--cui-fg-subtle-disabled);
 	}
 
@@ -322,13 +320,6 @@
 		top: 0;
 		right: 0;
 		transition: right var(--cui-transitions-default);
-	}
-
-	.wrapper button.prefix,
-	.wrapper button.suffix,
-	.wrapper .prefix button,
-	.wrapper .suffix button {
-		pointer-events: auto;
 	}
 
 	.wrapper {
@@ -400,19 +391,12 @@
 		transition: right var(--cui-transitions-default);
 	}
 
-	.wrapper button.prefix,
-	.wrapper button.suffix,
-	.wrapper .prefix button,
-	.wrapper .suffix button {
-		pointer-events: auto;
-	}
-
 	/* Field */
 	.validation-hint-valid {
 		color: var(--cui-fg-success);
 	}
 
-	[disabled] .validation-hint-valid,
+	[data-disabled='true'] .validation-hint-valid,
 	:global([data-disabled='true']) .validation-hint-valid {
 		color: var(--cui-fg-success-disabled);
 	}
@@ -421,7 +405,7 @@
 		color: var(--cui-fg-warning);
 	}
 
-	[disabled] .validation-hint-warning,
+	[data-disabled='true'] .validation-hint-warning,
 	:global([data-disabled='true']) .warning {
 		color: var(--cui-fg-warning-disabled);
 	}
@@ -430,7 +414,7 @@
 		color: var(--cui-fg-danger);
 	}
 
-	[disabled] .validation-hint-invalid,
+	[data-disabled='true'] .validation-hint-invalid,
 	:global([data-disabled='true']) .validation-hint-invalid {
 		color: var(--cui-fg-danger-disabled);
 	}
