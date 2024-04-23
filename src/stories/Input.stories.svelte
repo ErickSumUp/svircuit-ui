@@ -18,7 +18,9 @@
 <script lang="ts">
 	import { Story } from '@storybook/addon-svelte-csf';
 	import Search from '$lib/icons/Search.svelte';
-	import Close from '$lib/icons/Close.svelte';
+	import SearchInput from '$lib/SearchInput.svelte';
+	import SearchInputDev from '$lib/dev/SearchInput.svelte';
+	import CloseButtonSecondary from '$lib/dev/CloseButtonSecondary.svelte';
 
 	export let label = 'First name';
 	export let placeholder = 'Jane';
@@ -117,20 +119,10 @@
 			slot="prefix"
 			style="position: absolute; z-index: calc(var(--cui-z-index-input) + 1); display: block; width: var(--cui-spacings-exa); height: var(--cui-spacings-exa); padding: var(--cui-spacings-mega); pointer-events: auto;"
 		/>
-		<Close
-			slot="suffix"
-			style="position: absolute;
-		width: var(--cui-spacings-exa);
-		height: var(--cui-spacings-exa);
-				z-index: calc(var(--cui-z-index-input) + 1);
-
-		padding: var(--cui-spacings-kilo) var(--cui-spacings-mega);
-		color: var(--cui-fg-subtle);
-		pointer-events: none;
-top: 0;
-		right: 0;
-		transition: right var(--cui-transitions-default);
-"
-		/>
+		<CloseButtonSecondary
+			slot="suffix" />
 	</Input>
+	<CloseButtonSecondary />
+	<SearchInput id="search" label="Search" placeholder="Search..." />
+	<SearchInputDev id="search" label="Search" placeholder="Search..." />
 </Story>
