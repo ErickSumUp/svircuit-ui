@@ -23,7 +23,7 @@ Components:
 - [X] Card
 - [X] DateInput
 - [X] Headline
-- [ ] Input
+- [X] Input
 - [ ] Modal
 - [ ] NotificationToast
 - [X] Pagination
