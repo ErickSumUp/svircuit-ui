@@ -24,8 +24,6 @@
 	export let disabled = false;
 
 	export let ariaDescribedBy = '';
-
-	export let required = false;
 	export let value: number | string = '';
 
 	export let onClearClick = () => {
@@ -64,7 +62,6 @@
 			class:select--disabled={disabled}
 			class:align-right={textAlignRight}
 			{disabled}
-			{required}
 			on:change
 			aria-label={label}
 			{...$$restProps}
