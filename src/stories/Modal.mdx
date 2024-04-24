@@ -1,0 +1,19 @@
+import * as Stories from './Modal.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/blocks';
+
+<Meta of={Stories} />
+
+# Modal
+
+The modal component displays self-contained tasks in a focused window that overlays the page content.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## When to use it
+
+Generally, use the modal component sparingly. Consider displaying more complex tasks and large amounts of information on a separate page instead.
+
+## Usage in code
+
+To show a modal you just need to connect the Modal with the opener. The opener is usually a button.
