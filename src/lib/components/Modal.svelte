@@ -2,7 +2,7 @@
 	export let dialog: HTMLDialogElement;
 </script>
 
-<dialog class="base" bind:this={dialog}>
+<dialog class="base" bind:this={dialog} {...$$restProps}>
 	<div class="content">
 		<button class="close-button" on:click={() => dialog.close()}>
 			<span class="close-button-content">
