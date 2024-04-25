@@ -24,7 +24,7 @@ Components:
 - [X] DateInput
 - [X] Headline
 - [X] Input
-- [ ] Modal
+- [X] Modal
 - [ ] NotificationToast
 - [X] Pagination
 - [ ] Navigation

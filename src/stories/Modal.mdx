@@ -16,4 +16,43 @@ Generally, use the modal component sparingly. Consider displaying more complex t
 
 ## Usage in code
 
-To show a modal you just need to connect the Modal with the opener. The opener is usually a button.
+### Same component or same page
+
+To show a modal you just need to connect the Modal with the opener.
+
+The opener is usually a button and it's around the same svelte file as the Modal.
+
+<Canvas withToolbar={true} of={Stories.Opener} />
+
+### Different components or different pages
+
+If the opener and the modal are in different components or pages, you can use the context API to connect them.
+
+We DON'T recommend using the context API as it is not needed. Our Modal uses native html dialog element,
+it will show in browser as expected without any need to define it in a parent component.
+
+```sveltehtml
+<script lang="ts">
+	import { getContext, setContext } from 'svelte';
+
+	let dialogContext: HTMLDialogElement;
+
+	type DialogContext = {
+		showModal: () => void;
+		close: () => void;
+	};
+
+	setContext('dialog', {
+		showModal: () => {
+			dialogContext.showModal();
+		},
+		close: () => {
+			dialogContext.close();
+		}
+	});
+
+	let ctx: DialogContext = getContext('dialog');
+</script>
+```
+
+<Canvas withToolbar={true} of={Stories.Context} />
