@@ -9,38 +9,46 @@
 	export let id: string = 'progress-bar';
 	/**
 	 * Choose from 3 sizes. Default: 'm'.
+	 * @type {'s' | 'm' | 'l'}
 	 */
 	export let size: 's' | 'm' | 'l' = 'm';
 	/**
 	 * A number greater than zero, indicating how much work the task requires.
+	 * @type {number}
 	 */
 	export let max: number = 0;
 	/**
 	 * A number between 0 and max, indicating how much of the task has been
 	 * completed.
+	 * @type {number}
 	 */
 	export let value: number = 0;
 	/**
 	 * Whether the progress animation should loop indefinitely.
+	 * @type {boolean}
 	 */
-	export let loop = false;
+	export let loop: boolean = false;
 	/**
 	 * The time it takes the progress bar to fill up in milliseconds.
+	 * @type {number}
 	 */
-	export let duration = 3000;
+	export let duration: number = 3000;
 	/**
 	 * Whether the animation should the paused.
+	 * @type {boolean}
 	 */
-	export let paused = false;
+	export let paused: boolean = false;
 	/**
 	 * A descriptive label that is used by screen readers.
+	 * @type {string}
 	 */
-	export let label = 'Loading...';
+	export let label: string = 'Loading...';
 	/**
 	 * Visually hide the label. This should only be used in rare cases and only
 	 * if the purpose of the field can be inferred from other context.
+	 * @type {boolean}
 	 */
-	export let hideLabel = true;
+	export let hideLabel: boolean = false;
 </script>
 
 <div class="wrapper">

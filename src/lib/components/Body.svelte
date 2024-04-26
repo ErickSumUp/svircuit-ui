@@ -11,6 +11,7 @@
 	export let variant: 'highlight' | 'quote' | 'confirm' | 'alert' | 'subtle' | 'p' = 'p';
 	/**
 	 * Render the text using any HTML element.
+	 * @type {string}
 	 */
 	export let as: string = 'p';
 

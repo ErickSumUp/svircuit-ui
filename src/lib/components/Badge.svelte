@@ -1,12 +1,14 @@
 <script lang="ts">
 	/**
 	 * Choose from 4 style variants. Default: 'neutral'
+	 * @type {('neutral' | 'success' | 'warning' | 'danger' | 'promo')}
 	 */
 	export let variant: 'neutral' | 'success' | 'warning' | 'danger' | 'promo' = 'neutral';
 	/**
 	 * Use the circular badge to indicate a count of items related to an element.
+	 * @type {boolean}
 	 */
-	export let circle = false;
+	export let circle: boolean = false;
 </script>
 
 <span

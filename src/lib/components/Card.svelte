@@ -1,4 +1,8 @@
 <script lang="ts">
+	/**
+	 * The padding of the Card.
+	 * @type {('mega' | 'giga')}
+	 */
 	export let spacing: 'mega' | 'giga' = 'giga';
 </script>
 

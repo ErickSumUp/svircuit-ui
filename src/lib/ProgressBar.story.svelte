@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Hst } from '@histoire/plugin-svelte';
-	import ProgressBar from '$lib/ProgressBar.svelte';
+	import ProgressBar from '$lib/components/ProgressBar.svelte';
 
 	export let Hst: Hst;
 

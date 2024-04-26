@@ -1,12 +1,12 @@
 <script lang="ts">
 	/**
 	 * Choose from size variants.
-	 * @type {'one' | 'two'}
+	 * @type {('one' | 'two')}
 	 */
 	export let size: 'one' | 'two' = 'one';
 	/**
 	 * Choose from style variants.
-	 * @type {'highlight' | 'quote' | ''}
+	 * @type {('highlight' | 'quote' | '')}
 	 */
 	export let variant: 'highlight' | 'quote' | '' = '';
 	/**

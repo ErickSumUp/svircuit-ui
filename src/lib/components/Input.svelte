@@ -39,19 +39,32 @@
 	 * Aligns text to the right in the input
 	 * @type {boolean} @default false
 	 */
-	export let textAlignRight = false;
+	export let textAlignRight: boolean = false;
 	/**
 	 * Visually hide the label. This should only be used in rare cases and only
 	 * if the purpose of the field can be inferred from other context.
 	 * @type {boolean} @default false
 	 */
 	export let hideLabel: boolean = false;
-
-	export let disabled = false;
-
-	export let ariaDescribedBy = '';
-
-	export let required = false;
+	/**
+	 * Disables the input field.
+	 * @type {boolean} @default false
+	 */
+	export let disabled: boolean = false;
+	/**
+	 * Aria described by
+	 * @type {string} @default ''
+	 */
+	export let ariaDescribedBy: string = '';
+	/**
+	 * Sets if the input is required, this will be used in forms.
+	 * @type {boolean}
+	 */
+	export let required: boolean = false;
+	/**
+	 * The value of the input field.
+	 * @type {string}
+	 */
 	export let value: number | string = '';
 </script>
 

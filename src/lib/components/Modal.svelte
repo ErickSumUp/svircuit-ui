@@ -1,4 +1,8 @@
 <script lang="ts">
+	/**
+	 * Dialog export that binds to the dialog element. Can use dialog as showDialog(), for example.
+	 * @type {HTMLDialogElement}
+	 */
 	export let dialog: HTMLDialogElement;
 </script>
 

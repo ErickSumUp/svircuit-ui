@@ -1,5 +1,5 @@
 <script context="module">
-	import ProgressBar from '$lib/ProgressBar.svelte';
+	import ProgressBar from '$lib/components/ProgressBar.svelte';
 
 	export const meta = {
 		title: 'Components/ProgressBar',
