@@ -16,31 +16,31 @@ for them to use components from a downloadable library. Sorted alphabetically, n
 
 Components:
 
-- [X] Anchor
-- [X] Badge
-- [X] Body
-- [X] Button
-- [X] Card
-- [X] DateInput
-- [X] Headline
-- [X] Input
-- [X] Modal
+- [x] Anchor
+- [x] Badge
+- [x] Body
+- [x] Button
+- [x] Card
+- [x] DateInput
+- [x] Headline
+- [x] Input
+- [x] Modal
 - [ ] NotificationToast
-- [X] Pagination
+- [x] Pagination
 - [ ] Navigation
-- [X] Select
+- [x] Select
 - [ ] Table, TableHead, TableBody, TableRow, TableCell
 
 Icons:
 
-- [X] Alert
-- [X] ChevronDown
-- [X] ChevronLeft
-- [X] ChevronRight
-- [X] ChevronUp
-- [X] Close
-- [X] Confirm
-- [X] Notify
+- [x] Alert
+- [x] ChevronDown
+- [x] ChevronLeft
+- [x] ChevronRight
+- [x] ChevronUp
+- [x] Close
+- [x] Confirm
+- [x] Notify
 
 All of these components must follow the guidelines to be approved for the 0.1.0 release.
 
@@ -71,5 +71,3 @@ All of these components must follow the guidelines to be approved for the 0.1.0 
 
 - Components DON'T depend on any other component, they are standalone. Other components might be received as slots (or future snippets in Svelte 5), but never as part of the component itself.
 - Stories are the place where components are used together because it makes sense. Example: Navigation components, Complex Table components, etc.
-
-
