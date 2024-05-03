@@ -47,7 +47,7 @@
 <script lang="ts">
   import ChevronLeft from '$lib/icons/ChevronLeft.svelte';
   import ChevronRight from '$lib/icons/ChevronRight.svelte';
-  import Button from '$lib/Button.svelte';
+  import Button from '$lib/components/Button.svelte';
 
   /**
    * The currently active page

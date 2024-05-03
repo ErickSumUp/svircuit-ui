@@ -1,5 +1,5 @@
 <script context="module">
-  import Button from '$lib/Button.svelte';
+  import Button from '$lib/components/Button.svelte';
 
   export const meta = {
     title: 'Components/Button',
