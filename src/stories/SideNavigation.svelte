@@ -1,9 +1,17 @@
-<script context="module"></script>
+<script context="module" lang="ts">
+  export type Link = {
+    icon: typeof Home;
+    label: string;
+    href: string;
+    isActive?: boolean;
+    isNew?: boolean;
+  };
+</script>
 
-<script>
-  import Body from './components/Body.svelte';
-  import Home from './icons/Home.svelte';
-  export let links = [
+<script lang="ts">
+  import Body from '$lib/components/Body.svelte';
+  import Home from '$lib/icons/Home.svelte';
+  export let links: Link[] = [
     {
       icon: Home,
       label: 'Home',

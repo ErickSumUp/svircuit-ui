@@ -1,0 +1,13 @@
+import * as Stories from './SideNavigation.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/blocks';
+
+<Meta of={Stories} />
+
+# SideNavigation
+
+The side navigation is part of the [application shell](https://developers.google.com/web/fundamentals/architecture/app-shell). It contains the primary and secondary navigation links.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Usage with the top navigation

@@ -1,10 +1,26 @@
-<script context="module"></script>
+<script context="module" lang="ts">
+  export type SecondaryGroup = {
+    label?: string;
+    links: SecondaryLink[];
+  };
+  export type SecondaryLink = {
+    label: string;
+    href: string;
+    isActive: boolean;
+    badge?: {
+      label?: string;
+      circle?: boolean;
+      variant?: 'promo' | 'danger' | 'neutral' | 'success' | 'warning';
+    };
+  };
+</script>
 
-<script>
-  import Body from './components/Body.svelte';
-  import SubHeadline from './SubHeadline.svelte';
-  import Badge from './components/Badge.svelte';
-  export let groups = [
+<script lang="ts">
+  import Body from '$lib/components/Body.svelte';
+  import SubHeadline from '$lib/SubHeadline.svelte';
+  import Badge from '$lib/components/Badge.svelte';
+
+  export let groups: SecondaryGroup[] = [
     {
       label: 'Home',
       links: [
