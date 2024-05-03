@@ -4,7 +4,7 @@
 	 * Aligns the text in the header cell.
 	 * @type {('left' | 'right' | 'center')}
 	 */
-  export let align: 'left' | 'right' | 'center' = 'left';
+  export let align = 'left';
 	/**
 	 * Condenses the header cell.
 	 * @type {boolean}
