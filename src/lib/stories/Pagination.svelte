@@ -1,6 +1,12 @@
-<script context="module" lang="ts">
-  function generatePages(totalPages: number, currentPage: number): string[] {
-    const pages: string[] = [];
+<script context="module">
+  /**
+   * Generates the page numbers based on the current page and the total number of pages
+   * @param totalPages
+   * @param currentPage
+   * @returns {string[]}
+   */
+  function generatePages(totalPages, currentPage) {
+    const pages = [];
     const distanceToOne = currentPage - 1;
     const distanceToLast = totalPages - currentPage;
     const isCloseToOne = distanceToOne <= 3;
@@ -44,7 +50,7 @@
   }
 </script>
 
-<script lang="ts">
+<script>
   import ChevronLeft from '$lib/icons/ChevronLeft.svelte';
   import ChevronRight from '$lib/icons/ChevronRight.svelte';
   import Button from '$lib/components/Button.svelte';
@@ -53,32 +59,32 @@
    * The currently active page
    * @type {number}
    */
-  export let currentPage: number = 1;
+  export let currentPage = 1;
   /**
    * The total number of pages
    * @type {number}
    */
-  export let totalPages: number = 1;
+  export let totalPages = 1;
   /**
    * Label to describe the type of navigation, e.g. "Pagination"
    * @type {string}
    */
-  export let ariaLabel: string = 'Pagination';
+  export let ariaLabel = 'Pagination';
   /**
    * Label for the previous button
    * @type {string}
    */
-  export let previousLabel: string = 'Previous page';
+  export let previousLabel = 'Previous page';
   /**
    * Label for the previous button
    * @type {string}
    */
-  export let nextLabel: string = 'Next page';
+  export let nextLabel = 'Next page';
   /**
    * Label for the page buttons
    * @type {(page: number) => string}
    */
-  export let pageLabel: (page: number) => string = (page: number) => 'Go to page ' + page;
+  export let pageLabel = (page) => 'Go to page ' + page;
 
   $: pages = generatePages(totalPages, currentPage);
 </script>

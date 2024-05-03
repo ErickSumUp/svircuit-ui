@@ -1,60 +1,60 @@
-<script lang="ts">
+<script>
   /**
    * Label for the select element.
    * @type {string}
    */
-  export let label: string = '';
+  export let label = '';
   /**
    * Name of the select form element.
    * @type {string}
    */
-  export let name: string = 'select';
+  export let name = 'select';
   /**
    * Whether the select is disabled or not.
    * @type {boolean}
    */
-  export let disabled: boolean = false;
+  export let disabled = false;
   /**
    * Whether the select is invalid or not.
    * @type {boolean}
    */
-  export let invalid: boolean = false;
+  export let invalid = false;
   /**
    * Value of the select element.
    * @type {number | string}
    */
-  export let value: number | string = '';
+  export let value = '';
   /**
    * An information or error message, displayed below the select.
    */
-  export let validationHint: string = '';
+  export let validationHint = '';
   /**
    * Label to indicate that the select is optional. Only displayed when the
    * `required` prop is falsy.
    * @type {string}
    */
-  export let optionalLabel: string = '';
+  export let optionalLabel = '';
   /**
    * Aria-describedby attribute for the select element.
    * @type {string}
    */
-  export let ariaDescribedBy: string;
+  export let ariaDescribedBy;
   /**
 	 * Whether the field is required or not.
 
 	 * @type {boolean}
 	 */
-  export let required: boolean = false;
+  export let required = false;
   /**
    * Whether the label should be hidden visually.
    * @type {boolean}
    */
-  export let hideLabel: boolean = false;
+  export let hideLabel = false;
   /**
    * A unique identifier for the input field. Must be defined.
    * @type {string}
    */
-  export let id: string;
+  export let id;
 </script>
 
 <div class="field-wrapper" data-disabled={disabled}>

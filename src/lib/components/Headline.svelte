@@ -1,16 +1,16 @@
-<script lang="ts">
+<script>
   /**
    * A Circuit UI headline size. Defaults to `one`.
    * @type {('one' | 'two' | 'three' | 'four')}
    */
-  export let size: 'one' | 'two' | 'three' | 'four' = 'one';
+  export let size = 'one';
   /**
    * The HTML heading element to render.
    * Headings should be nested sequentially without skipping any levels.
    * Learn more at https://www.w3.org/WAI/tutorials/page-structure/headings/.
    * @type {('h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6')}
    */
-  export let as: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' = 'h1';
+  export let as = 'h1';
 </script>
 
 <svelte:element

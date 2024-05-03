@@ -1,19 +1,19 @@
-<script lang="ts">
+<script>
   /**
    * Choose from size variants.
    * @type {('one' | 'two')}
    */
-  export let size: 'one' | 'two' = 'one';
+  export let size = 'one';
   /**
    * Choose from variant styles.
    * @type {('highlight' | 'quote' | 'confirm' | 'alert' | 'subtle' | 'p')}
    */
-  export let variant: 'highlight' | 'quote' | 'confirm' | 'alert' | 'subtle' | 'p' = 'p';
+  export let variant = 'p';
   /**
    * Render the text using any HTML element.
    * @type {string}
    */
-  export let as: string = 'p';
+  export let as = 'p';
 
   $: element = 'p';
 

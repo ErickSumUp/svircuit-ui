@@ -1,8 +1,12 @@
-<script lang="ts">
+<script>
   export let id = 'date-input';
   export let disabled = false;
   export let readonly = false;
-  export let label: string;
+	/**
+	 * The label for the input.
+	 * @type {string}
+	 */
+  export let label;
   export let validationMessage = '';
   export let value = '';
 </script>

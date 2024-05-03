@@ -1,9 +1,9 @@
-<script lang="ts">
+<script>
   /**
    * The padding of the Card.
    * @type {('mega' | 'giga')}
    */
-  export let spacing: 'mega' | 'giga' = 'giga';
+  export let spacing = 'giga';
 </script>
 
 <div class="base" class:mega={spacing === 'mega'} class:giga={spacing === 'giga'} {...$$restProps}>

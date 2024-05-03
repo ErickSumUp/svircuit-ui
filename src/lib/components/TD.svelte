@@ -1,6 +1,18 @@
-<script lang="ts">
-  export let align: 'left' | 'center' | 'right' = 'left';
+<script>
+	/**
+	 * Choose the alignment of the text in the cell.
+	 * @type {('left' | 'center' | 'right')}
+	 */
+  export let align = 'left';
+	/**
+	 * Whether the cell should have a condensed style.
+	 * @type {boolean}
+	 */
   export let condensed = false;
+	/**
+	 * Whether the cell should wrap its content.
+	 * @type {boolean}
+	 */
   export let wrap = false;
 </script>
 

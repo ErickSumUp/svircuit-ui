@@ -14,9 +14,22 @@
 
 <script lang="ts">
   import { Story } from '@storybook/addon-svelte-csf';
-	import type { SecondaryGroup } from '$lib/stories/SecondaryNavigation.svelte';
 
-	let groups: SecondaryGroup[] = [
+	interface Group {
+		label: string;
+		links: {
+			label: string;
+			href: string;
+			isActive: boolean;
+			badge?: {
+				label?: string;
+				circle?: boolean;
+				variant?: 'promo' | 'danger' | 'neutral' | 'success' | 'warning';
+			};
+		}[];
+	}
+
+	let groups: Group[] = [
 		{
 			label: 'clothes',
 			links: [
