@@ -1,6 +1,6 @@
 <script lang="ts">
   import Close from '$lib/icons/Close.svelte';
-  import Button from '$lib/components/Button.svelte';
+  import Button from '$lib/Button.svelte';
 
   export let showCloseButton = false;
 </script>

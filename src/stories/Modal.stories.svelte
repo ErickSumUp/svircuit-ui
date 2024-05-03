@@ -12,7 +12,7 @@
 
 <script lang="ts">
   import { Story } from '@storybook/addon-svelte-csf';
-  import Button from '$lib/components/Button.svelte';
+  import Button from '$lib/Button.svelte';
   import Headline from '$lib/components/Headline.svelte';
   import Body from '$lib/components/Body.svelte';
   import { getContext, setContext } from 'svelte';
