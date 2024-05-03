@@ -1,5 +1,5 @@
 <script context="module">
-  import Pagination from '$lib/Pagination.svelte';
+  import Pagination from '$lib/stories/Pagination.svelte';
 
   export const meta = {
     title: 'Stories/Pagination',
