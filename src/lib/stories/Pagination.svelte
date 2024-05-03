@@ -123,7 +123,7 @@
   </ol>
 
   <Button
-    disabled={currentPage === totalPages}
+    disabled={currentPage >= totalPages}
     variant="secondary"
     size="s"
     hideLabel={true}
