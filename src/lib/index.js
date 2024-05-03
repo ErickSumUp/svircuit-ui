@@ -15,4 +15,3 @@ export { default as Headline } from './components/Headline.svelte';
 export { default as Body } from './components/Body.svelte';
 export { default as ProgressBar } from './components/ProgressBar.svelte';
 export { default as SecondaryNavigation } from './stories/SecondaryNavigation.svelte';
-export { SecondaryLink, SecondaryGroup } from './stories/SecondaryNavigation.svelte';

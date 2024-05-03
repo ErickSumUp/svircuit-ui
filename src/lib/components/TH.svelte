@@ -1,6 +1,14 @@
-<script lang="ts">
+<script>
   let fixed = true;
+	/**
+	 * Aligns the text in the header cell.
+	 * @type {('left' | 'right' | 'center')}
+	 */
   export let align: 'left' | 'right' | 'center' = 'left';
+	/**
+	 * Condenses the header cell.
+	 * @type {boolean}
+	 */
   export let condensed = false;
 </script>
 

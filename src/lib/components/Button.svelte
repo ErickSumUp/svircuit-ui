@@ -1,51 +1,51 @@
-<script lang="ts">
+<script>
   /**
    * Choose from 3 style variants.
    * @type {('primary' | 'secondary' | 'tertiary')}
    */
-  export let variant: 'primary' | 'secondary' | 'tertiary' = 'secondary';
+  export let variant = 'secondary';
   /**
    * Choose from 2 sizes.
    * @type {('s' | 'm')}
    */
-  export let size: 's' | 'm' = 'm';
+  export let size = 'm';
   /**
    * Change the color from accent to danger to signal to the user that the action
    * is irreversible or otherwise dangerous.
    * @type {boolean}
    */
-  export let destructive: boolean = false;
+  export let destructive = false;
   /**
    * Stretch the button across the full width of its parent.
    * @type {boolean}
    */
-  export let stretch: boolean = false;
+  export let stretch = false;
   /**
    * Visually and functionally disable the button.
    * @type {boolean}
    */
-  export let disabled: boolean = false;
+  export let disabled = false;
   /**
    * Visually disables the button and shows a loading spinner.
    * @type {boolean}
    */
-  export let isLoading: boolean = false;
+  export let isLoading = false;
   /**
    * Visually hidden label to communicate the loading state to visually
    * impaired users.
    * @type {string}
    */
-  export let loadingLabel: string = 'Loading';
+  export let loadingLabel = 'Loading';
   /**
    * Hide the label text.
    * @type {boolean}
    */
-  export let hideLabel: boolean = false;
+  export let hideLabel = false;
   /**
    * Reduce the padding and margin of the button.
    * @type {boolean}
    */
-  export let compress: boolean = false;
+  export let compress = false;
 </script>
 
 <button

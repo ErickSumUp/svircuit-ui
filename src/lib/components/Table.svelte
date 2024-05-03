@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   export let borderCollapse = false;
   export let isScrollable = false;
 </script>
