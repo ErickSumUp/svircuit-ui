@@ -9,3 +9,6 @@ export { default as TD } from './components/TD.svelte';
 export { default as TH } from './components/TH.svelte';
 export { default as THead } from './components/THead.svelte';
 export { default as TR } from './components/TR.svelte';
+export { default as Select } from './components/Select.svelte';
+export { default as DateInput } from './components/DateInput.svelte';
+export { default as Headline } from './components/Headline.svelte';
