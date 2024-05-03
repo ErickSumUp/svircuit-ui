@@ -1,5 +1,5 @@
 <script context="module">
-  import SecondaryNavigation from '$lib/SecondaryNavigation.svelte';
+  import SecondaryNavigation from '$lib/stories/SecondaryNavigation.svelte';
 
   export const meta = {
     title: 'Navigation/SecondaryNavigation',
@@ -14,7 +14,7 @@
 
 <script lang="ts">
   import { Story } from '@storybook/addon-svelte-csf';
-	import type { SecondaryGroup } from '$lib/SecondaryNavigation.svelte';
+	import type { SecondaryGroup } from '$lib/stories/SecondaryNavigation.svelte';
 
 	let groups: SecondaryGroup[] = [
 		{
