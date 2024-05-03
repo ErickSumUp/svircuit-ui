@@ -1,5 +1,5 @@
 <script context="module">
-  import Select from '$lib/Select.svelte';
+  import Select from '$lib/components/Select.svelte';
 
   export const meta = {
     title: 'Components/Select',
