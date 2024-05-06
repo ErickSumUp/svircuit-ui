@@ -1,4 +1,4 @@
-<tr on:click>
+<tr on:click {...$$restProps}>
   <slot />
 </tr>
 

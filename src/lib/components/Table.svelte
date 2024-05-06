@@ -5,7 +5,7 @@
 
 <div class="table-container" class:table-container--scrollable={isScrollable}>
   <div class="scroll-container" class:scroll-container--scrollable={isScrollable}>
-    <table class:border-collapse={borderCollapse}>
+    <table class:border-collapse={borderCollapse} {...$$restProps}>
       <slot />
     </table>
   </div>

@@ -1,14 +1,14 @@
 <script>
   let fixed = true;
-	/**
-	 * Aligns the text in the header cell.
-	 * @type {('left' | 'right' | 'center')}
-	 */
+  /**
+   * Aligns the text in the header cell.
+   * @type {('left' | 'right' | 'center')}
+   */
   export let align = 'left';
-	/**
-	 * Condenses the header cell.
-	 * @type {boolean}
-	 */
+  /**
+   * Condenses the header cell.
+   * @type {boolean}
+   */
   export let condensed = false;
 </script>
 
@@ -18,6 +18,7 @@
   class:align-right={align === 'right'}
   class:align-center={align === 'center'}
   class:condensed
+  {...$$restProps}
 >
   <slot />
 </th>

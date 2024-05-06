@@ -19,6 +19,7 @@
   class:danger={variant === 'danger'}
   class:promo={variant === 'promo'}
   class:circle
+  {...$$restProps}
 >
   <slot />
 </span>

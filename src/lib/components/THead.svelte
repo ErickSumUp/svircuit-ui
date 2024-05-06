@@ -1,4 +1,4 @@
-<thead>
+<thead {...$$restProps}>
   <slot />
 </thead>
 
