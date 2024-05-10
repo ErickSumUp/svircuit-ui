@@ -1,18 +1,25 @@
-<script context="module" lang="ts">
+<script context="module">
   import { writable } from 'svelte/store';
-  import type { Writable } from 'svelte/store';
 
-  type NotificationToast = {
-    id?: number;
-    variant: 'info' | 'success' | 'warning' | 'danger';
-    headline?: string;
-    body: string;
-    timeout?: number;
-  };
+	/**
+	 * @typedef {Object} NotificationToast
+	 * @property {number} [id] - A unique identifier for the toast.
+	 * @property {('info' | 'success' | 'warning' | 'danger')} variant - The toast's variant.
+	 * @property {string} [headline] - An optional headline for structured toast content.
+	 * @property {string} body - The toast's body copy.
+	 * @property {number} [timeout] - The time in milliseconds after which the toast is dismissed.
+	 */
 
-  export const toasts: Writable<Array<NotificationToast>> = writable([]);
+	/*
+	 * A store that holds all toasts that are currently displayed.
+	 * @type {import('svelte/store').Writable<NotificationToast[]>}
+	 */
+  export const toasts = writable([]);
 
-  export const addToast = (toast: NotificationToast) => {
+	/*
+	 * @param {NotificationToast} toast - The toast to add.
+	 */
+  export const addToast = (toast) => {
     // Create a unique ID, so we can easily find/remove it
     // if it is dismissible/has a timeout.
     const id = Math.floor(Math.random() * 10000);
@@ -36,16 +43,43 @@
     if (timeout) setTimeout(() => dismissToast(id), timeout);
   };
 
-  export const dismissToast = (id: number) => {
-    toasts.update((all) => all.filter((t: NotificationToast) => t.id !== id));
+	/**
+	 * Dismisses a toast by its unique ID.
+	 * @param id
+	 */
+  export const dismissToast = (id) => {
+    toasts.update((all) => all.filter((t) => t.id !== id));
   };
 </script>
 
-<script lang="ts">
-  export let variant: 'info' | 'success' | 'warning' | 'danger' = 'info';
-  export let headline: string = '';
-  export let iconLabel: string = '';
-  export let body: string = '';
+<script>
+  /**
+   * The toast's variant. Default: `info`.
+   * @type {('info' | 'success' | 'warning' | 'danger')}
+   */
+  export let variant = 'info';
+  /**
+   * An optional headline for structured toast content.
+   * @type {string}
+   */
+  export let headline = '';
+  /**
+   * The toast's body copy.
+   * @type {string}
+   */
+  export let body;
+  /**
+   * A text replacement for the icon in the context of the toast, if its body
+   * copy isn't self-explanatory. Defaults to an empty string.
+   * @type {string}
+   */
+  export let iconLabel = '';
+	/**
+	 * An optional callback that is called when the toast is dismissed,
+	 * manually or after a timeout.
+	 * @type {() => void}
+	 */
+	export let onClose = () => {};
 </script>
 
 <div
@@ -98,6 +132,25 @@
       {/if}
       <p class="body">{body}</p>
     </div>
+    <button class="close-button close" on:click={() => onClose()}>
+      <span class="close-button-content">
+        <svg
+          class="close-button-icon"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"
+            fill="currentColor"
+          />
+        </svg>
+      </span>
+    </button>
   </div>
 </div>
 
@@ -139,21 +192,27 @@
   .info {
     border: var(--cui-border-width-mega) solid var(--cui-border-accent);
   }
+
   .info .icon {
     color: var(--cui-fg-accent);
   }
+
   .success {
     border: var(--cui-border-width-mega) solid var(--cui-border-success);
   }
+
   .success .icon {
     color: var(--cui-fg-success);
   }
+
   .warning {
     border: var(--cui-border-width-mega) solid var(--cui-border-warning);
   }
+
   .warning .icon {
     color: var(--cui-fg-warning);
   }
+
   .danger {
     border: var(--cui-border-width-mega) solid var(--cui-border-danger);
   }
@@ -161,6 +220,7 @@
   .danger .icon {
     color: var(--cui-fg-danger);
   }
+
   .content {
     display: flex;
     flex-direction: column;
@@ -168,14 +228,104 @@
     padding-right: var(--cui-spacings-peta);
     padding-left: var(--cui-spacings-mega);
   }
+
+  .base .close {
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: calc(-1 * var(--cui-spacings-bit));
+    margin-bottom: calc(-1 * var(--cui-spacings-bit));
+    margin-left: auto;
+  }
+
   .headline {
     font-size: var(--cui-typography-body-one-font-size);
     line-height: var(--cui-typography-body-one-line-height);
     font-weight: var(--cui-font-weight-bold);
   }
+
   .body {
     font-weight: var(--cui-font-weight-regular);
     font-size: var(--cui-typography-body-one-font-size);
     line-height: var(--cui-typography-body-one-line-height);
   }
+
+	.close-button {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: auto;
+		height: max-content;
+		margin: 0;
+		font-size: var(--cui-typography-body-one-font-size);
+		font-weight: var(--cui-font-weight-bold);
+		text-align: center;
+		text-decoration: none;
+		cursor: pointer;
+		border-width: var(--cui-border-width-kilo);
+		transition:
+			opacity var(--cui-transitions-default),
+			color var(--cui-transitions-default),
+			background-color var(--cui-transitions-default),
+			border-color var(--cui-transitions-default);
+
+		line-height: var(--cui-typography-body-two-line-height);
+
+		padding: calc(var(--cui-spacings-bit) - var(--cui-border-width-kilo));
+
+		color: var(--cui-fg-normal);
+		background-color: var(--cui-bg-normal);
+		border-color: var(--cui-border-normal);
+
+		border: none;
+		border-radius: var(--cui-border-radius-byte);
+	}
+
+	.close-button:active .close-button-content {
+		transform: translate(0, 1px);
+	}
+
+	.close-button:hover {
+		color: var(--cui-fg-normal-hovered);
+		background-color: var(--cui-bg-normal-hovered);
+		border-color: var(--cui-border-normal-hovered);
+	}
+
+	.close-button:active {
+		color: var(--cui-fg-normal-pressed);
+		background-color: var(--cui-bg-normal-pressed);
+		border-color: var(--cui-border-normal-pressed);
+	}
+
+	.close-button:focus {
+		outline: 0;
+		box-shadow:
+			0 0 0 2px var(--cui-bg-normal),
+			0 0 0 4px var(--cui-border-focus);
+	}
+
+	.close-button:focus::-moz-focus-inner {
+		border: 0;
+	}
+
+	.close-button:focus:not(:focus-visible) {
+		box-shadow: none;
+	}
+
+	.close-button-content {
+		display: flex;
+		gap: var(--content-gap);
+		place-content: center;
+		align-items: center;
+		min-width: 24px;
+		min-height: 24px;
+		opacity: 1;
+		transition: opacity var(--cui-transitions-default);
+	}
+
+	.close-button-icon {
+		width: var(--leading-icon-size);
+		height: var(--leading-icon-size);
+	}
 </style>

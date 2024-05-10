@@ -140,6 +140,10 @@
 </div>
 
 <style>
+	.field-wrapper {
+		flex-grow: 1;
+	}
+
   .field-wrapper[data-disabled='true'] {
     pointer-events: none;
   }

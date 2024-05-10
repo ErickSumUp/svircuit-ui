@@ -1,0 +1,26 @@
+import * as Stories from './NotificationToast.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/blocks';
+
+<Meta of={Stories} />
+
+# NotificationToast
+
+NotificationToast provides a way for users to visualize bulks of information distributed over multiple pages, while always providing an anchor to move from where they currently are in the list.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## When to use it
+
+Use it when you have a list of more than 25 items related to the same category. This allows a better experience searching through the data for our users.
+
+## Usage guidelines
+
+- **Do** always place the NotificationToast component on the bottom of the list
+- **Do not** use NotificationToast if a list is below 25 items
+
+### Many pages
+
+When there are more than 7 pages in total, the NotificationToast is displayed with spaces in between.
+
+<Canvas of={Stories.Variants} />
