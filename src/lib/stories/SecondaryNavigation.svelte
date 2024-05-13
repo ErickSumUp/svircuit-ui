@@ -87,20 +87,18 @@
     position: relative;
     display: flex;
     height: 100%;
-    --primary-navigation-width: var(--cui-icon-size-tera);
-    --primary-navigation-width-open: 220px;
   }
 
   @media (max-width: 1900px) {
     .wrapper {
       flex-shrink: 0;
-      min-width: var(--primary-navigation-width);
+      min-width: var(--cui-secondary-navigation-width-closed);
     }
   }
 
   @media (min-width: 1900px) {
     .wrapper {
-      min-width: var(--primary-navigation-width-open);
+      min-width: var(--cui-secondary-navigation-width-open);
     }
   }
 
@@ -118,7 +116,7 @@
 
   @media (min-width: 1900px) {
     nav {
-      width: var(--primary-navigation-width-open);
+      width: var(--cui-secondary-navigation-width-open);
     }
 
     nav:hover,

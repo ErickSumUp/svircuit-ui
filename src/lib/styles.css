@@ -268,6 +268,9 @@
   --cui-icon-size-mega: 24px;
   --cui-icon-size-giga: 32px;
   --cui-icon-size-tera: 48px;
+
+  --cui-secondary-navigation-width-open: 220px;
+  --cui-secondary-navigation-width-closed: 48px;
 }
 
 /**
