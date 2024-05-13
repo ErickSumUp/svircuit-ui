@@ -18,3 +18,4 @@ export { default as ProgressBar } from './components/ProgressBar.svelte';
 export { default as SecondaryNavigation } from './stories/SecondaryNavigation.svelte';
 import NotificationToast, { toasts, addToast } from '$lib/components/NotificationToast.svelte';
 export { NotificationToast, toasts, addToast };
+export { default as Dialog } from './components/Dialog.svelte';

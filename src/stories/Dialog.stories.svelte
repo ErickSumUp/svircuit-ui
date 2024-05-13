@@ -1,9 +1,9 @@
 <script context="module">
-  import Modal from '$lib/components/Modal.svelte';
+  import Dialog from '$lib/components/Dialog.svelte';
 
   export const meta = {
-    title: 'Components/Modal',
-    component: Modal,
+    title: 'Components/Dialog',
+    component: Dialog,
     parameters: {
       layout: 'centered'
     }
@@ -39,28 +39,28 @@
 </script>
 
 <Story name="Base" let:args>
-  <Modal bind:baseDialog {...args}>
+  <Dialog bind:dialog={baseDialog} {...args}>
     <Headline as="h2" size="four" style="margin-bottom: 1rem">Hello World!</Headline>
-    <Body>I am a modal.</Body>
-  </Modal>
+    <Body>I am a Dialog.</Body>
+  </Dialog>
 
-  <Button on:click={() => baseDialog.showModal()}>Show Modal</Button>
+  <Button on:click={() => baseDialog.showModal()}>Show Dialog</Button>
 </Story>
 
 <Story name="Opener">
-  <Modal bind:dialog>
-    <Headline as="h2" size="four">You just opened the modal!</Headline>
-    <Body>In this case the button is "next to" the modal code-wise.</Body>
-  </Modal>
+  <Dialog bind:dialog>
+    <Headline as="h2" size="four">You just opened the Dialog!</Headline>
+    <Body>In this case the button is "next to" the Dialog code-wise.</Body>
+  </Dialog>
 
-  <Button on:click={() => dialog.showModal()}>Show Modal</Button>
+  <Button on:click={() => dialog.showModal()}>Show Dialog</Button>
 </Story>
 
 <Story name="Context">
-  <Modal bind:dialog={dialogContext}>
-    <Headline as="h2" size="four">You just opened the modal with context!</Headline>
+  <Dialog bind:dialog={dialogContext}>
+    <Headline as="h2" size="four">You just opened the Dialog with context!</Headline>
     <Body>In this case the button connected using a context.</Body>
-  </Modal>
+  </Dialog>
 
-  <Button on:click={() => ctx.showModal()}>Show Modal Context</Button>
+  <Button on:click={() => ctx.showModal()}>Show Dialog Context</Button>
 </Story>

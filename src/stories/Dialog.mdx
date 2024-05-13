@@ -1,34 +1,34 @@
-import * as Stories from './Modal.stories.svelte';
+import * as Stories from './Dialog.stories.svelte';
 import { Canvas, Controls, Meta } from '@storybook/blocks';
 
 <Meta of={Stories} />
 
-# Modal
+# Dialog
 
-The modal component displays self-contained tasks in a focused window that overlays the page content.
+The dialog component displays self-contained tasks in a focused window that overlays the page content.
 
 <Canvas withToolbar={true} of={Stories.Base} />
 <Controls />
 
 ## When to use it
 
-Generally, use the modal component sparingly. Consider displaying more complex tasks and large amounts of information on a separate page instead.
+Generally, use the dialog component sparingly. Consider displaying more complex tasks and large amounts of information on a separate page instead.
 
 ## Usage in code
 
 ### Same component or same page
 
-To show a modal you just need to connect the Modal with the opener.
+To show a dialog you just need to connect the Dialog with the opener.
 
-The opener is usually a button and it's around the same svelte file as the Modal.
+The opener is usually a button and it's around the same svelte file as the Dialog.
 
 <Canvas withToolbar={true} of={Stories.Opener} />
 
 ### Different components or different pages
 
-If the opener and the modal are in different components or pages, you can use the context API to connect them.
+If the opener and the dialog are in different components or pages, you can use the context API to connect them.
 
-We DON'T recommend using the context API as it is not needed. Our Modal uses native html dialog element,
+We DON'T recommend using the context API as it is not needed. Our Dialog uses native html dialog element,
 it will show in browser as expected without any need to define it in a parent component.
 
 ```sveltehtml
@@ -38,12 +38,12 @@ it will show in browser as expected without any need to define it in a parent co
 	let dialogContext: HTMLDialogElement;
 
 	type DialogContext = {
-		showModal: () => void;
+		show: () => void;
 		close: () => void;
 	};
 
 	setContext('dialog', {
-		showModal: () => {
+		show: () => {
 			dialogContext.showModal();
 		},
 		close: () => {
