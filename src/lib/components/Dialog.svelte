@@ -32,52 +32,40 @@
 
 <style>
   dialog {
-    position: fixed;
-    background-color: var(--cui-bg-elevated);
-    outline: none;
-    padding: 0;
-    margin: 0;
-    border: none;
-    opacity: 0;
-
-    top: 50%;
-    left: 50%;
+		padding: 0;
+		border: none;
     border-radius: var(--cui-border-radius-mega);
-    transition: opacity var(--cui-transitions-slow);
-    transform: translate(-50%, -50%);
   }
 
   dialog[open] {
-    opacity: 1;
+		animation: zoom 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
+
+	@keyframes zoom {
+		from {
+			transform: scale(0.95);
+		}
+		to {
+			transform: scale(1);
+		}
+	}
 
   dialog::backdrop {
     background: var(--cui-bg-overlay);
-    opacity: 0;
-    transition: opacity var(--cui-transitions-slow);
   }
 
   dialog[open]::backdrop {
-    opacity: 1;
+		animation: fade 0.2s ease-out;
   }
 
-  dialog::after {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: block;
-    content: '';
-    background: linear-gradient(
-      color-mix(in sRGB, var(--cui-bg-elevated) 0%, transparent),
-      color-mix(in sRGB, var(--cui-bg-elevated) 66%, transparent),
-      color-mix(in sRGB, var(--cui-bg-elevated) 100%, transparent)
-    );
-
-    height: var(--cui-spacings-giga);
-    border-bottom-right-radius: var(--cui-border-radius-mega);
-    border-bottom-left-radius: var(--cui-border-radius-mega);
-  }
+	@keyframes fade {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
 
   .base .close-button {
     position: absolute;
