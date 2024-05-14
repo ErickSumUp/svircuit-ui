@@ -25,11 +25,11 @@ Components:
 - [x] Headline
 - [x] Input
 - [x] Modal
-- [ ] NotificationToast
+- [X] NotificationToast
 - [x] Pagination
-- [ ] Navigation
+- [X] Navigation
 - [x] Select
-- [ ] Table, TableHead, TableBody, TableRow, TableCell
+- [X] Table, TableHead, TableBody, TableRow, TableCell
 
 Icons:
 
@@ -56,8 +56,7 @@ All of these components must follow the guidelines to be approved for the 0.1.0 
 - **R**epeat yourself please. We don't prioritize DRY code over easy to understand code. Unneeded abstractions are discouraged. When it makes sense, we repeat the code.
 - **U**ser-centric: Accessibility is a memory and knowledge issue. Accessibility properties are enforced on components when possible.
 - **T**empered: We don't want to overengineer the solution, neither do we want to cover every possible use case there is out there. Solve the problems that are in front of us, not the ones that might never come.
-- **H**TML implicit: Components are made as little more than HTML wrappers, properties that exist in html will be redirected, reducing the component code size.
-- **T**raditional: We try to stay as close to the web standards. Every technology chosen is justified as a bridge to use those standards more efficiently while having an amazing user experience.
+- **H**TML implicit: Components are made as little more than HTML wrappers, properties that exist in html will be redirected, reducing the component code size. We respect web standards.
 
 ## How these principles affect our development?
 
