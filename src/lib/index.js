@@ -19,3 +19,4 @@ export { default as SecondaryNavigation } from './stories/SecondaryNavigation.sv
 import NotificationToast, { toasts, addToast } from '$lib/components/NotificationToast.svelte';
 export { NotificationToast, toasts, addToast };
 export { default as Dialog } from './components/Dialog.svelte';
+export * as icons from '$lib/icons';
