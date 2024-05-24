@@ -80,13 +80,17 @@
       {/each}
     </ul>
   </nav>
+	<slot />
 </div>
 
 <style>
   .wrapper {
     position: relative;
     display: flex;
+		flex-direction: column;
+		align-content: space-between;
     height: 100%;
+		border-right: var(--cui-border-width-kilo) solid var(--cui-border-divider);
   }
 
   @media (max-width: 1900px) {
@@ -111,7 +115,6 @@
     height: calc(100vh - var(--top-navigation-height, 0px));
     overflow-y: auto;
     background-color: var(--cui-bg-normal);
-    border-right: var(--cui-border-width-kilo) solid var(--cui-border-divider);
   }
 
   @media (min-width: 1900px) {
