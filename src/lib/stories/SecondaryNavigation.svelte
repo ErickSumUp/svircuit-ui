@@ -80,7 +80,9 @@
       {/each}
     </ul>
   </nav>
-	<slot />
+	<footer>
+		<slot />
+	</footer>
 </div>
 
 <style>
@@ -88,7 +90,6 @@
     position: relative;
     display: flex;
 		flex-direction: column;
-		align-content: space-between;
     height: 100%;
 		border-right: var(--cui-border-width-kilo) solid var(--cui-border-divider);
   }
