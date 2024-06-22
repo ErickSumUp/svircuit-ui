@@ -1,0 +1,26 @@
+import * as Stories from './Toggle.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/blocks';
+
+<Meta of={Stories} />
+
+# Toggle
+
+The toggle is a switcher between two mutually exclusive states: on and off.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## When to use it
+
+When the user needs to make a selection (turn on or off a setting) that will immediately happen, without having the confirm the action.
+
+## Usage guidelines
+
+- **Do** always provide a default option for our user (when in doubt, leave it off)
+- **Do** use the `description` prop to be even more detailed about what the toggle is about
+- **Do not** use a toggle when the effect from the change does not take effect immediately
+
+## Content guidelines
+
+- **Do** always be clear and precise in what the toggle turns on and off
+- **Do not** frame the label as a question
