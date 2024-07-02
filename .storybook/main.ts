@@ -12,14 +12,13 @@ const config: StorybookConfig = {
     '@chromatic-com/storybook',
     '@storybook/addon-interactions',
     '@storybook/addon-svelte-csf',
-    '@storybook/addon-a11y'
+    '@storybook/addon-a11y',
+    '@storybook/addon-mdx-gfm'
   ],
   framework: {
     name: '@storybook/sveltekit',
     options: {}
   },
-  docs: {
-    autodocs: 'tag'
-  }
+  docs: {}
 };
 export default config;
