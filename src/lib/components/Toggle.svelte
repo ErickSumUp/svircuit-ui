@@ -3,7 +3,7 @@
    * The value of the input field.
    * @type {boolean}
    */
-  export let value;
+  export let checked;
   /**
    * The id of the input field.
    * @type {string}
@@ -22,7 +22,7 @@
 </script>
 
 <div class="wrapper">
-  <input {id} type="checkbox" bind:value class="toggle" {...$$restProps} />
+  <input {id} type="checkbox" bind:checked class="toggle" {...$$restProps} />
   <label class="label" {id} for={id}
     >{label}
     {#if description}
