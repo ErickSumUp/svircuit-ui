@@ -7,6 +7,9 @@
     argTypes: {
       label: {
         control: { type: 'text', defaultValue: 'Select' }
+      },
+      size: {
+        options: ['s', 'm']
       }
     },
     parameters: {
@@ -19,6 +22,7 @@
   import { Story } from '@storybook/addon-svelte-csf';
 
   export let label = 'Countries';
+  export let page_size = 10;
 </script>
 
 <Story name="Base" let:args>
@@ -30,8 +34,38 @@
   </Select>
 </Story>
 
+<Story name="Sizes">
+  <div style="display: flex; flex-direction: row; align-items: center; gap: 50px">
+    <Select label="Size" id="size" ariaDescribedBy="size selected" size="s" bind:value={page_size}>
+      <option value={0} disabled>S</option>
+      <option value={10}>10</option>
+      <option value={20}>20</option>
+    </Select>
+    <Select label="Size" id="size" ariaDescribedBy="size selected" size="m" bind:value={page_size}>
+      <option value={0} disabled>S</option>
+      <option value={10}>10</option>
+      <option value={20}>20</option>
+    </Select>
+  </div>
+</Story>
+
 <Story name="Placeholder">
   <Select label="Countries" id="country" ariaDescribedBy="country selected">
     <option value="" disabled selected>Select an option</option>
+  </Select>
+</Story>
+
+<Story name="Pagination">
+  <Select
+    label="Page size"
+    hideLabel={true}
+    id="page-size"
+    ariaDescribedBy="page-size selected"
+    bind:value={page_size}
+  >
+    <option value={10}>10</option>
+    <option value={20}>20</option>
+    <option value={50}>50</option>
+    <option value={100}>100</option>
   </Select>
 </Story>

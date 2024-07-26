@@ -25,11 +25,11 @@ Components:
 - [x] Headline
 - [x] Input
 - [x] Modal
-- [X] NotificationToast
+- [x] NotificationToast
 - [x] Pagination
-- [X] Navigation
+- [x] Navigation
 - [x] Select
-- [X] Table, TableHead, TableBody, TableRow, TableCell
+- [x] Table, TableHead, TableBody, TableRow, TableCell
 
 Icons:
 

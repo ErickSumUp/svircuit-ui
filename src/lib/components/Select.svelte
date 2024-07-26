@@ -25,6 +25,11 @@
    */
   export let value = '';
   /**
+   *
+   * @type {('s' | 'm')}
+   */
+  export let size = 'm';
+  /**
    * An information or error message, displayed below the select.
    */
   export let validationHint = '';
@@ -55,6 +60,7 @@
    * @type {string}
    */
   export let id;
+  $: iconSize = size === 's' ? 16 : 24;
 </script>
 
 <div class="field-wrapper" data-disabled={disabled}>
@@ -77,6 +83,8 @@
       {disabled}
       {name}
       class="base"
+      class:s={size === 's'}
+      class:m={size === 'm'}
       class:has-prefix={$$slots.prefix}
       class:select--invalid={invalid && !disabled}
       class:select--disabled={disabled}
@@ -87,17 +95,24 @@
       <slot />
     </select>
     <svg
-      class="icon"
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
+      class="icon {size}"
+      width={iconSize}
+      height={iconSize}
+      viewBox="0 0 {iconSize} {iconSize}"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        d="M8 11c-.266 0-.52-.104-.71-.29l-4-4A1.013 1.013 0 0 1 3 6a1 1 0 0 1 1-1c.266 0 .52.104.71.29L8 8.58l3.29-3.29c.19-.186.445-.29.71-.29a1 1 0 0 1 1 1c0 .266-.104.52-.29.71l-4 4c-.19.186-.444.29-.71.29z"
-        fill="currentColor"
-      />
+      {#if size === 's'}
+        <path
+          d="M8 11c-.266 0-.52-.104-.71-.29l-4-4A1.013 1.013 0 0 1 3 6a1 1 0 0 1 1-1c.266 0 .52.104.71.29L8 8.58l3.29-3.29c.19-.186.445-.29.71-.29a1 1 0 0 1 1 1c0 .266-.104.52-.29.71l-4 4c-.19.186-.444.29-.71.29z"
+          fill="currentColor"
+        />
+      {:else}
+        <path
+          d="M12 15c-.265 0-.52-.104-.71-.29l-4-4A1.013 1.013 0 0 1 7 10a1 1 0 0 1 1-1c.266 0 .52.104.71.29L12 12.58l3.29-3.29c.19-.186.445-.29.71-.29a1 1 0 0 1 1 1c0 .265-.104.52-.29.71l-4 4c-.19.186-.445.29-.71.29z"
+          fill="currentColor"
+        />
+      {/if}
     </svg>
   </div>
   {#if validationHint && !invalid}
@@ -140,9 +155,9 @@
 </div>
 
 <style>
-	.field-wrapper {
-		flex-grow: 1;
-	}
+  .field-wrapper {
+    flex-grow: 1;
+  }
 
   .field-wrapper[data-disabled='true'] {
     pointer-events: none;
@@ -156,7 +171,8 @@
 
   .wrapper {
     position: relative;
-    display: block;
+    display: flex;
+    flex-direction: row;
     color: var(--cui-fg-normal);
   }
 
@@ -164,8 +180,6 @@
     position: relative;
     z-index: var(--cui-z-index-input);
     width: 100%;
-    padding: var(--cui-spacings-kilo) var(--cui-spacings-exa) var(--cui-spacings-kilo)
-      var(--cui-spacings-mega);
     margin: 0;
     overflow-x: hidden;
     font-size: var(--cui-typography-body-one-font-size);
@@ -183,6 +197,16 @@
     transition:
       box-shadow var(--cui-transitions-default),
       padding var(--cui-transitions-default);
+  }
+
+  .base.s {
+    padding: var(--cui-spacings-bit) var(--cui-spacings-exa) var(--cui-spacings-bit)
+      var(--cui-spacings-kilo);
+  }
+
+  .base.m {
+    padding: var(--cui-spacings-kilo) var(--cui-spacings-exa) var(--cui-spacings-kilo)
+      var(--cui-spacings-kilo);
   }
 
   .base:hover {
@@ -244,11 +268,20 @@
     right: 0;
     z-index: calc(var(--cui-z-index-input) + 1);
     display: block;
-    width: var(--cui-spacings-exa);
-    height: var(--cui-spacings-exa);
-    padding: var(--cui-spacings-mega);
     color: var(--cui-fg-subtle);
     pointer-events: none;
+    width: auto;
+    height: auto;
+  }
+
+  .icon.s {
+    padding: var(--cui-spacings-byte);
+    padding-right: var(--cui-spacings-kilo);
+  }
+
+  .icon.m {
+    padding: var(--cui-spacings-kilo) var(--cui-spacings-mega) var(--cui-spacings-kilo)
+      var(--cui-spacings-kilo);
   }
 
   .base:active ~ .icon {
