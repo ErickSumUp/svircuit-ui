@@ -68,7 +68,7 @@
   export let value: number | string = '';
 </script>
 
-<div class="container" data-disabled={disabled} aria-disabled={disabled} >
+<div class="container" data-disabled={disabled} aria-disabled={disabled}>
   <label for={id} class="label" data-disabled={disabled}>
     <span class="label-text" class:label-hide-visually={hideLabel} data-disabled={disabled}>
       {label}
@@ -155,9 +155,9 @@
 </div>
 
 <style>
-	.container {
-		flex-grow: 1;
-	}
+  .container {
+    flex-grow: 1;
+  }
 
   .label {
     display: block;

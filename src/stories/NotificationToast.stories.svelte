@@ -18,9 +18,8 @@
 
 <script lang="ts">
   import { Story } from '@storybook/addon-svelte-csf';
-  import Stack from '$lib/stories/Stack.svelte';
-	import Button from '$lib/components/Button.svelte';
-
+  import Stack from '$lib/components/Stack.svelte';
+  import Button from '$lib/components/Button.svelte';
 </script>
 
 <Story name="Base" let:args>
