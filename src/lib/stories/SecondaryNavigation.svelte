@@ -3,30 +3,30 @@
   import SubHeadline from '$lib/SubHeadline.svelte';
   import Badge from '$lib/components/Badge.svelte';
 
-	/**
-	 * @typedef {Object} Badge
-	 * @property {string} [label]
-	 * @property {boolean} [circle]
-	 * @property {('promo'|'danger'|'neutral'|'success'|'warning')} [variant]
-	 */
+  /**
+   * @typedef {Object} Badge
+   * @property {string} [label]
+   * @property {boolean} [circle]
+   * @property {('promo'|'danger'|'neutral'|'success'|'warning')} [variant]
+   */
 
-	/**
-	 * @typedef {Object} Link
-	 * @property {string} label
-	 * @property {string} href
-	 * @property {boolean} isActive
-	 * @property {Badge} [badge]
-	 */
+  /**
+   * @typedef {Object} Link
+   * @property {string} label
+   * @property {string} href
+   * @property {boolean} isActive
+   * @property {Badge} [badge]
+   */
 
-	/**
-	 * @typedef {Object} Group
-	 * @property {string} label
-	 * @property {Array.<Link>} links
-	 */
+  /**
+   * @typedef {Object} Group
+   * @property {string} label
+   * @property {Array.<Link>} links
+   */
 
-	/**
-	 * @type {Array.<Group>}
-	 */
+  /**
+   * @type {Array.<Group>}
+   */
   export let groups = [
     {
       label: 'Home',
@@ -80,18 +80,18 @@
       {/each}
     </ul>
   </nav>
-	<footer>
-		<slot />
-	</footer>
+  <footer>
+    <slot />
+  </footer>
 </div>
 
 <style>
   .wrapper {
     position: relative;
     display: flex;
-		flex-direction: column;
+    flex-direction: column;
     height: 100%;
-		border-right: var(--cui-border-width-kilo) solid var(--cui-border-divider);
+    border-right: var(--cui-border-width-kilo) solid var(--cui-border-divider);
   }
 
   @media (max-width: 1900px) {

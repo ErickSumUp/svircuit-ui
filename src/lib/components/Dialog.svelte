@@ -32,40 +32,40 @@
 
 <style>
   dialog {
-		padding: 0;
-		border: none;
+    padding: 0;
+    border: none;
     border-radius: var(--cui-border-radius-mega);
   }
 
   dialog[open] {
-		animation: zoom 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: zoom 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-	@keyframes zoom {
-		from {
-			transform: scale(0.95);
-		}
-		to {
-			transform: scale(1);
-		}
-	}
+  @keyframes zoom {
+    from {
+      transform: scale(0.95);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
 
   dialog::backdrop {
     background: var(--cui-bg-overlay);
   }
 
   dialog[open]::backdrop {
-		animation: fade 0.2s ease-out;
+    animation: fade 0.2s ease-out;
   }
 
-	@keyframes fade {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
-	}
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
   .base .close-button {
     position: absolute;
