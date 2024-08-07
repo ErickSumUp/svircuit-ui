@@ -6,8 +6,11 @@
     component: ListItem,
     argTypes: {
       variant: {
-        control: { type: 'radio', defaultValue: 'neutral' },
+        control: { type: 'radio', defaultValue: 'navigation' },
         options: ['action', 'navigation']
+      },
+      selected: {
+        control: { type: 'boolean' }
       }
     },
     parameters: {
@@ -23,14 +26,10 @@
   import Body from '$lib/components/Body.svelte';
   import Stack from '$lib/components/Stack.svelte';
   import Confirm from '$lib/icons/Confirm.svelte';
-
-  function handleClick() {
-    alert('Hello!');
-  }
 </script>
 
 <Story name="Base" let:args>
-  <ListItem {...args} on:click={handleClick}>
+  <ListItem {...args} onClick={() => console.log('clicked')}>
     <SumUpCard slot="leading" />
     <Body>Mastercard **** 4494</Body>
     <div
@@ -48,7 +47,7 @@
 </Story>
 
 <Story name="Variants">
-  <Stack vertical={true}>
+  <Stack vertical>
     <ListItem variant="action">
       <Body>MasterCard •••• 4494</Body>
     </ListItem>
@@ -59,7 +58,7 @@
 </Story>
 
 <Story name="WithLeadingContent">
-  <Stack vertical={true}>
+  <Stack vertical>
     <ListItem variant="action">
       <SumUpCard slot="leading" />
       <Body>MasterCard •••• 4494</Body>
@@ -72,7 +71,7 @@
 </Story>
 
 <Story name="WithCustomLabel">
-  <Stack vertical={true}>
+  <Stack vertical>
     <ListItem variant="navigation">
       <SumUpCard slot="leading" />
       <Body>Default truncated label: Kraftfahrzeug-Haftpflichtversicherung</Body>
@@ -85,7 +84,7 @@
 </Story>
 
 <Story name="WithDetails">
-  <Stack vertical={true}>
+  <Stack vertical>
     <ListItem variant="action">
       <Body>MasterCard •••• 4494</Body>
       <Body slot="details" variant="subtle" size="two">17:21</Body>
@@ -105,7 +104,7 @@
 </Story>
 
 <Story name="WithTrailingContent">
-  <Stack vertical={true}>
+  <Stack vertical>
     <ListItem variant="action">
       <Body>MasterCard •••• 4494</Body>
       <Body variant="highlight" slot="trailing-label">€24.00</Body>
