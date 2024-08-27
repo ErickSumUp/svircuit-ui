@@ -1,0 +1,80 @@
+import * as Stories from './Spacer.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/blocks';
+
+<Meta of={Stories} />
+
+# Spacer
+
+The Spacer component is used to add vertical space between elements in a layout.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Accessibility
+
+The Spacer component is a layout utility that doesn't directly impact accessibility. However, its use can indirectly affect the visual and structural organization of content, which has accessibility implications.
+
+### Best practices
+
+#### Use Spacer for visual separation, not structural organization
+
+The Spacer component should be used for visual spacing only. It should not be relied upon for conveying structural relationships between content elements. Screen readers and other assistive technologies do not interpret empty space, so the semantic structure of your content should be clear without relying on visual spacing.
+
+#### Maintain a logical reading order
+
+When using Spacer components, ensure that the visual order of elements matches their order in the DOM. This maintains a logical reading order for both sighted users and those using assistive technologies.
+
+#### Be consistent with spacing
+
+Use Spacer components consistently throughout your interface. Consistent spacing helps users understand the relationship between different pieces of content and improves the overall user experience for all users, including those with cognitive disabilities.
+
+#### Don't overuse Spacers
+
+While proper spacing is important for readability and visual organization, overusing Spacer components can lead to excessive whitespace and potentially disorienting layouts, especially on smaller screens. Use Spacers judiciously and consider responsive design principles.
+
+#### Consider alternative methods for spacing
+
+In many cases, margins or padding on content elements themselves may be more appropriate than using a separate Spacer component. Consider whether the spacing is intrinsic to the element or if it's truly about the relationship between separate elements.
+
+### Resources
+
+#### Test your layout at different screen sizes
+
+Verify that your use of Spacer components creates appropriate layouts across different device sizes. Excessive space on smaller screens can push important content out of view.
+
+#### Verify your layout without styles
+
+Use a tool like the [Web Developer extension](https://chrispederick.com/work/web-developer/) to disable CSS and verify that your content maintains a logical structure without visual spacing.
+
+#### Related WCAG success criteria
+
+While there are no WCAG success criteria that directly relate to spacing, the following guidelines are relevant to how spacing affects layout and readability:
+
+- 1.3.2: [Meaningful Sequence](https://www.w3.org/WAI/WCAG21/Understanding/meaningful-sequence)
+- 1.4.8: [Visual Presentation](https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation) (AAA)
+- 2.4.6: [Headings and Labels](https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels)
+
+## Usage Guidelines
+
+The Spacer component comes in three sizes: small ('s'), medium ('m'), and large ('l'). Choose the appropriate size based on the desired visual separation between elements.
+
+```svelte
+<Spacer size="s" />
+<Spacer /> <!-- Defaults to 'm' -->
+<Spacer size="l" />
+<Spacer size="xl" />
+```
+
+### When to use Spacer
+
+- Between sections of content to provide visual separation
+- To create consistent vertical rhythm in your layouts
+- When you need flexible, reusable spacing that can be easily adjusted
+
+### When not to use Spacer
+
+- For horizontal spacing (consider using CSS flexbox or grid instead)
+- When the spacing is intrinsic to an element (use margin or padding on the element itself)
+- To create structural relationships between content (use semantic HTML elements instead)
+
+Remember, the Spacer component is a visual tool. Always ensure that your content maintains a logical structure without relying on visual spacing alone.
