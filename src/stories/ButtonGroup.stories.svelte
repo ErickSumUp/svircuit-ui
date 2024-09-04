@@ -1,7 +1,8 @@
-<script context="module">
+<script context="module" lang="ts">
   import ButtonGroup from '$lib/stories/ButtonGroup.svelte';
+  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/ButtonGroup',
     component: ButtonGroup,
     argTypes: {
@@ -9,21 +10,24 @@
         options: ['left', 'center', 'right']
       }
     }
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
   import Button from '$lib/components/Button.svelte';
   import Stack from '$lib/components/Stack.svelte';
+
+  setTemplate(template);
 </script>
 
-<Story name="Base" let:args>
+{#snippet template({ ...args }: Args<typeof Story>)}
   <ButtonGroup {...args}>
     <Button variant="primary">Look Again</Button>
     <Button variant="secondary">Go elsewhere</Button>
   </ButtonGroup>
-</Story>
+{/snippet}
+
+<Story name="Base" args={{ align: 'center' }} />
 
 <Story name="Alignment">
   <Stack vertical>

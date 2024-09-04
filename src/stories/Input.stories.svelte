@@ -1,32 +1,29 @@
-<script context="module">
+<script context="module" lang="ts">
   import Input from '$lib/components/Input.svelte';
+  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Forms/Input',
     component: Input,
-    argTypes: {
-      label: {
-        control: { type: 'text', defaultValue: 'Input' }
-      }
-    },
+    argTypes: {},
     parameters: {
       layout: 'centered'
     }
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
-
-  export let label = 'First name';
-  export let placeholder = 'Jane';
-  export let maxLength = 100;
+  let maxLength = 100;
   $: validationHint = `Maximum ${maxLength} characters`;
+
+  setTemplate(template);
 </script>
 
-<Story name="Base" let:args>
-  <Input {label} {maxLength} {validationHint} {placeholder} {...args} />
-</Story>
+{#snippet template({ children, id, label, ...args }: Args<typeof Story>)}
+  <Input {id} {label} {...args}>{children}</Input>
+{/snippet}
+
+<Story name="Base" args={{ label: 'First name', placeholder: 'Jane', maxLength, validationHint }} />
 
 <Story name="Validations">
   <div style="display: flex; flex-direction: row; gap: 2rem;">

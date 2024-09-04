@@ -1,28 +1,34 @@
-<script context="module">
+<script context="module" lang="ts">
   import Badge from '$lib/components/Badge.svelte';
+  import { defineMeta, setTemplate } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Badge',
     component: Badge,
+    parameters: {
+      layout: 'centered'
+    },
     argTypes: {
       variant: {
         control: { type: 'radio', defaultValue: 'neutral' },
         options: ['neutral', 'success', 'warning', 'danger', 'promo']
+      },
+      children: {
+        control: { type: 'text', default: 'Badge' }
       }
-    },
-    parameters: {
-      layout: 'centered'
     }
-  };
+  });
 </script>
 
-<script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
+<script>
+  setTemplate(myTemplate);
 </script>
 
-<Story name="Base" let:args>
-  <Badge {...args}>{args.slot || 'Badge'}</Badge>
-</Story>
+{#snippet myTemplate({ children, ...args })}
+  <Badge {...args}>{children || 'Badge'}</Badge>
+{/snippet}
+
+<Story name="Base" args={{ variant: 'neutral', children: 'Badge', circle: false }} />
 
 <Story name="Variants">
   <div style="display: flex; gap: 1rem;">
@@ -36,8 +42,8 @@
 
 <Story name="Circular">
   <div style="display: flex; gap: 1rem;">
-    <Badge variant="neutral" circle={true}>1</Badge>
-    <Badge variant="neutral" circle={true}>42</Badge>
-    <Badge variant="neutral" circle={true}>99</Badge>
+    <Badge variant="neutral" circle>1</Badge>
+    <Badge variant="neutral" circle>42</Badge>
+    <Badge variant="neutral" circle>99</Badge>
   </div>
 </Story>

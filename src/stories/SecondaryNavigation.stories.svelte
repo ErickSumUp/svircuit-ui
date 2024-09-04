@@ -1,19 +1,19 @@
-<script context="module">
+<script context="module" lang="ts">
   import SecondaryNavigation from '$lib/stories/SecondaryNavigation.svelte';
+  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Navigation/SecondaryNavigation',
     component: SecondaryNavigation,
     argTypes: {},
     parameters: {
       layout: 'centered'
     }
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
-  import { Select } from '$lib';
+  import Select from '$lib/components/Select.svelte';
 
   interface Group {
     label: string;
@@ -70,17 +70,21 @@
       ]
     }
   ];
+
+	setTemplate(template);
 </script>
 
-<Story name="Base" let:args>
-  <SecondaryNavigation {groups}>
-    <div style="padding: 10px;">
-      <Select value="0">
-        <option value="0" disabled selected>Select</option>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
-      </Select>
-    </div>
-  </SecondaryNavigation>
-</Story>
+{#snippet template({ ...args }: Args<typeof Story>)}
+	<SecondaryNavigation {groups}>
+		<div style="padding: 10px;">
+			<Select id="options" ariaDescribedBy="options" value="0">
+				<option value="0" disabled selected>Select</option>
+				<option value="1">Option 1</option>
+				<option value="2">Option 2</option>
+				<option value="3">Option 3</option>
+			</Select>
+		</div>
+	</SecondaryNavigation>
+{/snippet}
+
+<Story name="Base" />

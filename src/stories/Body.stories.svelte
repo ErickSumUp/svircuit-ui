@@ -1,7 +1,8 @@
-<script context="module">
+<script context="module" lang="ts">
   import Body from '$lib/components/Body.svelte';
+  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Typography/Body',
     component: Body,
     argTypes: {
@@ -12,24 +13,32 @@
       size: {
         control: { type: 'radio', defaultValue: 'one' },
         options: ['one', 'two']
-      }
+      },
+      children: { control: 'text', defaultValue: '' }
     },
     parameters: {
       layout: 'centered'
     }
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
-
-  export let content =
-    'An electronic circuit is composed of individual electronic components, such as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires or traces through which electric current can flow.';
+  setTemplate(template);
 </script>
 
-<Story name="Base" let:args>
-  <Body {...args}>{args.slot || content}</Body>
-</Story>
+{#snippet template({ children, ...args }: Args<typeof Story>)}
+  <Body href={args.href} {...args}>{children}</Body>
+{/snippet}
+
+<Story
+  name="Base"
+  args={{
+    variant: 'p',
+    size: 'one',
+    children:
+      'An electronic circuit is composed of individual electronic components, such as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires or traces through which electric current can flow.'
+  }}
+/>
 
 <Story name="Variants">
   <Body variant="highlight">This is a highlight body</Body>

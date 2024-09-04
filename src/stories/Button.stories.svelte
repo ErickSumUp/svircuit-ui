@@ -1,7 +1,8 @@
-<script context="module">
+<script context="module" lang="ts">
   import Button from '$lib/components/Button.svelte';
+  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Button',
     component: Button,
     argTypes: {
@@ -15,25 +16,28 @@
     parameters: {
       layout: 'centered'
     }
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
   import ArrowSlanted from '$lib/icons/ArrowSlanted.svelte';
   import Placeholder from '$lib/icons/Placeholder.svelte';
   import Shop from '$lib/icons/Shop.svelte';
   import Close from '$lib/icons/Close.svelte';
   import DownloadCloud from '$lib/icons/DownloadCloud.svelte';
 
+  setTemplate(template);
+
   function handleClick() {
     alert('Hello!');
   }
 </script>
 
-<Story name="Base" let:args>
-  <Button {...args} on:click={handleClick}>{args.slot || 'Say Hello!'}</Button>
-</Story>
+{#snippet template({ children, ...args }: Args<typeof Story>)}
+  <Button onclick={handleClick} {...args}>{children}</Button>
+{/snippet}
+
+<Story name="Base" args={{ children: 'Say Hello', variant: 'secondary', size: 'm' }} />
 
 <Story name="Variants">
   <Button variant="primary">Primary</Button>

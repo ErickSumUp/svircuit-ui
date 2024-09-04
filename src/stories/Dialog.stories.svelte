@@ -1,17 +1,17 @@
-<script context="module">
+<script context="module" lang="ts">
   import Dialog from '$lib/components/Dialog.svelte';
+  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Dialog',
     component: Dialog,
     parameters: {
       layout: 'centered'
     }
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
   import Button from '$lib/components/Button.svelte';
   import Headline from '$lib/components/Headline.svelte';
   import Body from '$lib/components/Body.svelte';
@@ -36,16 +36,20 @@
   });
 
   let ctx: DialogContext = getContext('dialog');
+
+  setTemplate(template);
 </script>
 
-<Story name="Base" let:args>
+{#snippet template({ ...args }: Args<typeof Story>)}
   <Dialog bind:dialog={baseDialog} {...args}>
     <Headline as="h2" size="four" style="margin-bottom: 1rem">Hello World!</Headline>
     <Body>I am a Dialog.</Body>
   </Dialog>
 
   <Button on:click={() => baseDialog.showModal()}>Show Dialog</Button>
-</Story>
+{/snippet}
+
+<Story name="Base" />
 
 <Story name="Opener">
   <Dialog bind:dialog>

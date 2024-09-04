@@ -1,7 +1,8 @@
-<script context="module">
+<script context="module" lang="ts">
   import ListItem from '$lib/components/ListItem.svelte';
+  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/ListItem',
     component: ListItem,
     argTypes: {
@@ -16,19 +17,20 @@
     parameters: {
       layout: 'centered'
     }
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
   import SumUpCard from '$lib/icons/SumUpCard.svelte';
   import Badge from '$lib/components/Badge.svelte';
   import Body from '$lib/components/Body.svelte';
   import Stack from '$lib/components/Stack.svelte';
   import Confirm from '$lib/icons/Confirm.svelte';
+
+  setTemplate(template);
 </script>
 
-<Story name="Base" let:args>
+{#snippet template({ ...args }: Args<typeof Story>)}
   <ListItem {...args} onClick={() => console.log('clicked')}>
     <SumUpCard slot="leading" />
     <Body>Mastercard **** 4494</Body>
@@ -44,7 +46,9 @@
     <Body slot="trailing-label" variant="highlight">€24.00</Body>
     <Body slot="trailing-details" variant="subtle" size="two">€0.46 fee</Body>
   </ListItem>
-</Story>
+{/snippet}
+
+<Story name="Base" />
 
 <Story name="Variants">
   <Stack vertical>

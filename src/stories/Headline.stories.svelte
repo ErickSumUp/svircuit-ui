@@ -1,35 +1,48 @@
-<script context="module">
+<script context="module" lang="ts">
   import Headline from '$lib/components/Headline.svelte';
+  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Typography/Headline',
     component: Headline,
+    parameters: {
+      layout: 'centered'
+    },
     argTypes: {
       size: {
-        control: { type: 'radio', defaultValue: 'one' },
+        control: {
+          type: 'radio',
+          defaultValue: 'one'
+        },
         options: ['one', 'two', 'three', 'four']
       },
       as: {
-        control: { type: 'radio', defaultValue: 'h1' },
+        control: {
+          type: 'radio',
+          defaultValue: 'h1'
+        },
         options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+      },
+      children: {
+        control: {
+          type: 'text'
+        }
       }
-    },
-    parameters: {
-      layout: 'centered'
     }
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
   import Body from '$lib/components/Body.svelte';
 
-  export let as = 'h2';
+  setTemplate(template);
 </script>
 
-<Story name="Base" let:args>
-  <Headline {as} {...args}>{args.slot || 'This is a headline'}</Headline>
-</Story>
+{#snippet template({ children, ...args }: Args<typeof Story>)}
+  <Headline {...args}>{children}</Headline>
+{/snippet}
+
+<Story name="Base" args={{ as: 'h1', size: 'one', children: 'This is a headline!' }} />
 
 <Story name="Sizes">
   <Headline size="one">This is a headline one</Headline>

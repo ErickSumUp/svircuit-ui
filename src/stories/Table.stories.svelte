@@ -1,23 +1,25 @@
-<script context="module">
+<script context="module" lang="ts">
   import Table from '$lib/components/Table.svelte';
+  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Stories/Table',
     component: Table,
     argTypes: {},
     parameters: {
       layout: 'centered'
     }
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
   import TH from '$lib/components/TH.svelte';
   import TD from '$lib/components/TD.svelte';
   import TR from '$lib/components/TR.svelte';
   import THead from '$lib/components/THead.svelte';
   import TBody from '$lib/components/TBody.svelte';
+
+  setTemplate(template);
 
   const headers = ['Name', 'Created At', 'Permissions', 'Status'];
   const rows = [
@@ -27,8 +29,8 @@
   ];
 </script>
 
-<Story name="Base">
-  <Table>
+{#snippet template({ ...args }: Args<typeof Story>)}
+  <Table {...args}>
     <THead>
       <TR>
         {#each headers as header}
@@ -46,7 +48,9 @@
       {/each}
     </TBody>
   </Table>
-</Story>
+{/snippet}
+
+<Story name="Base" />
 
 <Story name="Condensed">
   <Table>

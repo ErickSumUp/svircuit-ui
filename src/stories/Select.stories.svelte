@@ -1,7 +1,8 @@
-<script context="module">
+<script context="module" lang="ts">
   import Select from '$lib/components/Select.svelte';
+  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Select',
     component: Select,
     argTypes: {
@@ -15,24 +16,25 @@
     parameters: {
       layout: 'centered'
     }
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
+  setTemplate(template);
 
-  export let label = 'Countries';
-  export let page_size = 10;
+  let page_size = 10;
 </script>
 
-<Story name="Base" let:args>
-  <Select {label} {...args}>
+{#snippet template({ ...args }: Args<typeof Story>)}
+  <Select id="country" ariaDescribedBy="country" {...args}>
     <option value="" disabled selected>Select an option</option>
     <option value="US">United States</option>
     <option value="DE">Germany</option>
     <option value="FR">France</option>
   </Select>
-</Story>
+{/snippet}
+
+<Story name="Base" />
 
 <Story name="Sizes">
   <div style="display: flex; flex-direction: row; align-items: center; gap: 50px">
@@ -42,7 +44,7 @@
       <option value={20}>20</option>
     </Select>
     <Select label="Size" id="size" ariaDescribedBy="size selected" size="m" bind:value={page_size}>
-      <option value={0} disabled>S</option>
+      <option value={0} disabled>M</option>
       <option value={10}>10</option>
       <option value={20}>20</option>
     </Select>

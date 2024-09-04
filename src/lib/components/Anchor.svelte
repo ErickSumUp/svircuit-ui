@@ -1,19 +1,14 @@
 <script lang="ts">
-  /**
-   * Choose from size variants.
-   * @type {('one' | 'two')}
-   */
-  export let size: 'one' | 'two' = 'one';
-  /**
-   * Choose from style variants.
-   * @type {('highlight' | 'quote' | '')}
-   */
-  export let variant: 'highlight' | 'quote' | '' = '';
-  /**
-   * The URL to navigate to when the link is clicked.
-   * @type {string}
-   */
-  export let href: string;
+  import type { Snippet } from 'svelte';
+
+  interface Props {
+    size?: 'one' | 'two';
+    variant?: '' | 'highlight' | 'quote';
+    href: string;
+    children: Snippet;
+  }
+
+  let { size = 'one', variant = '', href, children, ...rest }: Props = $props();
 </script>
 
 <a
@@ -23,7 +18,9 @@
   class:two={size === 'two'}
   class:highlight={variant === 'highlight'}
   class:quote={variant === 'quote'}
-  {...$$restProps}><slot /></a
+  {...rest}
+>
+  {@render children()}</a
 >
 
 <style>
