@@ -1,9 +1,14 @@
 <script>
   export let borderCollapse = false;
   export let isScrollable = false;
+  export let noShadow = false;
 </script>
 
-<div class="table-container" class:table-container--scrollable={isScrollable}>
+<div
+  class="table-container"
+  class:table-container--scrollable={isScrollable}
+  class:border={!noShadow}
+>
   <div class="scroll-container" class:scroll-container--scrollable={isScrollable}>
     <table class:border-collapse={borderCollapse} {...$$restProps}>
       <slot />
@@ -14,7 +19,9 @@
 <style>
   .table-container {
     position: relative;
-    border: 1px solid var(--cui-border-normal);
+  }
+  .border {
+    border: var(--cui-border-width-kilo) solid var(--cui-border-divider);
   }
   .table-container--scrollable {
     height: 100%;

@@ -27,8 +27,8 @@
   ];
 </script>
 
-<Story name="Base">
-  <Table>
+<Story name="Base" let:args>
+  <Table {...args}>
     <THead>
       <TR>
         {#each headers as header}
