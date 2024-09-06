@@ -1,51 +1,71 @@
-<script>
-  /**
-   * Choose from 3 style variants.
-   * @type {('primary' | 'secondary' | 'tertiary')}
-   */
-  export let variant = 'secondary';
-  /**
-   * Choose from 2 sizes.
-   * @type {('s' | 'm')}
-   */
-  export let size = 'm';
-  /**
-   * Change the color from accent to danger to signal to the user that the action
-   * is irreversible or otherwise dangerous.
-   * @type {boolean}
-   */
-  export let destructive = false;
-  /**
-   * Stretch the button across the full width of its parent.
-   * @type {boolean}
-   */
-  export let stretch = false;
-  /**
-   * Visually and functionally disable the button.
-   * @type {boolean}
-   */
-  export let disabled = false;
-  /**
-   * Visually disables the button and shows a loading spinner.
-   * @type {boolean}
-   */
-  export let isLoading = false;
-  /**
-   * Visually hidden label to communicate the loading state to visually
-   * impaired users.
-   * @type {string}
-   */
-  export let loadingLabel = 'Loading';
-  /**
-   * Hide the label text.
-   * @type {boolean}
-   */
-  export let hideLabel = false;
-  /**
-   * Reduce the padding and margin of the button.
-   * @type {boolean}
-   */
-  export let compress = false;
+<script lang="ts">
+	import type { Snippet } from 'svelte';
+	import type { HTMLButtonAttributes } from 'svelte/elements';
+
+	interface Props extends HTMLButtonAttributes {
+		/**
+		 * Choose from 3 style variants.
+		 */
+		variant?: 'primary' | 'secondary' | 'tertiary';
+		/**
+		 * Choose from 2 sizes.
+		 */
+		size?: 's' | 'm';
+		/**
+		 * Change the color from accent to danger to signal to the user that the action is irreversible or otherwise dangerous.
+		 */
+		destructive?: boolean;
+		/**
+		 * Stretch the button across the full width of its parent.
+		 */
+		stretch?: boolean;
+		/**
+		 * Visually and functionally disable the button.
+		 */
+		disabled?: boolean;
+		/**
+		 * Visually disables the button and shows a loading spinner.
+		 */
+		isLoading?: boolean;
+		/**
+		 * Visually hidden label to communicate the loading state to visually impaired users.
+		 */
+		loadingLabel?: string;
+		/**
+		 * Hide the label text.
+		 */
+		hideLabel?: boolean;
+		/**
+		 * Reduce the padding and margin of the button.
+		 */
+		compress?: boolean;
+		/**
+		 * Slot for the leading icon.
+		 */
+		leading_icon?: Snippet;
+		/**
+		 * Slot for the trailing icon.
+		 */
+		trailing_icon?: Snippet;
+		children: Snippet;
+	}
+
+  let {
+    variant = 'secondary',
+    size = 'm',
+    destructive = false,
+    stretch = false,
+    disabled = false,
+    isLoading = false,
+    loadingLabel = 'Loading',
+    hideLabel = false,
+    compress = false,
+    onclick,
+    leading_icon = undefined,
+    children,
+    trailing_icon = undefined,
+    ...rest
+  }: Props = $props();
 </script>
 
 <button
@@ -64,23 +84,23 @@
   aria-disabled={disabled}
   aria-busy={isLoading}
   aria-live={isLoading ? 'polite' : null}
-  on:click
-  {...$$restProps}
+  {onclick}
+  {...rest}
 >
   {#if isLoading}
     <span class="loader" aria-hidden={!isLoading}>
-      <span class="dot" />
-      <span class="dot" />
-      <span class="dot" />
+			<span class="dot" ></span>
+      <span class="dot" ></span>
+      <span class="dot" ></span>
       <span class="hide-visually">{loadingLabel}</span>
     </span>
   {/if}
   <span class="content">
-    <slot name="leading-icon" class="leading-icon" />
+    {@render leading_icon?.()}
     <span class="label" class:hide-label={hideLabel}>
-      <slot />
+      {@render children()}
     </span>
-    <slot name="trailing-icon" class="trailing-icon" />
+    {@render trailing_icon?.()}
   </span>
 </button>
 
