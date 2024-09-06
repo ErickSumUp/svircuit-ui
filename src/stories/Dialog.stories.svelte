@@ -46,7 +46,11 @@
     <Body>I am a Dialog.</Body>
   </Dialog>
 
-  <Button on:click={() => baseDialog.showModal()}>Show Dialog</Button>
+  <Button
+    onclick={() => {
+      baseDialog.showModal();
+    }}>Show Dialog</Button
+  >
 {/snippet}
 
 <Story name="Base" />
@@ -57,7 +61,7 @@
     <Body>In this case the button is "next to" the Dialog code-wise.</Body>
   </Dialog>
 
-  <Button on:click={() => dialog.showModal()}>Show Dialog</Button>
+  <Button onclick={() => dialog.showModal()}>Show Dialog</Button>
 </Story>
 
 <Story name="Context">
@@ -66,5 +70,5 @@
     <Body>In this case the button connected using a context.</Body>
   </Dialog>
 
-  <Button on:click={() => ctx.showModal()}>Show Dialog Context</Button>
+  <Button onclick={() => ctx.showModal()}>Show Dialog Context</Button>
 </Story>
