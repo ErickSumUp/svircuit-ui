@@ -6,9 +6,6 @@
     title: 'Stories/Pagination',
     component: Pagination,
     argTypes: {
-      label: {
-        control: { type: 'text', defaultValue: 'Pagination' }
-      }
     },
     parameters: {
       layout: 'centered'
@@ -18,16 +15,13 @@
 
 <script lang="ts">
   setTemplate(template);
-
-  export let label = 'Pages';
-  export let totalPages = 5;
 </script>
 
-{#snippet template({ children, ...args }: Args<typeof Story>)}
-  <Pagination {...args}>{children}</Pagination>
+{#snippet template({ ...args }: Args<typeof Story>)}
+  <Pagination {...args} />
 {/snippet}
 
-<Story name="Base" args={{ totalPages, label }} />
+<Story name="Base" args={{ currentPage: 1, totalPages: 5, label: 'Pages' }} />
 
 <Story name="ManyPages">
   <Pagination totalPages={10} currentPage={5} />

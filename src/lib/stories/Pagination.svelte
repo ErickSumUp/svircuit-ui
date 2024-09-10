@@ -1,11 +1,5 @@
-<script context="module">
-  /**
-   * Generates the page numbers based on the current page and the total number of pages
-   * @param totalPages
-   * @param currentPage
-   * @returns {string[]}
-   */
-  function generatePages(totalPages, currentPage) {
+<script context="module" lang="ts">
+  function generatePages(totalPages: number, currentPage: number): string[] {
     const pages = [];
     const distanceToOne = currentPage - 1;
     const distanceToLast = totalPages - currentPage;
@@ -50,56 +44,65 @@
   }
 </script>
 
-<script>
+<script lang="ts">
   import ChevronLeft from '$lib/icons/ChevronLeft.svelte';
   import ChevronRight from '$lib/icons/ChevronRight.svelte';
   import Button from '$lib/components/Button.svelte';
 
-  /**
-   * The currently active page
-   * @type {number}
-   */
-  export let currentPage = 1;
-  /**
-   * The total number of pages
-   * @type {number}
-   */
-  export let totalPages = 1;
-  /**
-   * Label to describe the type of navigation, e.g. "Pagination"
-   * @type {string}
-   */
-  export let ariaLabel = 'Pagination';
-  /**
-   * Label for the previous button
-   * @type {string}
-   */
-  export let previousLabel = 'Previous page';
-  /**
-   * Label for the previous button
-   * @type {string}
-   */
-  export let nextLabel = 'Next page';
-  /**
-   * Label for the page buttons
-   * @type {(page: number) => string}
-   */
-  export let pageLabel = (page) => 'Go to page ' + page;
+	interface Props {
+		/**
+		 * The currently active page
+		 */
+		currentPage?: number;
+		/**
+		 * The total number of pages
+		 */
+		totalPages?: number;
+		/**
+		 * Label to describe the type of navigation, e.g. "Pagination"
+		 */
+		ariaLabel?: string;
+		/**
+		 * Label for the previous button
+		 */
+		previousLabel?: string;
+		/**
+		 * Label for the previous button
+		 */
+		nextLabel?: string;
+		/**
+		 * Label for the page buttons
+		 */
+		pageLabel?: (page: number) => string;
+	}
 
-  $: pages = generatePages(totalPages, currentPage);
+	let {
+		currentPage = $bindable(1),
+		totalPages = $bindable(1),
+		ariaLabel = 'Pagination',
+		previousLabel = 'Previous page',
+		nextLabel = 'Next page',
+		pageLabel = (page) => 'Go to page ' + page,
+		...rest
+	}: Props = $props();
+
+	let pages = $derived.by(() => generatePages(totalPages, currentPage));
 </script>
 
-<nav class="nav" aria-label={ariaLabel} {...$$restProps}>
+<nav class="nav" aria-label={ariaLabel} {...rest}>
+  {#snippet chevronLeft()}
+    <ChevronLeft />
+  {/snippet}
+
   <Button
     disabled={currentPage === 1}
     variant="secondary"
     size="s"
     hideLabel={true}
     aria-label={previousLabel}
-    on:click={() => (currentPage -= 1)}
-  >
-    <ChevronLeft slot="leading-icon" />
-  </Button>
+    leading_icon={chevronLeft}
+    onclick={() => (currentPage -= 1)}
+  ></Button>
 
   <ol class="pagination-list">
     {#each pages as page}
@@ -122,16 +125,18 @@
     {/each}
   </ol>
 
+  {#snippet chevronRight()}
+    <ChevronRight />
+  {/snippet}
   <Button
     disabled={currentPage >= totalPages}
     variant="secondary"
     size="s"
     hideLabel={true}
     aria-label={nextLabel}
-    on:click={() => (currentPage += 1)}
-  >
-    <ChevronRight slot="trailing-icon" />
-  </Button>
+    trailing_icon={chevronRight}
+    onclick={() => (currentPage += 1)}
+  ></Button>
 </nav>
 
 <style>

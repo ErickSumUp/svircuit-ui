@@ -47,7 +47,6 @@
 		 * Slot for the trailing icon.
 		 */
 		trailing_icon?: Snippet;
-		children: Snippet;
 	}
 
   let {
@@ -62,8 +61,8 @@
     compress = false,
     onclick,
     leading_icon = undefined,
-    children,
     trailing_icon = undefined,
+		children,
     ...rest
   }: Props = $props();
 </script>
