@@ -375,117 +375,78 @@
     border-color: transparent;
   }
 
-  .tertiary:active {
-    color: var(--cui-fg-accent-pressed);
-    background-color: var(--cui-bg-accent-pressed);
-    border-color: transparent;
-  }
+	.tertiary:active,
+	.tertiary[aria-expanded="true"],
+	.tertiary[aria-pressed="true"] {
+		color: var(--cui-fg-accent-pressed);
+		background-color: transparent;
+		border-color: transparent;
+	}
 
-  .tertiary:focus-visible {
-    background-color: var(--cui-bg-accent-hovered);
-  }
+	.tertiary.destructive {
+		color: var(--cui-fg-danger);
+	}
 
-  .tertiary.destructive {
-    color: var(--cui-fg-danger);
-  }
+	.tertiary.destructive:hover {
+		color: var(--cui-fg-danger-hovered);
+		background-color: transparent;
+	}
 
-  .tertiary.destructive:hover {
-    color: var(--cui-fg-danger-hovered);
-    background-color: var(--cui-bg-danger-hovered);
-  }
+	.tertiary.destructive:active,
+	.tertiary.destructive[aria-expanded="true"],
+	.tertiary.destructive[aria-pressed="true"] {
+		color: var(--cui-fg-danger-pressed);
+		background-color: transparent;
+	}
 
-  .tertiary.destructive:active {
-    color: var(--cui-fg-danger-pressed);
-    background-color: var(--cui-bg-danger-pressed);
-  }
+	.tertiary .label {
+		text-decoration: underline;
+		text-decoration-color: currentColor;
+		text-underline-position: under;
+		transition: text-decoration-color var(--cui-transitions-default);
+	}
 
-  .tertiary.destructive:focus-visible {
-    background-color: var(--cui-bg-danger-hovered);
-  }
+	@supports (text-underline-offset: 0.25em) {
+		.tertiary .label {
+			text-underline-position: auto;
+			text-underline-offset: 0.25em;
+		}
+	}
 
-  .tertiary .label {
-    position: relative;
-  }
+	.tertiary:disabled,
+	.tertiary[disabled],
+	.tertiary[aria-disabled="true"] {
+		color: var(--cui-fg-normal-disabled);
+		background-color: transparent;
+		border-color: transparent;
+	}
 
-  .tertiary .label::after {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    content: '';
-    border-top: var(--cui-border-width-kilo) dashed var(--cui-border-normal);
-    opacity: 1;
-    transition:
-      transform var(--cui-transitions-default),
-      opacity var(--cui-transitions-default);
-  }
+	.tertiary.destructive:disabled,
+	.tertiary.destructive[disabled],
+	.tertiary.destructive[aria-disabled="true"] {
+		color: var(--cui-fg-danger-disabled);
+	}
 
-  .tertiary:focus-visible .label::after {
-    opacity: 0;
-    transform: translateY(2px);
-  }
+	/* ButtonGroup */
+	@container cui-button-group (width < 360px) {
+		.base {
+			width: 100%;
+		}
+	}
 
-  .tertiary:hover .label::after,
-  .tertiary:active .label::after,
-  .tertiary[aria-busy='true'] .label::after,
-  .tertiary:disabled .label::after,
-  .tertiary[disabled] .label::after,
-  .tertiary[aria-disabled='true'] .label::after {
-    opacity: 0;
-    transform: translateY(2px);
-  }
+	/* Disabled */
+	.base:disabled,
+	.base[disabled],
+	.base[aria-disabled="true"] {
+		cursor: not-allowed;
+	}
 
-  /* ButtonGroup */
-  @container cui-button-group (width < 360px) {
-    .base {
-      width: 100%;
-    }
-  }
+	.base:disabled .content,
+	.base[disabled] .content,
+	.base[aria-disabled="true"] .content {
+		transform: translate(0);
+	}
 
-  @container cui-button-group (width > 370px) {
-    /* Keep in sync with the .secondary class above */
-    .tertiary {
-      color: var(--cui-fg-normal);
-      background-color: var(--cui-bg-normal);
-      border-color: var(--cui-border-normal);
-    }
-
-    .tertiary:hover {
-      color: var(--cui-fg-normal-hovered);
-      background-color: var(--cui-bg-normal-hovered);
-      border-color: var(--cui-border-normal-hovered);
-    }
-
-    .tertiary:active,
-    .tertiary[aria-expanded='true'],
-    .tertiary[aria-pressed='true'] {
-      color: var(--cui-fg-normal-pressed);
-      background-color: var(--cui-bg-normal-pressed);
-      border-color: var(--cui-border-normal-pressed);
-    }
-
-    .tertiary.destructive {
-      color: var(--cui-fg-danger);
-    }
-
-    .tertiary.destructive:hover {
-      color: var(--cui-fg-danger-hovered);
-      background-color: var(--cui-bg-danger-hovered);
-      border-color: var(--cui-border-danger-hovered);
-    }
-
-    .tertiary.destructive:active,
-    .tertiary.destructive[aria-expanded='true'],
-    .tertiary.destructive[aria-pressed='true'] {
-      color: var(--cui-fg-danger-pressed);
-      background-color: var(--cui-bg-danger-pressed);
-      border-color: var(--cui-border-danger-pressed);
-    }
-
-    .tertiary .label::after {
-      display: none;
-    }
-  }
 
   /* Disabled */
   .base:disabled,

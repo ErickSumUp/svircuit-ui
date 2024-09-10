@@ -16,7 +16,7 @@
     wrap?: boolean;
   }
 
-  let { align = 'left', condensed = false, wrap = false, ...rest }: Props = $props();
+  let { align = 'left', condensed = false, wrap = false, children, ...rest }: Props = $props();
 </script>
 
 <td
@@ -27,7 +27,7 @@
   class:wrap
   {...rest}
 >
-  <slot />
+	{@render children()}
 </td>
 
 <style>

@@ -118,7 +118,7 @@
             role="link"
             compress={true}
             aria-label={pageLabel(Number(page))}
-            on:click={() => (currentPage = Number(page))}>{page}</Button
+            onclick={() => (currentPage = Number(page))}>{page}</Button
           >
         {/if}
       </li>

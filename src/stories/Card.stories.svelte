@@ -70,7 +70,7 @@
       <Body>This is some text showing in my card</Body>
     </Card>
     <Card>
-      <CardHeader title="Title" subtitle="Subtitle" showCloseButton={true}>
+      <CardHeader title="Title" subtitle="Subtitle" showCloseButton>
         <Headline size="four" as="h2">Card Heading w/Button</Headline>
       </CardHeader>
       <Body>This is some text showing in my card</Body>

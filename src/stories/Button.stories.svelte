@@ -7,9 +7,11 @@
     component: Button,
     argTypes: {
       variant: {
+				control: 'radio',
         options: ['primary', 'secondary', 'tertiary']
       },
       size: {
+				control: 'radio',
         options: ['s', 'm']
       },
     },
@@ -96,7 +98,7 @@
     {#snippet shopIcon()}
       <Shop size="24" />
     {/snippet}
-    <Button size="m" on:click disabled={true} hideLabel={true} leading_icon={shopIcon}>Cart</Button>
+    <Button size="m" disabled={true} hideLabel={true} leading_icon={shopIcon}>Cart</Button>
     {#snippet placeholderIcon24()}
       <Placeholder size="24" />
     {/snippet}

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { HTMLAttributes } from 'svelte/elements';
+  import type { HTMLAttributes } from 'svelte/elements';
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
     align?: 'left' | 'center' | 'right';
