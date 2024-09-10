@@ -1,13 +1,19 @@
-<script>
-  /**
-   * The padding of the Card.
-   * @type {('mega' | 'giga')}
-   */
-  export let spacing = 'giga';
+<script lang="ts">
+  import type { Snippet } from 'svelte';
+
+  interface Props {
+    /**
+     * The padding of the Card.
+     */
+    spacing?: string;
+    children: Snippet;
+  }
+
+  let { spacing = 'giga', children, ...rest }: Props = $props();
 </script>
 
-<div class="base" class:mega={spacing === 'mega'} class:giga={spacing === 'giga'} {...$$restProps}>
-  <slot />
+<div class="base" class:mega={spacing === 'mega'} class:giga={spacing === 'giga'} {...rest}>
+  {@render children()}
 </div>
 
 <style>
