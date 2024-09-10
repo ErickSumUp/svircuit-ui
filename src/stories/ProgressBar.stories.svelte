@@ -27,7 +27,7 @@
   </div>
 {/snippet}
 
-<Story name="Base" args={{ value: 0, max: 0 }} />
+<Story name="Base" args={{ value: 0, max: 0, size: 'm' }} />
 
 <Story name="Labelled">
   <div style="width: 500px">
