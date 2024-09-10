@@ -1,14 +1,19 @@
-<script>
-  /**
-   * Choose from 4 style variants. Default: 'neutral'
-   * @type {('neutral' | 'success' | 'warning' | 'danger' | 'promo')}
-   */
-  export let variant = 'neutral';
-  /**
-   * Use the circular badge to indicate a count of items related to an element.
-   * @type {boolean}
-   */
-  export let circle = false;
+<script lang="ts">
+  import type { Snippet } from 'svelte';
+
+  interface Props {
+    /**
+     * Choose from 4 style variants. Default: 'neutral'
+     */
+    variant?: 'neutral' | 'success' | 'warning' | 'danger' | 'promo';
+    /**
+     * Use the circular badge to indicate a count of items related to an element.
+     */
+    circle?: boolean;
+    children: Snippet;
+  }
+
+  let { variant = 'neutral', circle = false, children, ...rest }: Props = $props();
 </script>
 
 <span
@@ -19,9 +24,9 @@
   class:danger={variant === 'danger'}
   class:promo={variant === 'promo'}
   class:circle
-  {...$$restProps}
+  {...rest}
 >
-  <slot />
+  {@render children()}
 </span>
 
 <style>

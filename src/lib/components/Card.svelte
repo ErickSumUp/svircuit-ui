@@ -5,7 +5,7 @@
     /**
      * The padding of the Card.
      */
-    spacing?: string;
+    spacing?: 'mega' | 'giga';
     children: Snippet;
   }
 

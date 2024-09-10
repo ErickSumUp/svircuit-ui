@@ -5,11 +5,11 @@
 		/**
 		 * Choose from size variants.
 		 */
-		size?: string;
+		size?: 'one' | 'two';
 		/**
 		 * Choose from variant styles.
 		 */
-		variant?: string;
+		variant?: 'p' | 'highlight' | 'quote' | 'confirm' | 'alert' | 'subtle';
 		/**
 		 * Render the text using any HTML element.
 		 */
