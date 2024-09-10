@@ -27,7 +27,7 @@
 </script>
 
 {#snippet template({ children, ...args }: Args<typeof Story>)}
-  <Body href={args.href} {...args}>{children}</Body>
+  <Body {...args}>{children}</Body>
 {/snippet}
 
 <Story

@@ -1,78 +1,91 @@
-<script>
-  /**
-   * Choose from size variants.
-   * @type {('one' | 'two')}
-   */
-  export let size = 'one';
-  /**
-   * Choose from variant styles.
-   * @type {('highlight' | 'quote' | 'confirm' | 'alert' | 'subtle' | 'p')}
-   */
-  export let variant = 'p';
-  /**
-   * Render the text using any HTML element.
-   * @type {string}
-   */
-  export let as = 'p';
+<script lang="ts">
+	import type { Snippet } from 'svelte';
 
-  $: element = 'p';
+	interface Props {
+		/**
+		 * Choose from size variants.
+		 */
+		size?: string;
+		/**
+		 * Choose from variant styles.
+		 */
+		variant?: string;
+		/**
+		 * Render the text using any HTML element.
+		 */
+		as?: string;
+		children: Snippet;
+	}
 
-  $: if (variant === 'highlight') {
-    element = 'strong';
-  } else if (variant === 'quote') {
-    element = 'blockquote';
-  } else {
-    element = 'p';
-  }
+	let {
+		size = 'one',
+		variant = 'p',
+		as = 'p',
+		children,
+		...rest
+	}: Props = $props();
+
+	let element: string = $derived.by(() => {
+		let value ='p';
+		if (variant === 'highlight') {
+			value = 'strong';
+		} else if (variant === 'quote') {
+			value = 'blockquote';
+		} else {
+			value = 'p';
+		}
+
+		return value;
+	});
 </script>
 
 <svelte:element
-  this={as || element}
-  class="base"
-  class:one={size === 'one'}
-  class:two={size === 'two'}
-  class:highlight={variant === 'highlight'}
-  class:quote={variant === 'quote'}
-  class:confirm={variant === 'confirm'}
-  class:alert={variant === 'alert'}
-  class:subtle={variant === 'subtle'}
-  {...$$restProps}><slot /></svelte:element
+	this={as || element}
+	class="base"
+	class:one={size === 'one'}
+	class:two={size === 'two'}
+	class:highlight={variant === 'highlight'}
+	class:quote={variant === 'quote'}
+	class:confirm={variant === 'confirm'}
+	class:alert={variant === 'alert'}
+	class:subtle={variant === 'subtle'}
+	{...rest}>{@render children()}</svelte:element
 >
 
 <style>
-  .base,
-  p {
-    font-weight: var(--cui-font-weight-regular);
-  }
-  .one {
-    font-size: var(--cui-typography-body-one-font-size);
-    line-height: var(--cui-typography-body-one-line-height);
-  }
-  .two {
-    font-size: var(--cui-typography-body-two-font-size);
-    line-height: var(--cui-typography-body-two-line-height);
-  }
+	.base,
+	p {
+		font-weight: var(--cui-font-weight-regular);
+	}
+	.one {
+		font-size: var(--cui-typography-body-one-font-size);
+		line-height: var(--cui-typography-body-one-line-height);
+	}
+	.two {
+		font-size: var(--cui-typography-body-two-font-size);
+		line-height: var(--cui-typography-body-two-line-height);
+	}
 
-  .highlight,
-  strong {
-    font-weight: var(--cui-font-weight-bold);
-  }
-  .quote,
-  blockquote {
-    padding-left: var(--cui-spacings-kilo);
-    font-style: italic;
-    border-left: var(--cui-border-width-mega) solid var(--cui-border-accent);
-  }
+	.highlight,
+	strong {
+		font-weight: var(--cui-font-weight-bold);
+	}
+	.quote,
+	blockquote {
+		padding-left: var(--cui-spacings-kilo);
+		font-style: italic;
+		border-left: var(--cui-border-width-mega) solid var(--cui-border-accent);
+	}
 
-  .confirm {
-    color: var(--cui-fg-success);
-  }
+	.confirm {
+		color: var(--cui-fg-success);
+	}
 
-  .alert {
-    color: var(--cui-fg-danger);
-  }
+	.alert {
+		color: var(--cui-fg-danger);
+	}
 
-  .subtle {
-    color: var(--cui-fg-subtle);
-  }
+	.subtle {
+		color: var(--cui-fg-subtle);
+	}
 </style>
