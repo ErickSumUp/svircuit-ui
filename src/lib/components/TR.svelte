@@ -1,5 +1,13 @@
-<tr on:click {...$$restProps}>
-  <slot />
+<script lang="ts">
+  import type { HTMLAttributes } from 'svelte/elements';
+
+  interface Props extends HTMLAttributes<HTMLTableRowElement> {}
+
+  let { children, ...rest }: Props = $props();
+</script>
+
+<tr {...rest}>
+  {@render children()}
 </tr>
 
 <style>

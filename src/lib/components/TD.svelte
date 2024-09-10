@@ -1,19 +1,22 @@
-<script>
-  /**
-   * Choose the alignment of the text in the cell.
-   * @type {('left' | 'center' | 'right')}
-   */
-  export let align = 'left';
-  /**
-   * Whether the cell should have a condensed style.
-   * @type {boolean}
-   */
-  export let condensed = false;
-  /**
-   * Whether the cell should wrap its content.
-   * @type {boolean}
-   */
-  export let wrap = false;
+<script lang="ts">
+  import type { HTMLTdAttributes } from 'svelte/elements';
+
+  interface Props extends HTMLTdAttributes {
+    /**
+     * Choose the alignment of the text in the cell.
+     */
+    align?: 'left' | 'center' | 'right';
+    /**
+     * Whether the cell should have a condensed style.
+     */
+    condensed?: boolean;
+    /**
+     * Whether the cell should wrap its content.
+     */
+    wrap?: boolean;
+  }
+
+  let { align = 'left', condensed = false, wrap = false, ...rest }: Props = $props();
 </script>
 
 <td
@@ -22,7 +25,7 @@
   class:align-right={align === 'right'}
   class:condensed
   class:wrap
-  {...$$restProps}
+  {...rest}
 >
   <slot />
 </td>
