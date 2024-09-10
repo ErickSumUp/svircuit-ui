@@ -1,12 +1,11 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
+  import { HTMLAttributes } from 'svelte/elements';
 
-  interface Props {
+  interface Props extends HTMLAttributes<HTMLDivElement> {
     /**
      * The padding of the Card.
      */
     spacing?: 'mega' | 'giga';
-    children: Snippet;
   }
 
   let { spacing = 'giga', children, ...rest }: Props = $props();

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
+  import type { HTMLAttributes } from 'svelte/elements';
 
-  interface Props {
+  interface Props extends HTMLAttributes<HTMLSpanElement> {
     /**
      * Choose from 4 style variants. Default: 'neutral'
      */
@@ -10,7 +10,6 @@
      * Use the circular badge to indicate a count of items related to an element.
      */
     circle?: boolean;
-    children: Snippet;
   }
 
   let { variant = 'neutral', circle = false, children, ...rest }: Props = $props();

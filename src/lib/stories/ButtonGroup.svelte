@@ -1,19 +1,21 @@
 <script lang="ts">
-  /**
-   * Direction to align the buttons. Defaults to `center`.
-   * @type {'left' | 'center' | 'right'}
-   */
-  export let align: 'left' | 'center' | 'right' = 'center';
+  import { HTMLAttributes } from 'svelte/elements';
+
+  interface Props extends HTMLAttributes<HTMLDivElement> {
+    align?: 'left' | 'center' | 'right';
+  }
+
+  let { align = 'center', children, ...rest }: Props = $props();
 </script>
 
-<div class="container">
+<div class="container" {...rest}>
   <div
     class="base"
     class:left={align === 'left'}
     class:center={align === 'center'}
     class:right={align === 'right'}
   >
-    <slot />
+    {@render children()}
   </div>
 </div>
 

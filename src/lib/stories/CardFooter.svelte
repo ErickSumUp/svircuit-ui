@@ -1,9 +1,15 @@
 <script lang="ts">
-  export let align: 'left' | 'right' = 'right';
+  import type { HTMLAttributes } from 'svelte/elements';
+
+  interface Props extends HTMLAttributes<HTMLDivElement> {
+    align?: 'left' | 'right';
+  }
+
+  let { align = 'right', children, ...rest }: Props = $props();
 </script>
 
-<div class="base" class:left={align === 'left'} class:right={align === 'right'} {...$$restProps}>
-  <slot />
+<div class="base" class:left={align === 'left'} class:right={align === 'right'} {...rest}>
+  {@render children()}
 </div>
 
 <style>

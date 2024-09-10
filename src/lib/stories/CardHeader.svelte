@@ -1,12 +1,17 @@
 <script lang="ts">
   import Close from '$lib/icons/Close.svelte';
   import Button from '$lib/components/Button.svelte';
+  import { HTMLAttributes } from 'svelte/elements';
 
-  export let showCloseButton = false;
+  interface Props extends HTMLAttributes<HTMLDivElement> {
+    showCloseButton?: boolean;
+  }
+
+  let { showCloseButton = false, children, ...rest }: Props = $props();
 </script>
 
-<div class="base" {...$$restProps}>
-  <slot />
+<div class="base" {...rest}>
+  {@render children()}
   {#if showCloseButton}
     <div class="close">
       <Button on:click size="m" variant="tertiary" hideLabel={true}>

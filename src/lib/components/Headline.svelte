@@ -1,7 +1,5 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
-
-  interface Props {
+  interface Props extends HTMLHeadingElement {
     /**
      * A Circuit UI headline size. Defaults to `one`.
      */
@@ -12,7 +10,6 @@
      * Learn more at https://www.w3.org/WAI/tutorials/page-structure/headings/.
      */
     as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-    children: Snippet;
   }
 
   let { size = 'one', as = 'h1', children, ...rest }: Props = $props();
