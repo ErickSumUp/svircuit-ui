@@ -34,7 +34,7 @@
   </Select>
 {/snippet}
 
-<Story name="Base" args={{ size: 'm' }}/>
+<Story name="Base" args={{ size: 'm' }} />
 
 <Story name="Sizes">
   <div style="display: flex; flex-direction: row; align-items: center; gap: 50px">

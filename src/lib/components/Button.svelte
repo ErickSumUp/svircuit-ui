@@ -1,53 +1,53 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
-	import type { HTMLButtonAttributes } from 'svelte/elements';
+  import type { Snippet } from 'svelte';
+  import type { HTMLButtonAttributes } from 'svelte/elements';
 
-	interface Props extends HTMLButtonAttributes {
-		/**
-		 * Choose from 3 style variants.
-		 */
-		variant?: 'primary' | 'secondary' | 'tertiary';
-		/**
-		 * Choose from 2 sizes.
-		 */
-		size?: 's' | 'm';
-		/**
-		 * Change the color from accent to danger to signal to the user that the action is irreversible or otherwise dangerous.
-		 */
-		destructive?: boolean;
-		/**
-		 * Stretch the button across the full width of its parent.
-		 */
-		stretch?: boolean;
-		/**
-		 * Visually and functionally disable the button.
-		 */
-		disabled?: boolean;
-		/**
-		 * Visually disables the button and shows a loading spinner.
-		 */
-		isLoading?: boolean;
-		/**
-		 * Visually hidden label to communicate the loading state to visually impaired users.
-		 */
-		loadingLabel?: string;
-		/**
-		 * Hide the label text.
-		 */
-		hideLabel?: boolean;
-		/**
-		 * Reduce the padding and margin of the button.
-		 */
-		compress?: boolean;
-		/**
-		 * Slot for the leading icon.
-		 */
-		leading_icon?: Snippet;
-		/**
-		 * Slot for the trailing icon.
-		 */
-		trailing_icon?: Snippet;
-	}
+  interface Props extends HTMLButtonAttributes {
+    /**
+     * Choose from 3 style variants.
+     */
+    variant?: 'primary' | 'secondary' | 'tertiary';
+    /**
+     * Choose from 2 sizes.
+     */
+    size?: 's' | 'm';
+    /**
+     * Change the color from accent to danger to signal to the user that the action is irreversible or otherwise dangerous.
+     */
+    destructive?: boolean;
+    /**
+     * Stretch the button across the full width of its parent.
+     */
+    stretch?: boolean;
+    /**
+     * Visually and functionally disable the button.
+     */
+    disabled?: boolean;
+    /**
+     * Visually disables the button and shows a loading spinner.
+     */
+    isLoading?: boolean;
+    /**
+     * Visually hidden label to communicate the loading state to visually impaired users.
+     */
+    loadingLabel?: string;
+    /**
+     * Hide the label text.
+     */
+    hideLabel?: boolean;
+    /**
+     * Reduce the padding and margin of the button.
+     */
+    compress?: boolean;
+    /**
+     * Slot for the leading icon.
+     */
+    leading_icon?: Snippet;
+    /**
+     * Slot for the trailing icon.
+     */
+    trailing_icon?: Snippet;
+  }
 
   let {
     variant = 'secondary',
@@ -62,7 +62,7 @@
     onclick,
     leading_icon = undefined,
     trailing_icon = undefined,
-		children,
+    children,
     ...rest
   }: Props = $props();
 </script>
@@ -88,9 +88,9 @@
 >
   {#if isLoading}
     <span class="loader" aria-hidden={!isLoading}>
-			<span class="dot" ></span>
-      <span class="dot" ></span>
-      <span class="dot" ></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
       <span class="hide-visually">{loadingLabel}</span>
     </span>
   {/if}
@@ -375,78 +375,77 @@
     border-color: transparent;
   }
 
-	.tertiary:active,
-	.tertiary[aria-expanded="true"],
-	.tertiary[aria-pressed="true"] {
-		color: var(--cui-fg-accent-pressed);
-		background-color: transparent;
-		border-color: transparent;
-	}
+  .tertiary:active,
+  .tertiary[aria-expanded='true'],
+  .tertiary[aria-pressed='true'] {
+    color: var(--cui-fg-accent-pressed);
+    background-color: transparent;
+    border-color: transparent;
+  }
 
-	.tertiary.destructive {
-		color: var(--cui-fg-danger);
-	}
+  .tertiary.destructive {
+    color: var(--cui-fg-danger);
+  }
 
-	.tertiary.destructive:hover {
-		color: var(--cui-fg-danger-hovered);
-		background-color: transparent;
-	}
+  .tertiary.destructive:hover {
+    color: var(--cui-fg-danger-hovered);
+    background-color: transparent;
+  }
 
-	.tertiary.destructive:active,
-	.tertiary.destructive[aria-expanded="true"],
-	.tertiary.destructive[aria-pressed="true"] {
-		color: var(--cui-fg-danger-pressed);
-		background-color: transparent;
-	}
+  .tertiary.destructive:active,
+  .tertiary.destructive[aria-expanded='true'],
+  .tertiary.destructive[aria-pressed='true'] {
+    color: var(--cui-fg-danger-pressed);
+    background-color: transparent;
+  }
 
-	.tertiary .label {
-		text-decoration: underline;
-		text-decoration-color: currentColor;
-		text-underline-position: under;
-		transition: text-decoration-color var(--cui-transitions-default);
-	}
+  .tertiary .label {
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    text-underline-position: under;
+    transition: text-decoration-color var(--cui-transitions-default);
+  }
 
-	@supports (text-underline-offset: 0.25em) {
-		.tertiary .label {
-			text-underline-position: auto;
-			text-underline-offset: 0.25em;
-		}
-	}
+  @supports (text-underline-offset: 0.25em) {
+    .tertiary .label {
+      text-underline-position: auto;
+      text-underline-offset: 0.25em;
+    }
+  }
 
-	.tertiary:disabled,
-	.tertiary[disabled],
-	.tertiary[aria-disabled="true"] {
-		color: var(--cui-fg-normal-disabled);
-		background-color: transparent;
-		border-color: transparent;
-	}
+  .tertiary:disabled,
+  .tertiary[disabled],
+  .tertiary[aria-disabled='true'] {
+    color: var(--cui-fg-normal-disabled);
+    background-color: transparent;
+    border-color: transparent;
+  }
 
-	.tertiary.destructive:disabled,
-	.tertiary.destructive[disabled],
-	.tertiary.destructive[aria-disabled="true"] {
-		color: var(--cui-fg-danger-disabled);
-	}
+  .tertiary.destructive:disabled,
+  .tertiary.destructive[disabled],
+  .tertiary.destructive[aria-disabled='true'] {
+    color: var(--cui-fg-danger-disabled);
+  }
 
-	/* ButtonGroup */
-	@container cui-button-group (width < 360px) {
-		.base {
-			width: 100%;
-		}
-	}
+  /* ButtonGroup */
+  @container cui-button-group (width < 360px) {
+    .base {
+      width: 100%;
+    }
+  }
 
-	/* Disabled */
-	.base:disabled,
-	.base[disabled],
-	.base[aria-disabled="true"] {
-		cursor: not-allowed;
-	}
+  /* Disabled */
+  .base:disabled,
+  .base[disabled],
+  .base[aria-disabled='true'] {
+    cursor: not-allowed;
+  }
 
-	.base:disabled .content,
-	.base[disabled] .content,
-	.base[aria-disabled="true"] .content {
-		transform: translate(0);
-	}
-
+  .base:disabled .content,
+  .base[disabled] .content,
+  .base[aria-disabled='true'] .content {
+    transform: translate(0);
+  }
 
   /* Disabled */
   .base:disabled,

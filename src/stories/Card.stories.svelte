@@ -21,10 +21,10 @@
 </script>
 
 <script lang="ts">
-  import CardHeader from '$lib/stories/CardHeader.svelte';
+  import CardHeader from '$lib/components/CardHeader.svelte';
   import Headline from '$lib/components/Headline.svelte';
   import Body from '$lib/components/Body.svelte';
-  import CardFooter from '$lib/stories/CardFooter.svelte';
+  import CardFooter from '$lib/components/CardFooter.svelte';
   import Button from '$lib/components/Button.svelte';
   import ButtonGroup from '$lib/stories/ButtonGroup.svelte';
   import Stack from '$lib/components/Stack.svelte';

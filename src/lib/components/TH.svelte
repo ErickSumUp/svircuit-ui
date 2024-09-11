@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { HTMLThAttributes } from 'svelte/elements';
 
-	let fixed = true;
+  let fixed = true;
 
   interface Props extends HTMLThAttributes {
     /**

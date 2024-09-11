@@ -5,8 +5,7 @@
   const { Story } = defineMeta({
     title: 'Stories/Pagination',
     component: Pagination,
-    argTypes: {
-    },
+    argTypes: {},
     parameters: {
       layout: 'centered'
     }

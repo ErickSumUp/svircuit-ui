@@ -1,8 +1,8 @@
 <script context="module" lang="ts">
   import SideNavigation from '$lib/SideNavigation.svelte';
-	import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
+  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
 
-   const { Story } = defineMeta({
+  const { Story } = defineMeta({
     title: 'Navigation/SideNavigation',
     component: SideNavigation,
     argTypes: {},
@@ -51,10 +51,10 @@
     }
   ];
 
-	setTemplate(template);
+  setTemplate(template);
 </script>
 
 {#snippet template({ ...args }: Args<typeof Story>)}
-	<SideNavigation {links}></SideNavigation>
+  <SideNavigation {links}></SideNavigation>
 {/snippet}
 <Story name="Base" />

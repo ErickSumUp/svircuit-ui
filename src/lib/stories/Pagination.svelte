@@ -49,44 +49,44 @@
   import ChevronRight from '$lib/icons/ChevronRight.svelte';
   import Button from '$lib/components/Button.svelte';
 
-	interface Props {
-		/**
-		 * The currently active page
-		 */
-		currentPage?: number;
-		/**
-		 * The total number of pages
-		 */
-		totalPages?: number;
-		/**
-		 * Label to describe the type of navigation, e.g. "Pagination"
-		 */
-		ariaLabel?: string;
-		/**
-		 * Label for the previous button
-		 */
-		previousLabel?: string;
-		/**
-		 * Label for the previous button
-		 */
-		nextLabel?: string;
-		/**
-		 * Label for the page buttons
-		 */
-		pageLabel?: (page: number) => string;
-	}
+  interface Props {
+    /**
+     * The currently active page
+     */
+    currentPage?: number;
+    /**
+     * The total number of pages
+     */
+    totalPages?: number;
+    /**
+     * Label to describe the type of navigation, e.g. "Pagination"
+     */
+    ariaLabel?: string;
+    /**
+     * Label for the previous button
+     */
+    previousLabel?: string;
+    /**
+     * Label for the previous button
+     */
+    nextLabel?: string;
+    /**
+     * Label for the page buttons
+     */
+    pageLabel?: (page: number) => string;
+  }
 
-	let {
-		currentPage = $bindable(1),
-		totalPages = $bindable(1),
-		ariaLabel = 'Pagination',
-		previousLabel = 'Previous page',
-		nextLabel = 'Next page',
-		pageLabel = (page) => 'Go to page ' + page,
-		...rest
-	}: Props = $props();
+  let {
+    currentPage = $bindable(1),
+    totalPages = $bindable(1),
+    ariaLabel = 'Pagination',
+    previousLabel = 'Previous page',
+    nextLabel = 'Next page',
+    pageLabel = (page) => 'Go to page ' + page,
+    ...rest
+  }: Props = $props();
 
-	let pages = $derived.by(() => generatePages(totalPages, currentPage));
+  let pages = $derived.by(() => generatePages(totalPages, currentPage));
 </script>
 
 <nav class="nav" aria-label={ariaLabel} {...rest}>

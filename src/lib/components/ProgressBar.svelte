@@ -9,45 +9,45 @@
   import type { HTMLAttributes } from 'svelte/elements';
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
-		id?: string;
-		/**
-		 * Choose from size variants.
-		 */
+    id?: string;
+    /**
+     * Choose from size variants.
+     */
     size?: 's' | 'm' | 'l';
-		/**
-		 * A number greater than zero, indicating how much work the task requires.
-		 */
-		max?: number;
-		/**
-		 * A number between 0 and max, indicating how much of the task has been
-		 * completed.
-		 */
-		value?: number;
-		/**
-		 * Whether the progress animation should loop indefinitely.
-		 */
-		loop?: boolean;
-		/**
-		 * The time it takes the progress bar to fill up in milliseconds.
-		 */
-		duration?: number;
-		/**
-		 * Whether the animation should the paused.
-		 */
-		paused?: boolean;
-		/**
-		 * A descriptive label that is used by screen readers.
-		 */
-		label?: string;
-		/**
-		 * Visually hide the label. This should only be used in rare cases and only
-		 * if the purpose of the field can be inferred from other context.
-		 */
-		hideLabel?: boolean;
+    /**
+     * A number greater than zero, indicating how much work the task requires.
+     */
+    max?: number;
+    /**
+     * A number between 0 and max, indicating how much of the task has been
+     * completed.
+     */
+    value?: number;
+    /**
+     * Whether the progress animation should loop indefinitely.
+     */
+    loop?: boolean;
+    /**
+     * The time it takes the progress bar to fill up in milliseconds.
+     */
+    duration?: number;
+    /**
+     * Whether the animation should the paused.
+     */
+    paused?: boolean;
+    /**
+     * A descriptive label that is used by screen readers.
+     */
+    label?: string;
+    /**
+     * Visually hide the label. This should only be used in rare cases and only
+     * if the purpose of the field can be inferred from other context.
+     */
+    hideLabel?: boolean;
   }
 
   let {
-		id = 'progress-bar',
+    id = 'progress-bar',
     size = 'm',
     max = 0,
     value = 0,
@@ -70,7 +70,7 @@
       aria-labelledby={id}
       aria-label={label}
       style="--pagination-width: {getWidth(value, max)};"
-		></span>
+    ></span>
   {:else}
     <span
       role="progressbar"

@@ -1,13 +1,13 @@
 <script lang="ts">
   import type { HTMLTableAttributes } from 'svelte/elements';
 
-	interface Props extends HTMLTableAttributes {
-		borderCollapse?: boolean;
-		isScrollable?: boolean;
-		noShadow?: boolean;
-	}
+  interface Props extends HTMLTableAttributes {
+    borderCollapse?: boolean;
+    isScrollable?: boolean;
+    noShadow?: boolean;
+  }
 
-	let { borderCollapse, isScrollable, noShadow, children, ...rest }: Props = $props();
+  let { borderCollapse, isScrollable, noShadow, children, ...rest }: Props = $props();
 </script>
 
 <div
@@ -17,7 +17,7 @@
 >
   <div class="scroll-container" class:scroll-container--scrollable={isScrollable}>
     <table class:border-collapse={borderCollapse} {...rest}>
-			{@render children()}
+      {@render children()}
     </table>
   </div>
 </div>

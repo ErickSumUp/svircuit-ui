@@ -27,7 +27,7 @@
   class:wrap
   {...rest}
 >
-	{@render children()}
+  {@render children()}
 </td>
 
 <style>

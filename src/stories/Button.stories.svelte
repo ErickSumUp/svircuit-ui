@@ -7,13 +7,13 @@
     component: Button,
     argTypes: {
       variant: {
-				control: 'radio',
+        control: 'radio',
         options: ['primary', 'secondary', 'tertiary']
       },
       size: {
-				control: 'radio',
+        control: 'radio',
         options: ['s', 'm']
-      },
+      }
     },
     parameters: {
       layout: 'centered'

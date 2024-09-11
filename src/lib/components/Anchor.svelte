@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { HTMLAnchorAttributes } from 'svelte/elements';
+  import type { HTMLAnchorAttributes } from 'svelte/elements';
 
-	interface Props extends HTMLAnchorAttributes {
+  interface Props extends HTMLAnchorAttributes {
     size?: 'one' | 'two';
     variant?: '' | 'highlight' | 'quote';
   }
