@@ -21,7 +21,7 @@
 {#snippet template({ ...args }: Args<typeof Story>)}
   <div class="grey-box">Content above spacer</div>
   <Spacer {...args} />
-  <div class="grey-box">Content above spacer</div>
+  <div class="grey-box">Content below spacer</div>
 {/snippet}
 
 <Story name="Base" args={{ size: 'm' }} />
