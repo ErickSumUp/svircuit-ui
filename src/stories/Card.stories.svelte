@@ -64,13 +64,13 @@
 <Story name="WithHeader">
   <div style="display:flex; flex-direction: row; gap: 2rem">
     <Card>
-      <CardHeader title="Title" subtitle="Subtitle">
+      <CardHeader title="Title">
         <Headline size="four" as="h2">Card Heading</Headline>
       </CardHeader>
       <Body>This is some text showing in my card</Body>
     </Card>
     <Card>
-      <CardHeader title="Title" subtitle="Subtitle" showCloseButton>
+      <CardHeader title="Title" showCloseButton>
         <Headline size="four" as="h2">Card Heading w/Button</Headline>
       </CardHeader>
       <Body>This is some text showing in my card</Body>

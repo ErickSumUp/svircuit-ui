@@ -1,10 +1,12 @@
 <script lang="ts">
   import type { HTMLTableAttributes } from 'svelte/elements';
+  import type { Snippet } from 'svelte';
 
   interface Props extends HTMLTableAttributes {
     borderCollapse?: boolean;
     isScrollable?: boolean;
     noShadow?: boolean;
+    children: Snippet;
   }
 
   let { borderCollapse, isScrollable, noShadow, children, ...rest }: Props = $props();

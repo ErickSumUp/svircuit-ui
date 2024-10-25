@@ -24,8 +24,8 @@
   setTemplate(template);
 </script>
 
-{#snippet template({ children, ...args }: Args<typeof Story>)}
-  <SearchInput id={args.id} label={args.label} value={children} {...args} />
+{#snippet template({ ...args }: Args<typeof Story>)}
+  <SearchInput id={args.id} label={args.label} {...args} />
 {/snippet}
 
 <Story

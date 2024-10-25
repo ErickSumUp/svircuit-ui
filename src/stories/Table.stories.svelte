@@ -29,24 +29,28 @@
   ];
 </script>
 
-{#snippet template({ ...args }: Args<typeof Story>)}
+{#snippet template({ children, ...args }: Args<typeof Story>)}
   <Table {...args}>
-    <THead>
-      <TR>
-        {#each headers as header}
-          <TH>{header}</TH>
-        {/each}
-      </TR>
-    </THead>
-    <TBody>
-      {#each rows as row}
+    {#if children}
+      {children}
+    {:else}
+      <THead>
         <TR>
-          {#each row as cell}
-            <TD>{cell}</TD>
+          {#each headers as header}
+            <TH>{header}</TH>
           {/each}
         </TR>
-      {/each}
-    </TBody>
+      </THead>
+      <TBody>
+        {#each rows as row}
+          <TR>
+            {#each row as cell}
+              <TD>{cell}</TD>
+            {/each}
+          </TR>
+        {/each}
+      </TBody>
+    {/if}
   </Table>
 {/snippet}
 

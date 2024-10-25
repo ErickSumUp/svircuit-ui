@@ -1,4 +1,6 @@
 <script lang="ts">
+  import type { Snippet } from 'svelte';
+
   interface Props {
     /**
      * Choose from size variants.
@@ -12,6 +14,8 @@
      * Render the text using any HTML element.
      */
     as?: string;
+
+    children: Snippet;
   }
 
   let { size = 'one', variant = 'p', as = 'p', children, ...rest }: Props = $props();

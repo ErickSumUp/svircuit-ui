@@ -1,8 +1,10 @@
 <script lang="ts">
   import type { HTMLDialogAttributes } from 'svelte/elements';
+  import type { Snippet } from 'svelte';
 
   interface Props extends HTMLDialogAttributes {
     dialog: HTMLDialogElement;
+    children: Snippet;
   }
 
   let { dialog = $bindable(), children, ...rest }: Props = $props();

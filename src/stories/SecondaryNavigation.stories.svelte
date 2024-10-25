@@ -75,7 +75,7 @@
 </script>
 
 {#snippet template({ ...args }: Args<typeof Story>)}
-  <SecondaryNavigation {groups}>
+  <SecondaryNavigation {groups} {...args}>
     <div style="padding: 10px;">
       <Select id="options" ariaDescribedBy="options" value="0">
         <option value="0" disabled selected>Select</option>

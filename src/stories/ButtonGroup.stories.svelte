@@ -20,10 +20,14 @@
   setTemplate(template);
 </script>
 
-{#snippet template({ ...args }: Args<typeof Story>)}
+{#snippet template({ children, ...args }: Args<typeof Story>)}
   <ButtonGroup {...args}>
-    <Button variant="primary">Look Again</Button>
-    <Button variant="secondary">Go elsewhere</Button>
+    {#if children}
+      {children}
+    {:else}
+      <Button variant="primary">Look Again</Button>
+      <Button variant="secondary">Go elsewhere</Button>
+    {/if}
   </ButtonGroup>
 {/snippet}
 

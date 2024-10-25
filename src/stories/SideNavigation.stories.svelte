@@ -55,6 +55,6 @@
 </script>
 
 {#snippet template({ ...args }: Args<typeof Story>)}
-  <SideNavigation {links}></SideNavigation>
+  <SideNavigation {links} {...args}></SideNavigation>
 {/snippet}
 <Story name="Base" />

@@ -40,10 +40,14 @@
   setTemplate(template);
 </script>
 
-{#snippet template({ ...args }: Args<typeof Story>)}
+{#snippet template({ children, ...args }: Args<typeof Story>)}
   <Dialog bind:dialog={baseDialog} {...args}>
-    <Headline as="h2" size="four" style="margin-bottom: 1rem">Hello World!</Headline>
-    <Body>I am a Dialog.</Body>
+    {#if children}
+      {children}
+    {:else}
+      <Headline as="h2" size="four" style="margin-bottom: 1rem">Hello World!</Headline>
+      <Body>I am a Dialog.</Body>
+    {/if}
   </Dialog>
 
   <Button

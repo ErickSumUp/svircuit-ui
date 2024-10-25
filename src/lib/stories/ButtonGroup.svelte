@@ -1,8 +1,10 @@
 <script lang="ts">
   import type { HTMLAttributes } from 'svelte/elements';
+  import type { Snippet } from 'svelte';
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
     align?: 'left' | 'center' | 'right';
+    children: Snippet;
   }
 
   let { align = 'center', children, ...rest }: Props = $props();

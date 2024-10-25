@@ -1,7 +1,5 @@
 <script lang="ts">
-  import type { HTMLInputAttributes } from 'svelte/elements';
-
-  interface Props extends HTMLInputAttributes {
+  interface Props {
     /**
      * A clear and concise description of the input purpose. Required for accessibility purposes.
      */
@@ -35,11 +33,13 @@
      * A callback that is called when the clear button is clicked.
      */
     onClearClick?: () => void;
+    placeholder?: string;
   }
 
   let {
     label,
     id,
+    placeholder,
     textAlignRight = false,
     hideLabel = false,
     disabled = false,
@@ -77,6 +77,7 @@
     <input
       {id}
       bind:value
+      {placeholder}
       aria-describedby={ariaDescribedBy}
       class="base"
       class:has-suffix={value}
@@ -87,7 +88,7 @@
       {...rest}
     />
     {#if value}
-      <button class="suffix close-button" onclick={onClearClick}>
+      <button aria-labelledby="on clear" class="suffix close-button" onclick={onClearClick}>
         <span class="close-button-content">
           <svg
             class="close-button-icon"

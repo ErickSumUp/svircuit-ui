@@ -1,4 +1,8 @@
-<script context="module" lang="ts">
+<script lang="ts">
+  import ChevronLeft from '$lib/icons/ChevronLeft.svelte';
+  import ChevronRight from '$lib/icons/ChevronRight.svelte';
+  import Button from '$lib/components/Button.svelte';
+
   function generatePages(totalPages: number, currentPage: number): string[] {
     const pages = [];
     const distanceToOne = currentPage - 1;
@@ -42,12 +46,6 @@
 
     return pages;
   }
-</script>
-
-<script lang="ts">
-  import ChevronLeft from '$lib/icons/ChevronLeft.svelte';
-  import ChevronRight from '$lib/icons/ChevronRight.svelte';
-  import Button from '$lib/components/Button.svelte';
 
   interface Props {
     /**
@@ -102,7 +100,7 @@
     aria-label={previousLabel}
     leading_icon={chevronLeft}
     onclick={() => (currentPage -= 1)}
-  ></Button>
+  />
 
   <ol class="pagination-list">
     {#each pages as page}

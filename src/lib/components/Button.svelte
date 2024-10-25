@@ -47,6 +47,7 @@
      * Slot for the trailing icon.
      */
     trailing_icon?: Snippet;
+    children?: Snippet;
   }
 
   let {
@@ -254,9 +255,11 @@
   .label {
     overflow: hidden;
     text-overflow: ellipsis;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
+  /*
   .leading-icon {
     width: var(--leading-icon-size);
     height: var(--leading-icon-size);
@@ -266,6 +269,7 @@
     width: var(--cui-icon-sizes-kilo);
     height: var(--cui-icon-sizes-kilo);
   }
+   */
 
   /* Sizes */
   .s {

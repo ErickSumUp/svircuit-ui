@@ -13,7 +13,10 @@
       size: {
         control: 'radio',
         options: ['s', 'm']
-      }
+      },
+      leading_icon: {
+        type: 'string'
+      },
     },
     parameters: {
       layout: 'centered'
@@ -35,7 +38,7 @@
   }
 </script>
 
-{#snippet template({ children, ...args }: Args<typeof Story>)}
+{#snippet template({ children, ...args }: Omit<Args<typeof Story>, 'leading_icon' | 'trailing_icon'>)}
   <Button onclick={handleClick} {...args}>{children}</Button>
 {/snippet}
 

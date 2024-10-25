@@ -1,14 +1,5 @@
-<script context="module" lang="ts">
-  function getWidth(value = 0, max = 1): string {
-    const width = value && max ? ((value / max) * 100).toFixed(2) : 0;
-    return `${width}%`;
-  }
-</script>
-
 <script lang="ts">
-  import type { HTMLAttributes } from 'svelte/elements';
-
-  interface Props extends HTMLAttributes<HTMLDivElement> {
+  interface Props {
     id?: string;
     /**
      * Choose from size variants.
@@ -44,6 +35,11 @@
      * if the purpose of the field can be inferred from other context.
      */
     hideLabel?: boolean;
+  }
+
+  function getWidth(value = 0, max = 1): string {
+    const width = value && max ? ((value / max) * 100).toFixed(2) : 0;
+    return `${width}%`;
   }
 
   let {
