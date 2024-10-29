@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <span
+    class="base neutral svelte-xka8p6"
+  />
+</div>
+`;
+
+exports[`should match story case circular 1`] = `
+<div>
+  <span
+    circular="true"
+    class="base neutral svelte-xka8p6"
+  />
+</div>
+`;
