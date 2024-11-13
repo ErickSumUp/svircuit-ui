@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script lang="ts" module>
   import SecondaryNavigation from '$lib/stories/SecondaryNavigation.svelte';
   import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
 

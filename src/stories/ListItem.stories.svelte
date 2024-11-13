@@ -1,6 +1,6 @@
-<script context="module" lang="ts">
+<script lang="ts" module>
   import ListItem from '$lib/components/ListItem.svelte';
-  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
+  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
 
   const { Story } = defineMeta({
     title: 'Components/ListItem',
@@ -26,29 +26,29 @@
   import Body from '$lib/components/Body.svelte';
   import Stack from '$lib/components/Stack.svelte';
   import Confirm from '$lib/icons/Confirm.svelte';
-
-  setTemplate(template);
 </script>
 
-{#snippet template({ ...args }: Args<typeof Story>)}
-  <ListItem {...args} onClick={() => console.log('clicked')}>
-    <SumUpCard slot="leading" />
-    <Body>Mastercard **** 4494</Body>
-    <div
-      slot="details"
-      style="display: flex; flex-direction: row; align-items: center; gap: var(--cui-spacings-bit); "
-    >
-      <Confirm size="16" style="color: var(--cui-fg-success)" />
-      <Body variant="highlight" size="two">Successful</Body>
-      <Body size="two" variant="subtle">&middot; 17:21</Body>
-    </div>
 
-    <Body slot="trailing-label" variant="highlight">€24.00</Body>
-    <Body slot="trailing-details" variant="subtle" size="two">€0.46 fee</Body>
-  </ListItem>
-{/snippet}
 
-<Story name="Base" />
+<Story name="Base" >
+  {#snippet children({ ...args }: Args<typeof Story>)}
+    <ListItem {...args} onClick={() => console.log('clicked')}>
+      <SumUpCard slot="leading" />
+      <Body>Mastercard **** 4494</Body>
+      <div
+        slot="details"
+        style="display: flex; flex-direction: row; align-items: center; gap: var(--cui-spacings-bit); "
+      >
+        <Confirm size="16" style="color: var(--cui-fg-success)" />
+        <Body variant="highlight" size="two">Successful</Body>
+        <Body size="two" variant="subtle">&middot; 17:21</Body>
+      </div>
+
+      <Body slot="trailing-label" variant="highlight">€24.00</Body>
+      <Body slot="trailing-details" variant="subtle" size="two">€0.46 fee</Body>
+    </ListItem>
+  {/snippet}
+</Story>
 
 <Story name="Variants">
   <Stack vertical>

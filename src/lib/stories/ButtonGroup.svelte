@@ -3,7 +3,10 @@
   import type { Snippet } from 'svelte';
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
-    align?: 'left' | 'center' | 'right';
+    /**
+     * Direction to align the buttons. Defaults to `center`.
+     */
+    align?: 'left' | 'center' | 'right'
     children: Snippet;
   }
 

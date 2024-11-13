@@ -1,6 +1,6 @@
-<script context="module" lang="ts">
+<script lang="ts" module>
   import Dialog from '$lib/components/Dialog.svelte';
-  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
+  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
 
   const { Story } = defineMeta({
     title: 'Components/Dialog',
@@ -36,28 +36,22 @@
   });
 
   let ctx: DialogContext = getContext('dialog');
-
-  setTemplate(template);
 </script>
 
-{#snippet template({ children, ...args }: Args<typeof Story>)}
-  <Dialog bind:dialog={baseDialog} {...args}>
-    {#if children}
-      {children}
-    {:else}
-      <Headline as="h2" size="four" style="margin-bottom: 1rem">Hello World!</Headline>
-      <Body>I am a Dialog.</Body>
-    {/if}
-  </Dialog>
+<Story name="Base">
+  {#snippet children({ ...args }: Args<typeof Story>)}
+    <Dialog bind:dialog={baseDialog} {...args}>
+        <Headline as="h2" size="four" style="margin-bottom: 1rem">Hello World!</Headline>
+        <Body>I am a Dialog.</Body>
+    </Dialog>
 
-  <Button
-    onclick={() => {
-      baseDialog.showModal();
-    }}>Show Dialog</Button
-  >
-{/snippet}
-
-<Story name="Base" />
+    <Button
+      onclick={() => {
+        baseDialog.showModal();
+      }}>Show Dialog</Button
+    >
+  {/snippet}
+</Story>
 
 <Story name="Opener">
   <Dialog bind:dialog>

@@ -1,15 +1,11 @@
-<script context="module" lang="ts">
+<script lang="ts" module>
   import Card from '$lib/components/Card.svelte';
-  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
+  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
 
   const { Story } = defineMeta({
     title: 'Typography/Card',
     component: Card,
     argTypes: {
-      spacing: {
-        control: { type: 'radio', defaultValue: 'mega' },
-        options: ['mega', 'giga']
-      },
       children: {
         control: { type: 'text' }
       }
@@ -28,15 +24,15 @@
   import Button from '$lib/components/Button.svelte';
   import ButtonGroup from '$lib/stories/ButtonGroup.svelte';
   import Stack from '$lib/components/Stack.svelte';
-
-  setTemplate(template);
 </script>
 
-{#snippet template({ children, ...args }: Args<typeof Story>)}
-  <Card {...args}><Body>{children}</Body></Card>
-{/snippet}
-
-<Story name="Base" args={{ spacing: 'giga', children: 'Content' }} />
+<Story name="Base" args={{ spacing: 'giga', children: 'Content' }}>
+  {#snippet children({ ...args }: Args<typeof Story>)}
+    <Card {...args}>
+      <Body>{args.children}</Body>
+    </Card>
+  {/snippet}
+</Story>
 
 <Story name="Spacings">
   <div class="stack">

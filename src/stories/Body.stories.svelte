@@ -1,19 +1,11 @@
-<script context="module" lang="ts">
+<script lang="ts" module>
   import Body from '$lib/components/Body.svelte';
-  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
+  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
 
   const { Story } = defineMeta({
     title: 'Typography/Body',
     component: Body,
     argTypes: {
-      variant: {
-        control: { type: 'radio', defaultValue: 'p' },
-        options: ['alert', 'highlight', 'quote', 'confirm', 'subtle', 'p']
-      },
-      size: {
-        control: { type: 'radio', defaultValue: 'one' },
-        options: ['one', 'two']
-      },
       children: { control: 'text', defaultValue: '' }
     },
     parameters: {
@@ -21,14 +13,6 @@
     }
   });
 </script>
-
-<script lang="ts">
-  setTemplate(template);
-</script>
-
-{#snippet template({ children, ...args }: Args<typeof Story>)}
-  <Body {...args}>{children}</Body>
-{/snippet}
 
 <Story
   name="Base"
@@ -38,7 +22,11 @@
     children:
       'An electronic circuit is composed of individual electronic components, such as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires or traces through which electric current can flow.'
   }}
-/>
+>
+  {#snippet children({ ...args }: Args<typeof Story>)}
+    <Body variant={args.variant} size={args.size}>{args.children}</Body>
+  {/snippet}
+</Story>
 
 <Story name="Variants">
   <Body variant="highlight">This is a highlight body</Body>
@@ -53,11 +41,11 @@
   <Body size="one"
     >This is a body one. An electronic circuit is composed of individual electronic components, such
     as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires or
-    traces through which electric current can flow.</Body
-  >
+    traces through which electric current can flow.
+  </Body>
   <Body size="two"
     >This is a body two. An electronic circuit is composed of individual electronic components, such
     as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires or
-    traces through which electric current can flow.</Body
-  >
+    traces through which electric current can flow.
+  </Body>
 </Story>

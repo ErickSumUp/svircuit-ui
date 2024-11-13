@@ -1,22 +1,14 @@
-<script context="module" lang="ts">
+<script lang="ts" module>
   import Button from '$lib/components/Button.svelte';
-  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
+  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
 
   const { Story } = defineMeta({
     title: 'Components/Button',
     component: Button,
     argTypes: {
-      variant: {
-        control: 'radio',
-        options: ['primary', 'secondary', 'tertiary']
-      },
-      size: {
-        control: 'radio',
-        options: ['s', 'm']
-      },
       leading_icon: {
         type: 'string'
-      },
+      }
     },
     parameters: {
       layout: 'centered'
@@ -30,19 +22,13 @@
   import Shop from '$lib/icons/Shop.svelte';
   import Close from '$lib/icons/Close.svelte';
   import DownloadCloud from '$lib/icons/DownloadCloud.svelte';
-
-  setTemplate(template);
-
-  function handleClick() {
-    alert('Hello!');
-  }
 </script>
 
-{#snippet template({ children, ...args }: Omit<Args<typeof Story>, 'leading_icon' | 'trailing_icon'>)}
-  <Button onclick={handleClick} {...args}>{children}</Button>
-{/snippet}
-
-<Story name="Base" args={{ children: 'Say Hello', variant: 'secondary', size: 'm' }} />
+<Story name="Base" args={{ variant: 'secondary', size: 'm' }}>
+  {#snippet children({ ...args }: Args<typeof Story>)}
+    <Button onclick={() => alert('Hello!')} {...args}>Say Hello</Button>
+  {/snippet}
+</Story>
 
 <Story name="Variants">
   <Button variant="primary">Primary</Button>

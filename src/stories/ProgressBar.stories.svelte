@@ -1,6 +1,6 @@
-<script context="module" lang="ts">
+<script lang="ts" module>
   import ProgressBar from '$lib/components/ProgressBar.svelte';
-  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
+  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
 
   const { Story } = defineMeta({
     title: 'Components/ProgressBar',
@@ -17,17 +17,13 @@
   });
 </script>
 
-<script lang="ts">
-  setTemplate(template);
-</script>
-
-{#snippet template({ ...args }: Args<typeof Story>)}
-  <div style="width: 500px">
-    <ProgressBar {...args} />
-  </div>
-{/snippet}
-
-<Story name="Base" args={{ value: 0, max: 0, size: 'm' }} />
+<Story name="Base" args={{ value: 0, max: 0, size: 'm' }}>
+  {#snippet children({ ...args }: Args<typeof Story>)}
+    <div style="width: 500px">
+      <ProgressBar {...args} />
+    </div>
+  {/snippet}
+</Story>
 
 <Story name="Labelled">
   <div style="width: 500px">
