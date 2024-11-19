@@ -40,11 +40,11 @@
      */
     compress?: boolean;
     /**
-     * Slot for the leading icon.
+     * Snippet for the leading icon.
      */
     leading_icon?: Snippet;
     /**
-     * Slot for the trailing icon.
+     * Snippet for the trailing icon.
      */
     trailing_icon?: Snippet;
     children?: Snippet;

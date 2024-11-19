@@ -6,7 +6,7 @@
     /**
      * Direction to align the buttons. Defaults to `center`.
      */
-    align?: 'left' | 'center' | 'right'
+    align?: 'left' | 'center' | 'right';
     children: Snippet;
   }
 

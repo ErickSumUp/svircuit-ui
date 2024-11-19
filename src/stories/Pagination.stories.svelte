@@ -12,7 +12,7 @@
   });
 </script>
 
-<Story name="Base" args={{ currentPage: 1, totalPages: 5, label: 'Pages' }} >
+<Story name="Base" args={{ currentPage: 1, totalPages: 5, label: 'Pages' }}>
   {#snippet children({ ...args }: Args<typeof Story>)}
     <Pagination {...args} />
   {/snippet}

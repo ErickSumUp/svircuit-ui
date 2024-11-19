@@ -3,59 +3,61 @@
   import {
     type HTMLAnchorAttributes,
     type HTMLAttributes,
-    type HTMLButtonAttributes,
+    type HTMLButtonAttributes
   } from 'svelte/elements';
 
-  type Props = HTMLAttributes<HTMLDivElement> & HTMLAnchorAttributes & HTMLButtonAttributes & {
-    /**
-     * Choose between 'action' and 'navigation' variant. Default: 'action'.
-     * The `navigation` variant renders a chevron in the trailing section.
-     * @type {('action' | 'navigation')}
-     */
-    variant?: 'action' | 'navigation';
-    /**
-     * Visually mark the list item as selected.
-     * @type {boolean}
-     */
-    selected?: boolean;
-    /**
-     * Function that is called when the list item is clicked.
-     */
-    disabled?: boolean;
-    /**
-     * Link to another part of the application or external page.
-     * @type {string}
-     */
-    href?: string;
-    /**
-     * @type {() => void | undefined}
-     */
-    onclick?;
-    /**
-     * Display a leading component.
-     * Pass an icon or a custom component.
-     */
-    leading?: Snippet;
-    /**
-     * Display a details line below the main label.
-     */
-    details?: Snippet;
-    /**
-     * Display a trailing label.
-     * If using the `navigation` variant, the chevron icon will be center aligned with this label.
-     */
-    trailingLabel?: Snippet;
-    /**
-     * Display a trailing details label.
-     */
-    trailingDetails?: Snippet;
-    /**
-     * Display a custom trailing component.
-     * If using the `navigation` variant, the chevron icon will be center aligned with this component.
-     */
-    trailingComponent?: Snippet;
-    children: Snippet;
-  }
+  type Props = HTMLAttributes<HTMLDivElement> &
+    HTMLAnchorAttributes &
+    HTMLButtonAttributes & {
+      /**
+       * Choose between 'action' and 'navigation' variant. Default: 'action'.
+       * The `navigation` variant renders a chevron in the trailing section.
+       * @type {('action' | 'navigation')}
+       */
+      variant?: 'action' | 'navigation';
+      /**
+       * Visually mark the list item as selected.
+       * @type {boolean}
+       */
+      selected?: boolean;
+      /**
+       * Function that is called when the list item is clicked.
+       */
+      disabled?: boolean;
+      /**
+       * Link to another part of the application or external page.
+       * @type {string}
+       */
+      href?: string;
+      /**
+       * @type {() => void | undefined}
+       */
+      onclick?;
+      /**
+       * Display a leading component.
+       * Pass an icon or a custom component.
+       */
+      leading?: Snippet;
+      /**
+       * Display a details line below the main label.
+       */
+      details?: Snippet;
+      /**
+       * Display a trailing label.
+       * If using the `navigation` variant, the chevron icon will be center aligned with this label.
+       */
+      trailingLabel?: Snippet;
+      /**
+       * Display a trailing details label.
+       */
+      trailingDetails?: Snippet;
+      /**
+       * Display a custom trailing component.
+       * If using the `navigation` variant, the chevron icon will be center aligned with this component.
+       */
+      trailingComponent?: Snippet;
+      children: Snippet;
+    };
 
   let as: 'a' | 'button' | 'div' = $derived.by(() => {
     if (href) {

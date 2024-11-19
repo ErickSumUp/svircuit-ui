@@ -23,7 +23,7 @@
   let page_size = 10;
 </script>
 
-<Story name="Base" args={{ size: 'm' }} >
+<Story name="Base" args={{ size: 'm' }}>
   {#snippet children({ ...args }: Args<typeof Story>)}
     <Select id="country" ariaDescribedBy="country" {...args}>
       <option value="" disabled selected>Select an option</option>

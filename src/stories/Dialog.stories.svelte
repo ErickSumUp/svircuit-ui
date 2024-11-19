@@ -41,8 +41,8 @@
 <Story name="Base">
   {#snippet children({ ...args }: Args<typeof Story>)}
     <Dialog bind:dialog={baseDialog} {...args}>
-        <Headline as="h2" size="four" style="margin-bottom: 1rem">Hello World!</Headline>
-        <Body>I am a Dialog.</Body>
+      <Headline as="h2" size="four" style="margin-bottom: 1rem">Hello World!</Headline>
+      <Body>I am a Dialog.</Body>
     </Dialog>
 
     <Button

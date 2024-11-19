@@ -6,7 +6,7 @@
 
   const { Story } = defineMeta({
     title: 'Components/ButtonGroup',
-    component: ButtonGroup,
+    component: ButtonGroup
   });
 </script>
 

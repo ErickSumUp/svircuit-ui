@@ -5,7 +5,6 @@
   const { Story } = defineMeta({
     title: 'Forms/Input',
     component: Input,
-    argTypes: {},
     parameters: {
       layout: 'centered'
     }
@@ -17,7 +16,7 @@
   $: validationHint = `Maximum ${maxLength} characters`;
 </script>
 
-<Story name="Base" args={{ label: 'First name', placeholder: 'Jane', maxLength, validationHint }} >
+<Story name="Base" args={{ label: 'First name', placeholder: 'Jane', maxLength, validationHint }}>
   {#snippet children({ ...args }: Args<typeof Story>)}
     <Input {...args}>{args.children}</Input>
   {/snippet}
@@ -65,7 +64,7 @@
     label="API token"
     value="a3b2c1"
     validationHint="Select and copy me."
-    readOnly
+    readonly
   />
 </Story>
 

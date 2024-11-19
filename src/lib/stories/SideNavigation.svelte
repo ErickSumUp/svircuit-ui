@@ -11,15 +11,21 @@
 <script lang="ts">
   import Body from '$lib/components/Body.svelte';
   import Home from '$lib/icons/Home.svelte';
-  export let links: Link[] = [
-    {
-      icon: Home,
-      label: 'Home',
-      href: '/home',
-      isActive: true,
-      isNew: false
-    }
-  ];
+  interface Props {
+    links?: Link[];
+  }
+
+  let {
+    links = [
+      {
+        icon: Home,
+        label: 'Home',
+        href: '/home',
+        isActive: true,
+        isNew: false
+      }
+    ]
+  }: Props = $props();
   const iconsSize = '24';
 </script>
 
@@ -34,7 +40,7 @@
             aria-current={link.isActive ? 'page' : undefined}
           >
             <span class="icon" class:icon-badge={link.isNew}>
-              <svelte:component this={link.icon} size={iconsSize} />
+              <link.icon size={iconsSize} />
             </span>
             <span class="label">
               <Body as="span">{link.label}</Body>

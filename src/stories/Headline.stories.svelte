@@ -22,7 +22,7 @@
   import Body from '$lib/components/Body.svelte';
 </script>
 
-<Story name="Base" args={{ as: 'h1', size: 'one', children: 'This is a headline!' }} >
+<Story name="Base" args={{ as: 'h1', size: 'one', children: 'This is a headline!' }}>
   {#snippet children({ ...args }: Args<typeof Story>)}
     <Headline {...args}>{args.children}</Headline>
   {/snippet}
