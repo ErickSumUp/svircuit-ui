@@ -1,29 +1,37 @@
-<script>
-  /**
-   * Choose from size variants.
-   * @type {('one' | 'two')}
-   */
-  export let size = 'one';
-  /**
-   * Choose from variant styles.
-   * @type {('highlight' | 'quote' | 'confirm' | 'alert' | 'subtle' | 'p')}
-   */
-  export let variant = 'p';
-  /**
-   * Render the text using any HTML element.
-   * @type {string}
-   */
-  export let as = 'p';
+<script lang="ts">
+  import type { Snippet } from 'svelte';
 
-  $: element = 'p';
+  interface Props {
+    /**
+     * Choose from size variants.
+     */
+    size?: 'one' | 'two';
+    /**
+     * Choose from variant styles.
+     */
+    variant?: 'p' | 'highlight' | 'quote' | 'confirm' | 'alert' | 'subtle';
+    /**
+     * Render the text using any HTML element.
+     */
+    as?: string;
 
-  $: if (variant === 'highlight') {
-    element = 'strong';
-  } else if (variant === 'quote') {
-    element = 'blockquote';
-  } else {
-    element = 'p';
+    children: Snippet;
   }
+
+  let { size = 'one', variant = 'p', as = 'p', children, ...rest }: Props = $props();
+
+  let element: string = $derived.by(() => {
+    let value = 'p';
+    if (variant === 'highlight') {
+      value = 'strong';
+    } else if (variant === 'quote') {
+      value = 'blockquote';
+    } else {
+      value = 'p';
+    }
+
+    return value;
+  });
 </script>
 
 <svelte:element
@@ -36,7 +44,7 @@
   class:confirm={variant === 'confirm'}
   class:alert={variant === 'alert'}
   class:subtle={variant === 'subtle'}
-  {...$$restProps}><slot /></svelte:element
+  {...rest}>{@render children()}</svelte:element
 >
 
 <style>

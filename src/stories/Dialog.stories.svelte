@@ -1,17 +1,17 @@
-<script context="module">
+<script lang="ts" module>
   import Dialog from '$lib/components/Dialog.svelte';
+  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Dialog',
     component: Dialog,
     parameters: {
       layout: 'centered'
     }
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
   import Button from '$lib/components/Button.svelte';
   import Headline from '$lib/components/Headline.svelte';
   import Body from '$lib/components/Body.svelte';
@@ -38,13 +38,19 @@
   let ctx: DialogContext = getContext('dialog');
 </script>
 
-<Story name="Base" let:args>
-  <Dialog bind:dialog={baseDialog} {...args}>
-    <Headline as="h2" size="four" style="margin-bottom: 1rem">Hello World!</Headline>
-    <Body>I am a Dialog.</Body>
-  </Dialog>
+<Story name="Base">
+  {#snippet children({ ...args }: Args<typeof Story>)}
+    <Dialog bind:dialog={baseDialog} {...args}>
+      <Headline as="h2" size="four" style="margin-bottom: 1rem">Hello World!</Headline>
+      <Body>I am a Dialog.</Body>
+    </Dialog>
 
-  <Button on:click={() => baseDialog.showModal()}>Show Dialog</Button>
+    <Button
+      onclick={() => {
+        baseDialog.showModal();
+      }}>Show Dialog</Button
+    >
+  {/snippet}
 </Story>
 
 <Story name="Opener">
@@ -53,7 +59,7 @@
     <Body>In this case the button is "next to" the Dialog code-wise.</Body>
   </Dialog>
 
-  <Button on:click={() => dialog.showModal()}>Show Dialog</Button>
+  <Button onclick={() => dialog.showModal()}>Show Dialog</Button>
 </Story>
 
 <Story name="Context">
@@ -62,5 +68,5 @@
     <Body>In this case the button connected using a context.</Body>
   </Dialog>
 
-  <Button on:click={() => ctx.showModal()}>Show Dialog Context</Button>
+  <Button onclick={() => ctx.showModal()}>Show Dialog Context</Button>
 </Story>

@@ -1,29 +1,21 @@
-<script context="module">
+<script lang="ts" module>
   import Pagination from '$lib/stories/Pagination.svelte';
+  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Stories/Pagination',
     component: Pagination,
-    argTypes: {
-      label: {
-        control: { type: 'text', defaultValue: 'Pagination' }
-      }
-    },
+    argTypes: {},
     parameters: {
       layout: 'centered'
     }
-  };
+  });
 </script>
 
-<script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
-
-  export let label = 'Countries';
-  export let totalPages = 5;
-</script>
-
-<Story name="Base" let:args>
-  <Pagination {totalPages} {label} {...args} />
+<Story name="Base" args={{ currentPage: 1, totalPages: 5, label: 'Pages' }}>
+  {#snippet children({ ...args }: Args<typeof Story>)}
+    <Pagination {...args} />
+  {/snippet}
 </Story>
 
 <Story name="ManyPages">

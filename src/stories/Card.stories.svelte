@@ -1,34 +1,37 @@
-<script context="module">
+<script lang="ts" module>
   import Card from '$lib/components/Card.svelte';
+  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Typography/Card',
     component: Card,
     argTypes: {
-      spacing: {
-        control: { type: 'radio', defaultValue: 'mega' },
-        options: ['mega', 'giga']
+      children: {
+        control: { type: 'text' }
       }
     },
     parameters: {
       layout: 'centered'
     }
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
-  import CardHeader from '$lib/stories/CardHeader.svelte';
+  import CardHeader from '$lib/components/CardHeader.svelte';
   import Headline from '$lib/components/Headline.svelte';
   import Body from '$lib/components/Body.svelte';
-  import CardFooter from '$lib/stories/CardFooter.svelte';
+  import CardFooter from '$lib/components/CardFooter.svelte';
   import Button from '$lib/components/Button.svelte';
   import ButtonGroup from '$lib/stories/ButtonGroup.svelte';
   import Stack from '$lib/components/Stack.svelte';
 </script>
 
-<Story name="Base" let:args>
-  <Card {...args}>{args.slot || 'Content'}</Card>
+<Story name="Base" args={{ spacing: 'giga', children: 'Content' }}>
+  {#snippet children({ ...args }: Args<typeof Story>)}
+    <Card {...args}>
+      <Body>{args.children}</Body>
+    </Card>
+  {/snippet}
 </Story>
 
 <Story name="Spacings">
@@ -40,7 +43,7 @@
 				width: 15rem;
 				height: 10rem;
 			"
-      />
+      ></div>
     </Card>
     <Card spacing="giga">
       <div
@@ -49,7 +52,7 @@
 				width: 15rem;
 				height: 10rem;
 			"
-      />
+      ></div>
     </Card>
   </div>
 </Story>
@@ -57,13 +60,13 @@
 <Story name="WithHeader">
   <div style="display:flex; flex-direction: row; gap: 2rem">
     <Card>
-      <CardHeader title="Title" subtitle="Subtitle">
+      <CardHeader title="Title">
         <Headline size="four" as="h2">Card Heading</Headline>
       </CardHeader>
       <Body>This is some text showing in my card</Body>
     </Card>
     <Card>
-      <CardHeader title="Title" subtitle="Subtitle" showCloseButton={true}>
+      <CardHeader title="Title" showCloseButton>
         <Headline size="four" as="h2">Card Heading w/Button</Headline>
       </CardHeader>
       <Body>This is some text showing in my card</Body>

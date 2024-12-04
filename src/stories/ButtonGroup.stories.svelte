@@ -1,28 +1,25 @@
-<script context="module">
+<script lang="ts" module>
   import ButtonGroup from '$lib/stories/ButtonGroup.svelte';
+  import Button from '$lib/components/Button.svelte';
+  import Stack from '$lib/components/Stack.svelte';
+  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/ButtonGroup',
-    component: ButtonGroup,
-    argTypes: {
-      align: {
-        options: ['left', 'center', 'right']
-      }
-    }
-  };
+    component: ButtonGroup
+  });
 </script>
 
 <script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
-  import Button from '$lib/components/Button.svelte';
-  import Stack from '$lib/components/Stack.svelte';
 </script>
 
-<Story name="Base" let:args>
-  <ButtonGroup {...args}>
-    <Button variant="primary">Look Again</Button>
-    <Button variant="secondary">Go elsewhere</Button>
-  </ButtonGroup>
+<Story name="Base" args={{ align: 'center' }}>
+  {#snippet children(args: Args<typeof Story>)}
+    <ButtonGroup {...args}>
+      <Button variant="primary">Look Again</Button>
+      <Button variant="secondary">Go elsewhere</Button>
+    </ButtonGroup>
+  {/snippet}
 </Story>
 
 <Story name="Alignment">

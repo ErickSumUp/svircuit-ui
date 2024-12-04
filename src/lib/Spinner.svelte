@@ -7,7 +7,7 @@
   class:byte={size === 'byte'}
   class:kilo={size === 'kilo'}
   class:giga={size === 'giga'}
-/>
+></span>
 
 <style>
   .spinner {

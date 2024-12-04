@@ -12,7 +12,7 @@ test('should match story case variants', async () => {
 
 test('should match story case circular', async () => {
   const { container } = render(Badge, {
-    props: { circular: true, variant: 'neutral' }
+    props: { circle: true, variant: 'neutral' }
   });
   expect(container).toMatchSnapshot();
 });

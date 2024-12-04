@@ -1,9 +1,16 @@
 <script lang="ts">
-  export let as: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' = 'h2';
+  import type { Snippet } from 'svelte';
+
+  interface Props {
+    as?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+    children?: Snippet;
+  }
+
+  let { as = 'h2', children }: Props = $props();
 </script>
 
 <svelte:element this={as} class="sub-headline">
-  <slot />
+  {@render children?.()}
 </svelte:element>
 
 <style>

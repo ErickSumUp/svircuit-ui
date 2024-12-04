@@ -1,12 +1,15 @@
 <script lang="ts">
-  /**
-   * Choose from size variants.
-   * @type {('s' | 'm' | 'l' | 'xl')}
-   */
-  export let size: 's' | 'm' | 'l' | 'xl' = 'm';
+  interface Props {
+    /**
+     * Choose from size variants.
+     */
+    size?: 's' | 'm' | 'l' | 'xl';
+  }
+
+  let { size = 'm', ...rest }: Props = $props();
 </script>
 
-<div class="spacer spacer-{size}" />
+<div class="spacer spacer-{size}" {...rest}></div>
 
 <style>
   .spacer {

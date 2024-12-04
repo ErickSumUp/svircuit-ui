@@ -1,34 +1,31 @@
-<script context="module">
+<script lang="ts" module>
   import Body from '$lib/components/Body.svelte';
+  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Typography/Body',
     component: Body,
     argTypes: {
-      variant: {
-        control: { type: 'radio', defaultValue: 'p' },
-        options: ['alert', 'highlight', 'quote', 'confirm', 'subtle', 'p']
-      },
-      size: {
-        control: { type: 'radio', defaultValue: 'one' },
-        options: ['one', 'two']
-      }
+      children: { control: 'text', defaultValue: '' }
     },
     parameters: {
       layout: 'centered'
     }
-  };
+  });
 </script>
 
-<script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
-
-  export let content =
-    'An electronic circuit is composed of individual electronic components, such as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires or traces through which electric current can flow.';
-</script>
-
-<Story name="Base" let:args>
-  <Body {...args}>{args.slot || content}</Body>
+<Story
+  name="Base"
+  args={{
+    variant: 'p',
+    size: 'one',
+    children:
+      'An electronic circuit is composed of individual electronic components, such as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires or traces through which electric current can flow.'
+  }}
+>
+  {#snippet children({ ...args }: Args<typeof Story>)}
+    <Body variant={args.variant} size={args.size}>{args.children}</Body>
+  {/snippet}
 </Story>
 
 <Story name="Variants">
@@ -44,11 +41,11 @@
   <Body size="one"
     >This is a body one. An electronic circuit is composed of individual electronic components, such
     as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires or
-    traces through which electric current can flow.</Body
-  >
+    traces through which electric current can flow.
+  </Body>
   <Body size="two"
     >This is a body two. An electronic circuit is composed of individual electronic components, such
     as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires or
-    traces through which electric current can flow.</Body
-  >
+    traces through which electric current can flow.
+  </Body>
 </Story>

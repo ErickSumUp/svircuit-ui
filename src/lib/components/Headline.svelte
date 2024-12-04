@@ -1,16 +1,22 @@
-<script>
-  /**
-   * A Circuit UI headline size. Defaults to `one`.
-   * @type {('one' | 'two' | 'three' | 'four')}
-   */
-  export let size = 'one';
-  /**
-   * The HTML heading element to render.
-   * Headings should be nested sequentially without skipping any levels.
-   * Learn more at https://www.w3.org/WAI/tutorials/page-structure/headings/.
-   * @type {('h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6')}
-   */
-  export let as = 'h1';
+<script lang="ts">
+  import type { Snippet } from 'svelte';
+  import type { HTMLAttributes } from 'svelte/elements';
+
+  interface Props extends HTMLAttributes<HTMLHeadingElement> {
+    /**
+     * A Circuit UI headline size. Defaults to `one`.
+     */
+    size?: 'one' | 'two' | 'three' | 'four';
+    /**
+     * The HTML heading element to render.
+     * Headings should be nested sequentially without skipping any levels.
+     * Learn more at https://www.w3.org/WAI/tutorials/page-structure/headings/.
+     */
+    as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+    children: Snippet;
+  }
+
+  let { size = 'one', as = 'h1', children, ...rest }: Props = $props();
 </script>
 
 <svelte:element
@@ -20,8 +26,10 @@
   class:two={size === 'two'}
   class:three={size === 'three'}
   class:four={size === 'four'}
-  {...$$restProps}><slot /></svelte:element
+  {...rest}
 >
+  {@render children()}
+</svelte:element>
 
 <style>
   .base {

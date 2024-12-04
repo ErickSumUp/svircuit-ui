@@ -1,51 +1,71 @@
-<script>
-  /**
-   * Choose from 3 style variants.
-   * @type {('primary' | 'secondary' | 'tertiary')}
-   */
-  export let variant = 'secondary';
-  /**
-   * Choose from 2 sizes.
-   * @type {('s' | 'm')}
-   */
-  export let size = 'm';
-  /**
-   * Change the color from accent to danger to signal to the user that the action
-   * is irreversible or otherwise dangerous.
-   * @type {boolean}
-   */
-  export let destructive = false;
-  /**
-   * Stretch the button across the full width of its parent.
-   * @type {boolean}
-   */
-  export let stretch = false;
-  /**
-   * Visually and functionally disable the button.
-   * @type {boolean}
-   */
-  export let disabled = false;
-  /**
-   * Visually disables the button and shows a loading spinner.
-   * @type {boolean}
-   */
-  export let isLoading = false;
-  /**
-   * Visually hidden label to communicate the loading state to visually
-   * impaired users.
-   * @type {string}
-   */
-  export let loadingLabel = 'Loading';
-  /**
-   * Hide the label text.
-   * @type {boolean}
-   */
-  export let hideLabel = false;
-  /**
-   * Reduce the padding and margin of the button.
-   * @type {boolean}
-   */
-  export let compress = false;
+<script lang="ts">
+  import type { Snippet } from 'svelte';
+  import type { HTMLButtonAttributes } from 'svelte/elements';
+
+  interface Props extends HTMLButtonAttributes {
+    /**
+     * Choose from 3 style variants.
+     */
+    variant?: 'primary' | 'secondary' | 'tertiary';
+    /**
+     * Choose from 2 sizes.
+     */
+    size?: 's' | 'm';
+    /**
+     * Change the color from accent to danger to signal to the user that the action is irreversible or otherwise dangerous.
+     */
+    destructive?: boolean;
+    /**
+     * Stretch the button across the full width of its parent.
+     */
+    stretch?: boolean;
+    /**
+     * Visually and functionally disable the button.
+     */
+    disabled?: boolean;
+    /**
+     * Visually disables the button and shows a loading spinner.
+     */
+    isLoading?: boolean;
+    /**
+     * Visually hidden label to communicate the loading state to visually impaired users.
+     */
+    loadingLabel?: string;
+    /**
+     * Hide the label text.
+     */
+    hideLabel?: boolean;
+    /**
+     * Reduce the padding and margin of the button.
+     */
+    compress?: boolean;
+    /**
+     * Snippet for the leading icon.
+     */
+    leading_icon?: Snippet;
+    /**
+     * Snippet for the trailing icon.
+     */
+    trailing_icon?: Snippet;
+    children?: Snippet;
+  }
+
+  let {
+    variant = 'secondary',
+    size = 'm',
+    destructive = false,
+    stretch = false,
+    disabled = false,
+    isLoading = false,
+    loadingLabel = 'Loading',
+    hideLabel = false,
+    compress = false,
+    onclick,
+    leading_icon = undefined,
+    trailing_icon = undefined,
+    children,
+    ...rest
+  }: Props = $props();
 </script>
 
 <button
@@ -64,23 +84,23 @@
   aria-disabled={disabled}
   aria-busy={isLoading}
   aria-live={isLoading ? 'polite' : null}
-  on:click
-  {...$$restProps}
+  {onclick}
+  {...rest}
 >
   {#if isLoading}
     <span class="loader" aria-hidden={!isLoading}>
-      <span class="dot" />
-      <span class="dot" />
-      <span class="dot" />
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
       <span class="hide-visually">{loadingLabel}</span>
     </span>
   {/if}
   <span class="content">
-    <slot name="leading-icon" class="leading-icon" />
+    {@render leading_icon?.()}
     <span class="label" class:hide-label={hideLabel}>
-      <slot />
+      {@render children()}
     </span>
-    <slot name="trailing-icon" class="trailing-icon" />
+    {@render trailing_icon?.()}
   </span>
 </button>
 
@@ -235,9 +255,11 @@
   .label {
     overflow: hidden;
     text-overflow: ellipsis;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
+  /*
   .leading-icon {
     width: var(--leading-icon-size);
     height: var(--leading-icon-size);
@@ -247,6 +269,7 @@
     width: var(--cui-icon-sizes-kilo);
     height: var(--cui-icon-sizes-kilo);
   }
+   */
 
   /* Sizes */
   .s {
@@ -356,14 +379,12 @@
     border-color: transparent;
   }
 
-  .tertiary:active {
+  .tertiary:active,
+  .tertiary[aria-expanded='true'],
+  .tertiary[aria-pressed='true'] {
     color: var(--cui-fg-accent-pressed);
-    background-color: var(--cui-bg-accent-pressed);
+    background-color: transparent;
     border-color: transparent;
-  }
-
-  .tertiary:focus-visible {
-    background-color: var(--cui-bg-accent-hovered);
   }
 
   .tertiary.destructive {
@@ -372,48 +393,42 @@
 
   .tertiary.destructive:hover {
     color: var(--cui-fg-danger-hovered);
-    background-color: var(--cui-bg-danger-hovered);
+    background-color: transparent;
   }
 
-  .tertiary.destructive:active {
+  .tertiary.destructive:active,
+  .tertiary.destructive[aria-expanded='true'],
+  .tertiary.destructive[aria-pressed='true'] {
     color: var(--cui-fg-danger-pressed);
-    background-color: var(--cui-bg-danger-pressed);
-  }
-
-  .tertiary.destructive:focus-visible {
-    background-color: var(--cui-bg-danger-hovered);
+    background-color: transparent;
   }
 
   .tertiary .label {
-    position: relative;
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    text-underline-position: under;
+    transition: text-decoration-color var(--cui-transitions-default);
   }
 
-  .tertiary .label::after {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    content: '';
-    border-top: var(--cui-border-width-kilo) dashed var(--cui-border-normal);
-    opacity: 1;
-    transition:
-      transform var(--cui-transitions-default),
-      opacity var(--cui-transitions-default);
+  @supports (text-underline-offset: 0.25em) {
+    .tertiary .label {
+      text-underline-position: auto;
+      text-underline-offset: 0.25em;
+    }
   }
 
-  .tertiary:focus-visible .label::after {
-    opacity: 0;
-    transform: translateY(2px);
+  .tertiary:disabled,
+  .tertiary[disabled],
+  .tertiary[aria-disabled='true'] {
+    color: var(--cui-fg-normal-disabled);
+    background-color: transparent;
+    border-color: transparent;
   }
 
-  .tertiary:hover .label::after,
-  .tertiary:active .label::after,
-  .tertiary[aria-busy='true'] .label::after,
-  .tertiary:disabled .label::after,
-  .tertiary[disabled] .label::after,
-  .tertiary[aria-disabled='true'] .label::after {
-    opacity: 0;
-    transform: translateY(2px);
+  .tertiary.destructive:disabled,
+  .tertiary.destructive[disabled],
+  .tertiary.destructive[aria-disabled='true'] {
+    color: var(--cui-fg-danger-disabled);
   }
 
   /* ButtonGroup */
@@ -423,49 +438,17 @@
     }
   }
 
-  @container cui-button-group (width > 370px) {
-    /* Keep in sync with the .secondary class above */
-    .tertiary {
-      color: var(--cui-fg-normal);
-      background-color: var(--cui-bg-normal);
-      border-color: var(--cui-border-normal);
-    }
+  /* Disabled */
+  .base:disabled,
+  .base[disabled],
+  .base[aria-disabled='true'] {
+    cursor: not-allowed;
+  }
 
-    .tertiary:hover {
-      color: var(--cui-fg-normal-hovered);
-      background-color: var(--cui-bg-normal-hovered);
-      border-color: var(--cui-border-normal-hovered);
-    }
-
-    .tertiary:active,
-    .tertiary[aria-expanded='true'],
-    .tertiary[aria-pressed='true'] {
-      color: var(--cui-fg-normal-pressed);
-      background-color: var(--cui-bg-normal-pressed);
-      border-color: var(--cui-border-normal-pressed);
-    }
-
-    .tertiary.destructive {
-      color: var(--cui-fg-danger);
-    }
-
-    .tertiary.destructive:hover {
-      color: var(--cui-fg-danger-hovered);
-      background-color: var(--cui-bg-danger-hovered);
-      border-color: var(--cui-border-danger-hovered);
-    }
-
-    .tertiary.destructive:active,
-    .tertiary.destructive[aria-expanded='true'],
-    .tertiary.destructive[aria-pressed='true'] {
-      color: var(--cui-fg-danger-pressed);
-      background-color: var(--cui-bg-danger-pressed);
-      border-color: var(--cui-border-danger-pressed);
-    }
-
-    .tertiary .label::after {
-      display: none;
-    }
+  .base:disabled .content,
+  .base[disabled] .content,
+  .base[aria-disabled='true'] .content {
+    transform: translate(0);
   }
 
   /* Disabled */

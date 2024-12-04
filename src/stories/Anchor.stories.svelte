@@ -1,31 +1,26 @@
-<script context="module">
+<script context="module" lang="ts">
   import Anchor from '$lib/components/Anchor.svelte';
+  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Typography/Anchor',
     component: Anchor,
-    argTypes: {
-      variant: {
-        control: { type: 'radio', defaultValue: 'neutral' },
-        options: ['highlight', 'quote', '']
-      },
-      size: {
-        control: { type: 'radio', defaultValue: 'one' },
-        options: ['one', 'two']
-      }
-    },
     parameters: {
       layout: 'centered'
     }
-  };
+  });
 </script>
 
-<script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
-</script>
-
-<Story name="Base" let:args>
-  <Anchor href={args.href || 'https://opensource.sumup.com/'} {...args}
-    >{args.slot || "View SumUp's OSS projects"}</Anchor
-  >
+<Story
+  name="Base"
+  args={{
+    children: "View SumUp's OSS projects",
+    variant: '',
+    size: 'one',
+    href: 'https://opensource.sumup.com'
+  }}
+>
+  {#snippet children({ ...args }: Args<typeof Story>)}
+    <Anchor href={args.href} variant={args.variant} size={args.size}>{args.children}</Anchor>
+  {/snippet}
 </Story>

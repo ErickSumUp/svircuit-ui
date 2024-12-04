@@ -1,9 +1,16 @@
 <script lang="ts">
-  export let vertical: boolean = false;
+  import { type Snippet } from 'svelte';
+
+  interface Props {
+    vertical?: boolean;
+    children?: Snippet;
+  }
+
+  let { vertical = false, children }: Props = $props();
 </script>
 
 <div class="base" class:vertical>
-  <slot />
+  {@render children()}
 </div>
 
 <style>

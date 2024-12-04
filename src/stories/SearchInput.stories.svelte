@@ -1,7 +1,8 @@
-<script context="module">
+<script lang="ts" module>
   import SearchInput from '$lib/components/SearchInput.svelte';
+  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/SearchInput',
     component: SearchInput,
     argTypes: {
@@ -16,18 +17,20 @@
     parameters: {
       layout: 'centered'
     }
-  };
+  });
 </script>
 
-<script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
-
-  export let label = 'First name';
-  export let placeholder = 'Type a word...';
-  export let maxLength = 100;
-  $: validationHint = `Maximum ${maxLength} characters`;
-</script>
-
-<Story name="Base" let:args>
-  <SearchInput {label} {maxLength} {validationHint} {placeholder} {...args} />
+<Story
+  name="Base"
+  args={{
+    children: '',
+    label: 'First name',
+    maxLength: 100,
+    validationHint: 'Max 100 characters',
+    placeholder: 'Type a word...'
+  }}
+>
+  {#snippet children({ ...args }: Args<typeof Story>)}
+    <SearchInput id={args.id} label={args.label} {...args} />
+  {/snippet}
 </Story>

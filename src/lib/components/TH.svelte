@@ -1,15 +1,20 @@
-<script>
+<script lang="ts">
+  import type { HTMLThAttributes } from 'svelte/elements';
+
   let fixed = true;
-  /**
-   * Aligns the text in the header cell.
-   * @type {('left' | 'right' | 'center')}
-   */
-  export let align = 'left';
-  /**
-   * Condenses the header cell.
-   * @type {boolean}
-   */
-  export let condensed = false;
+
+  interface Props extends HTMLThAttributes {
+    /**
+     * Aligns the text in the header cell.
+     */
+    align?: 'left' | 'right' | 'center';
+    /**
+     * Condenses the header cell.
+     */
+    condensed?: boolean;
+  }
+
+  let { align = 'left', condensed = false, children, ...rest }: Props = $props();
 </script>
 
 <th
@@ -18,9 +23,9 @@
   class:align-right={align === 'right'}
   class:align-center={align === 'center'}
   class:condensed
-  {...$$restProps}
+  {...rest}
 >
-  <slot />
+  {@render children()}
 </th>
 
 <style>

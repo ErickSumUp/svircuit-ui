@@ -1,66 +1,83 @@
-<script>
-  /**
-   * Label for the select element.
-   * @type {string}
-   */
-  export let label = '';
-  /**
-   * Name of the select form element.
-   * @type {string}
-   */
-  export let name = 'select';
-  /**
-   * Whether the select is disabled or not.
-   * @type {boolean}
-   */
-  export let disabled = false;
-  /**
-   * Whether the select is invalid or not.
-   * @type {boolean}
-   */
-  export let invalid = false;
-  /**
-   * Value of the select element.
-   * @type {number | string}
-   */
-  export let value = '';
-  /**
-   *
-   * @type {('s' | 'm')}
-   */
-  export let size = 'm';
-  /**
-   * An information or error message, displayed below the select.
-   */
-  export let validationHint = '';
-  /**
-   * Label to indicate that the select is optional. Only displayed when the
-   * `required` prop is falsy.
-   * @type {string}
-   */
-  export let optionalLabel = '';
-  /**
-   * Aria-describedby attribute for the select element.
-   * @type {string}
-   */
-  export let ariaDescribedBy;
-  /**
-	 * Whether the field is required or not.
+<script lang="ts">
+  import { type ChangeEventHandler } from 'svelte/elements';
+  import { type Snippet } from 'svelte';
 
-	 * @type {boolean}
-	 */
-  export let required = false;
-  /**
-   * Whether the label should be hidden visually.
-   * @type {boolean}
-   */
-  export let hideLabel = false;
-  /**
-   * A unique identifier for the input field. Must be defined.
-   * @type {string}
-   */
-  export let id;
-  $: iconSize = size === 's' ? 16 : 24;
+  interface Props {
+    /**
+     * Label for the select element.
+     */
+    label?: string;
+    /**
+     * Name of the select form element.
+     */
+    name?: string;
+    /**
+     * Whether the select is disabled or not.
+     */
+    disabled?: boolean;
+    /**
+     * Whether the select is invalid or not.
+     */
+    invalid?: boolean;
+    /**
+     * Value of the select element.
+     */
+    value?: number | string;
+    /**
+     * Size of the select element.
+     */
+    size?: 's' | 'm';
+    /**
+     * An information or error message, displayed below the select.
+     */
+    validationHint?: string;
+    /**
+     * Label to indicate that the select is optional. Only displayed when the `required` prop is falsy.
+     */
+    optionalLabel?: string;
+    /**
+     * Aria-describedby attribute for the select element.
+     */
+    ariaDescribedBy?: string;
+    /**
+     * Whether the field is required or not.
+     */
+    required?: boolean;
+    /**
+     * Whether the label should be hidden visually.
+     */
+    hideLabel?: boolean;
+    /**
+     * A unique identifier for the input field. Must be defined.
+     */
+    id: string;
+    onchange?: ChangeEventHandler<HTMLSelectElement>;
+
+    prefix?: Snippet;
+    suffix?: Snippet;
+    children: Snippet;
+  }
+
+  let {
+    label = '',
+    name = 'select',
+    disabled = false,
+    invalid = false,
+    value = $bindable(''),
+    size = 'm',
+    validationHint = '',
+    optionalLabel = '',
+    ariaDescribedBy,
+    required = false,
+    hideLabel = false,
+    id,
+    onchange,
+    prefix,
+    children,
+    ...rest
+  }: Props = $props();
+
+  let iconSize = $derived(size === 's' ? 16 : 24);
 </script>
 
 <div class="field-wrapper" data-disabled={disabled}>
@@ -73,7 +90,7 @@
     </span>
   </label>
   <div class="wrapper">
-    <slot name="prefix" class="prefix" />
+    {@render prefix?.()}
     <select
       {id}
       bind:value
@@ -85,14 +102,14 @@
       class="base"
       class:s={size === 's'}
       class:m={size === 'm'}
-      class:has-prefix={$$slots.prefix}
+      class:has-prefix={prefix}
       class:select--invalid={invalid && !disabled}
       class:select--disabled={disabled}
-      on:change
+      {onchange}
       aria-label={label}
-      {...$$restProps}
+      {...rest}
     >
-      <slot />
+      {@render children?.()}
     </select>
     <svg
       class="icon {size}"

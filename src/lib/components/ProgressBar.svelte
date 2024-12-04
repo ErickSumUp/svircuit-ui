@@ -1,54 +1,58 @@
-<script context="module">
-  function getWidth(value = 0, max = 1) {
+<script lang="ts">
+  interface Props {
+    id?: string;
+    /**
+     * Choose from size variants.
+     */
+    size?: 's' | 'm' | 'l';
+    /**
+     * A number greater than zero, indicating how much work the task requires.
+     */
+    max?: number;
+    /**
+     * A number between 0 and max, indicating how much of the task has been
+     * completed.
+     */
+    value?: number;
+    /**
+     * Whether the progress animation should loop indefinitely.
+     */
+    loop?: boolean;
+    /**
+     * The time it takes the progress bar to fill up in milliseconds.
+     */
+    duration?: number;
+    /**
+     * Whether the animation should the paused.
+     */
+    paused?: boolean;
+    /**
+     * A descriptive label that is used by screen readers.
+     */
+    label?: string;
+    /**
+     * Visually hide the label. This should only be used in rare cases and only
+     * if the purpose of the field can be inferred from other context.
+     */
+    hideLabel?: boolean;
+  }
+
+  function getWidth(value = 0, max = 1): string {
     const width = value && max ? ((value / max) * 100).toFixed(2) : 0;
     return `${width}%`;
   }
-</script>
 
-<script>
-  export let id = 'progress-bar';
-  /**
-   * Choose from 3 sizes. Default: 'm'.
-   * @type {'s' | 'm' | 'l'}
-   */
-  export let size = 'm';
-  /**
-   * A number greater than zero, indicating how much work the task requires.
-   * @type {number}
-   */
-  export let max = 0;
-  /**
-   * A number between 0 and max, indicating how much of the task has been
-   * completed.
-   * @type {number}
-   */
-  export let value = 0;
-  /**
-   * Whether the progress animation should loop indefinitely.
-   * @type {boolean}
-   */
-  export let loop = false;
-  /**
-   * The time it takes the progress bar to fill up in milliseconds.
-   * @type {number}
-   */
-  export let duration = 3000;
-  /**
-   * Whether the animation should the paused.
-   * @type {boolean}
-   */
-  export let paused = false;
-  /**
-   * A descriptive label that is used by screen readers.
-   * @type {string}
-   */
-  export let label = 'Loading...';
-  /**
-   * Visually hide the label. This should only be used in rare cases and only
-   * if the purpose of the field can be inferred from other context.
-   * @type {boolean}
-   */
-  export let hideLabel = false;
+  let {
+    id = 'progress-bar',
+    size = 'm',
+    max = 0,
+    value = 0,
+    loop = false,
+    duration = 3000,
+    paused = false,
+    label = 'Loading...',
+    hideLabel = false
+  }: Props = $props();
 </script>
 
 <div class="wrapper">
@@ -62,7 +66,7 @@
       aria-labelledby={id}
       aria-label={label}
       style="--pagination-width: {getWidth(value, max)};"
-    />
+    ></span>
   {:else}
     <span
       role="progressbar"
@@ -73,7 +77,7 @@
       style="--pagination-animation-duration: {duration}ms; --pagination-animation-play-state: {paused
         ? 'paused'
         : 'running'};"
-    />
+    ></span>
   {/if}
   <span {id} class="label" class:hide-visually={hideLabel}>{label}</span>
 </div>

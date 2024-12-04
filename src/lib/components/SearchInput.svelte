@@ -1,34 +1,55 @@
 <script lang="ts">
-  /**
-   * A clear and concise description of the input purpose. Required for accessibility purposes.
-   * @type {string}
-   */
-  export let label: string;
-  /**
-   * A unique identifier for the input field. Must be provided for accessibility.
-   * @type {string} @default
-   */
-  export let id: string;
-  /**
-   * Aligns text to the right in the input
-   * @type {boolean} @default false
-   */
-  export let textAlignRight: boolean = false;
-  /**
-   * Visually hide the label. This should only be used in rare cases and only
-   * if the purpose of the field can be inferred from other context.
-   * @type {boolean} @default false
-   */
-  export let hideLabel: boolean = false;
+  interface Props {
+    /**
+     * A clear and concise description of the input purpose. Required for accessibility purposes.
+     */
+    label: string;
+    /**
+     * A unique identifier for the input field. Must be provided for accessibility.
+     */
+    id: string;
+    /**
+     * Aligns text to the right in the input
+     */
+    textAlignRight?: boolean;
+    /**
+     * Visually hide the label. This should only be used in rare cases and only
+     * if the purpose of the field can be inferred from other context.
+     */
+    hideLabel?: boolean;
+    /**
+     * Whether the input is disabled.
+     */
+    disabled?: boolean;
+    /**
+     * A descriptive label that is used by screen readers.
+     */
+    ariaDescribedBy?: string;
+    /**
+     * The current value of the input.
+     */
+    value?: string;
+    /**
+     * A callback that is called when the clear button is clicked.
+     */
+    onClearClick?: () => void;
+    placeholder?: string;
+  }
 
-  export let disabled = false;
-
-  export let ariaDescribedBy = '';
-  export let value: number | string = '';
-
-  export let onClearClick = () => {
-    value = '';
-  };
+  let {
+    label,
+    id,
+    placeholder,
+    textAlignRight = false,
+    hideLabel = false,
+    disabled = false,
+    ariaDescribedBy = '',
+    value = $bindable(''),
+    onClearClick = () => {
+      value = '';
+    },
+    ...rest
+  }: Props = $props();
 </script>
 
 <div data-disabled={disabled} aria-disabled={disabled}>
@@ -56,18 +77,18 @@
     <input
       {id}
       bind:value
+      {placeholder}
       aria-describedby={ariaDescribedBy}
       class="base"
       class:has-suffix={value}
       class:select--disabled={disabled}
       class:align-right={textAlignRight}
       {disabled}
-      on:change
       aria-label={label}
-      {...$$restProps}
+      {...rest}
     />
     {#if value}
-      <button class="suffix close-button" on:click={onClearClick}>
+      <button aria-labelledby="on clear" class="suffix close-button" onclick={onClearClick}>
         <span class="close-button-content">
           <svg
             class="close-button-icon"

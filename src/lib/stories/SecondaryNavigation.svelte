@@ -25,25 +25,32 @@
    */
 
   /**
-   * @type {Array.<Group>}
+   * @typedef {Object} Props
+   * @property {Array.<Group>} [groups]
+   * @property {import('svelte').Snippet} [children]
    */
-  export let groups = [
-    {
-      label: 'Home',
-      links: [
-        {
-          label: 'Home',
-          href: '/home',
-          isActive: true,
-          badge: {
-            label: 'New',
-            circle: true,
-            variant: 'promo'
+
+  /** @type {Props} */
+  let {
+    groups = [
+      {
+        label: 'Home',
+        links: [
+          {
+            label: 'Home',
+            href: '/home',
+            isActive: true,
+            badge: {
+              label: 'New',
+              circle: true,
+              variant: 'promo'
+            }
           }
-        }
-      ]
-    }
-  ];
+        ]
+      }
+    ],
+    children
+  } = $props();
 </script>
 
 <div class="wrapper">
@@ -81,7 +88,7 @@
     </ul>
   </nav>
   <footer>
-    <slot />
+    {@render children?.()}
   </footer>
 </div>
 

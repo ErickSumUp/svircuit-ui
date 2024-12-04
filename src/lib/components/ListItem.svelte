@@ -1,64 +1,121 @@
-<script>
-  /**
-   * Choose between 'action' and 'navigation' variant. Default: 'action'.
-   * The `navigation` variant renders a chevron in the trailing section.
-   * @type {('action' | 'navigation')}
-   */
-  export let variant = 'action';
-  /**
-   * Visually mark the list item as selected.
-   * @type {boolean}
-   */
-  export let selected = false;
-  /**
-   * Link to another part of the application or external page.
-   * @type {string}
-   */
-  export let href = undefined;
-  /**
-   * @type {() => void | undefined}
-   */
-  export let onClick = undefined;
+<script lang="ts">
+  import type { Snippet } from 'svelte';
+  import {
+    type HTMLAnchorAttributes,
+    type HTMLAttributes,
+    type HTMLButtonAttributes
+  } from 'svelte/elements';
 
-  let as = 'div';
-  $: {
+  type Props = HTMLAttributes<HTMLDivElement> &
+    HTMLAnchorAttributes &
+    HTMLButtonAttributes & {
+      /**
+       * Choose between 'action' and 'navigation' variant. Default: 'action'.
+       * The `navigation` variant renders a chevron in the trailing section.
+       * @type {('action' | 'navigation')}
+       */
+      variant?: 'action' | 'navigation';
+      /**
+       * Visually mark the list item as selected.
+       * @type {boolean}
+       */
+      selected?: boolean;
+      /**
+       * Function that is called when the list item is clicked.
+       */
+      disabled?: boolean;
+      /**
+       * Link to another part of the application or external page.
+       * @type {string}
+       */
+      href?: string;
+      /**
+       * @type {() => void | undefined}
+       */
+      onclick?;
+      /**
+       * Display a leading component.
+       * Pass an icon or a custom component.
+       */
+      leading?: Snippet;
+      /**
+       * Display a details line below the main label.
+       */
+      details?: Snippet;
+      /**
+       * Display a trailing label.
+       * If using the `navigation` variant, the chevron icon will be center aligned with this label.
+       */
+      trailingLabel?: Snippet;
+      /**
+       * Display a trailing details label.
+       */
+      trailingDetails?: Snippet;
+      /**
+       * Display a custom trailing component.
+       * If using the `navigation` variant, the chevron icon will be center aligned with this component.
+       */
+      trailingComponent?: Snippet;
+      children: Snippet;
+    };
+
+  let as: 'a' | 'button' | 'div' = $derived.by(() => {
     if (href) {
-      as = 'a';
-    } else if (onClick) {
-      as = 'button';
+      return 'a';
+    } else if (onclick) {
+      return 'button';
+    } else {
+      return 'div';
     }
-  }
+  });
+
+  let {
+    variant = 'action',
+    selected = false,
+    disabled,
+    href,
+    onclick,
+    leading,
+    details,
+    trailingLabel,
+    trailingDetails,
+    trailingComponent,
+    children,
+    ...rest
+  }: Props = $props();
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
 <svelte:element
   this={as}
   class="base"
   class:navigation={variant === 'navigation'}
-  aria-current={$$props.onClick || $$props.href ? selected : undefined}
-  on:click={onClick}
+  aria-current={onclick || href ? selected : undefined}
+  {onclick}
   {href}
-  {...$$restProps}
+  role={as === 'button' ? 'button' : undefined}
+  {disabled}
+  aria-disabled={disabled}
+  {...rest}
 >
-  {#if $$slots['leading']}
+  {#if leading}
     <div class="leading">
-      <slot name="leading" />
+      {@render leading?.()}
     </div>
   {/if}
   <div class="content">
     <div class="main">
       <div class="label">
-        <slot />
+        {@render children()}
       </div>
-      {#if $$slots['details']}
-        <slot name="details" />
+      {#if details}
+        {@render details?.()}
       {/if}
     </div>
-    {#if $$slots['trailing-label'] || $$slots['trailing-component'] || variant === 'navigation'}
-      <div class="trailing" class:has-label={$$slots['trailing-label']}>
+    {#if trailingLabel || trailingComponent || variant === 'navigation'}
+      <div class="trailing" class:has-label={trailingLabel}>
         <div class="chevron">
-          <slot name="trailing-label" />
-          <slot name="trailing-component" />
+          {@render trailingLabel?.()}
+          {@render trailingComponent?.()}
           {#if variant === 'navigation'}
             <svg
               width="16"
@@ -74,9 +131,9 @@
             </svg>
           {/if}
         </div>
-        {#if $$slots['trailing-details']}
+        {#if trailingDetails}
           <div class="details">
-            <slot name="trailing-details" />
+            {@render trailingDetails?.()}
           </div>
         {/if}
       </div>

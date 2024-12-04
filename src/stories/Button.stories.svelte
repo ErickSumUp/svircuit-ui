@@ -1,38 +1,33 @@
-<script context="module">
+<script lang="ts" module>
   import Button from '$lib/components/Button.svelte';
+  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/Button',
     component: Button,
     argTypes: {
-      variant: {
-        options: ['primary', 'secondary', 'tertiary']
-      },
-      size: {
-        options: ['s', 'm']
+      leading_icon: {
+        type: 'string'
       }
     },
     parameters: {
       layout: 'centered'
     }
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
   import ArrowSlanted from '$lib/icons/ArrowSlanted.svelte';
   import Placeholder from '$lib/icons/Placeholder.svelte';
   import Shop from '$lib/icons/Shop.svelte';
   import Close from '$lib/icons/Close.svelte';
   import DownloadCloud from '$lib/icons/DownloadCloud.svelte';
-
-  function handleClick() {
-    alert('Hello!');
-  }
 </script>
 
-<Story name="Base" let:args>
-  <Button {...args} on:click={handleClick}>{args.slot || 'Say Hello!'}</Button>
+<Story name="Base" args={{ variant: 'secondary', size: 'm' }}>
+  {#snippet children({ ...args }: Args<typeof Story>)}
+    <Button onclick={() => alert('Hello!')} {...args}>Say Hello</Button>
+  {/snippet}
 </Story>
 
 <Story name="Variants">
@@ -54,14 +49,14 @@
 
 <Story name="WithIcons">
   <div style="display: flex; gap: 1rem;">
-    <Button>
-      <Placeholder slot="leading-icon" />
-      Add to cart
-    </Button>
-    <Button size="m">
-      <ArrowSlanted size="16" slot="trailing-icon" />
-      Terms & Conditions
-    </Button>
+    {#snippet placeholderIcon()}
+      <Placeholder />
+    {/snippet}
+    <Button leading_icon={placeholderIcon}>Add to cart</Button>
+    {#snippet arrowSlantedIcon()}
+      <ArrowSlanted size="16" />
+    {/snippet}
+    <Button size="m" trailing_icon={arrowSlantedIcon}>Terms & Conditions</Button>
   </div>
 </Story>
 
@@ -72,24 +67,37 @@
 
 <Story name="OnlyIcons">
   <div style="display: flex; gap: 1rem; align-items: center">
-    <Button size="s" hideLabel={true}>
-      <Placeholder size="16" slot="leading-icon" />
+    {#snippet placeholderIcon16()}
+      <Placeholder size="16" />
+    {/snippet}
+    <Button size="s" hideLabel={true} leading_icon={placeholderIcon16}>
+      <Placeholder size="16" />
       Circuit
     </Button>
-    <Button size="m" variant="primary" hideLabel={true}>
-      <DownloadCloud slot="leading-icon" />
+    {#snippet downloadCloudIcon()}
+      <DownloadCloud />
+    {/snippet}
+    <Button size="m" variant="primary" hideLabel={true} leading_icon={downloadCloudIcon}>
       Download
     </Button>
-    <Button size="m" variant="secondary" hideLabel={true}>
-      <Close size="24" slot="leading-icon" />
-      Close
-    </Button>
-    <Button size="m" on:click disabled={true} hideLabel={true}>
-      <Shop size="24" slot="leading-icon" />
-      Cart
-    </Button>
-    <Button size="m" variant="primary" isLoading={true} hideLabel={true}>
-      <Placeholder size="24" slot="leading-icon" />
+    {#snippet closeIcon()}
+      <Close size="24" />
+    {/snippet}
+    <Button size="m" variant="secondary" hideLabel={true} leading_icon={closeIcon}>Close</Button>
+    {#snippet shopIcon()}
+      <Shop size="24" />
+    {/snippet}
+    <Button size="m" disabled={true} hideLabel={true} leading_icon={shopIcon}>Cart</Button>
+    {#snippet placeholderIcon24()}
+      <Placeholder size="24" />
+    {/snippet}
+    <Button
+      size="m"
+      variant="primary"
+      isLoading={true}
+      hideLabel={true}
+      leading_icon={placeholderIcon24}
+    >
       Circuit
     </Button>
   </div>

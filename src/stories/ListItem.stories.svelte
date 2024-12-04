@@ -1,7 +1,13 @@
-<script context="module">
+<script lang="ts" module>
   import ListItem from '$lib/components/ListItem.svelte';
+  import SumUpCard from '$lib/icons/SumUpCard.svelte';
+  import Badge from '$lib/components/Badge.svelte';
+  import Body from '$lib/components/Body.svelte';
+  import Stack from '$lib/components/Stack.svelte';
+  import Confirm from '$lib/icons/Confirm.svelte';
+  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
 
-  export const meta = {
+  const { Story } = defineMeta({
     title: 'Components/ListItem',
     component: ListItem,
     argTypes: {
@@ -16,34 +22,36 @@
     parameters: {
       layout: 'centered'
     }
-  };
+  });
 </script>
 
 <script lang="ts">
-  import { Story } from '@storybook/addon-svelte-csf';
-  import SumUpCard from '$lib/icons/SumUpCard.svelte';
-  import Badge from '$lib/components/Badge.svelte';
-  import Body from '$lib/components/Body.svelte';
-  import Stack from '$lib/components/Stack.svelte';
-  import Confirm from '$lib/icons/Confirm.svelte';
 </script>
 
-<Story name="Base" let:args>
-  <ListItem {...args} onClick={() => console.log('clicked')}>
-    <SumUpCard slot="leading" />
-    <Body>Mastercard **** 4494</Body>
-    <div
-      slot="details"
-      style="display: flex; flex-direction: row; align-items: center; gap: var(--cui-spacings-bit); "
-    >
-      <Confirm size="16" style="color: var(--cui-fg-success)" />
-      <Body variant="highlight" size="two">Successful</Body>
-      <Body size="two" variant="subtle">&middot; 17:21</Body>
-    </div>
-
-    <Body slot="trailing-label" variant="highlight">€24.00</Body>
-    <Body slot="trailing-details" variant="subtle" size="two">€0.46 fee</Body>
-  </ListItem>
+<Story name="Base">
+  {#snippet children({ ...args }: Args<typeof Story>)}
+    <ListItem {...args} onClick={() => console.log('clicked')}>
+      {#snippet leading()}
+        <SumUpCard />
+      {/snippet}
+      <Body>Mastercard **** 4494</Body>
+      {#snippet details()}
+        <div
+          style="display: flex; flex-direction: row; align-items: center; gap: var(--cui-spacings-bit); "
+        >
+          <Confirm size="16" style="color: var(--cui-fg-success)" />
+          <Body variant="highlight" size="two">Successful</Body>
+          <Body size="two" variant="subtle">&middot; 17:21</Body>
+        </div>
+      {/snippet}
+      {#snippet trailingLabel()}
+        <Body variant="highlight">€24.00</Body>
+      {/snippet}
+      {#snippet trailingDetails()}
+        <Body variant="subtle" size="two">€0.46 fee</Body>
+      {/snippet}
+    </ListItem>
+  {/snippet}
 </Story>
 
 <Story name="Variants">
@@ -60,11 +68,15 @@
 <Story name="WithLeadingContent">
   <Stack vertical>
     <ListItem variant="action">
-      <SumUpCard slot="leading" />
+      {#snippet leading()}
+        <SumUpCard />
+      {/snippet}
       <Body>MasterCard •••• 4494</Body>
     </ListItem>
     <ListItem>
-      <Badge variant="danger" circle={true} slot="leading">3</Badge>
+      {#snippet leading()}
+        <Badge variant="danger" circle={true}>3</Badge>
+      {/snippet}
       <Body>MasterCard •••• 4494</Body>
     </ListItem>
   </Stack>
@@ -73,11 +85,15 @@
 <Story name="WithCustomLabel">
   <Stack vertical>
     <ListItem variant="navigation">
-      <SumUpCard slot="leading" />
+      {#snippet leading()}
+        <SumUpCard />
+      {/snippet}
       <Body>Default truncated label: Kraftfahrzeug-Haftpflichtversicherung</Body>
     </ListItem>
     <ListItem variant="navigation">
-      <SumUpCard slot="leading" />
+      {#snippet leading()}
+        <SumUpCard />
+      {/snippet}
       <Body>Custom multiline label: Kraftfahrzeug-Haftpflichtversicherung</Body>
     </ListItem>
   </Stack>
@@ -87,18 +103,21 @@
   <Stack vertical>
     <ListItem variant="action">
       <Body>MasterCard •••• 4494</Body>
-      <Body slot="details" variant="subtle" size="two">17:21</Body>
+      {#snippet details()}
+        <Body variant="subtle" size="two">17:21</Body>
+      {/snippet}
     </ListItem>
     <ListItem variant="action">
       <Body>MasterCard •••• 4494</Body>
-      <div
-        slot="details"
-        style="display: flex; flex-direction: row; align-items: center; gap: var(--cui-spacings-bit); "
-      >
-        <Confirm size="16" style="color: var(--cui-fg-success)" />
-        <Body variant="highlight" size="two">Successful</Body>
-        <Body size="two" variant="subtle">&middot; 17:21</Body>
-      </div>
+      {#snippet details()}
+        <div
+          style="display: flex; flex-direction: row; align-items: center; gap: var(--cui-spacings-bit); "
+        >
+          <Confirm size="16" style="color: var(--cui-fg-success)" />
+          <Body variant="highlight" size="two">Successful</Body>
+          <Body size="two" variant="subtle">&middot; 17:21</Body>
+        </div>
+      {/snippet}
     </ListItem>
   </Stack>
 </Story>
@@ -107,28 +126,40 @@
   <Stack vertical>
     <ListItem variant="action">
       <Body>MasterCard •••• 4494</Body>
-      <Body variant="highlight" slot="trailing-label">€24.00</Body>
+      {#snippet trailingLabel()}
+        <Body variant="highlight">€24.00</Body>
+      {/snippet}
     </ListItem>
     <ListItem variant="action">
       <Body>MasterCard •••• 4494</Body>
-      <Body variant="highlight" slot="trailing-label">€24.00</Body>
-      <Body variant="subtle" slot="trailing-details" size="two">€0.46 fee</Body>
+      {#snippet trailingLabel()}
+        <Body variant="subtle" size="two">€24.00</Body>
+      {/snippet}
+      {#snippet trailingDetails()}
+        <Body variant="subtle" size="two">€0.46 fee</Body>
+      {/snippet}
     </ListItem>
     <ListItem variant="action">
       <Body>MasterCard •••• 4494</Body>
-      <Body slot="trailing-label" variant="subtle" size="two"><s>€24.00</s></Body>
-      <Body slot="trailing-details" variant="subtle" size="two"><s>€0.46 fee</s></Body>
+      {#snippet trailingLabel()}
+        <Body variant="subtle" size="two"><s>€24.00</s></Body>
+      {/snippet}
+      {#snippet trailingDetails()}
+        <Body variant="subtle" size="two"><s>€0.46 fee</s></Body>
+      {/snippet}
     </ListItem>
     <ListItem variant="action">
       <Body>MasterCard •••• 4494</Body>
-      <Badge slot="trailing-component" variant="promo">Promo</Badge>
+      {#snippet trailingComponent()}
+        <Badge variant="promo">Promo</Badge>
+      {/snippet}
     </ListItem>
   </Stack>
 </Story>
 
 <Story name="Interactive">
   <Stack vertical>
-    <ListItem variant="action" onClick={() => console.log('clicked')}>
+    <ListItem variant="action" onclick={() => console.log('clicked')}>
       <Body>MasterCard •••• 4494</Body>
     </ListItem>
     <ListItem variant="navigation" href="https://sumup.com" target="_blank">
@@ -138,13 +169,13 @@
 </Story>
 
 <Story name="Selected">
-  <ListItem variant="action" onClick={() => console.log('clicked')} selected>
+  <ListItem variant="action" onclick={() => console.log('clicked')} selected>
     <Body>MasterCard •••• 4494</Body>
   </ListItem>
 </Story>
 
 <Story name="Disabled">
-  <ListItem variant="action" disabled aria-disabled="true">
+  <ListItem variant="action" disabled>
     <Body>MasterCard •••• 4494</Body>
   </ListItem>
 </Story>

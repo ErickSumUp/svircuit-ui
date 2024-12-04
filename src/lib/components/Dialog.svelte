@@ -1,34 +1,46 @@
 <script lang="ts">
-  /**
-   * Dialog export that binds to the dialog element. Can use dialog as showDialog(), for example.
-   * @type {HTMLDialogElement}
-   */
-  export let dialog: HTMLDialogElement;
+  import type { HTMLDialogAttributes } from 'svelte/elements';
+  import type { Snippet } from 'svelte';
+
+  interface Props extends HTMLDialogAttributes {
+    dialog: HTMLDialogElement;
+    children: Snippet;
+  }
+
+  let { dialog = $bindable(), children, ...rest }: Props = $props();
 </script>
 
-<dialog class="base" bind:this={dialog} {...$$restProps}>
+<dialog class="base" bind:this={dialog} {...rest}>
   <div class="content">
-    <button class="close-button" on:click={() => dialog.close()}>
-      <span class="close-button-content">
-        <svg
-          class="close-button-leading-icon"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M20.71 19.29c.186.19.29.445.29.71a1 1 0 0 1-1 1c-.265 0-.52-.104-.71-.29L12 13.42l-7.29 7.29c-.19.186-.444.29-.71.29a1 1 0 0 1-1-1c0-.265.104-.52.29-.71L10.58 12 3.29 4.71A1.014 1.014 0 0 1 3 4a1 1 0 0 1 1-1c.266 0 .52.104.71.29L12 10.58l7.29-7.29c.19-.186.445-.29.71-.29a1 1 0 0 1 1 1c0 .266-.104.52-.29.71L13.42 12l7.29 7.29z"
-            fill="currentColor"
-          />
-        </svg>
-        <span class="close-button-label">Close</span>
-      </span>
-    </button>
-    <slot />
+    {@render children()}
+    {@render closeButton()}
   </div>
 </dialog>
+
+{#snippet crossSVG()}
+  <svg
+    class="close-button-leading-icon"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M20.71 19.29c.186.19.29.445.29.71a1 1 0 0 1-1 1c-.265 0-.52-.104-.71-.29L12 13.42l-7.29 7.29c-.19.186-.444.29-.71.29a1 1 0 0 1-1-1c0-.265.104-.52.29-.71L10.58 12 3.29 4.71A1.014 1.014 0 0 1 3 4a1 1 0 0 1 1-1c.266 0 .52.104.71.29L12 10.58l7.29-7.29c.19-.186.445-.29.71-.29a1 1 0 0 1 1 1c0 .266-.104.52-.29.71L13.42 12l7.29 7.29z"
+      fill="currentColor"
+    />
+  </svg>
+{/snippet}
+
+{#snippet closeButton()}
+  <button class="close-button" onclick={() => dialog.close()}>
+    <span class="close-button-content">
+      {@render crossSVG()}
+      <span class="close-button-label">Close</span>
+    </span>
+  </button>
+{/snippet}
 
 <style>
   dialog {
@@ -67,13 +79,6 @@
     }
   }
 
-  .base .close-button {
-    position: absolute;
-    top: var(--cui-spacings-byte);
-    right: var(--cui-spacings-byte);
-    z-index: var(--cui-z-index-absolute);
-  }
-
   .content {
     overflow-y: auto;
   }
@@ -98,7 +103,10 @@
   }
 
   .close-button {
-    position: relative;
+    position: absolute;
+    top: var(--cui-spacings-byte);
+    right: var(--cui-spacings-byte);
+    z-index: var(--cui-z-index-absolute);
     display: inline-flex;
     align-items: center;
     justify-content: center;
