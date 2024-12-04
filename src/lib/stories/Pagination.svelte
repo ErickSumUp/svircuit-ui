@@ -99,8 +99,8 @@
     hideLabel={true}
     aria-label={previousLabel}
     leading_icon={chevronLeft}
-    onclick={() => (currentPage -= 1)}
-  />
+    onclick={() => (currentPage -= 1)}>{previousLabel}</Button
+  >
 
   <ol class="pagination-list">
     {#each pages as page}
@@ -133,8 +133,8 @@
     hideLabel={true}
     aria-label={nextLabel}
     trailing_icon={chevronRight}
-    onclick={() => (currentPage += 1)}
-  ></Button>
+    onclick={() => (currentPage += 1)}>{nextLabel}</Button
+  >
 </nav>
 
 <style>
