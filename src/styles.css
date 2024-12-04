@@ -191,8 +191,9 @@
   --cui-font-stack-mono: 'Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace';
 
   /* Font weights */
-  --cui-font-weight-regular: 400;
-  --cui-font-weight-bold: 700;
+  --cui-font-weight-regular: 375;
+  --cui-font-weight-semibold: 560;
+  --cui-font-weight-bold: 630;
 
   /* Icon sizes */
   --cui-icon-sizes-kilo: 16px;
@@ -234,12 +235,12 @@
   --cui-typography-title-four-line-height: 3.5rem;
   --cui-typography-sub-headline-font-size: 0.875rem;
   --cui-typography-sub-headline-line-height: 1.25rem;
-  --cui-typography-body-one-font-size: 1rem;
-  --cui-typography-body-one-line-height: 1.5rem;
-  --cui-typography-body-two-font-size: 0.875rem;
-  --cui-typography-body-two-line-height: 1.25rem;
-  --cui-typography-body-large-font-size: 1.25rem;
-  --cui-typography-body-large-line-height: 1.75rem;
+  --cui-typography-body-s-font-size: 0.875rem;
+  --cui-typography-body-s-line-height: 1.25rem;
+  --cui-typography-body-m-font-size: 1rem;
+  --cui-typography-body-m-line-height: 1.375rem;
+  --cui-typography-body-l-font-size: 1.25rem;
+  --cui-typography-body-l-line-height: 1.5rem;
   /* Z-indices */
   --cui-z-index-default: 0;
   --cui-z-index-absolute: 1;
@@ -304,7 +305,6 @@ cite,
 code,
 del,
 dfn,
-em,
 img,
 ins,
 kbd,
@@ -468,4 +468,8 @@ code {
     Liberation Mono,
     Lucida Console,
     monospace;
+}
+
+strong {
+  font-weight: var(--cui-font-weight-bold);
 }

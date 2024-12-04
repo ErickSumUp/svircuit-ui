@@ -172,8 +172,8 @@
   .label {
     flex-shrink: 0;
     margin-left: var(--cui-spacings-byte);
-    font-size: var(--cui-typography-body-two-font-size);
-    line-height: var(--cui-typography-body-two-line-height);
+    font-size: var(--cui-typography-body-m-font-size);
+    line-height: var(--cui-typography-body-m-line-height);
   }
 
   .hide-visually {

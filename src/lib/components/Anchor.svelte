@@ -55,12 +55,12 @@
     font-weight: var(--cui-font-weight-regular);
   }
   .one {
-    font-size: var(--cui-typography-body-one-font-size);
-    line-height: var(--cui-typography-body-one-line-height);
+    font-size: var(--cui-typography-body-s-font-size);
+    line-height: var(--cui-typography-body-s-line-height);
   }
   .two {
-    font-size: var(--cui-typography-body-two-font-size);
-    line-height: var(--cui-typography-body-two-line-height);
+    font-size: var(--cui-typography-body-m-font-size);
+    line-height: var(--cui-typography-body-m-line-height);
   }
 
   .highlight {

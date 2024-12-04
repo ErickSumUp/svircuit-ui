@@ -81,7 +81,7 @@
     width: auto;
     height: max-content;
     margin: 0;
-    font-size: var(--cui-typography-body-one-font-size);
+    font-size: var(--cui-typography-body-s-font-size);
     font-weight: var(--cui-font-weight-bold);
     text-align: center;
     text-decoration: none;
@@ -118,8 +118,8 @@
     --loader-gap: 5px;
     --loader-transform: scale(133%);
 
-    font-size: var(--cui-typography-body-one-font-size);
-    line-height: var(--cui-typography-body-one-line-height);
+    font-size: var(--cui-typography-body-s-font-size);
+    line-height: var(--cui-typography-body-s-line-height);
     border-radius: var(--cui-border-radius-kilo);
 
     padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo))

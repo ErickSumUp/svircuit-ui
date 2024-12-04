@@ -195,8 +195,8 @@
 
   .label {
     display: block;
-    font-size: var(--cui-typography-body-two-font-size);
-    line-height: var(--cui-typography-body-two-line-height);
+    font-size: var(--cui-typography-body-m-font-size);
+    line-height: var(--cui-typography-body-m-line-height);
   }
 
   .wrapper {
@@ -207,8 +207,8 @@
     width: 100%;
     padding: var(--cui-spacings-kilo) var(--cui-spacings-mega);
     margin: 0;
-    font-size: var(--cui-typography-body-one-font-size);
-    line-height: var(--cui-typography-body-one-line-height);
+    font-size: var(--cui-typography-body-s-font-size);
+    line-height: var(--cui-typography-body-s-line-height);
     appearance: none;
     background-color: var(--cui-bg-normal);
     border: 0;
@@ -327,8 +327,8 @@
   .validation-hint {
     display: flex;
     margin-top: var(--cui-spacings-bit);
-    font-size: var(--cui-typography-body-two-font-size);
-    line-height: var(--cui-typography-body-two-line-height);
+    font-size: var(--cui-typography-body-m-font-size);
+    line-height: var(--cui-typography-body-m-line-height);
     color: var(--cui-fg-subtle);
     transition: color var(--cui-transitions-default);
   }
@@ -353,7 +353,7 @@
     align-self: flex-start;
     width: var(--cui-icon-sizes-kilo);
     height: var(--cui-icon-sizes-kilo);
-    margin-top: calc((var(--cui-typography-body-two-line-height) - var(--cui-icon-sizes-kilo)) / 2);
+    margin-top: calc((var(--cui-typography-body-m-line-height) - var(--cui-icon-sizes-kilo)) / 2);
     margin-right: var(--cui-spacings-bit);
   }
 

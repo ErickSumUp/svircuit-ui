@@ -44,8 +44,8 @@
     --loader-gap: 5px;
     --loader-transform: scale(133%);
 
-    font-size: var(--cui-typography-body-one-font-size);
-    line-height: var(--cui-typography-body-one-line-height);
+    font-size: var(--cui-typography-body-s-font-size);
+    line-height: var(--cui-typography-body-s-line-height);
     border-radius: var(--cui-border-radius-kilo);
 
     color: var(--cui-fg-normal);

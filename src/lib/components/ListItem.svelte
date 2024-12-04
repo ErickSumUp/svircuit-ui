@@ -263,7 +263,7 @@
     display: flex;
     align-items: center;
     max-width: 100%;
-    min-height: var(--cui-typography-body-one-line-height);
+    min-height: var(--cui-typography-body-s-line-height);
   }
 
   .trailing {
@@ -295,7 +295,7 @@
   }
 
   .navigation .trailing .details {
-    height: var(--cui-typography-body-one-line-height);
+    height: var(--cui-typography-body-s-line-height);
     margin-right: calc(var(--cui-spacings-mega) + var(--cui-spacings-bit));
   }
 </style>

@@ -14,38 +14,42 @@
   });
 </script>
 
-<Story
-  name="Base"
-  args={{
-    variant: 'p',
-    size: 'one',
-    children:
-      'An electronic circuit is composed of individual electronic components, such as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires or traces through which electric current can flow.'
-  }}
->
+<Story name="Base">
   {#snippet children({ ...args }: Args<typeof Story>)}
-    <Body variant={args.variant} size={args.size}>{args.children}</Body>
+    <Body {...args}><p>
+        An <em>electronic</em> circuit <strong>is</strong> composed of <s>many</s> individual electronic
+        components, such as resistors, transistors, capacitors, inductors and diodes, connected by conductive
+        wires or traces through which electric current can flow
+      </p>
+    </Body>
   {/snippet}
 </Story>
 
-<Story name="Variants">
-  <Body variant="highlight">This is a highlight body</Body>
-  <Body variant="quote">This is a quote body</Body>
-  <Body variant="confirm">This is a confirm body</Body>
-  <Body variant="alert">This is an alert body</Body>
-  <Body variant="subtle">This is a subtle body</Body>
-  <Body variant="p">This is a paragraph body</Body>
+<Story name="Colors">
+  <Body color="normal">This is a normal body</Body>
+  <Body color="subtle">This is a subtle body</Body>
+  <Body color="placeholder">This is a placeholder body</Body>
+  <Body color="accent">This is an accent body</Body>
+  <Body color="success">This is a success body</Body>
+  <Body color="warning">This is a warning body</Body>
+  <Body color="danger">This is a danger body</Body>
+  <Body color="promo">This is a promo body</Body>
 </Story>
 
 <Story name="Sizes">
-  <Body size="one"
-    >This is a body one. An electronic circuit is composed of individual electronic components, such
-    as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires or
-    traces through which electric current can flow.
+  <Body size="s"
+    >This is a body small. An electronic circuit is composed of individual electronic components,
+    such as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires
+    or traces through which electric current can flow.
   </Body>
-  <Body size="two"
-    >This is a body two. An electronic circuit is composed of individual electronic components, such
-    as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires or
-    traces through which electric current can flow.
+  <Body size="m"
+    >This is a body medium. An electronic circuit is composed of individual electronic components,
+    such as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires
+    or traces through which electric current can flow.
+  </Body>
+  <Body size="l"
+    >This is a body large. An electronic circuit is composed of individual electronic components,
+    such as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires
+    or traces through which electric current can flow.
   </Body>
 </Story>

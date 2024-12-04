@@ -36,8 +36,8 @@
     transition:
       background-color var(--cui-transitions-default),
       color var(--cui-transitions-default);
-    font-size: var(--cui-typography-body-two-font-size);
-    line-height: var(--cui-typography-body-two-line-height);
+    font-size: var(--cui-typography-body-m-font-size);
+    line-height: var(--cui-typography-body-m-line-height);
     color: var(--cui-fg-subtle);
     font-weight: var(--cui-font-weight-bold);
     padding: var(--cui-spacings-byte) var(--cui-spacings-giga);
@@ -72,8 +72,8 @@
     text-align: center;
   }
   .condensed {
-    font-size: var(--cui-typography-body-two-font-size);
-    line-height: var(--cui-typography-body-two-line-height);
+    font-size: var(--cui-typography-body-m-font-size);
+    line-height: var(--cui-typography-body-m-line-height);
     vertical-align: middle;
     padding: var(--cui-spacings-byte) var(--cui-spacings-mega) var(--cui-spacings-byte)
       var(--cui-spacings-giga);

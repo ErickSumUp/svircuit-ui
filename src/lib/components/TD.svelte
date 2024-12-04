@@ -51,8 +51,8 @@
   .condensed {
     padding: var(--cui-spacings-kilo) var(--cui-spacings-mega) var(--cui-spacings-kilo)
       var(--cui-spacings-giga);
-    font-size: var(--cui-typography-body-two-font-size);
-    line-height: var(--cui-typography-body-two-line-height);
+    font-size: var(--cui-typography-body-m-font-size);
+    line-height: var(--cui-typography-body-m-line-height);
   }
   .wrap {
     white-space: normal;

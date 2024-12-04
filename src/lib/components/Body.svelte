@@ -3,84 +3,84 @@
 
   interface Props {
     /**
-     * Choose from size variants.
+     * Choose from size variants. Default: `m`.
      */
-    size?: 'one' | 'two';
+    size?: 's' | 'm' | 'l';
     /**
-     * Choose from variant styles.
+     * Choose a foreground color token name. Default: `normal`.
      */
-    variant?: 'p' | 'highlight' | 'quote' | 'confirm' | 'alert' | 'subtle';
-    /**
-     * Render the text using any HTML element.
-     */
-    as?: string;
+    color?:
+      | 'normal'
+      | 'subtle'
+      | 'placeholder'
+      | 'accent'
+      | 'success'
+      | 'warning'
+      | 'danger'
+      | 'promo';
 
     children: Snippet;
   }
 
-  let { size = 'one', variant = 'p', as = 'p', children, ...rest }: Props = $props();
-
-  let element: string = $derived.by(() => {
-    let value = 'p';
-    if (variant === 'highlight') {
-      value = 'strong';
-    } else if (variant === 'quote') {
-      value = 'blockquote';
-    } else {
-      value = 'p';
-    }
-
-    return value;
-  });
+  let {
+    size = 'm',
+    color = 'normal',
+    children,
+    ...rest
+  }: Props = $props();
 </script>
 
-<svelte:element
-  this={as || element}
-  class="base"
-  class:one={size === 'one'}
-  class:two={size === 'two'}
-  class:highlight={variant === 'highlight'}
-  class:quote={variant === 'quote'}
-  class:confirm={variant === 'confirm'}
-  class:alert={variant === 'alert'}
-  class:subtle={variant === 'subtle'}
-  {...rest}>{@render children()}</svelte:element
->
+<p class="base {color}" class:s={size === 's'} class:m={size === 'm'} class:l={size === 'l'} {...rest}>
+  {@render children()}
+</p>
 
 <style>
   .base,
   p {
     font-weight: var(--cui-font-weight-regular);
   }
-  .one {
-    font-size: var(--cui-typography-body-one-font-size);
-    line-height: var(--cui-typography-body-one-line-height);
+  .s {
+    font-size: var(--cui-typography-body-s-font-size);
+    line-height: var(--cui-typography-body-s-line-height);
   }
-  .two {
-    font-size: var(--cui-typography-body-two-font-size);
-    line-height: var(--cui-typography-body-two-line-height);
+  .m {
+    font-size: var(--cui-typography-body-m-font-size);
+    line-height: var(--cui-typography-body-m-line-height);
   }
-
-  .highlight,
-  strong {
-    font-weight: var(--cui-font-weight-bold);
-  }
-  .quote,
-  blockquote {
-    padding-left: var(--cui-spacings-kilo);
-    font-style: italic;
-    border-left: var(--cui-border-width-mega) solid var(--cui-border-accent);
+  .l {
+    font-size: var(--cui-typography-body-l-font-size);
+    line-height: var(--cui-typography-body-l-line-height);
   }
 
-  .confirm {
-    color: var(--cui-fg-success);
-  }
-
-  .alert {
-    color: var(--cui-fg-danger);
+  .normal {
+    color: var(--cui-fg-normal);
   }
 
   .subtle {
     color: var(--cui-fg-subtle);
+  }
+
+  .placeholder {
+    color: var(--cui-fg-placeholder);
+  }
+
+  .accent {
+    color: var(--cui-fg-accent);
+  }
+
+  .success {
+    color: var(--cui-fg-success);
+  }
+
+  .warning {
+    color: var(--cui-fg-warning);
+  }
+
+  .danger {
+    color: var(--cui-fg-danger);
+  }
+
+  .promo {
+    color: var(--cui-fg-promo);
   }
 </style>

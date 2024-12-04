@@ -32,9 +32,9 @@
   .base {
     display: inline-block;
     padding: 2px var(--cui-spacings-byte);
-    font-size: var(--cui-typography-body-two-font-size);
+    font-size: var(--cui-typography-body-m-font-size);
     font-weight: var(--cui-font-weight-bold);
-    line-height: var(--cui-typography-body-two-line-height);
+    line-height: var(--cui-typography-body-m-line-height);
     text-align: center;
     letter-spacing: 0.25px;
     border-radius: var(--cui-border-radius-pill);

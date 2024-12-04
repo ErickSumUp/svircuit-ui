@@ -16,27 +16,15 @@ The Body component is used to present content to our users.
 
 ### Sizes
 
-The Body component comes in two sizes. Use the default `one` size in most cases. Consider using the [BodyLarge component](Typography/BodyLarge) for large typography in specific cases.
+The Body component comes in three sizes. Use the default m size in most cases.
 
 <Canvas of={Stories.Sizes} />
 
-### Variants
+### Colors
 
-The Body component accepts five different variants—`highlight`, `quote`, `confirm`, `alert` and `subtle`—to tailor it according to the content we are presenting.
+The Body component accepts any foreground color token name. Use the default normal color in most cases.
 
-Different variants will render different HTML elements by default:
-
-default, confirm, alert, subtle -> p
-
-highlight -> strong
-
-quote -> blockquote
-
-Use the `as` prop to render other HTML elements, for example for rendering a highlighted paragraph (`<Body variant="highlight" as="p" />`).
-
-<Canvas of={Stories.Variants} />
-
-**Important**: the `confirm` and `alert` variants only change the text's color. Keep in mind that this is not sufficient to make them accessible. Refer to the Accessibility section below, especially "Do not rely on color alone" and "Make status messages accessible to screen readers using live regions".
+<Canvas of={Stories.Colors} />
 
 ---
 

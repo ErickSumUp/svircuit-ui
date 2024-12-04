@@ -27,7 +27,7 @@
     width: auto;
     height: max-content;
     margin: 0;
-    font-size: var(--cui-typography-body-one-font-size);
+    font-size: var(--cui-typography-body-s-font-size);
     font-weight: var(--cui-font-weight-bold);
     text-align: center;
     text-decoration: none;
@@ -39,7 +39,7 @@
       background-color var(--cui-transitions-default),
       border-color var(--cui-transitions-default);
 
-    line-height: var(--cui-typography-body-two-line-height);
+    line-height: var(--cui-typography-body-m-line-height);
 
     padding: calc(var(--cui-spacings-bit) - var(--cui-border-width-kilo))
       calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo));
