@@ -8,41 +8,18 @@ port in Svelte.
 
 # Roadmap
 
-## 0.1.0
+## v1.0
 
-We require a basic version that has all the components that are used by current users of Svircuit UI.
-It is currently being used with copy-pasted components, which we encourage, but we want to also provide the option
-for them to use components from a downloadable library. Sorted alphabetically, not by importance or use:
+We require a version that can be seamlessly and safely integrated into backoffices.
 
-Components:
+- [ ] Prepare a documentation that can be used by developers to integrate Svircuit into their projects.
+- [ ] Create tests that can help detect errors in components when they can break the design implementation.
+- [ ] Integrate dark mode (a.k.a. B&W theme in Circuit) into Svircuit.
 
-- [x] Anchor
-- [x] Badge
-- [x] Body
-- [x] Button
-- [x] Card
-- [x] DateInput
-- [x] Headline
-- [x] Input
-- [x] Modal
-- [x] NotificationToast
-- [x] Pagination
-- [x] Navigation
-- [x] Select
-- [x] Table, TableHead, TableBody, TableRow, TableCell
+## Desired features but not needed for v1.0
 
-Icons:
-
-- [x] Alert
-- [x] ChevronDown
-- [x] ChevronLeft
-- [x] ChevronRight
-- [x] ChevronUp
-- [x] Close
-- [x] Confirm
-- [x] Notify
-
-All of these components must follow the guidelines to be approved for the 0.1.0 release.
+- [ ] Integrate extra color and style modifications themes (Take [daisyUI](https://daisyui.com/docs/themes/) as example)
+- [ ] Integrate automated deployments to npm.
 
 # Guidelines:
 
@@ -56,17 +33,19 @@ All of these components must follow the guidelines to be approved for the 0.1.0 
 - **R**epeat yourself please. We don't prioritize DRY code over easy to understand code. Unneeded abstractions are discouraged. When it makes sense, we repeat the code.
 - **U**ser-centric: Accessibility is a memory and knowledge issue. Accessibility properties are enforced on components when possible.
 - **T**empered: We don't want to overengineer the solution, neither do we want to cover every possible use case there is out there. Solve the problems that are in front of us, not the ones that might never come.
-- **H**TML implicit: Components are made as little more than HTML wrappers, properties that exist in html will be redirected, reducing the component code size. We respect web standards.
+- **H**TML semantic: Components are made as little more than HTML wrappers, properties that exist in html will be redirected, reducing the component code size. We respect web standards.
 
 ## How these principles affect our development?
 
 ### Standard
 
-- We use plain css
-- We use HTML without libraries
-- We use JS without libraries
+Other than svelte:
+
+- We use plain css.
+- We use HTML without libraries.
+- We use JS without libraries.
 
 ### Components and stories
 
-- Components DON'T depend on any other component, they are standalone. Other components might be received as slots (or future snippets in Svelte 5), but never as part of the component itself.
-- Stories are the place where components are used together because it makes sense. Example: Navigation components, Complex Table components, etc.
+- Components DON'T depend on any other component, they are standalone. Other components might be received as snippets in Svelte 5, but never as part of the component itself.
+- Stories are the place where components are used together because it makes sense. Example: Navigation components, Complex Table components, Pagination, etc.
