@@ -1,57 +1,50 @@
-<script>
-  import Body from '$lib/components/Body.svelte';
-  import SubHeadline from '$lib/SubHeadline.svelte';
-  import Badge from '$lib/components/Badge.svelte';
+<script lang="ts" module>
+  export type Link = {
+    label: string;
+    href: string;
+    isActive: boolean;
+    badge?: Badge;
+  };
 
-  /**
-   * @typedef {Object} Badge
-   * @property {string} [label]
-   * @property {boolean} [circle]
-   * @property {('promo'|'danger'|'neutral'|'success'|'warning')} [variant]
-   */
+  export type Group = {
+    label: string;
+    links: Link[];
+  };
 
-  /**
-   * @typedef {Object} Link
-   * @property {string} label
-   * @property {string} href
-   * @property {boolean} isActive
-   * @property {Badge} [badge]
-   */
-
-  /**
-   * @typedef {Object} Group
-   * @property {string} label
-   * @property {Array.<Link>} links
-   */
-
-  /**
-   * @typedef {Object} Props
-   * @property {Array.<Group>} [groups]
-   * @property {import('svelte').Snippet} [children]
-   */
-
-  /** @type {Props} */
-  let {
-    groups = [
-      {
-        label: 'Home',
-        links: [
-          {
-            label: 'Home',
-            href: '/home',
-            isActive: true,
-            badge: {
-              label: 'New',
-              circle: true,
-              variant: 'promo'
-            }
-          }
-        ]
-      }
-    ],
-    children
-  } = $props();
+  export type Badge = {
+    label: string;
+    circle: boolean;
+  };
 </script>
+
+<script lang="ts">
+  import { type Snippet } from 'svelte';
+
+  interface Props {
+    groups?: Group[];
+    footerContent?: Snippet;
+  }
+
+  let { groups = [], footerContent }: Props = $props();
+</script>
+
+{#snippet subHeadline({ label })}
+  <h3 class="sub-headline">
+    {label}
+  </h3>
+{/snippet}
+
+{#snippet promoBadge({ message, circle })}
+  <span class="promo-badge-base promo-badge-promo" class:promo-badge-circle={circle}>
+    {message}
+  </span>
+{/snippet}
+
+{#snippet linkLabel({ label, isActive })}
+  <p class="base" class:label-bold={isActive}>
+    {label}
+  </p>
+{/snippet}
 
 <div class="wrapper">
   <nav aria-label="secondary navigation">
@@ -60,7 +53,7 @@
         <li>
           {#if group.label}
             <span class="group-headline-wrapper">
-              <SubHeadline as="h3">{group.label}</SubHeadline>
+              {@render subHeadline({ label: group.label })}
             </span>
           {/if}
           <ul style="list-style: none;">
@@ -72,12 +65,10 @@
                   aria-current={link.isActive ? 'page' : undefined}
                 >
                   <span class="label">
-                    <Body size="one" variant={link.isActive ? 'highlight' : 'p'}>{link.label}</Body>
+                    {@render linkLabel({ label: link.label, isActive: link.isActive })}
                   </span>
                   {#if link.badge}
-                    <Badge variant={link.badge.variant} circle={link.badge.circle}
-                      >{link.badge.label}</Badge
-                    >
+                    {@render promoBadge({ message: link.badge.label, circle: link.badge.circle })}
                   {/if}
                 </a>
               </li>
@@ -88,7 +79,7 @@
     </ul>
   </nav>
   <footer>
-    {@render children?.()}
+    {@render footerContent?.()}
   </footer>
 </div>
 
@@ -239,5 +230,38 @@
 
   .focus-visible-inset:focus:not(:focus-visible) {
     box-shadow: none;
+  }
+
+  .sub-headline {
+    font-size: var(--cui-ty-sub-headline-font-size);
+    font-weight: var(--cui-font-weight-bold);
+    line-height: var(--cui-ty-sub-headline-line-height);
+    color: var(--cui-fg-normal);
+    text-transform: uppercase;
+  }
+
+  .promo-badge-base {
+    display: inline-block;
+    padding: 2px var(--cui-spacings-byte);
+    font-size: var(--cui-typography-body-m-font-size);
+    font-weight: var(--cui-font-weight-bold);
+    line-height: var(--cui-typography-body-m-line-height);
+    text-align: center;
+    letter-spacing: 0.25px;
+    border-radius: var(--cui-border-radius-pill);
+  }
+
+  .promo-badge-base {
+    color: var(--cui-fg-on-strong);
+    background-color: var(--cui-bg-promo-strong);
+  }
+
+  .promo-badge-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 2px 4px;
   }
 </style>

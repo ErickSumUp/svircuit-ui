@@ -1,5 +1,5 @@
 <script lang="ts" module>
-  import SecondaryNavigation from '$lib/stories/SecondaryNavigation.svelte';
+  import SecondaryNavigation, { type Group } from '$lib/components/SecondaryNavigation.svelte';
   import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
 
   const { Story } = defineMeta({
@@ -14,20 +14,6 @@
 
 <script lang="ts">
   import Select from '$lib/components/Select.svelte';
-
-  interface Group {
-    label: string;
-    links: {
-      label: string;
-      href: string;
-      isActive: boolean;
-      badge?: {
-        label?: string;
-        circle?: boolean;
-        variant?: 'promo' | 'danger' | 'neutral' | 'success' | 'warning';
-      };
-    }[];
-  }
 
   let groups: Group[] = [
     {
@@ -76,14 +62,16 @@
 
 {#snippet template({ ...args }: Args<typeof Story>)}
   <SecondaryNavigation {groups} {...args}>
-    <div style="padding: 10px;">
-      <Select id="options" ariaDescribedBy="options" value="0">
-        <option value="0" disabled selected>Select</option>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
-      </Select>
-    </div>
+    {#snippet footerContent()}
+      <div style="padding: 10px;">
+        <Select id="options" ariaDescribedBy="options" value="0">
+          <option value="0" disabled selected>Select</option>
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
+          <option value="3">Option 3</option>
+        </Select>
+      </div>
+    {/snippet}
   </SecondaryNavigation>
 {/snippet}
 

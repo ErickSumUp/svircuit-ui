@@ -16,7 +16,8 @@
 
 <Story name="Base">
   {#snippet children({ ...args }: Args<typeof Story>)}
-    <Body {...args}><p>
+    <Body {...args}
+      ><p>
         An <em>electronic</em> circuit <strong>is</strong> composed of <s>many</s> individual electronic
         components, such as resistors, transistors, capacitors, inductors and diodes, connected by conductive
         wires or traces through which electric current can flow

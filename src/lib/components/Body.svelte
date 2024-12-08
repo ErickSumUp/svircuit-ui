@@ -22,15 +22,16 @@
     children: Snippet;
   }
 
-  let {
-    size = 'm',
-    color = 'normal',
-    children,
-    ...rest
-  }: Props = $props();
+  let { size = 'm', color = 'normal', children, ...rest }: Props = $props();
 </script>
 
-<p class="base {color}" class:s={size === 's'} class:m={size === 'm'} class:l={size === 'l'} {...rest}>
+<p
+  class="base {color}"
+  class:s={size === 's'}
+  class:m={size === 'm'}
+  class:l={size === 'l'}
+  {...rest}
+>
   {@render children()}
 </p>
 
