@@ -70,6 +70,7 @@
      * @type {string}
      */
     value?: number | string;
+    maxLength?: number;
     type?: HTMLInputTypeAttribute | undefined | null;
     placeholder?: string;
     readonly?: boolean;
