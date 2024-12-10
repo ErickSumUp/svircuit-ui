@@ -9,7 +9,7 @@
     body: string;
     iconLabel?: Snippet;
     timeout?: number;
-    dismissible: boolean;
+    dismissible?: boolean;
   };
 
   export const toasts = writable([]);
