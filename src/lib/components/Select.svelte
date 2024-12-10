@@ -197,6 +197,7 @@
     position: relative;
     z-index: var(--cui-z-index-input);
     width: 100%;
+    min-width: max-content;
     margin: 0;
     overflow-x: hidden;
     font-size: var(--cui-typography-body-s-font-size);

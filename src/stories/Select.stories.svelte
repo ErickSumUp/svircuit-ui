@@ -1,5 +1,6 @@
 <script lang="ts" module>
   import Select from '$lib/components/Select.svelte';
+  import Stack from '$lib/components/Stack.svelte';
   import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
 
   const { Story } = defineMeta({
@@ -20,6 +21,7 @@
 </script>
 
 <script lang="ts">
+
   let page_size = 10;
 </script>
 
@@ -56,16 +58,31 @@
 </Story>
 
 <Story name="Pagination">
-  <Select
-    label="Page size"
-    hideLabel={true}
-    id="page-size"
-    ariaDescribedBy="page-size selected"
-    bind:value={page_size}
-  >
-    <option value={10}>10</option>
-    <option value={20}>20</option>
-    <option value={50}>50</option>
-    <option value={100}>100</option>
-  </Select>
+  <Stack>
+    <Select
+      label="Page size"
+      hideLabel={true}
+      size="s"
+      id="page-size"
+      ariaDescribedBy="page-size selected"
+      bind:value={page_size}
+    >
+      <option value={10}>10</option>
+      <option value={20}>20</option>
+      <option value={50}>50</option>
+      <option value={100}>100</option>
+    </Select>
+    <Select
+      label="Page size"
+      hideLabel={true}
+      id="page-size"
+      ariaDescribedBy="page-size selected"
+      bind:value={page_size}
+    >
+      <option value={10}>10</option>
+      <option value={20}>20</option>
+      <option value={50}>50</option>
+      <option value={100}>100</option>
+    </Select>
+  </Stack>
 </Story>
