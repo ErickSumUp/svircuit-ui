@@ -21,7 +21,6 @@
 </script>
 
 <script lang="ts">
-
   let page_size = 10;
 </script>
 

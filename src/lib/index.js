@@ -17,9 +17,9 @@ export { default as Headline } from './components/Headline.svelte';
 export { default as Body } from './components/Body.svelte';
 export { default as ProgressBar } from './components/ProgressBar.svelte';
 export { default as SecondaryNavigation } from './components/SecondaryNavigation.svelte';
-import NotificationToast, {
+import NotificationToastsSection, {
   toasts,
   addToast
 } from '$lib/components/NotificationToastsSection.svelte';
-export { NotificationToast, toasts, addToast };
+export { NotificationToastsSection, toasts, addToast };
 export { default as Dialog } from './components/Dialog.svelte';

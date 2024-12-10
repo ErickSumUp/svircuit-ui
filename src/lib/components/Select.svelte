@@ -52,7 +52,6 @@
      */
     id: string;
     onchange?: ChangeEventHandler<HTMLSelectElement>;
-
     prefix?: Snippet;
     suffix?: Snippet;
     children: Snippet;
@@ -92,21 +91,21 @@
   <div class="wrapper">
     {@render prefix?.()}
     <select
-      {id}
-      bind:value
-      aria-describedby={ariaDescribedBy}
-      aria-invalid={invalid}
-      {required}
-      {disabled}
-      {name}
       class="base"
       class:s={size === 's'}
       class:m={size === 'm'}
       class:has-prefix={prefix}
       class:select--invalid={invalid && !disabled}
       class:select--disabled={disabled}
-      {onchange}
+      {id}
+      {name}
+      {required}
+      {disabled}
       aria-label={label}
+      aria-invalid={invalid}
+      aria-describedby={ariaDescribedBy}
+      {onchange}
+      bind:value
       {...rest}
     >
       {@render children?.()}
