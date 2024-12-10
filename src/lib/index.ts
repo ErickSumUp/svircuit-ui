@@ -17,11 +17,12 @@ export { default as Headline } from './components/Headline.svelte';
 export { default as Body } from './components/Body.svelte';
 export { default as ProgressBar } from './components/ProgressBar.svelte';
 import SecondaryNavigation, {
-  Group,
-  Badge as LinkBadge,
-  Link
+  type Link,
+  type Group,
+  type Badge as LinkBadge
 } from './components/SecondaryNavigation.svelte';
-export { SecondaryNavigation, Group, LinkBadge, Link };
+export { SecondaryNavigation };
+export type { Link, Group, LinkBadge };
 import NotificationToastsSection, {
   toasts,
   addToast
