@@ -4,6 +4,7 @@
      * Choose from size variants.
      */
     size?: 's' | 'm' | 'l' | 'xl';
+    [key: string]: unknown;
   }
 
   let { size = 'm', ...rest }: Props = $props();

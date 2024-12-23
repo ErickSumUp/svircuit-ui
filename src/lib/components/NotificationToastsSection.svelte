@@ -40,7 +40,7 @@
   };
 
   export const dismissToast = (id: number) => {
-    toasts.update((all) => all.filter((t) => t.id !== id));
+    toasts.update((all) => all.filter((t: NotificationToast) => t.id !== id));
   };
 
   export { notification };

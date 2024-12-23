@@ -4,6 +4,7 @@
   interface Props {
     vertical?: boolean;
     children?: Snippet;
+    [key: string]: unknown;
   }
 
   let { vertical = false, children }: Props = $props();

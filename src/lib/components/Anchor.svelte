@@ -4,6 +4,7 @@
   interface Props extends HTMLAnchorAttributes {
     size?: 'one' | 'two';
     variant?: '' | 'highlight' | 'quote';
+    [key: string]: unknown;
   }
 
   let { size = 'one', variant = '', href, children, ...rest }: Props = $props();

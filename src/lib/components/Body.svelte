@@ -20,6 +20,7 @@
       | 'promo';
 
     children: Snippet;
+    [key: string]: unknown;
   }
 
   let { size = 'm', color = 'normal', children, ...rest }: Props = $props();

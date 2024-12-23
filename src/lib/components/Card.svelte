@@ -6,6 +6,7 @@
      * The padding of the Card.
      */
     spacing?: 'mega' | 'giga';
+    [key: string]: unknown;
   }
 
   let { spacing = 'giga', children, ...rest }: Props = $props();

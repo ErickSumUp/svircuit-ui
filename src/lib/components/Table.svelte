@@ -7,6 +7,7 @@
     isScrollable?: boolean;
     noShadow?: boolean;
     children: Snippet;
+    [key: string]: unknown;
   }
 
   let { borderCollapse, isScrollable, noShadow, children, ...rest }: Props = $props();

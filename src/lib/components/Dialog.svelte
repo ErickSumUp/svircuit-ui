@@ -5,6 +5,7 @@
   interface Props extends HTMLDialogAttributes {
     dialog: HTMLDialogElement;
     children: Snippet;
+    [key: string]: unknown;
   }
 
   let { dialog = $bindable(), children, ...rest }: Props = $props();

@@ -1,7 +1,9 @@
 <script lang="ts">
   import type { HTMLAttributes } from 'svelte/elements';
 
-  interface Props extends HTMLAttributes<HTMLTableRowElement> {}
+  interface Props extends HTMLAttributes<HTMLTableRowElement> {
+    [key: string]: unknown;
+  }
 
   let { children, ...rest }: Props = $props();
 </script>

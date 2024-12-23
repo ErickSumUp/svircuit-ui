@@ -3,6 +3,7 @@
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
     align?: 'left' | 'right';
+    [key: string]: unknown;
   }
 
   let { align = 'right', children, ...rest }: Props = $props();

@@ -48,6 +48,7 @@
      */
     trailing_icon?: Snippet;
     children?: Snippet;
+    [key: string]: unknown;
   }
 
   let {

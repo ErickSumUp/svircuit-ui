@@ -12,6 +12,7 @@
      * Condenses the header cell.
      */
     condensed?: boolean;
+    [key: string]: unknown;
   }
 
   let { align = 'left', condensed = false, children, ...rest }: Props = $props();

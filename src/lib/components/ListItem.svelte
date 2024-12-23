@@ -57,7 +57,8 @@
        */
       trailingComponent?: Snippet;
       children: Snippet;
-    };
+    [key: string]: unknown;
+  };
 
   let as: 'a' | 'button' | 'div' = $derived.by(() => {
     if (href) {

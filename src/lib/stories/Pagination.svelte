@@ -72,6 +72,7 @@
      * Label for the page buttons
      */
     pageLabel?: (page: number) => string;
+    [key: string]: unknown;
   }
 
   let {

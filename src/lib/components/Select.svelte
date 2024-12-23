@@ -55,6 +55,7 @@
     prefix?: Snippet;
     suffix?: Snippet;
     children: Snippet;
+    [key: string]: unknown;
   }
 
   let {

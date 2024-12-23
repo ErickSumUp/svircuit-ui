@@ -14,6 +14,7 @@
      */
     as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
     children: Snippet;
+    [key: string]: unknown;
   }
 
   let { size = 'one', as = 'h1', children, ...rest }: Props = $props();

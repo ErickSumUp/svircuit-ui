@@ -76,6 +76,7 @@
     readonly?: boolean;
     prefix?: Snippet;
     suffix?: Snippet;
+    [key: string]: unknown;
   }
 
   let {

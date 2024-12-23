@@ -10,6 +10,7 @@
      * Use the circular badge to indicate a count of items related to an element.
      */
     circle?: boolean;
+    [key: string]: unknown;
   }
 
   let { variant = 'neutral', circle = false, children, ...rest }: Props = $props();

@@ -14,6 +14,7 @@
      * Whether the cell should wrap its content.
      */
     wrap?: boolean;
+    [key: string]: unknown;
   }
 
   let { align = 'left', condensed = false, wrap = false, children, ...rest }: Props = $props();

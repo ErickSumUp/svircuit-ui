@@ -34,6 +34,7 @@
      */
     onClearClick?: () => void;
     placeholder?: string;
+    [key: string]: unknown;
   }
 
   let {

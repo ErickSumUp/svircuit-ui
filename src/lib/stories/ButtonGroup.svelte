@@ -8,6 +8,7 @@
      */
     align?: 'left' | 'center' | 'right';
     children: Snippet;
+    [key: string]: unknown;
   }
 
   let { align = 'center', children, ...rest }: Props = $props();

@@ -7,6 +7,7 @@
     closeButtonLabel?: string;
 
     onClickCloseButton?: () => void;
+    [key: string]: unknown;
   }
 
   let {
