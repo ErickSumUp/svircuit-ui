@@ -1,5 +1,4 @@
 <script lang="ts" module>
-  import { writable } from 'svelte/store';
   import type { Snippet } from 'svelte';
 
   export type NotificationToast = {
@@ -12,7 +11,7 @@
     dismissible?: boolean;
   };
 
-  export const toasts = writable([]);
+  export const toasts: NotificationToast[] = $state([]);
 
   export const addToast = (toast: NotificationToast) => {
     // Create a unique ID, so we can easily find/remove it
@@ -23,24 +22,24 @@
     const timeout = toast.timeout || timeoutMs;
 
     // Push the toast to the top of the list of toasts
-    toasts.update((all) => [
-      {
-        id,
-        variant: toast.variant,
-        headline: toast.headline,
-        body: toast.body,
-        timeout,
-        dismissible: toast.dismissible
-      },
-      ...all
-    ]);
+    toasts.push({
+      id,
+      variant: toast.variant,
+      headline: toast.headline,
+      body: toast.body,
+      timeout,
+      dismissible: toast.dismissible
+    });
 
     // If toast is dismissible, dismiss it after "timeout" amount of time.
     if (timeout) setTimeout(() => dismissToast(id), timeout);
   };
 
   export const dismissToast = (id: number) => {
-    toasts.update((all) => all.filter((t: NotificationToast) => t.id !== id));
+    toasts.splice(
+      toasts.findIndex((toast) => toast.id === id),
+      1
+    );
   };
 
   export { notification };
@@ -51,7 +50,7 @@
 </script>
 
 <section class="toast-notifications">
-  {#each $toasts as toast (toast.id)}
+  {#each toasts as toast (toast.id)}
     <div animate:flip={{ duration: 300 }}>
       {@render notification(toast)}
     </div>
