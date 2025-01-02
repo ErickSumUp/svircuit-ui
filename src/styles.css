@@ -241,6 +241,8 @@
   --cui-typography-body-m-line-height: 1.375rem;
   --cui-typography-body-l-font-size: 1.25rem;
   --cui-typography-body-l-line-height: 1.5rem;
+  --cui-body-m-line-height: 1.375rem;
+
   /* Z-indices */
   --cui-z-index-default: 0;
   --cui-z-index-absolute: 1;
