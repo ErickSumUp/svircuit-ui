@@ -1,0 +1,28 @@
+import * as Stories from './InputRadio.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/blocks';
+
+<Meta of={Stories} />
+
+# InputRadio
+
+A radio button group offers users the choice to select a single option from a predefined list.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## When to use it
+
+Use a radio button group when the user has to choose only one option based on a pre-defined list of mutually exclusive options.
+
+## Usage guidelines
+
+- **Do** capitalize each item of the list
+- **Do** list the items in a rational order
+- **Do not** punctuate the end of every list item
+- **Do not** mark required fields with asterisks
+
+## Disabled
+
+Disabled form fields can be confusing to users, so use them with caution. Use a disabled radio input only if you need to communicate to the user that an option that existed before is not available for choosing now. Consider not displaying the field at all or add an explanation why the field is disabled.
+
+<Canvas of={Stories.Disabled} />

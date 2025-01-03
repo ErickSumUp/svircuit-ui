@@ -1,8 +1,19 @@
 <script lang="ts">
-  import { type Snippet } from 'svelte';
-  import { type HTMLInputTypeAttribute } from 'svelte/elements';
-
   interface Props {
+    /**
+     * A unique identifier for the input field. Must be provided for accessibility.
+     * @type {string} @default
+     */
+    id: string;
+    /**
+     * The name of the input radio field, it is used to tie the radio inputs together.
+     */
+    name: string
+    /**
+     * Value of the input field.
+     * @type {string} @default ''
+     */
+    value: string | number;
     /**
      * A clear and concise description of the input purpose. Required for accessibility purposes.
      * @type {string}
@@ -14,73 +25,21 @@
      */
     description?: string;
     /**
-     * A unique identifier for the input field. Must be provided for accessibility.
-     * @type {string} @default
-     */
-    id: string;
-    /**
-     * An information, warning or error message, displayed below the input.
+     * Aria described by, for accessibility.
      * @type {string} @default ''
      */
-    validationHint?: string;
-    /**
-     * Label to indicate that the input is optional. Only displayed when the
-     * `required` prop is falsy.
-     * @type {string} @default ''
-     */
-    optionalLabel?: string;
-    /**
-     * Triggers error styles on the component. Important for accessibility.
-     * @type {boolean} @default false
-     */
-    invalid?: boolean;
-    /**
-     * Triggers warning styles on the component.
-     * @type {boolean} @default false
-     */
-    hasWarning?: boolean;
-    /**
-     * Enables valid styles on the component.
-     * @type {boolean} @default false
-     */
-    showValid?: boolean;
-    /**
-     * Aligns text to the right in the input
-     * @type {boolean} @default false
-     */
-    textAlignRight?: boolean;
-    /**
-     * Visually hide the label. This should only be used in rare cases and only
-     * if the purpose of the field can be inferred from other context.
-     * @type {boolean} @default false
-     */
-    hideLabel?: boolean;
+    ariaDescribedBy?: string;
     /**
      * Disables the input field.
      * @type {boolean} @default false
      */
     disabled?: boolean;
     /**
-     * Aria described by
-     * @type {string} @default ''
-     */
-    ariaDescribedBy?: string;
-    /**
      * Sets if the input is required, this will be used in forms.
      * @type {boolean}
      */
     required?: boolean;
-    /**
-     * The value of the input field.
-     * @type {string}
-     */
-    value?: number | string;
-    maxLength?: number;
-    type?: HTMLInputTypeAttribute | undefined | null;
-    placeholder?: string;
-    readonly?: boolean;
-    prefix?: Snippet;
-    suffix?: Snippet;
+    group: string | number;
     [key: string]: unknown;
   }
 
@@ -88,40 +47,29 @@
     label,
     description,
     id,
+    group = $bindable(),
     validationHint = '',
-    checked = false,
-    optionalLabel = '',
-    invalid = false,
-    hasWarning = false,
-    showValid = false,
-    textAlignRight = false,
     hideLabel = false,
     disabled = false,
     ariaDescribedBy = '',
     required = false,
-    value = $bindable(''),
-    prefix,
-    suffix,
     type,
-    placeholder,
-    readonly,
+    value,
     ...rest
   }: Props = $props();
 </script>
 
-<div class="wrapper" data-disabled={false}>
+<div class="wrapper" data-disabled={disabled}>
   <input
     {id}
-    bind:value
     aria-describedby={ariaDescribedBy}
     class="base hide-visually"
-    {checked}
     {disabled}
     {required}
     aria-label={label}
     type="radio"
-    {placeholder}
-    {readonly}
+    bind:group
+    {value}
     {...rest}
   />
   <label for={id} class="label"
