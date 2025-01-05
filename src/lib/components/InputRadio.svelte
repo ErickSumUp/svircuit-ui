@@ -8,7 +8,7 @@
     /**
      * The name of the input radio field, it is used to tie the radio inputs together.
      */
-    name: string
+    name: string;
     /**
      * Value of the input field.
      * @type {string} @default ''
@@ -35,6 +35,11 @@
      */
     disabled?: boolean;
     /**
+     * Disables the input field.
+     * @type {boolean} @default false
+     */
+    invalid?: boolean;
+    /**
      * Sets if the input is required, this will be used in forms.
      * @type {boolean}
      */
@@ -51,6 +56,7 @@
     validationHint = '',
     hideLabel = false,
     disabled = false,
+    invalid = false,
     ariaDescribedBy = '',
     required = false,
     type,
@@ -59,7 +65,7 @@
   }: Props = $props();
 </script>
 
-<div class="wrapper" data-disabled={disabled}>
+<div class="wrapper" data-disabled={disabled} aria-invalid={invalid ? 'true' : 'false'}>
   <input
     {id}
     aria-describedby={ariaDescribedBy}

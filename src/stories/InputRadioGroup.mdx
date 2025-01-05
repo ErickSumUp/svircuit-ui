@@ -1,9 +1,9 @@
-import * as Stories from './RadioButtonGroup.stories.svelte';
+import * as Stories from './InputRadioGroup.stories.svelte';
 import { Canvas, Controls, Meta } from '@storybook/blocks';
 
 <Meta of={Stories} />
 
-# RadioButtonGroup
+# InputRadioGroup
 
 A radio button group offers users the choice to select a single option from a predefined list.
 
@@ -29,9 +29,7 @@ Use the `validationHint` to communicate the expected response to users. Use the 
 
 ## Disabled
 
-Disabled form fields can be confusing to users, so use them with caution. Use a disabled radio button only if you need to communicate to the user that an option that existed before is not available for choosing now. Consider not displaying the field at all or add an explanation why the field is disabled.
-
-The radio button group can be disabled entirely or in part.
+Disabled form fields can be confusing to users, so use them with caution. Use a disabled radio input only if you need to communicate to the user that an option that existed before is not available for choosing now. Consider not displaying the field at all or add an explanation why the field is disabled.
 
 <Canvas of={Stories.Disabled} />
 
