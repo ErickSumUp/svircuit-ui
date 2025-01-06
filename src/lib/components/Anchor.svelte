@@ -1,9 +1,11 @@
 <script lang="ts">
   import type { HTMLAnchorAttributes } from 'svelte/elements';
+  import type { Snippet } from 'svelte';
 
   interface Props extends HTMLAnchorAttributes {
     size?: 'one' | 'two';
     variant?: '' | 'highlight' | 'quote';
+    children: Snippet;
     [key: string]: unknown;
   }
 
