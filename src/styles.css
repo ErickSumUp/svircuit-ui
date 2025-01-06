@@ -241,6 +241,49 @@
   --cui-typography-body-m-line-height: 1.375rem;
   --cui-typography-body-l-font-size: 1.25rem;
   --cui-typography-body-l-line-height: 1.5rem;
+
+  /* Letter spacing */
+  --cui-letter-spacing: -0.01375rem;
+
+  /* Typography */
+  --cui-display-l-font-size: 4rem;
+  --cui-display-l-line-height: 4.5rem;
+  --cui-display-m-font-size: 3rem;
+  --cui-display-m-line-height: 3.5rem;
+  --cui-display-s-font-size: 2.5rem;
+  --cui-display-s-line-height: 2.875rem;
+  --cui-headline-l-font-size: 2rem;
+  --cui-headline-l-line-height: 2.25rem;
+  --cui-headline-m-font-size: 1.5rem;
+  --cui-headline-m-line-height: 1.625rem;
+  --cui-headline-s-font-size: 1.125rem;
+  --cui-headline-s-line-height: 1.375rem;
+  --cui-body-l-font-size: 1.25rem;
+  --cui-body-l-line-height: 1.5rem;
+  --cui-body-m-font-size: 1rem;
+  --cui-body-m-line-height: 1.375rem;
+  --cui-body-s-font-size: 0.875rem;
+  --cui-body-s-line-height: 1.25rem;
+  --cui-compact-l-font-size: 1.125rem;
+  --cui-compact-l-line-height: 1.5rem;
+  --cui-compact-m-font-size: 0.9375rem;
+  --cui-compact-m-line-height: 1.0625rem;
+  --cui-compact-s-font-size: 0.8125rem;
+  --cui-compact-s-line-height: 0.9375rem;
+  --cui-numeral-l-font-size: 3rem;
+  --cui-numeral-l-line-height: 3.375rem;
+  --cui-numeral-m-font-size: 1.5rem;
+  --cui-numeral-m-line-height: 1.75rem;
+  --cui-numeral-s-font-size: 1rem;
+  --cui-numeral-s-line-height: 1.375rem;
+
+  --cui-typography-body-one-font-size: 1rem;
+  --cui-typography-body-one-line-height: 1.375rem;
+  --cui-typography-body-two-font-size: 0.875rem;
+  --cui-typography-body-two-line-height: 1.25rem;
+  --cui-typography-body-large-font-size: 1.25rem;
+  --cui-typography-body-large-line-height: 1.5rem;
+
   /* Z-indices */
   --cui-z-index-default: 0;
   --cui-z-index-absolute: 1;
