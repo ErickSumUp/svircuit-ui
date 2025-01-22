@@ -4,6 +4,10 @@
   import Button from '$lib/components/Button.svelte';
 
   function generatePages(totalPages: number, currentPage: number): string[] {
+    if (totalPages <= 1) {
+      return ['1'];
+    }
+
     const pages = [];
     const distanceToOne = currentPage - 1;
     const distanceToLast = totalPages - currentPage;
