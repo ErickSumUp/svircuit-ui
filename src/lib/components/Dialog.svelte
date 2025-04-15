@@ -48,6 +48,7 @@
     padding: 0;
     border: none;
     border-radius: var(--cui-border-radius-mega);
+    z-index: var(--cui-z-index-modal);
   }
 
   dialog[open] {
@@ -68,6 +69,7 @@
   }
 
   dialog[open]::backdrop {
+    background: var(--cui-bg-overlay);
     animation: fade 0.2s ease-out;
   }
 
