@@ -22,6 +22,7 @@
   import Shop from '$lib/icons/Shop.svelte';
   import Close from '$lib/icons/Close.svelte';
   import DownloadCloud from '$lib/icons/DownloadCloud.svelte';
+  import Stack from '$lib/components/Stack.svelte';
 </script>
 
 <Story name="Base" args={{ variant: 'secondary', size: 'm' }}>
@@ -31,20 +32,26 @@
 </Story>
 
 <Story name="Variants">
-  <Button variant="primary">Primary</Button>
-  <Button variant="secondary">Secondary</Button>
-  <Button variant="tertiary">Tertiary</Button>
+  <Stack>
+    <Button variant="primary">Primary</Button>
+    <Button variant="secondary">Secondary</Button>
+    <Button variant="tertiary">Tertiary</Button>
+  </Stack>
 </Story>
 
 <Story name="Destructive">
-  <Button variant="primary" destructive={true}>Primary</Button>
-  <Button variant="secondary" destructive={true}>Secondary</Button>
-  <Button variant="tertiary" destructive={true}>Tertiary</Button>
+  <Stack>
+    <Button variant="primary" destructive={true}>Primary</Button>
+    <Button variant="secondary" destructive={true}>Secondary</Button>
+    <Button variant="tertiary" destructive={true}>Tertiary</Button>
+  </Stack>
 </Story>
 
 <Story name="Sizes">
-  <Button size="s">Small</Button>
-  <Button size="m">Medium</Button>
+  <Stack>
+    <Button size="s">Small</Button>
+    <Button size="m">Medium</Button>
+  </Stack>
 </Story>
 
 <Story name="WithIcons">
@@ -61,12 +68,14 @@
 </Story>
 
 <Story name="ButtonGroup">
-  <Button>Go elsewhere</Button>
-  <Button variant="primary">Look again</Button>
+  <Stack>
+    <Button>Go elsewhere</Button>
+    <Button variant="primary">Look again</Button>
+  </Stack>
 </Story>
 
 <Story name="OnlyIcons">
-  <div style="display: flex; gap: 1rem; align-items: center">
+  <Stack>
     {#snippet placeholderIcon16()}
       <Placeholder size="16" />
     {/snippet}
@@ -100,5 +109,5 @@
     >
       Circuit
     </Button>
-  </div>
+  </Stack>
 </Story>

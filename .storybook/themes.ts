@@ -5,7 +5,7 @@ export const light = create({
   brandTitle: 'Svircuit UI',
   brandUrl: 'https://github.com/', //sumup-oss/circuit-ui',
   fontBase:
-    'aktiv-grotesk, Helvetica, Arial, system-ui, sans-serif, "Segoe UI", Roboto, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+    '"Inter", "Inter-Fallback", Arial, system-ui, sans-serif, "Segoe UI", Roboto, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
   brandImage: '/images/logo-name-light.png',
   colorPrimary: '#0f131a', // var(--cui-fg-accent)
   colorSecondary: '#0f131a', // var(--cui-fg-normal)
