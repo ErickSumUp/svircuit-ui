@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/svelte';
 
-import '../src/styles.css';
+import '../src/lib/styles.css';
 import { themes } from '@storybook/theming';
 
 const preview: Preview = {
