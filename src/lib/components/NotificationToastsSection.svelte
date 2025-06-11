@@ -1,5 +1,4 @@
 <script lang="ts" module>
-  import { writable } from 'svelte/store';
   import type { Snippet } from 'svelte';
 
   export type NotificationToast = {
@@ -12,35 +11,35 @@
     dismissible?: boolean;
   };
 
-  export const toasts = writable([]);
+  type NotificationToastWithID = NotificationToast & { id: number };
+
+  let toasts: NotificationToastWithID[] = $state([]);
+  let nextID = 0;
 
   export const addToast = (toast: NotificationToast) => {
     // Create a unique ID, so we can easily find/remove it
     // if it is dismissible/has a timeout.
-    const id = Math.floor(Math.random() * 10000);
+    let id = ++nextID;
 
     const timeoutMs = 6000;
     const timeout = toast.timeout || timeoutMs;
 
     // Push the toast to the top of the list of toasts
-    toasts.update((all) => [
-      {
-        id,
-        variant: toast.variant,
-        headline: toast.headline,
-        body: toast.body,
-        timeout,
-        dismissible: toast.dismissible
-      },
-      ...all
-    ]);
+    toasts.push({
+      id,
+      variant: toast.variant,
+      headline: toast.headline,
+      body: toast.body,
+      timeout,
+      dismissible: toast.dismissible
+    });
 
     // If toast is dismissible, dismiss it after "timeout" amount of time.
     if (timeout) setTimeout(() => dismissToast(id), timeout);
   };
 
   export const dismissToast = (id: number) => {
-    toasts.update((all) => all.filter((t: NotificationToast) => t.id !== id));
+    toasts = toasts.filter((toast) => toast.id !== id);
   };
 
   export { notification };
@@ -51,14 +50,14 @@
 </script>
 
 <section class="toast-notifications">
-  {#each $toasts as toast (toast.id)}
+  {#each toasts as toast (toast.id)}
     <div animate:flip={{ duration: 300 }}>
       {@render notification(toast)}
     </div>
   {/each}
 </section>
 
-{#snippet notification({ id, iconLabel, body, variant, headline, dismissible }: NotificationToast)}
+{#snippet notification({ id, iconLabel, body, variant, headline, dismissible }: NotificationToastWithID)}
   <div
     class="base"
     class:info={variant === 'info'}

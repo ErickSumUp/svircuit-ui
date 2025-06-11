@@ -26,8 +26,7 @@ import SecondaryNavigation, {
 export { SecondaryNavigation };
 export type { Link, Group, LinkBadge };
 import NotificationToastsSection, {
-  toasts,
   addToast
 } from '$lib/components/NotificationToastsSection.svelte';
-export { NotificationToastsSection, toasts, addToast };
+export { NotificationToastsSection, addToast };
 export { default as Dialog } from './components/Dialog.svelte';

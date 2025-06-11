@@ -45,10 +45,10 @@
 <Story name="Variants">
   {#snippet template()}
     <Stack vertical>
-      {@render notification({ body: 'This is a toast message', variant: 'info' })}
-      {@render notification({ body: 'This is a toast message', variant: 'success' })}
-      {@render notification({ body: 'This is a toast message', variant: 'warning' })}
-      {@render notification({ body: 'This is a toast message', variant: 'danger' })}
+      {@render notification({ id: 1, body: 'This is a toast message', variant: 'info' })}
+      {@render notification({ id: 2, body: 'This is a toast message', variant: 'success' })}
+      {@render notification({ id: 3, body: 'This is a toast message', variant: 'warning' })}
+      {@render notification({ id: 4, body: 'This is a toast message', variant: 'danger' })}
     </Stack>
   {/snippet}
 </Story>
