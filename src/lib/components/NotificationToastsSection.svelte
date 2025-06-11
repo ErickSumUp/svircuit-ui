@@ -11,7 +11,7 @@
     dismissible?: boolean;
   };
 
-  export let toasts: NotificationToast[] = $state([]);
+  let toasts: NotificationToast[] = $state([]);
 
   export const addToast = (toast: NotificationToast) => {
     // Create a unique ID, so we can easily find/remove it
