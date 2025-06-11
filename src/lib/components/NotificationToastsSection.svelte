@@ -11,7 +11,9 @@
     dismissible?: boolean;
   };
 
-  let toasts: NotificationToast[] = $state([]);
+  type NotificationToastWithID = NotificationToast & { id: number };
+
+  let toasts: NotificationToastWithID[] = $state([]);
   let nextID = 0;
 
   export const addToast = (toast: NotificationToast) => {
@@ -55,7 +57,7 @@
   {/each}
 </section>
 
-{#snippet notification({ id, iconLabel, body, variant, headline, dismissible }: NotificationToast)}
+{#snippet notification({ id, iconLabel, body, variant, headline, dismissible }: NotificationToastWithID)}
   <div
     class="base"
     class:info={variant === 'info'}
