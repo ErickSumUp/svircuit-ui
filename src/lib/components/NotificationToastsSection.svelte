@@ -12,11 +12,12 @@
   };
 
   let toasts: NotificationToast[] = $state([]);
+  let nextID = 0;
 
   export const addToast = (toast: NotificationToast) => {
     // Create a unique ID, so we can easily find/remove it
     // if it is dismissible/has a timeout.
-    const id = Math.floor(Math.random() * 10000);
+    let id = ++nextID;
 
     const timeoutMs = 6000;
     const timeout = toast.timeout || timeoutMs;
