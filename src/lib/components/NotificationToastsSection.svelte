@@ -11,7 +11,7 @@
     dismissible?: boolean;
   };
 
-  export const toasts: NotificationToast[] = $state([]);
+  export let toasts: NotificationToast[] = $state([]);
 
   export const addToast = (toast: NotificationToast) => {
     // Create a unique ID, so we can easily find/remove it
@@ -36,10 +36,7 @@
   };
 
   export const dismissToast = (id: number) => {
-    toasts.splice(
-      toasts.findIndex((toast) => toast.id === id),
-      1
-    );
+    toasts = toasts.filter((toast) => toast.id !== id);
   };
 
   export { notification };
