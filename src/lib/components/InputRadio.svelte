@@ -53,13 +53,10 @@
     description,
     id,
     group = $bindable(),
-    validationHint = '',
-    hideLabel = false,
     disabled = false,
     invalid = false,
     ariaDescribedBy = '',
     required = false,
-    type,
     value,
     ...rest
   }: Props = $props();

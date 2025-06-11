@@ -99,7 +99,7 @@
   <span class="content">
     {@render leading_icon?.()}
     <span class="label" class:hide-label={hideLabel}>
-      {@render children()}
+      {@render children?.()}
     </span>
     {@render trailing_icon?.()}
   </span>
@@ -336,7 +336,7 @@
 
   .primary:disabled,
   .primary[disabled],
-  .primary[aria-disabled="true"] {
+  .primary[aria-disabled='true'] {
     color: var(--cui-fg-normal-disabled);
     background-color: var(--cui-bg-highlight-disabled);
     border-color: transparent;
@@ -344,7 +344,7 @@
 
   .primary.destructive:disabled,
   .primary.destructive[disabled],
-  .primary.destructive[aria-disabled="true"] {
+  .primary.destructive[aria-disabled='true'] {
     color: var(--cui-fg-danger-disabled);
     background-color: var(--cui-bg-danger-disabled);
     border-color: transparent;
@@ -386,7 +386,7 @@
 
   .secondary:disabled,
   .secondary[disabled],
-  .secondary[aria-disabled="true"] {
+  .secondary[aria-disabled='true'] {
     color: var(--cui-fg-normal-disabled);
     background-color: var(--cui-bg-normal);
     border-color: var(--cui-border-normal-disabled);
@@ -394,7 +394,7 @@
 
   .secondary.destructive:disabled,
   .secondary.destructive[disabled],
-  .secondary.destructive[aria-disabled="true"] {
+  .secondary.destructive[aria-disabled='true'] {
     color: var(--cui-fg-danger-disabled);
     background-color: var(--cui-bg-normal);
     border-color: var(--cui-border-normal-disabled);
@@ -452,7 +452,7 @@
 
   .tertiary:disabled,
   .tertiary[disabled],
-  .tertiary[aria-disabled="true"] {
+  .tertiary[aria-disabled='true'] {
     color: var(--cui-fg-normal-disabled);
     background-color: transparent;
     border-color: transparent;
@@ -460,7 +460,7 @@
 
   .tertiary.destructive:disabled,
   .tertiary.destructive[disabled],
-  .tertiary.destructive[aria-disabled="true"] {
+  .tertiary.destructive[aria-disabled='true'] {
     color: var(--cui-fg-danger-disabled);
   }
 

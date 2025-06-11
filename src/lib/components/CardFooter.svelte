@@ -1,8 +1,10 @@
 <script lang="ts">
   import type { HTMLAttributes } from 'svelte/elements';
+  import type { Snippet } from 'svelte';
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
     align?: 'left' | 'right';
+    children?: Snippet;
     [key: string]: unknown;
   }
 
@@ -10,7 +12,7 @@
 </script>
 
 <div class="base" class:left={align === 'left'} class:right={align === 'right'} {...rest}>
-  {@render children()}
+  {@render children?.()}
 </div>
 
 <style>

@@ -19,6 +19,11 @@
      */
     ariaDescribedBy?: string;
     /**
+     * Hides the label visually but keeps it accessible for screen readers.
+     * @type {boolean} @default false
+     */
+    hideLabel?: boolean;
+    /**
      * Disables the input field.
      * @type {boolean} @default false
      */
@@ -46,14 +51,12 @@
 
   let {
     label,
-    description,
     id,
     validationHint = '',
     hideLabel = false,
     disabled = false,
     ariaDescribedBy = '',
     required = false,
-    type,
     invalid = false,
     hasWarning = false,
     showValid = false,
@@ -64,6 +67,7 @@
 </script>
 
 <fieldset
+  {id}
   class="fieldset"
   role="radiogroup"
   aria-describedby={ariaDescribedBy}
@@ -74,7 +78,7 @@
   {...rest}
 >
   <legend class="legend">
-    <span class="label-text hide-visually">
+    <span class="label-text" class:hide-visually={hideLabel}>
       {label}
       {#if !required && optionalLabel}
         <span class="label-text-optional">
@@ -85,10 +89,7 @@
   </legend>
   {@render children()}
   {#if validationHint && !(invalid || hasWarning || showValid)}
-    <div
-      class="validation-hint"
-      data-disabled={disabled}
-    >
+    <div class="validation-hint" data-disabled={disabled}>
       {validationHint}
     </div>
   {:else if validationHint && !disabled && (invalid || hasWarning || showValid)}
@@ -241,4 +242,15 @@
     margin-right: var(--cui-spacings-bit);
   }
 
+  .hide-visually {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
+    clip: rect(0 0 0 0);
+  }
 </style>

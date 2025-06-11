@@ -1,30 +1,41 @@
 <script lang="ts" module>
   import Body from '$lib/components/Body.svelte';
-  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
+  import { defineMeta } from '@storybook/addon-svelte-csf';
+  import { type ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
     title: 'Typography/Body',
     component: Body,
     argTypes: {
-      children: { control: 'text', defaultValue: '' }
+      children: {
+        control: { type: 'text' }
+      }
     },
     parameters: {
       layout: 'centered'
-    }
+    },
+    render: template
   });
+
+  type Args = Omit<ComponentProps<typeof Body>, 'children'> & {
+    children: string;
+  };
 </script>
 
-<Story name="Base">
-  {#snippet children({ ...args }: Args<typeof Story>)}
-    <Body {...args}
-      ><p>
-        An <em>electronic</em> circuit <strong>is</strong> composed of <s>many</s> individual electronic
-        components, such as resistors, transistors, capacitors, inductors and diodes, connected by conductive
-        wires or traces through which electric current can flow
-      </p>
-    </Body>
-  {/snippet}
-</Story>
+{#snippet template({ children, ...args }: Args)}
+  <Body {...args}>{children}</Body>
+{/snippet}
+
+<Story
+  name="Base"
+  args={{
+    children: `An electronic circuit is composed of many individual electronic
+    components, such as resistors, transistors, capacitors, inductors and diodes, connected by conductive
+    wires or traces through which electric current can flow`,
+    size: 'l',
+    color: 'accent'
+  }}
+/>
 
 <Story name="Colors">
   <Body color="normal">This is a normal body</Body>
@@ -52,5 +63,15 @@
     >This is a body large. An electronic circuit is composed of individual electronic components,
     such as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires
     or traces through which electric current can flow.
+  </Body>
+</Story>
+
+<Story name="Semantic">
+  <Body>
+    <p>
+      An <em>electronic</em> circuit <strong>is</strong> composed of <s>many</s> individual electronic
+      components, such as resistors, transistors, capacitors, inductors and diodes, connected by conductive
+      wires or traces through which electric current can flow
+    </p>
   </Body>
 </Story>

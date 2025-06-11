@@ -1,6 +1,7 @@
 <script lang="ts" module>
   import Button from '$lib/components/Button.svelte';
-  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
+  import { defineMeta } from '@storybook/addon-svelte-csf';
+  import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
     title: 'Components/Button',
@@ -14,6 +15,8 @@
       layout: 'centered'
     }
   });
+
+  type Args = ComponentProps<typeof Button>;
 </script>
 
 <script lang="ts">
@@ -26,88 +29,105 @@
 </script>
 
 <Story name="Base" args={{ variant: 'secondary', size: 'm' }}>
-  {#snippet children({ ...args }: Args<typeof Story>)}
-    <Button onclick={() => alert('Hello!')} {...args}>Say Hello</Button>
+  {#snippet template({ children, ...args }: Args)}
+    <Button onclick={() => alert('Hello!')} {...args}>{children || 'Say Hello'}</Button>
   {/snippet}
 </Story>
 
 <Story name="Variants">
-  <Stack>
-    <Button variant="primary">Primary</Button>
-    <Button variant="secondary">Secondary</Button>
-    <Button variant="tertiary">Tertiary</Button>
-  </Stack>
+  {#snippet template()}
+    <Stack>
+      <Button variant="primary">Primary</Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="tertiary">Tertiary</Button>
+    </Stack>
+  {/snippet}
 </Story>
 
 <Story name="Destructive">
-  <Stack>
-    <Button variant="primary" destructive={true}>Primary</Button>
-    <Button variant="secondary" destructive={true}>Secondary</Button>
-    <Button variant="tertiary" destructive={true}>Tertiary</Button>
-  </Stack>
+  {#snippet template()}
+    <Stack>
+      <Button variant="primary" destructive={true}>Primary</Button>
+      <Button variant="secondary" destructive={true}>Secondary</Button>
+      <Button variant="tertiary" destructive={true}>Tertiary</Button>
+    </Stack>
+  {/snippet}
 </Story>
 
 <Story name="Sizes">
-  <Stack>
-    <Button size="s">Small</Button>
-    <Button size="m">Medium</Button>
-  </Stack>
+  {#snippet template()}
+    <Stack>
+      <Button size="s">Small</Button>
+      <Button size="m">Medium</Button>
+    </Stack>
+  {/snippet}
 </Story>
 
 <Story name="WithIcons">
-  <div style="display: flex; gap: 1rem;">
-    {#snippet placeholderIcon()}
-      <Placeholder />
-    {/snippet}
-    <Button leading_icon={placeholderIcon}>Add to cart</Button>
-    {#snippet arrowSlantedIcon()}
-      <ArrowSlanted size="16" />
-    {/snippet}
-    <Button size="m" trailing_icon={arrowSlantedIcon}>Terms & Conditions</Button>
-  </div>
+  {#snippet template()}
+    <Stack>
+      <Button>
+        {#snippet leading_icon()}
+          <Placeholder />
+        {/snippet}
+        Add to cart
+      </Button>
+      <Button size="m">
+        Terms & Conditions
+        {#snippet trailing_icon()}
+          <ArrowSlanted size="16" />
+        {/snippet}
+      </Button>
+    </Stack>
+  {/snippet}
 </Story>
 
 <Story name="ButtonGroup">
-  <Stack>
-    <Button>Go elsewhere</Button>
-    <Button variant="primary">Look again</Button>
-  </Stack>
+  {#snippet template()}
+    <Stack>
+      <Button>Go elsewhere</Button>
+      <Button variant="primary">Look again</Button>
+    </Stack>
+  {/snippet}
 </Story>
 
 <Story name="OnlyIcons">
-  <Stack>
-    {#snippet placeholderIcon16()}
-      <Placeholder size="16" />
-    {/snippet}
-    <Button size="s" hideLabel={true} leading_icon={placeholderIcon16}>
-      <Placeholder size="16" />
-      Circuit
-    </Button>
-    {#snippet downloadCloudIcon()}
-      <DownloadCloud />
-    {/snippet}
-    <Button size="m" variant="primary" hideLabel={true} leading_icon={downloadCloudIcon}>
-      Download
-    </Button>
-    {#snippet closeIcon()}
-      <Close size="24" />
-    {/snippet}
-    <Button size="m" variant="secondary" hideLabel={true} leading_icon={closeIcon}>Close</Button>
-    {#snippet shopIcon()}
-      <Shop size="24" />
-    {/snippet}
-    <Button size="m" disabled={true} hideLabel={true} leading_icon={shopIcon}>Cart</Button>
-    {#snippet placeholderIcon24()}
-      <Placeholder size="24" />
-    {/snippet}
-    <Button
-      size="m"
-      variant="primary"
-      isLoading={true}
-      hideLabel={true}
-      leading_icon={placeholderIcon24}
-    >
-      Circuit
-    </Button>
-  </Stack>
+  {#snippet template()}
+    <Stack>
+      <Button size="s" hideLabel={true}>
+        {#snippet leading_icon()}
+          <Placeholder size="16" />
+        {/snippet}
+        Circuit
+      </Button>
+
+      <Button size="m" variant="primary" hideLabel={true}>
+        {#snippet leading_icon()}
+          <DownloadCloud />
+        {/snippet}
+        Download
+      </Button>
+
+      <Button size="m" variant="secondary" hideLabel={true}>
+        {#snippet leading_icon()}
+          <Close size="24" />
+        {/snippet}
+        Close
+      </Button>
+
+      <Button size="m" disabled={true} hideLabel={true}>
+        {#snippet leading_icon()}
+          <Shop size="24" />
+        {/snippet}
+        Cart
+      </Button>
+
+      <Button size="m" variant="primary" isLoading={true} hideLabel={true}>
+        {#snippet leading_icon()}
+          <Placeholder size="24" />
+        {/snippet}
+        Circuit
+      </Button>
+    </Stack>
+  {/snippet}
 </Story>

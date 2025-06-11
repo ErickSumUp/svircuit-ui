@@ -1,5 +1,5 @@
 import * as Stories from './Body.stories.svelte';
-import { Canvas, Controls, Meta } from '@storybook/blocks';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
 
 <Meta of={Stories} />
 
@@ -25,6 +25,12 @@ The Body component comes in three sizes. Use the default m size in most cases.
 The Body component accepts any foreground color token name. Use the default normal color in most cases.
 
 <Canvas of={Stories.Colors} />
+
+### Semantic usage
+
+The Body component accepts semantic children that will be rendered correctly and used with other args.
+
+<Canvas of={Stories.Semantic} />
 
 ---
 

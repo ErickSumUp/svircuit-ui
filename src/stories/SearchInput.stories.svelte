@@ -1,6 +1,7 @@
 <script lang="ts" module>
   import SearchInput from '$lib/components/SearchInput.svelte';
-  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
+  import { defineMeta } from '@storybook/addon-svelte-csf';
+  import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
     title: 'Components/SearchInput',
@@ -20,6 +21,9 @@
   });
 </script>
 
+<script>
+</script>
+
 <Story
   name="Base"
   args={{
@@ -30,7 +34,7 @@
     placeholder: 'Type a word...'
   }}
 >
-  {#snippet children({ ...args }: Args<typeof Story>)}
-    <SearchInput id={args.id} label={args.label} {...args} />
+  {#snippet template({ ...args }: ComponentProps<typeof SearchInput>)}
+    <SearchInput {...args} />
   {/snippet}
 </Story>
