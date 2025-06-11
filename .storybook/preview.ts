@@ -1,7 +1,7 @@
-import type { Preview } from '@storybook/svelte';
+import type { Preview } from '@storybook/sveltekit';
 
-import '../src/styles.css';
-import { themes } from '@storybook/theming';
+import '../src/lib/styles.css';
+import { themes } from 'storybook/theming';
 
 const preview: Preview = {
   parameters: {

@@ -1,6 +1,7 @@
 <script lang="ts" module>
   import Card from '$lib/components/Card.svelte';
-  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
+  import { defineMeta } from '@storybook/addon-svelte-csf';
+  import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
     title: 'Typography/Card',
@@ -14,6 +15,8 @@
       layout: 'centered'
     }
   });
+
+  type Args = ComponentProps<typeof Card>;
 </script>
 
 <script lang="ts">
@@ -26,89 +29,79 @@
   import Stack from '$lib/components/Stack.svelte';
 </script>
 
-<Story name="Base" args={{ spacing: 'giga', children: 'Content' }}>
-  {#snippet children({ ...args }: Args<typeof Story>)}
+<Story name="Base" args={{ spacing: 'giga' }}>
+  {#snippet template({ children, ...args }: Args)}
     <Card {...args}>
-      <Body>{args.children}</Body>
+      <Body>{children || 'Content'}</Body>
     </Card>
   {/snippet}
 </Story>
 
 <Story name="Spacings">
-  <div class="stack">
-    <Card spacing="mega">
-      <div
-        style="
+  {#snippet template()}
+    <Stack>
+      <Card spacing="mega">
+        <div
+          style="
 				background: var(--cui-bg-highlight);
 				width: 15rem;
 				height: 10rem;
 			"
-      ></div>
-    </Card>
-    <Card spacing="giga">
-      <div
-        style="
+        ></div>
+      </Card>
+      <Card spacing="giga">
+        <div
+          style="
 				background: var(--cui-bg-highlight);
 				width: 15rem;
 				height: 10rem;
 			"
-      ></div>
-    </Card>
-  </div>
+        ></div>
+      </Card>
+    </Stack>
+  {/snippet}
 </Story>
 
 <Story name="WithHeader">
-  <div style="display:flex; flex-direction: row; gap: 2rem">
-    <Card>
-      <CardHeader title="Title">
-        <Headline size="four" as="h2">Card Heading</Headline>
-      </CardHeader>
-      <Body>This is some text showing in my card</Body>
-    </Card>
-    <Card>
-      <CardHeader title="Title" showCloseButton>
-        <Headline size="four" as="h2">Card Heading w/Button</Headline>
-      </CardHeader>
-      <Body>This is some text showing in my card</Body>
-    </Card>
-  </div>
+  {#snippet template()}
+    <Stack>
+      <Card>
+        <CardHeader title="Title">
+          <Headline size="four" as="h2">Card Heading</Headline>
+        </CardHeader>
+        <Body>This is some text showing in my card</Body>
+      </Card>
+      <Card>
+        <CardHeader title="Title" showCloseButton>
+          <Headline size="four" as="h2">Card Heading w/Button</Headline>
+        </CardHeader>
+        <Body>This is some text showing in my card</Body>
+      </Card>
+    </Stack>
+  {/snippet}
 </Story>
 
 <Story name="WithFooter">
-  <Stack>
-    <Card>
-      <Body>This is some text showing in my card</Body>
-      <CardFooter>
-        <ButtonGroup>
-          <Button stretch={true} variant="primary">Confirm</Button>
-          <Button stretch={true} variant="tertiary">Cancel</Button>
-        </ButtonGroup>
-      </CardFooter>
-    </Card>
-    <Card>
-      <Body>This is some text showing in my card</Body>
-      <CardFooter align="left">
-        <ButtonGroup>
-          <Button stretch={true} variant="primary">Confirm</Button>
-          <Button stretch={true} variant="tertiary">Cancel</Button>
-        </ButtonGroup>
-      </CardFooter>
-    </Card>
-  </Stack>
+  {#snippet template()}
+    <Stack>
+      <Card>
+        <Body>This is some text showing in my card</Body>
+        <CardFooter>
+          <ButtonGroup>
+            <Button stretch={true} variant="primary">Confirm</Button>
+            <Button stretch={true} variant="tertiary">Cancel</Button>
+          </ButtonGroup>
+        </CardFooter>
+      </Card>
+      <Card>
+        <Body>This is some text showing in my card</Body>
+        <CardFooter align="left">
+          <ButtonGroup>
+            <Button stretch={true} variant="primary">Confirm</Button>
+            <Button stretch={true} variant="tertiary">Cancel</Button>
+          </ButtonGroup>
+        </CardFooter>
+      </Card>
+    </Stack>
+  {/snippet}
 </Story>
-
-<style>
-  .stack {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    align-items: center;
-    justify-content: center;
-  }
-
-  @media screen and (min-width: 600px) {
-    .stack {
-      flex-direction: row;
-    }
-  }
-</style>

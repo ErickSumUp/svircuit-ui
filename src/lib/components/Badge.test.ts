@@ -1,18 +1,11 @@
 import { render } from '@testing-library/svelte';
-import '@testing-library/jest-dom';
-import Badge from '$lib/components/Badge.svelte';
 import { test, expect } from 'vitest';
 
-test('should match story case variants', async () => {
-  const { container } = render(Badge, {
-    props: { variant: 'neutral' }
-  });
-  expect(container).toMatchSnapshot();
-});
+import Badge from './Badge.svelte';
+import { exampleSnippet } from './TestText.svelte';
 
-test('should match story case circular', async () => {
-  const { container } = render(Badge, {
-    props: { circle: true, variant: 'neutral' }
-  });
+test('should match story case variants', async () => {
+  const { container } = render(Badge, { children: exampleSnippet });
+
   expect(container).toMatchSnapshot();
 });

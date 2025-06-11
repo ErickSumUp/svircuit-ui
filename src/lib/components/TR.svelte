@@ -1,7 +1,9 @@
 <script lang="ts">
   import type { HTMLAttributes } from 'svelte/elements';
+  import type { Snippet } from 'svelte';
 
   interface Props extends HTMLAttributes<HTMLTableRowElement> {
+    children?: Snippet;
     [key: string]: unknown;
   }
 
@@ -9,7 +11,7 @@
 </script>
 
 <tr {...rest}>
-  {@render children()}
+  {@render children?.()}
 </tr>
 
 <style>

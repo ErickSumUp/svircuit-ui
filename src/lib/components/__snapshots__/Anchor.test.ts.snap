@@ -1,0 +1,14 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <a
+    class="base svelte-18jryi6 one"
+    href="https://opensource.sumup.com/"
+  >
+    Example Snippet
+    <!---->
+  </a>
+  
+</div>
+`;

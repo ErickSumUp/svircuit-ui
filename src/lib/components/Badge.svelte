@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { HTMLAttributes } from 'svelte/elements';
+  import type { Snippet } from 'svelte';
 
   interface Props extends HTMLAttributes<HTMLSpanElement> {
     /**
@@ -10,6 +11,7 @@
      * Use the circular badge to indicate a count of items related to an element.
      */
     circle?: boolean;
+    children: Snippet;
     [key: string]: unknown;
   }
 

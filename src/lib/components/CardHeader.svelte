@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { HTMLAttributes } from 'svelte/elements';
+  import type { Snippet } from 'svelte';
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
     showCloseButton?: boolean;
@@ -7,6 +8,7 @@
     closeButtonLabel?: string;
 
     onClickCloseButton?: () => void;
+    children?: Snippet;
     [key: string]: unknown;
   }
 
@@ -20,7 +22,7 @@
 </script>
 
 <div class="base" {...rest}>
-  {@render children()}
+  {@render children?.()}
   {#if showCloseButton}
     <div class="close">
       {@render closeButton()}

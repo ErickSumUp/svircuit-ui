@@ -1,16 +1,25 @@
 <script lang="ts" module>
-  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
+  import { defineMeta } from '@storybook/addon-svelte-csf';
   import NotificationToasts, {
     addToast,
-    notification
+    notification,
+    type NotificationToast
   } from '$lib/components/NotificationToastsSection.svelte';
   import Button from '$lib/components/Button.svelte';
   import Stack from '$lib/components/Stack.svelte';
 
   const { Story } = defineMeta({
     title: 'Notification/NotificationToastsSection',
-    component: NotificationToasts,
-    argTypes: {},
+    argTypes: {
+      variant: {
+        control: 'select',
+        options: ['info', 'success', 'warning', 'danger']
+      },
+      headline: {
+        control: 'text',
+        defaultValue: ''
+      }
+    },
     parameters: {
       layout: 'centered'
     }
@@ -21,25 +30,25 @@
   name="Base"
   args={{
     variant: 'info',
-    body: 'This is a toast message',
+    body: 'Message',
+    headline: '',
     timeout: 6000,
     dismissible: false
   }}
 >
-  {#snippet children({ ...args }: Args<typeof Story>)}
+  {#snippet template(args: NotificationToast)}
     <NotificationToasts />
     <Button onclick={() => addToast(args)}>Open toast</Button>
   {/snippet}
 </Story>
 
 <Story name="Variants">
-  <Stack vertical>
-    {@render notification({ body: 'This is a toast message', variant: 'info' })}
-    {@render notification({ body: 'This is a toast message', variant: 'success' })}
-    {@render notification({ body: 'This is a toast message', variant: 'warning' })}
-    {@render notification({ body: 'This is a toast message', variant: 'danger' })}
-  </Stack>
+  {#snippet template()}
+    <Stack vertical>
+      {@render notification({ body: 'This is a toast message', variant: 'info' })}
+      {@render notification({ body: 'This is a toast message', variant: 'success' })}
+      {@render notification({ body: 'This is a toast message', variant: 'warning' })}
+      {@render notification({ body: 'This is a toast message', variant: 'danger' })}
+    </Stack>
+  {/snippet}
 </Story>
-
-<style>
-</style>

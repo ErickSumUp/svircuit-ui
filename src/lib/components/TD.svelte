@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { HTMLTdAttributes } from 'svelte/elements';
+  import type { Snippet } from 'svelte';
 
   interface Props extends HTMLTdAttributes {
     /**
@@ -14,6 +15,7 @@
      * Whether the cell should wrap its content.
      */
     wrap?: boolean;
+    children?: Snippet;
     [key: string]: unknown;
   }
 
@@ -28,7 +30,7 @@
   class:wrap
   {...rest}
 >
-  {@render children()}
+  {@render children?.()}
 </td>
 
 <style>

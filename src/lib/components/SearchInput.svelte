@@ -115,8 +115,8 @@
 <style>
   .label {
     display: block;
-    font-size: var(--cui-typography-body-m-font-size);
-    line-height: var(--cui-typography-body-m-line-height);
+    font-size: var(--cui-body-m-font-size);
+    line-height: var(--cui-body-m-line-height);
   }
 
   .wrapper {
@@ -127,11 +127,11 @@
     width: 100%;
     padding: var(--cui-spacings-kilo) var(--cui-spacings-mega);
     margin: 0;
-    font-size: var(--cui-typography-body-s-font-size);
-    line-height: var(--cui-typography-body-s-line-height);
+    font-size: var(--cui-body-s-font-size);
+    line-height: var(--cui-body-m-line-height);
     appearance: none;
     background-color: var(--cui-bg-normal);
-    border: 0;
+    border: 1px solid var(--cui-border-normal);
     border-radius: var(--cui-border-radius-byte);
     outline: 0;
     box-shadow: 0 0 0 1px var(--cui-border-normal);
@@ -283,11 +283,13 @@
     width: auto;
     height: max-content;
     margin: 0;
-    font-size: var(--cui-typography-body-s-font-size);
-    font-weight: var(--cui-font-weight-bold);
+    font-size: var(--cui-body-m-font-size);
+    font-weight: var(--cui-font-weight-semibold);
     text-align: center;
     text-decoration: none;
     cursor: pointer;
+
+    border-style: solid;
     border-width: var(--cui-border-width-kilo);
     transition:
       opacity var(--cui-transitions-default),
@@ -295,16 +297,15 @@
       background-color var(--cui-transitions-default),
       border-color var(--cui-transitions-default);
 
-    line-height: var(--cui-typography-body-m-line-height);
+    line-height: var(--cui-body-s-line-height);
 
     padding: calc(var(--cui-spacings-bit) - var(--cui-border-width-kilo))
       calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo));
 
     color: var(--cui-fg-normal);
-    background-color: var(--cui-bg-normal);
-    border-color: var(--cui-border-normal);
+    background-color: transparent;
+    border-color: transparent;
 
-    border: none;
     border-radius: var(--cui-border-radius-byte);
   }
 
@@ -314,14 +315,10 @@
 
   .close-button:hover {
     color: var(--cui-fg-normal-hovered);
-    background-color: var(--cui-bg-normal-hovered);
-    border-color: var(--cui-border-normal-hovered);
   }
 
   .close-button:active {
     color: var(--cui-fg-normal-pressed);
-    background-color: var(--cui-bg-normal-pressed);
-    border-color: var(--cui-border-normal-pressed);
   }
 
   .close-button:focus {

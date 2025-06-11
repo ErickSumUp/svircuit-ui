@@ -99,7 +99,7 @@
   <span class="content">
     {@render leading_icon?.()}
     <span class="label" class:hide-label={hideLabel}>
-      {@render children()}
+      {@render children?.()}
     </span>
     {@render trailing_icon?.()}
   </span>
@@ -115,7 +115,7 @@
     height: max-content;
     margin: 0;
     font-size: var(--cui-typography-body-s-font-size);
-    font-weight: var(--cui-font-weight-bold);
+    font-weight: var(--cui-font-weight-semibold);
     text-align: center;
     text-decoration: none;
     cursor: pointer;
@@ -160,7 +160,7 @@
     display: block;
     width: var(--loader-diameter);
     height: var(--loader-diameter);
-    background-color: var(--cui-fg-normal);
+    background-color: currentColor;
     border-radius: var(--cui-border-radius-circle);
     animation-duration: 720ms; /* 80ms + 4 * 160ms */
     animation-play-state: paused;
@@ -280,9 +280,9 @@
     --loader-gap: 3px;
     --loader-transform: scale(150%);
 
-    font-size: var(--cui-typography-body-m-font-size);
-    line-height: var(--cui-typography-body-m-line-height);
-    border-radius: 10px;
+    font-size: var(--cui-body-s-font-size);
+    line-height: var(--cui-body-s-line-height);
+    border-radius: var(--cui-border-radius-byte);
 
     padding: calc(var(--cui-spacings-bit) - var(--cui-border-width-kilo))
       calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo));
@@ -295,9 +295,9 @@
     --loader-gap: 5px;
     --loader-transform: scale(133%);
 
-    font-size: var(--cui-typography-body-s-font-size);
-    line-height: var(--cui-typography-body-s-line-height);
-    border-radius: var(--cui-border-radius-kilo);
+    font-size: var(--cui-body-m-font-size);
+    line-height: var(--cui-body-m-line-height);
+    border-radius: var(--cui-border-radius-byte);
 
     padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo))
       calc(var(--cui-spacings-giga) - var(--cui-border-width-kilo));
@@ -334,6 +334,22 @@
     background-color: var(--cui-bg-danger-strong-pressed);
   }
 
+  .primary:disabled,
+  .primary[disabled],
+  .primary[aria-disabled='true'] {
+    color: var(--cui-fg-normal-disabled);
+    background-color: var(--cui-bg-highlight-disabled);
+    border-color: transparent;
+  }
+
+  .primary.destructive:disabled,
+  .primary.destructive[disabled],
+  .primary.destructive[aria-disabled='true'] {
+    color: var(--cui-fg-danger-disabled);
+    background-color: var(--cui-bg-danger-disabled);
+    border-color: transparent;
+  }
+
   .secondary {
     color: var(--cui-fg-normal);
     background-color: var(--cui-bg-normal);
@@ -342,13 +358,13 @@
 
   .secondary:hover {
     color: var(--cui-fg-normal-hovered);
-    background-color: var(--cui-bg-normal-hovered);
+    background-color: var(--cui-bg-subtle-hovered);
     border-color: var(--cui-border-normal-hovered);
   }
 
   .secondary:active {
     color: var(--cui-fg-normal-pressed);
-    background-color: var(--cui-bg-normal-pressed);
+    background-color: var(--cui-bg-subtle-pressed);
     border-color: var(--cui-border-normal-pressed);
   }
 
@@ -368,6 +384,22 @@
     border-color: var(--cui-border-danger-pressed);
   }
 
+  .secondary:disabled,
+  .secondary[disabled],
+  .secondary[aria-disabled='true'] {
+    color: var(--cui-fg-normal-disabled);
+    background-color: var(--cui-bg-normal);
+    border-color: var(--cui-border-normal-disabled);
+  }
+
+  .secondary.destructive:disabled,
+  .secondary.destructive[disabled],
+  .secondary.destructive[aria-disabled='true'] {
+    color: var(--cui-fg-danger-disabled);
+    background-color: var(--cui-bg-normal);
+    border-color: var(--cui-border-normal-disabled);
+  }
+
   .tertiary {
     color: var(--cui-fg-accent);
     background-color: transparent;
@@ -376,7 +408,7 @@
 
   .tertiary:hover {
     color: var(--cui-fg-accent-hovered);
-    background-color: var(--cui-bg-accent-hovered);
+    background-color: transparent;
     border-color: transparent;
   }
 
@@ -456,10 +488,7 @@
   .base:disabled,
   .base[disabled],
   .base[aria-disabled='true'] {
-    color: var(--cui-fg-normal-disabled);
     cursor: not-allowed;
-    background-color: var(--cui-bg-highlight-disabled);
-    border-color: transparent;
   }
 
   .base:disabled .content,

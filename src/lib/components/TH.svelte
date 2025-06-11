@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { HTMLThAttributes } from 'svelte/elements';
+  import type { Snippet } from 'svelte';
 
   let fixed = true;
 
@@ -12,6 +13,7 @@
      * Condenses the header cell.
      */
     condensed?: boolean;
+    children?: Snippet;
     [key: string]: unknown;
   }
 
@@ -26,7 +28,7 @@
   class:condensed
   {...rest}
 >
-  {@render children()}
+  {@render children?.()}
 </th>
 
 <style>

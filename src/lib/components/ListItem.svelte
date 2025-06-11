@@ -32,7 +32,7 @@
       /**
        * @type {() => void | undefined}
        */
-      onclick?;
+      onclick?: () => void | undefined;
       /**
        * Display a leading component.
        * Pass an icon or a custom component.
@@ -57,8 +57,8 @@
        */
       trailingComponent?: Snippet;
       children: Snippet;
-    [key: string]: unknown;
-  };
+      [key: string]: unknown;
+    };
 
   let as: 'a' | 'button' | 'div' = $derived.by(() => {
     if (href) {
