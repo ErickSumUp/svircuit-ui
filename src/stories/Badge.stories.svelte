@@ -1,6 +1,7 @@
 <script lang="ts" module>
   import Badge from '$lib/components/Badge.svelte';
-  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
+  import { defineMeta } from '@storybook/addon-svelte-csf';
+  import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
     title: 'Components/Badge',
@@ -10,32 +11,42 @@
     },
     argTypes: {
       children: {
-        control: { type: 'text', default: 'Badge' }
+        control: { type: 'text', defaultValue: 'Badge' }
       }
     }
   });
+
+  type Args = ComponentProps<typeof Badge>;
 </script>
 
-<Story name="Base" args={{ variant: 'neutral', children: 'Badge', circle: false }}>
-  {#snippet children({ ...args }: Args<typeof Story>)}
-    <Badge variant={args.variant} circle={args.circle}>{args.children}</Badge>
+<script>
+  import Stack from '$lib/components/Stack.svelte';
+</script>
+
+<Story name="Base" args={{ variant: 'neutral', circle: false }}>
+  {#snippet template({ children, ...args }: Args)}
+    <Badge {...args}>{children || 'Badge'}</Badge>
   {/snippet}
 </Story>
 
 <Story name="Variants">
-  <div style="display: flex; gap: 1rem;">
-    <Badge variant="neutral">Neutral</Badge>
-    <Badge variant="success">Success</Badge>
-    <Badge variant="warning">Warning</Badge>
-    <Badge variant="danger">Danger</Badge>
-    <Badge variant="promo">Promo</Badge>
-  </div>
+  {#snippet template()}
+    <Stack>
+      <Badge variant="neutral">Neutral</Badge>
+      <Badge variant="success">Success</Badge>
+      <Badge variant="warning">Warning</Badge>
+      <Badge variant="danger">Danger</Badge>
+      <Badge variant="promo">Promo</Badge>
+    </Stack>
+  {/snippet}
 </Story>
 
 <Story name="Circular">
-  <div style="display: flex; gap: 1rem;">
-    <Badge variant="neutral" circle>1</Badge>
-    <Badge variant="neutral" circle>42</Badge>
-    <Badge variant="neutral" circle>99</Badge>
-  </div>
+  {#snippet template()}
+    <Stack>
+      <Badge variant="neutral" circle>1</Badge>
+      <Badge variant="neutral" circle>42</Badge>
+      <Badge variant="neutral" circle>99</Badge>
+    </Stack>
+  {/snippet}
 </Story>

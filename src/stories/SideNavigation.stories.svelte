@@ -1,6 +1,6 @@
 <script lang="ts" module>
   import SideNavigation from '$lib/SideNavigation.svelte';
-  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
+  import { defineMeta } from '@storybook/addon-svelte-csf';
 
   const { Story } = defineMeta({
     title: 'Navigation/SideNavigation',
@@ -19,6 +19,7 @@
   import Package from '$lib/icons/Package.svelte';
   import Like from '$lib/icons/Like.svelte';
   import LiveChat from '$lib/icons/LiveChat.svelte';
+  import type { ComponentProps } from 'svelte';
 
   let links: Link[] = [
     {
@@ -50,11 +51,10 @@
       href: '/support'
     }
   ];
-
-  setTemplate(template);
 </script>
 
-{#snippet template({ ...args }: Args<typeof Story>)}
-  <SideNavigation {links} {...args}></SideNavigation>
-{/snippet}
-<Story name="Base" />
+<Story name="Base">
+  {#snippet template({ ...args }: ComponentProps<typeof SideNavigation>)}
+    <SideNavigation {links} {...args}></SideNavigation>
+  {/snippet}
+</Story>

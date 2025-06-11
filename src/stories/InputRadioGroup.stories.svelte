@@ -1,14 +1,22 @@
 <script lang="ts" module>
   import InputRadioGroup from '$lib/components/InputRadioGroup.svelte';
-  import { defineMeta, type Args } from '@storybook/addon-svelte-csf';
+  import { defineMeta } from '@storybook/addon-svelte-csf';
+  import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
     title: 'Forms/InputRadioGroup',
     component: InputRadioGroup,
     parameters: {
       layout: 'centered'
+    },
+    argTypes: {
+      label: { control: { type: 'text', defaultValue: 'Choose your favourite fruit' } }
     }
   });
+
+  type Args = Omit<ComponentProps<typeof InputRadioGroup>, 'children'> & {
+    label: string;
+  };
 </script>
 
 <script lang="ts">
@@ -24,8 +32,8 @@
 </script>
 
 <Story name="Base" args={{}}>
-  {#snippet children({ ...args }: Args<typeof Story>)}
-    <InputRadioGroup label="Choose your favourite fruit" {...args}>
+  {#snippet template({ label, ...args }: Args)}
+    <InputRadioGroup label={label || 'Choose your favourite fruit'} {...args}>
       <InputRadio
         bind:group={value}
         id="input-apple"

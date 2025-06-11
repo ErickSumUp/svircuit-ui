@@ -26,21 +26,33 @@
   }
 
   let { groups = [], footerContent }: Props = $props();
+
+  type SubHeadlineProps = {
+    label: string;
+  };
+  type PromoBadgeProps = {
+    message: string;
+    circle?: boolean;
+  };
+  type LinkLabelProps = {
+    label: string;
+    isActive: boolean;
+  };
 </script>
 
-{#snippet subHeadline({ label })}
+{#snippet subHeadline({ label }: SubHeadlineProps)}
   <h3 class="sub-headline">
     {label}
   </h3>
 {/snippet}
 
-{#snippet promoBadge({ message, circle })}
+{#snippet promoBadge({ message, circle }: PromoBadgeProps)}
   <span class="promo-badge-base promo-badge-promo" class:promo-badge-circle={circle}>
     {message}
   </span>
 {/snippet}
 
-{#snippet linkLabel({ label, isActive })}
+{#snippet linkLabel({ label, isActive }: LinkLabelProps)}
   <p class="base" class:label-bold={isActive}>
     {label}
   </p>
@@ -49,7 +61,7 @@
 <div class="wrapper">
   <nav aria-label="secondary navigation">
     <ul>
-      {#each groups as group}
+      {#each groups as group, i (i)}
         <li>
           {#if group.label}
             <span class="group-headline-wrapper">
@@ -57,7 +69,7 @@
             </span>
           {/if}
           <ul style="list-style: none;">
-            {#each group.links as link}
+            {#each group.links as link, i (i)}
               <li>
                 <a
                   href={link.href}

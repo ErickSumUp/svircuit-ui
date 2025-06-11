@@ -5,4 +5,3 @@
 {#snippet exampleSnippet()}
   Example Snippet
 {/snippet}
-

@@ -1,6 +1,7 @@
 <script lang="ts" module>
   import Table from '$lib/components/Table.svelte';
-  import { defineMeta, setTemplate, type Args } from '@storybook/addon-svelte-csf';
+  import { defineMeta } from '@storybook/addon-svelte-csf';
+  import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
     title: 'Stories/Table',
@@ -19,56 +20,52 @@
   import THead from '$lib/components/THead.svelte';
   import TBody from '$lib/components/TBody.svelte';
 
-  setTemplate(template);
-
   const headers = ['Name', 'Created At', 'Permissions', 'Status'];
   const rows = [
     ['Lorem ipsum', '13 Abr 2024', '-', 'Disabled'],
     ['Dolor sit amet', '1 May 2024', '-', 'Disabled'],
     ['Consectetur adipiscing', '2 May 2024', 'Virtual Terminal', 'Enabled']
   ];
+
+  type Args = Omit<ComponentProps<typeof Table>, 'children'>;
 </script>
 
-{#snippet template({ children, ...args }: Args<typeof Story>)}
-  <Table {...args}>
-    {#if children}
-      {children}
-    {:else}
+<Story name="Base">
+  {#snippet template({ ...args }: Args)}
+    <Table {...args}>
       <THead>
         <TR>
-          {#each headers as header}
+          {#each headers as header, i (i)}
             <TH>{header}</TH>
           {/each}
         </TR>
       </THead>
       <TBody>
-        {#each rows as row}
+        {#each rows as row, i (i)}
           <TR>
-            {#each row as cell}
+            {#each row as cell, j (j)}
               <TD>{cell}</TD>
             {/each}
           </TR>
         {/each}
       </TBody>
-    {/if}
-  </Table>
-{/snippet}
-
-<Story name="Base" />
+    </Table>
+  {/snippet}
+</Story>
 
 <Story name="Condensed">
   <Table>
     <THead>
       <TR>
-        {#each headers as header}
+        {#each headers as header, i (i)}
           <TH condensed>{header}</TH>
         {/each}
       </TR>
     </THead>
     <TBody>
-      {#each rows as row}
+      {#each rows as row, i (i)}
         <TR>
-          {#each row as cell}
+          {#each row as cell, j (j)}
             <TD condensed>{cell}</TD>
           {/each}
         </TR>

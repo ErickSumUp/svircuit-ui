@@ -4,6 +4,7 @@
   interface Props {
     vertical?: boolean;
     children?: Snippet;
+    align?: 'center';
     [key: string]: unknown;
   }
 
@@ -11,7 +12,7 @@
 </script>
 
 <div class="base" class:vertical>
-  {@render children()}
+  {@render children?.()}
 </div>
 
 <style>
