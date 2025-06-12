@@ -26,15 +26,19 @@
   }
 </script>
 
-<Story name="Base" args={{}}>
+<Story
+  name="Base"
+  args={{ id: 'base', label: 'I have read and agree to the terms and conditions' }}
+>
   {#snippet template({ ...args }: Args)}
-    <Checkbox {...args} label="I have read and agree to the terms and conditions" />
+    <Checkbox {...args} />
   {/snippet}
 </Story>
 
 <Story
   name="Validations"
   args={{
+    id: 'validations',
     label: 'I have read and agree to the terms and conditions',
     invalid: true,
     value: 'terms',
@@ -81,7 +85,7 @@
               id={'' + i}
               label={'Checkbox ' + i}
               name={i}
-              value={i}
+              value={checkbox}
               bind:checked={checkboxes[i]}
             />
           </li>
