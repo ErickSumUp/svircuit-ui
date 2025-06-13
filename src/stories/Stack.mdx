@@ -1,0 +1,28 @@
+import * as Stories from './Stack.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Stack
+
+The Stack component is used to have a utility that replaces the need for flex with nice defaults of the design library.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Accessibility
+
+The Stack component is a layout utility that doesn't directly impact accessibility. However, its use can indirectly affect the visual and structural organization of content, which has accessibility implications.
+
+### Best practices
+
+Use Stack to improve the visual organization of content for developers.
+
+Overusing Stack components can lead to excessive whitespace and potentially disorienting layouts
+especially on smaller screens. Use Stacks judiciously and consider responsive design principles.
+
+## Usage Guidelines
+
+The Stack component has gapping in different sizes. Choose the appropriate size based on the desired visual separation between elements.
+
+<Canvas withToolbar={true} of={Stories.AllSizes} />
