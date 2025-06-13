@@ -18,6 +18,7 @@ export { default as Headline } from './components/Headline.svelte';
 export { default as Body } from './components/Body.svelte';
 export { default as ProgressBar } from './components/ProgressBar.svelte';
 export { default as ListItem } from './components/ListItem.svelte';
+export { default as Stack } from './components/Stack.svelte';
 import SecondaryNavigation, {
   type Link,
   type Group,
