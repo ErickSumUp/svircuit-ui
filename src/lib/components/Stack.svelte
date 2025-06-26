@@ -12,17 +12,19 @@
   let { vertical = false, align = 'center', gap = 'm', children }: Props = $props();
 </script>
 
-<div class="base" class:vertical
-      class:start={align === 'start'}
-      class:center={align === 'center'}
-      class:end={align === 'end'}
-      class:baseline={align === 'baseline'}
-     class:xs={gap === 'xs'}
-     class:s={gap === 's'}
-     class:m={gap === 'm'}
-      class:l={gap === 'l'}
-      class:xl={gap === 'xl'}
-      class:xxl={gap === 'xxl'}
+<div
+  class="base"
+  class:vertical
+  class:start={align === 'start'}
+  class:center={align === 'center'}
+  class:end={align === 'end'}
+  class:baseline={align === 'baseline'}
+  class:xs={gap === 'xs'}
+  class:s={gap === 's'}
+  class:m={gap === 'm'}
+  class:l={gap === 'l'}
+  class:xl={gap === 'xl'}
+  class:xxl={gap === 'xxl'}
 >
   {@render children?.()}
 </div>
