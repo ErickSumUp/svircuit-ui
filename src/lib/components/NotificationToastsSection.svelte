@@ -57,7 +57,14 @@
   {/each}
 </section>
 
-{#snippet notification({ id, iconLabel, body, variant, headline, dismissible }: NotificationToastWithID)}
+{#snippet notification({
+  id,
+  iconLabel,
+  body,
+  variant,
+  headline,
+  dismissible
+}: NotificationToastWithID)}
   <div
     class="base"
     class:info={variant === 'info'}

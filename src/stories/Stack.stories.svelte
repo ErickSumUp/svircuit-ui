@@ -5,7 +5,7 @@
 
   const { Story } = defineMeta({
     title: 'Layout/Stack',
-    component: Stack,
+    component: Stack
   });
 </script>
 
@@ -57,7 +57,6 @@
         <div class="grey-box">Five</div>
       </Stack>
     </Stack>
-
   {/snippet}
 </Story>
 
