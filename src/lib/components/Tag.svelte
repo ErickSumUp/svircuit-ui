@@ -38,7 +38,7 @@
     suffix,
     selected = false,
     onclick,
-    onRemove,
+    onclickRemove,
     removeButtonLabel = '',
     children,
     href,
@@ -53,7 +53,7 @@
     element = 'button';
   }
 
-  const isRemovable = $derived(onRemove && removeButtonLabel);
+  const isRemovable = $derived(onclickRemove && removeButtonLabel);
   const isButton = $derived(onclick && !href);
 </script>
 
@@ -85,7 +85,7 @@
 
   {#if isRemovable}
     <button
-      onclick={onRemove}
+      onclick={onclickRemove}
       class="remove-button remove-button-base remove-button-s remove-button-focus-visible remove-button-{selected
         ? 'primary'
         : 'secondary'}"
