@@ -4,17 +4,20 @@
 
   interface Props extends HTMLDialogAttributes {
     dialog: HTMLDialogElement;
+    preventClose?: boolean;
     children: Snippet;
     [key: string]: unknown;
   }
 
-  let { dialog = $bindable(), children, ...rest }: Props = $props();
+  let { dialog = $bindable(), preventClose = false, children, ...rest }: Props = $props();
 </script>
 
 <dialog class="base" bind:this={dialog} {...rest}>
   <div class="content">
     {@render children()}
-    {@render closeButton()}
+    {#if !preventClose}
+      {@render closeButton()}
+    {/if}
   </div>
 </dialog>
 

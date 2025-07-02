@@ -27,8 +27,8 @@
 
 <style>
   .container {
-    container: cui-button-group / inline-size;
     width: 100%;
+    container: cui-button-group / inline-size;
   }
 
   .base {
