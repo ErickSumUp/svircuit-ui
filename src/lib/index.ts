@@ -35,3 +35,5 @@ import NotificationToastsSection, {
 } from '$lib/components/NotificationToastsSection.svelte';
 export { NotificationToastsSection, addToast };
 export { default as Dialog } from './components/Dialog.svelte';
+export { default as InputRadio } from './components/InputRadio.svelte';
+export { default as InputRadioGroup } from './components/InputRadioGroup.svelte';
