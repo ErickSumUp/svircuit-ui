@@ -2,6 +2,8 @@ import type { Preview } from '@storybook/sveltekit';
 
 import '../src/lib/styles.css';
 import { themes } from 'storybook/theming';
+import { withColorScheme } from './decorators/withColorScheme';
+import { modes } from './modes';
 
 const preview: Preview = {
   parameters: {
@@ -17,8 +19,32 @@ const preview: Preview = {
         order: ['Introduction'],
         includeName: true
       }
+    },
+    chromatic: {
+      modes: {
+        light: modes.light,
+        dark: modes.dark
+      }
     }
-  }
+  },
+  globalTypes: {
+    colorScheme: {
+      name: 'Theme',
+      description: 'Color scheme',
+      defaultValue: 'light',
+      toolbar: {
+        title: 'Theme',
+        icon: 'mirror',
+        items: [
+          { value: 'light', title: 'Light', icon: 'sun' },
+          { value: 'dark', title: 'Dark', icon: 'moon' },
+          { value: 'system', title: 'Match system', icon: 'browser' }
+        ],
+        dynamicTitle: true
+      }
+    }
+  },
+  decorators: [withColorScheme]
 };
 
 export default preview;
