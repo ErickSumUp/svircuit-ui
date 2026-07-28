@@ -44,9 +44,11 @@
 <Story name="Circular">
   {#snippet template()}
     <Stack>
-      <Badge variant="neutral" circle>1</Badge>
-      <Badge variant="neutral" circle>42</Badge>
-      <Badge variant="neutral" circle>99</Badge>
+      <Badge circle variant="neutral">1</Badge>
+      <Badge circle variant="success">2</Badge>
+      <Badge circle variant="warning">3</Badge>
+      <Badge circle variant="danger">42</Badge>
+      <Badge circle variant="promo">999</Badge>
     </Stack>
   {/snippet}
 </Story>

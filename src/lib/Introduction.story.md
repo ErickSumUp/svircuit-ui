@@ -5,7 +5,7 @@ icon: 'carbon:bookmark'
 
 # Welcome
 
-This is the documentation for TruthUI
+This is the documentation for SvircuitUI
 
 You are welcome here
 
