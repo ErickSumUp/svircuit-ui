@@ -3,64 +3,46 @@
   import type { Snippet } from 'svelte';
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
-    showCloseButton?: boolean;
-
+    /**
+     * Callback for the close button. Without it, the button isn't shown.
+     */
+    onClose?: (event: MouseEvent) => void;
+    /**
+     * Text label for the close button, for screen readers. Required to show
+     * the button.
+     */
     closeButtonLabel?: string;
-
-    onClickCloseButton?: () => void;
+    /**
+     * The headline of the card.
+     */
     children?: Snippet;
     [key: string]: unknown;
   }
 
-  let {
-    showCloseButton = false,
-    closeButtonLabel = 'Close',
-    onClickCloseButton = () => {},
-    children,
-    ...rest
-  }: Props = $props();
+  let { onClose, closeButtonLabel, children, ...rest }: Props = $props();
+
+  const showsCloseButton = $derived(Boolean(onClose && closeButtonLabel));
 </script>
 
-<div class="base" {...rest}>
+<div class="base" class:no-headline={!children} {...rest}>
   {@render children?.()}
-  {#if showCloseButton}
-    <div class="close">
-      {@render closeButton()}
-    </div>
+  {#if showsCloseButton}
+    <button
+      type="button"
+      class="close focus-visible"
+      title={closeButtonLabel}
+      aria-label={closeButtonLabel}
+      onclick={onClose}
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M17.293 5.293a1 1 0 1 1 1.414 1.414L13.414 12l5.293 5.293a1 1 0 0 1-1.414 1.414L12 13.414l-5.293 5.293a1 1 0 1 1-1.414-1.414L10.586 12 5.293 6.707a1 1 0 1 1 1.414-1.414L12 10.586z"
+        />
+      </svg>
+    </button>
   {/if}
 </div>
-
-{#snippet closeButton()}
-  <button
-    class="button button-focus-visible"
-    class:button-tertiary={true}
-    class:button-m={true}
-    class:button-hide-label-m={true}
-    onclick={onClickCloseButton}
-  >
-    <span class="button-content">
-      {@render closeIcon()}
-      <span class="button-label" class:hide-label={true}>
-        {closeButtonLabel}
-      </span>
-    </span>
-  </button>
-{/snippet}
-
-{#snippet closeIcon()}
-  <svg
-    width={24}
-    height={24}
-    viewBox="0 0 {24} {24}"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M20.71 19.29c.186.19.29.445.29.71a1 1 0 0 1-1 1c-.265 0-.52-.104-.71-.29L12 13.42l-7.29 7.29c-.19.186-.444.29-.71.29a1 1 0 0 1-1-1c0-.265.104-.52.29-.71L10.58 12 3.29 4.71A1.014 1.014 0 0 1 3 4a1 1 0 0 1 1-1c.266 0 .52.104.71.29L12 10.58l7.29-7.29c.19-.186.445-.29.71-.29a1 1 0 0 1 1 1c0 .266-.104.52-.29.71L13.42 12l7.29 7.29z"
-      fill="currentColor"
-    />
-  </svg>
-{/snippet}
 
 <style>
   .base {
@@ -69,98 +51,49 @@
     justify-content: space-between;
     margin-bottom: var(--cui-spacings-giga);
   }
-  .base .close {
-    margin-top: calc(-1 * var(--cui-spacings-byte));
-    margin-right: calc(-1 * var(--cui-spacings-mega));
-    margin-bottom: calc(-1 * var(--cui-spacings-byte));
-    padding-right: calc(-1 * var(--cui-spacings-mega));
+
+  .no-headline {
+    justify-content: flex-end;
   }
 
-  .button {
+  /* The close button is a tertiary icon button, inlined from CloseButton, and
+     pulled into the card's padding so that its icon lines up with the edge. */
+  .close {
     position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: auto;
-    height: max-content;
-    margin: 0;
-    font-size: var(--cui-typography-body-s-font-size);
-    font-weight: var(--cui-font-weight-bold);
-    text-align: center;
-    text-decoration: none;
+    padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo));
+    margin-top: calc(-1 * var(--cui-spacings-byte));
+    margin-right: calc(-1 * var(--cui-spacings-mega));
+    margin-bottom: calc(-1 * var(--cui-spacings-byte));
+    color: var(--cui-fg-accent);
     cursor: pointer;
-    border-style: solid;
-    border-width: var(--cui-border-width-kilo);
+    background-color: transparent;
+    border: var(--cui-border-width-kilo) solid transparent;
+    border-radius: var(--cui-border-radius-kilo);
     transition:
-      opacity var(--cui-transitions-default),
       color var(--cui-transitions-default),
-      background-color var(--cui-transitions-default),
-      border-color var(--cui-transitions-default);
+      background-color var(--cui-transitions-default);
   }
 
-  /* Content */
-  .button-content {
-    display: flex;
-    gap: var(--content-gap);
-    place-content: center;
-    align-items: center;
-    min-width: 24px;
-    min-height: 24px;
-    opacity: 1;
-    transition: opacity var(--cui-transitions-default);
+  .close:hover {
+    color: var(--cui-fg-accent-hovered);
   }
 
-  .button:active .button-content {
+  .close:active {
+    color: var(--cui-fg-accent-pressed);
     transform: translate(0, 1px);
   }
 
-  .button-m {
-    --content-gap: var(--cui-spacings-byte);
-    --leading-icon-size: var(--cui-icon-sizes-mega);
-    --loader-diameter: 6px;
-    --loader-gap: 5px;
-    --loader-transform: scale(133%);
-
-    font-size: var(--cui-typography-body-s-font-size);
-    line-height: var(--cui-typography-body-s-line-height);
-    border-radius: var(--cui-border-radius-kilo);
-
-    padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo))
-      calc(var(--cui-spacings-giga) - var(--cui-border-width-kilo));
+  .focus-visible:focus {
+    outline: 0;
+    box-shadow:
+      0 0 0 2px var(--cui-bg-normal),
+      0 0 0 4px var(--cui-border-focus);
   }
 
-  .button-tertiary {
-    color: var(--cui-fg-accent);
-    background-color: transparent;
-    border-color: transparent;
-  }
-
-  .button-tertiary:hover {
-    color: var(--cui-fg-accent-hovered);
-    background-color: var(--cui-bg-accent-hovered);
-    border-color: transparent;
-  }
-
-  .button-tertiary:active {
-    color: var(--cui-fg-accent-pressed);
-    background-color: transparent;
-    border-color: transparent;
-  }
-
-  .button-hide-label-m {
-    padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo));
-  }
-
-  .hide-label {
-    /* .hide-visually */
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-    border: 0;
+  .focus-visible:focus:not(:focus-visible) {
+    box-shadow: none;
   }
 </style>

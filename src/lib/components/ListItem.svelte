@@ -93,8 +93,7 @@
   aria-current={onclick || href ? selected : undefined}
   {onclick}
   {href}
-  role={as === 'button' ? 'button' : undefined}
-  {disabled}
+  disabled={as === 'button' ? disabled : undefined}
   aria-disabled={disabled}
   {...rest}
 >
@@ -109,13 +108,17 @@
         {@render children()}
       </div>
       {#if details}
-        {@render details?.()}
+        <div class="details">
+          {@render details()}
+        </div>
       {/if}
     </div>
     {#if trailingLabel || trailingComponent || variant === 'navigation'}
       <div class="trailing" class:has-label={trailingLabel}>
         <div class="chevron">
-          {@render trailingLabel?.()}
+          {#if trailingLabel}
+            <div class="trailing-label">{@render trailingLabel()}</div>
+          {/if}
           {@render trailingComponent?.()}
           {#if variant === 'navigation'}
             <svg
@@ -165,6 +168,12 @@
     pointer-events: none;
     background-color: var(--cui-bg-normal-disabled);
     border-color: var(--cui-border-subtle-disabled);
+  }
+
+  .base:disabled :global(*),
+  .base[disabled] :global(*),
+  .base[aria-disabled='true'] :global(*) {
+    color: var(--cui-fg-normal-disabled);
   }
 
   /* Interactive */
@@ -249,28 +258,43 @@
     display: flex;
     flex: auto;
     flex-direction: column;
+    gap: var(--cui-spacings-bit);
     align-items: flex-start;
     min-width: 0;
   }
 
+  /* Circuit wraps this content in Body components; an atomic component
+     applies the same type styles to the containers instead. */
   .label {
     max-width: 100%;
     overflow-x: hidden;
+    font-size: var(--cui-body-m-font-size);
+    line-height: var(--cui-body-m-line-height);
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .trailing-label {
+    font-size: var(--cui-body-m-font-size);
+    font-weight: var(--cui-font-weight-semibold);
+    line-height: var(--cui-body-m-line-height);
   }
 
   .details {
     display: flex;
     align-items: center;
     max-width: 100%;
-    min-height: var(--cui-typography-body-s-line-height);
+    min-height: var(--cui-body-m-line-height);
+    font-size: var(--cui-body-s-font-size);
+    line-height: var(--cui-body-s-line-height);
+    color: var(--cui-fg-subtle);
   }
 
   .trailing {
     display: flex;
     flex: none;
     flex-direction: column;
+    gap: var(--cui-spacings-bit);
     align-items: flex-end;
     align-self: stretch;
     justify-content: center;
@@ -291,12 +315,12 @@
   }
 
   /* When the chevron is preceded by other content */
-  .navigation .chevron svg:not(:first-child) {
+  .navigation .chevron :global(svg:not(:first-child)) {
     margin-left: var(--cui-spacings-bit);
   }
 
   .navigation .trailing .details {
-    height: var(--cui-typography-body-s-line-height);
+    height: var(--cui-body-m-line-height);
     margin-right: calc(var(--cui-spacings-mega) + var(--cui-spacings-bit));
   }
 </style>

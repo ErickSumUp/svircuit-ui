@@ -62,8 +62,7 @@
 
 <Story name="Removable">
   {#snippet template()}
-    <Tag selected onclickRemove={() => alert('Tag removed')} removeButtonLabel="remove"
-      >Transactions</Tag
+    <Tag selected onRemove={() => alert('Tag removed')} removeButtonLabel="remove">Transactions</Tag
     >
   {/snippet}
 </Story>

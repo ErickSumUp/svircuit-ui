@@ -7,6 +7,7 @@ export { default as Toggletip } from './components/Toggletip.svelte';
 export { default as Calendar } from './components/Calendar.svelte';
 export { default as DateInput } from './stories/DateInput.svelte';
 export { default as Button } from './components/Button.svelte';
+export { default as CloseButton } from './components/CloseButton.svelte';
 export { default as ButtonGroup } from './stories/ButtonGroup.svelte';
 export { default as Card } from './components/Card.svelte';
 export { default as CardHeader } from './components/CardHeader.svelte';
@@ -30,6 +31,8 @@ export { default as List } from './components/List.svelte';
 export { default as Numeral } from './components/Numeral.svelte';
 export { default as ProgressBar } from './components/ProgressBar.svelte';
 export { default as ListItem } from './components/ListItem.svelte';
+export { default as ListItemGroup } from './stories/ListItemGroup.svelte';
+export { default as Spinner } from './components/Spinner.svelte';
 export { default as Stack } from './components/Stack.svelte';
 export { default as Tag } from './components/Tag.svelte';
 import SecondaryNavigation, {

@@ -1,0 +1,44 @@
+import * as Stories from './Spinner.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Spinner
+
+The Spinner indicates that something is loading when there is no way to tell how long it will take.
+Use a [ProgressBar](Components/ProgressBar) instead whenever the progress is measurable.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Component variations
+
+### Sizes
+
+The three sizes match the icon sizes, so a spinner can replace an icon while its content loads.
+
+<Canvas of={Stories.Sizes} />
+
+### Colors
+
+The spinner is drawn in the current text color, so it inherits the color of whatever it sits in.
+
+<Canvas of={Stories.Colors} />
+
+---
+
+## Usage
+
+- **Give the spinner a purpose.** On its own it is decorative; announce what is loading with
+  adjacent text or a live region so that the wait is explained.
+- **Avoid spinners for very short waits.** Below roughly a second they flash and draw more attention
+  than the content they replace.
+- **Use the Button's loading state** rather than a spinner next to a button, so that the button also
+  becomes unclickable while the action runs.
+
+## Accessibility
+
+- **The spinner is not announced.** It renders an empty element, so pair it with a visible or
+  visually hidden label, or set `aria-busy` on the region that is loading.
+- **Respect reduced motion** by hiding or freezing the spinner where a static loading message is
+  enough ([2.3.3: Animation from Interactions](https://www.w3.org/WAI/WCAG21/Understanding/animation-from-interactions.html)).

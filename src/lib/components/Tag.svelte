@@ -22,6 +22,10 @@
      * Renders a close button inside the tag and calls the provided function
      * when the button is clicked.
      */
+    onRemove?: (event: MouseEvent) => void;
+    /**
+     * @deprecated Use `onRemove` instead.
+     */
     onclickRemove?: (event: MouseEvent) => void;
     /**
      * Text label for the remove icon for screen readers.
@@ -38,6 +42,7 @@
     suffix,
     selected = false,
     onclick,
+    onRemove,
     onclickRemove,
     removeButtonLabel = '',
     children,
@@ -45,23 +50,20 @@
     ...rest
   }: Props = $props();
 
-  let element: 'div' | 'a' | 'button' = $state('div');
+  const remove = $derived(onRemove ?? onclickRemove);
 
-  if (href) {
-    element = 'a';
-  } else if (onclick) {
-    element = 'button';
-  }
+  const element = $derived(href ? 'a' : onclick ? 'button' : 'div');
 
-  const isRemovable = $derived(onclickRemove && removeButtonLabel);
-  const isButton = $derived(onclick && !href);
+  const isRemovable = $derived(Boolean(remove && removeButtonLabel));
+  const isButton = $derived(Boolean(onclick && !href));
+  const isInteractive = $derived(Boolean(onclick || href));
 </script>
 
 <div class="base {selected ? 'selected' : ''} {isRemovable ? 'removable' : ''}">
   <svelte:element
     this={element}
     class="content"
-    class:focus-visible={!onclick}
+    class:focus-visible={isInteractive}
     type={isButton ? 'button' : undefined}
     aria-pressed={isButton && selected ? 'true' : undefined}
     onclick={onclick ? onclick : undefined}
@@ -85,10 +87,9 @@
 
   {#if isRemovable}
     <button
-      onclick={onclickRemove}
-      class="remove-button remove-button-base remove-button-s remove-button-focus-visible remove-button-{selected
-        ? 'primary'
-        : 'secondary'}"
+      type="button"
+      onclick={remove}
+      class="remove-button remove-button-base remove-button-s remove-button-focus-visible"
       class:remove-button-primary={selected}
       class:remove-button-secondary={!selected}
     >
@@ -149,7 +150,7 @@
 
   .selected .content {
     color: var(--cui-fg-on-strong);
-    background-color: var(--cui-bg-accent-strong);
+    background-color: var(--cui-bg-strong);
     border-color: var(--cui-border-accent);
   }
 
@@ -179,14 +180,14 @@
   .selected a.content:hover,
   .selected button.content:hover {
     color: var(--cui-fg-on-strong-hovered);
-    background-color: var(--cui-bg-accent-strong-hovered);
+    background-color: var(--cui-bg-strong-hovered);
     border-color: var(--cui-border-accent-hovered);
   }
 
   .selected a.content:active,
   .selected button.content:active {
     color: var(--cui-fg-on-strong-pressed);
-    background-color: var(--cui-bg-accent-strong-pressed);
+    background-color: var(--cui-bg-strong-pressed);
     border-color: var(--cui-border-accent-pressed);
   }
 
@@ -258,7 +259,7 @@
   /* Sizes */
   .remove-button-s {
     --content-gap: var(--cui-spacings-bit);
-    --leading-icon-size: var(--cui-icon-sizes-kilo);
+    --leading-icon-size: var(--cui-icon-sizes-s);
 
     font-size: var(--cui-body-s-font-size);
     line-height: var(--cui-body-s-line-height);
@@ -268,25 +269,25 @@
   /* Variants */
   .remove-button-primary {
     color: var(--cui-fg-on-strong);
-    background-color: var(--cui-bg-accent-strong);
+    background-color: var(--cui-bg-strong);
     border-color: transparent;
   }
 
   .remove-button-primary:hover {
     color: var(--cui-fg-on-strong-hovered);
-    background-color: var(--cui-bg-accent-strong-hovered);
+    background-color: var(--cui-bg-strong-hovered);
     border-color: transparent;
   }
 
   .remove-button-primary:active {
     color: var(--cui-fg-on-strong-pressed);
-    background-color: var(--cui-bg-accent-strong-pressed);
+    background-color: var(--cui-bg-strong-pressed);
     border-color: transparent;
   }
 
   .remove-button-primary:disabled {
     color: var(--cui-fg-normal-disabled);
-    background-color: var(--cui-bg-highlight-disabled);
+    background-color: var(--cui-bg-accent-strong-disabled);
     border-color: transparent;
   }
 
@@ -351,11 +352,7 @@
     clip: rect(0 0 0 0);
   }
 
-  .remove-button-s {
-    padding: calc(var(--cui-spacings-bit) - var(--cui-border-width-kilo))
-      calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo));
-  }
-
+  /* Icon-only, so the padding is square. */
   .remove-button-s {
     padding: calc(var(--cui-spacings-bit) - var(--cui-border-width-kilo));
   }

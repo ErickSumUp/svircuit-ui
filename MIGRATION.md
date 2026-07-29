@@ -10,6 +10,37 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-07-29 — Phase 3 core components ✅
+
+Every item in Phase 3 is done. 34 unit tests pass, and all the touched stories were checked in the
+browser for console errors and computed values.
+
+- **Button** now renders as an `a` when given `href` (or any element via `as`), sizes its icons again
+  (the rules were commented out), uses `--cui-border-radius-kilo` at size `m`, switched the primary
+  variant to the `--cui-bg-strong` family, gives tertiary flush padding, and applies the pressed
+  nudge to `[aria-expanded]`/`[aria-pressed]`. Verified: size `s` 8px radius / 3px 11px padding, size
+  `m` 12px / 11px 23px.
+- **CloseButton** is a new atomic component, essentially circuit's IconButton with a fixed icon. It is
+  exported and has stories, docs and a test.
+- **Two deviations from the plan.** CardHeader and Tag were supposed to _use_ CloseButton; that would
+  break the atomic rule, so their close buttons stay inlined and were synced instead. ListItemGroup
+  renders ListItems, so it went to `src/lib/stories/` as a story component.
+- **ListItemGroup** replaces circuit's `useState` focus tracking with `:has(:focus-visible)`. Its
+  child styles need `:global()`, the same as List in Phase 1 — note the pattern
+  `.item > :global(*)` for reaching into a child component's root.
+- **CardHeader's API changed**: `showCloseButton` + `onClickCloseButton` → `onClose` +
+  `closeButtonLabel`, both required to show the button. **Tag's `onclickRemove` is now `onRemove`**,
+  with the old name kept as a deprecated alias. The Card and Tag stories were updated.
+- **ProgressBar** ids come from `$props.id()`, so two bars on a page no longer collide.
+- **Spinner** was rewritten for Svelte 5 and moved to `src/lib/components/`. It inherits
+  `currentColor`, so a parent can recolor it. Sizes are `s`/`m`/`l` (24/32/48px verified) with the
+  old `byte`/`kilo`/`giga` mapped and deprecated.
+- Deleted `src/lib/CircleButton.svelte` and the old `src/lib/Spinner.svelte`. Nothing referenced
+  either. `src/lib/dev/` is still there and still unreferenced.
+
+**Next up: Phase 0.2 (field foundation), which still needs the decision, or Phase 4 (Table,
+SideNavigation, NotificationToast), which is independent.** Phase 2 remains blocked on 0.2.
+
 ### 2026-07-29 — Phase 1 typography ✅
 
 All four missing typography components ported, plus both deprecations. 30 unit tests pass, and every
@@ -30,7 +61,7 @@ size, weight and color was verified against circuit's computed values in the bro
   so it needs sign-off before anything switches over.
 
 **Next up: Phase 0.2 (field foundation, still needs the decision) or Phase 3, which is independent
-of it.** Phase 2 is blocked on 0.2.
+of it.** Phase 2 is blocked on 0.2. _(Phase 3 was done next.)_
 
 ### 2026-07-29 — Phase 0.1 design tokens ✅
 
@@ -75,16 +106,16 @@ is deferred, Phase 1 (typography) is independent and can go first.
 
 ## Status overview
 
-Circuit has 74 components. We share 24 with it, 38 do not exist here yet, and 4 are our own
+Circuit has 74 components. We share 27 with it, 35 do not exist here yet, and 4 are our own
 inventions (`Stack`, `Spacer`, `TestText`, plus the story components).
 
-| Status         | Components                                                                                                             |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| In sync        | Body, Headline, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter                            |
-| Minor drift    | Button, Tag, ListItem, ProgressBar, Checkbox, InputRadio, ButtonGroup, Popover, Toggletip, DateInput                   |
-| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, CardHeader, NotificationToast, SideNavigation, Pagination, Spinner |
-| Dead / removed | CircleButton, SubHeadline, the duplicate `src/lib/SideNavigation.svelte`                                               |
-| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                         |
+| Status         | Components                                                                                                                                                                       |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| In sync        | Body, Headline, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner |
+| Minor drift    | Checkbox, InputRadio, ButtonGroup, Popover, Toggletip, DateInput                                                                                                                 |
+| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast, SideNavigation, Pagination                                                                                |
+| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, the duplicate `src/lib/SideNavigation.svelte`                                                                                           |
+| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                   |
 
 Colors are fully in sync — every token in circuit's `light.ts` exists in our `styles.css`.
 
@@ -232,73 +263,78 @@ Do these after 0.2, in this order — `SearchInput` is a wrapper over `Input` up
 
 ---
 
-## Phase 3 — Sync the core components
+## Phase 3 — Sync the core components ✅ done 2026-07-29
 
-### 3.1 Button + CloseButton (M)
+### 3.1 Button + CloseButton (M) ✅ done 2026-07-29
 
-- [ ] Add `as`/`href` so a Button can render as an anchor; ours is always a `<button>`.
-- [ ] The `.leading-icon`/`.trailing-icon` sizing rules are **commented out**, so icons render at
+- [x] Add `as`/`href` so a Button can render as an anchor; ours is always a `<button>`.
+- [x] The `.leading-icon`/`.trailing-icon` sizing rules are **commented out**, so icons render at
       intrinsic size instead of the enforced 16/24px.
-- [ ] Port **CloseButton** as its own component. Button, CardHeader, Tag and NotificationToast each
+- [x] Port **CloseButton** as its own component. Button, CardHeader, Tag and NotificationToast each
       inline their own copy today.
-- [ ] Reconcile our extra `compress` and `hideLabel` props — `hideLabel` is how old circuit did
-      icon-only buttons; current circuit uses a separate `IconButton`.
-- [ ] Size `m` should use `--cui-border-radius-kilo` (we use `byte`), disabled primary should use
+- [x] Reconcile our extra `compress` and `hideLabel` props — `hideLabel` is how old circuit did
+      icon-only buttons; current circuit uses a separate `IconButton`. **Kept both**: `hideLabel` is
+      our IconButton, and Pagination depends on `compress`.
+- [x] Size `m` should use `--cui-border-radius-kilo` (we use `byte`), disabled primary should use
       `--cui-bg-accent-strong-disabled` (we use `--cui-bg-highlight-disabled`), and tertiary needs
       `padding-inline: 0`.
-- [ ] Apply the pressed-content nudge to `[aria-expanded="true"]` and `[aria-pressed="true"]`, not just
+- [x] Apply the pressed-content nudge to `[aria-expanded="true"]` and `[aria-pressed="true"]`, not just
       `:active`, so toggle buttons don't look flat.
-- [ ] Delete `src/lib/CircleButton.svelte` — Svelte 4 syntax, unexported, superseded by CloseButton.
+- [x] Delete `src/lib/CircleButton.svelte` — Svelte 4 syntax, unexported, superseded by CloseButton.
 
-### 3.2 CardHeader (M)
+### 3.2 CardHeader (M) ✅ done 2026-07-29
 
-- [ ] Move to circuit's API: `onClose` + `closeButtonLabel` instead of `showCloseButton` +
+- [x] Move to circuit's API: `onClose` + `closeButtonLabel` instead of `showCloseButton` +
       `onClickCloseButton`.
-- [ ] Replace the ~90 lines of inlined close-button CSS with the CloseButton from 3.1.
-- [ ] Add the `no-headline` class that right-aligns the button when there is no headline.
-- [ ] Fix `padding-right: calc(-1 * var(--cui-spacings-mega))` — negative padding is invalid and does
+- [x] Replace the ~90 lines of inlined close-button CSS with the CloseButton from 3.1. **Done
+      differently:** the CSS is now ~25 lines matching CloseButton, but stays inlined — importing the
+      component would break the atomic rule.
+- [x] Add the `no-headline` class that right-aligns the button when there is no headline.
+- [x] Fix `padding-right: calc(-1 * var(--cui-spacings-mega))` — negative padding is invalid and does
       nothing.
 
-### 3.3 ListItem + ListItemGroup (M)
+### 3.3 ListItem + ListItemGroup (M) ✅ done 2026-07-29
 
-- [ ] Apply typography that circuit applies automatically: label `body m`, details `body s subtle`,
+- [x] Apply typography that circuit applies automatically: label `body m`, details `body s subtle`,
       trailing label `body m semibold`. Ours passes snippets through unstyled.
-- [ ] Wrap the `details` snippet in its `.details` container (the trailing path already does, so the two
+- [x] Wrap the `details` snippet in its `.details` container (the trailing path already does, so the two
       are inconsistent) and add `gap: var(--cui-spacings-bit)` to `.main` and `.trailing`.
-- [ ] Add `.base:disabled *` so child text dims with the item.
-- [ ] Drop the redundant `role="button"` and stop passing `disabled` when the element is a `div`/`a`.
-- [ ] Port **ListItemGroup**: `variant` plain/inset, `items`, `label`, `hideLabel`, `details`, and focus
-      tracking for the focused/selected row.
+- [x] Add `.base:disabled *` so child text dims with the item.
+- [x] Drop the redundant `role="button"` and stop passing `disabled` when the element is a `div`/`a`.
+- [x] Port **ListItemGroup**: `variant` plain/inset, `items`, `label`, `hideLabel`, `details`, and focus
+      tracking for the focused/selected row. It renders ListItems, so it is a story component in
+      `src/lib/stories/`; the focus tracking is `:has(:focus-visible)` instead of circuit's JS state.
 
-### 3.4 Tag (S/M)
+### 3.4 Tag (S/M) ✅ done 2026-07-29
 
-- [ ] Rename `onclickRemove` to `onRemove` — not a Svelte idiom difference, a real divergence.
-- [ ] The focus-visible class is **inverted**: `class:focus-visible={!onclick}`. Interactive tags lose
+- [x] Rename `onclickRemove` to `onRemove` — not a Svelte idiom difference, a real divergence.
+- [x] The focus-visible class is **inverted**: `class:focus-visible={!onclick}`. Interactive tags lose
       their focus ring; static ones get a rule they can't use.
-- [ ] Replace the ~150 lines of inlined remove-button CSS with CloseButton
-      (`variant={selected ? 'primary' : 'secondary'}`, `size="s"`).
-- [ ] Make the element choice reactive — it is computed once with `$state` at init, so it won't update
+- [x] Replace the ~150 lines of inlined remove-button CSS with CloseButton
+      (`variant={selected ? 'primary' : 'secondary'}`, `size="s"`). **Done differently:** kept inlined
+      for the same reason as CardHeader; the tokens and the icon size were synced instead.
+- [x] Make the element choice reactive — it is computed once with `$state` at init, so it won't update
       if `href` or `onclick` change.
-- [ ] Selected background: `--cui-bg-strong`, not `--cui-bg-accent-strong`.
+- [x] Selected background: `--cui-bg-strong`, not `--cui-bg-accent-strong`.
 
-### 3.5 ProgressBar (S)
+### 3.5 ProgressBar (S) ✅ done 2026-07-29
 
-- [ ] The loop selector `[data-loop]` matches even when the value is `"false"`, so the loop animation is
+- [x] The loop selector `[data-loop]` matches even when the value is `"false"`, so the loop animation is
       always on. Use `[data-loop="true"]`.
-- [ ] Label typography should be `--cui-body-s-*`; use `gap: var(--cui-spacings-byte)` instead of a
+- [x] Label typography should be `--cui-body-s-*`; use `gap: var(--cui-spacings-byte)` instead of a
       margin on the label.
-- [ ] Fill color `--cui-bg-strong`.
-- [ ] Derive `id` from `$props.id()` — it defaults to the literal `'progress-bar'`, so two bars on a page
+- [x] Fill color `--cui-bg-strong`.
+- [x] Derive `id` from `$props.id()` — it defaults to the literal `'progress-bar'`, so two bars on a page
       share an id. Use `aria-labelledby` alone, drop the duplicate `aria-label`, make `label` required,
       and spread rest props onto the wrapper.
 
-### 3.6 Spinner (S)
+### 3.6 Spinner (S) ✅ done 2026-07-29
 
-- [ ] Rewrite in Svelte 5 (`export let` today, no rest props) and move it to `src/lib/components/`.
-- [ ] Sizes are on the removed API (`byte`/`kilo`/`giga`) — move to `s`/`m`/`l`. Pixel values already
+- [x] Rewrite in Svelte 5 (`export let` today, no rest props) and move it to `src/lib/components/`.
+- [x] Sizes are on the removed API (`byte`/`kilo`/`giga`) — move to `s`/`m`/`l`. Pixel values already
       match, so this is API surface only.
-- [ ] Use `currentColor` instead of the hardcoded `--cui-fg-accent`, so parents can recolor it.
-- [ ] Export it from `index.ts`.
+- [x] Use `currentColor` instead of the hardcoded `--cui-fg-accent`, so parents can recolor it.
+- [x] Export it from `index.ts`.
 
 ---
 

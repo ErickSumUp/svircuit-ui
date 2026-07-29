@@ -1,0 +1,50 @@
+import * as Stories from './CloseButton.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# CloseButton
+
+The CloseButton dismisses the surface it belongs to, such as a dialog, a notification or a popover.
+It is an icon-only button with a fixed close icon, so the only thing left to decide is how it should
+look in its surroundings.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Component variations
+
+### Variants
+
+Use the default `tertiary` variant on light surfaces. The `primary` and `secondary` variants are for
+the rare cases where the button needs to stand out from a busy background, such as an image.
+
+<Canvas of={Stories.Variants} />
+
+### Sizes
+
+The `m` size matches a default form field or button next to it. Use the `s` size in dense UI, for
+example inside a table row.
+
+<Canvas of={Stories.Sizes} />
+
+### Destructive
+
+Signal that dismissing is irreversible, for instance when it discards the user's input.
+
+<Canvas of={Stories.Destructive} />
+
+### Disabled
+
+<Canvas of={Stories.Disabled} />
+
+---
+
+## Accessibility
+
+- **The label is required.** The button has no visible text, so the `label` prop provides its
+  accessible name and its tooltip. Describe the action rather than the icon, for example
+  "Close dialog" instead of "X" ([4.1.2: Name, Role, Value](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html)).
+- **Keep the label specific** when several surfaces can be dismissed on the same page, so that
+  screen reader users can tell them apart when navigating by button.
+- **Don't make it the only way out.** A dialog should also close with the escape key.
