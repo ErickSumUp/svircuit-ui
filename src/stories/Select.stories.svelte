@@ -5,7 +5,7 @@
   import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
-    title: 'Components/Select',
+    title: 'Forms/Select',
     component: Select,
     argTypes: {
       label: {

@@ -1,0 +1,56 @@
+import * as Stories from './Numeral.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Numeral
+
+The Numeral component presents numbers — amounts, counts, percentages — using tabular figures, so
+that digits line up in columns and a changing value doesn't shift the text around it.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Component variations
+
+### Sizes
+
+Numeral comes in four sizes: `s`, `m`, `l` and `xl`. The weight is part of the size — numbers get
+heavier as they grow, from regular at `s` to bold at `l` and `xl`.
+
+<Canvas of={Stories.Sizes} />
+
+### Colors
+
+Numeral accepts the same foreground color token names as [Body](Typography/Body). The two
+`on-strong` colors are for numbers placed on a strong background.
+
+<Canvas of={Stories.Colors} />
+
+### Decorations
+
+Use the `strikethrough` decoration for a superseded amount, such as a price before a discount. Use
+the `as` prop to render it as the `del` element where that is semantically correct.
+
+<Canvas of={Stories.Decorations} />
+
+---
+
+## Accessibility
+
+### Format numbers for the user's locale
+
+Numeral styles a number but does not format it. Use
+[`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)
+so that decimal separators, grouping and currency symbols match the user's locale.
+
+### Don't rely on color alone
+
+A red number does not communicate "negative" to everyone. Pair the color with a sign, a label or an
+icon ([1.4.1: Use of Color](https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html)).
+
+### Announce values that change
+
+If a number updates in place — a running total, a countdown — the change needs a
+[live region](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions) to
+be announced ([4.1.3: Status Messages](https://www.w3.org/WAI/WCAG21/Understanding/status-messages.html)).

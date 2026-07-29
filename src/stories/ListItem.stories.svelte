@@ -33,7 +33,7 @@
 
 <Story name="Base">
   {#snippet template({ ...args }: Args)}
-    <ListItem {...args} onClick={() => console.log('clicked')}>
+    <ListItem {...args} onclick={() => console.log('clicked')}>
       {#snippet leading()}
         <SumUpCard />
       {/snippet}

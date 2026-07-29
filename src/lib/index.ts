@@ -1,7 +1,13 @@
 // Reexport your entry components here
 export { default as Anchor } from './components/Anchor.svelte';
 export { default as Badge } from './components/Badge.svelte';
+export { default as Status } from './components/Status.svelte';
+export { default as Popover } from './components/Popover.svelte';
+export { default as Toggletip } from './components/Toggletip.svelte';
+export { default as Calendar } from './components/Calendar.svelte';
+export { default as DateInput } from './stories/DateInput.svelte';
 export { default as Button } from './components/Button.svelte';
+export { default as CloseButton } from './components/CloseButton.svelte';
 export { default as ButtonGroup } from './stories/ButtonGroup.svelte';
 export { default as Card } from './components/Card.svelte';
 export { default as CardHeader } from './components/CardHeader.svelte';
@@ -19,8 +25,14 @@ export { default as TR } from './components/TR.svelte';
 export { default as Select } from './components/Select.svelte';
 export { default as Headline } from './components/Headline.svelte';
 export { default as Body } from './components/Body.svelte';
+export { default as Compact } from './components/Compact.svelte';
+export { default as Display } from './components/Display.svelte';
+export { default as List } from './components/List.svelte';
+export { default as Numeral } from './components/Numeral.svelte';
 export { default as ProgressBar } from './components/ProgressBar.svelte';
 export { default as ListItem } from './components/ListItem.svelte';
+export { default as ListItemGroup } from './stories/ListItemGroup.svelte';
+export { default as Spinner } from './components/Spinner.svelte';
 export { default as Stack } from './components/Stack.svelte';
 export { default as Tag } from './components/Tag.svelte';
 import SecondaryNavigation, {

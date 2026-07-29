@@ -1,160 +1,187 @@
 <script lang="ts">
+  import type { HTMLAttributes } from 'svelte/elements';
+
+  import Button from '$lib/components/Button.svelte';
+  import Select from '$lib/components/Select.svelte';
   import ChevronLeft from '$lib/icons/ChevronLeft.svelte';
   import ChevronRight from '$lib/icons/ChevronRight.svelte';
-  import Button from '$lib/components/Button.svelte';
 
-  function generatePages(totalPages: number, currentPage: number): string[] {
-    if (totalPages <= 1) {
-      return ['1'];
-    }
-
-    const pages = [];
-    const distanceToOne = currentPage - 1;
-    const distanceToLast = totalPages - currentPage;
-    const isCloseToOne = distanceToOne <= 3;
-    const isCloseToLast = distanceToLast <= 3;
-    const isCloseToBoth = isCloseToOne && isCloseToLast;
-
-    if (totalPages <= 7) {
-      for (let i = 1; i <= totalPages; i += 1) {
-        pages.push(i.toString());
-      }
-      return pages;
-    }
-
-    if (totalPages > 5 && !isCloseToBoth) {
-      if (isCloseToOne) {
-        pages.push('1', '2', '3', '4', '5', '...', totalPages.toString());
-      } else if (isCloseToLast) {
-        pages.push(
-          '1',
-          '...',
-          (totalPages - 4).toString(),
-          String(totalPages - 3),
-          String(totalPages - 2),
-          String(totalPages - 1),
-          totalPages.toString()
-        );
-      } else {
-        pages.push(
-          '1',
-          '...',
-          String(currentPage - 1),
-          String(currentPage),
-          String(currentPage + 1),
-          '...',
-          totalPages.toString()
-        );
-      }
-    }
-
-    return pages;
-  }
-
-  interface Props {
+  interface Props extends Omit<HTMLAttributes<HTMLElement>, 'onchange'> {
     /**
-     * The currently active page
+     * The currently active page. Default: 1.
      */
     currentPage?: number;
     /**
-     * The total number of pages
+     * The total number of pages. Nothing is rendered below two.
      */
-    totalPages?: number;
+    totalPages: number;
     /**
-     * Label to describe the type of navigation, e.g. "Pagination"
+     * Called with the page the user navigated to.
      */
-    ariaLabel?: string;
+    onChange: (page: number) => void;
     /**
-     * Label for the previous button
+     * Describes the type of navigation, for example `Pagination`.
+     */
+    label: string;
+    /**
+     * Label for the "previous page" button, for example `Previous page`.
      */
     previousLabel?: string;
     /**
-     * Label for the previous button
+     * Label for the "next page" button, for example `Next page`.
      */
     nextLabel?: string;
     /**
-     * Label for the page buttons
+     * Returns the label of a page button, called with the page number, for
+     * example `Go to page 9`.
      */
     pageLabel?: (page: number) => string;
+    /**
+     * Returns the label shown after the select, called with the total number of
+     * pages, for example `of 10`.
+     */
+    totalLabel?: (totalPages: number) => string;
     [key: string]: unknown;
   }
 
   let {
-    currentPage = $bindable(1),
-    totalPages = $bindable(1),
-    ariaLabel = 'Pagination',
+    currentPage = 1,
+    totalPages,
+    onChange,
+    label,
     previousLabel = 'Previous page',
     nextLabel = 'Next page',
-    pageLabel = (page) => 'Go to page ' + page,
+    pageLabel = (page: number) => `Go to page ${page}`,
+    totalLabel,
     ...rest
   }: Props = $props();
 
-  let pages = $derived.by(() => generatePages(totalPages, currentPage));
+  const uid = $props.id();
+  const selectId = `pagination-${uid}`;
+  const descriptionId = `pagination-total-${uid}`;
+
+  const pages = $derived(Array.from({ length: totalPages }, (_, index) => index + 1));
+
+  /** Beyond five pages the list of buttons is swapped for a select. */
+  const showList = $derived(totalPages <= 5);
 </script>
 
-<nav class="nav" aria-label={ariaLabel} {...rest}>
-  {#snippet chevronLeft()}
-    <ChevronLeft />
-  {/snippet}
+{#snippet chevronLeft()}
+  <ChevronLeft />
+{/snippet}
 
-  <Button
-    disabled={currentPage === 1}
-    variant="secondary"
-    size="s"
-    hideLabel={true}
-    aria-label={previousLabel}
-    leading_icon={chevronLeft}
-    onclick={() => (currentPage -= 1)}>{previousLabel}</Button
-  >
+{#snippet chevronRight()}
+  <ChevronRight />
+{/snippet}
 
-  <ol class="pagination-list">
-    {#each pages as page}
-      <li>
-        {#if page === '...'}
-          <Button size="s" variant="tertiary" role="link" compress={true}>...</Button>
-        {:else if page === currentPage.toString()}
-          <Button size="s" variant="primary" role="link" compress={true}>{page}</Button>
-        {:else}
-          <Button
-            size="s"
-            variant="tertiary"
-            role="link"
-            compress={true}
-            aria-label={pageLabel(Number(page))}
-            onclick={() => (currentPage = Number(page))}>{page}</Button
-          >
-        {/if}
-      </li>
-    {/each}
-  </ol>
+{#if totalPages >= 2}
+  <nav class="base" aria-label={label} {...rest}>
+    <div class="prev">
+      <Button
+        size="s"
+        variant="secondary"
+        hideLabel
+        disabled={currentPage <= 1}
+        leading_icon={chevronLeft}
+        onclick={() => onChange(currentPage - 1)}
+      >
+        {previousLabel}
+      </Button>
+    </div>
 
-  {#snippet chevronRight()}
-    <ChevronRight />
-  {/snippet}
-  <Button
-    disabled={currentPage >= totalPages}
-    variant="secondary"
-    size="s"
-    hideLabel={true}
-    aria-label={nextLabel}
-    trailing_icon={chevronRight}
-    onclick={() => (currentPage += 1)}>{nextLabel}</Button
-  >
-</nav>
+    {#if showList}
+      <ol class="list">
+        {#each pages as page (page)}
+          {@const isCurrent = page === currentPage}
+          <li>
+            <Button
+              class="page"
+              size="s"
+              variant={isCurrent ? 'primary' : 'tertiary'}
+              title={pageLabel(page)}
+              aria-label={pageLabel(page)}
+              aria-current={isCurrent ? 'page' : undefined}
+              onclick={() => onChange(page)}
+            >
+              {page}
+            </Button>
+          </li>
+        {/each}
+      </ol>
+    {:else}
+      <Select
+        id={selectId}
+        {label}
+        hideLabel
+        size="s"
+        value={currentPage}
+        ariaDescribedBy={totalLabel ? descriptionId : undefined}
+        onchange={(event) => onChange(Number.parseInt(event.currentTarget.value, 10))}
+      >
+        {#each pages as page (page)}
+          <option value={page}>{page}</option>
+        {/each}
+      </Select>
+      {#if totalLabel}
+        <span id={descriptionId} class="total">{totalLabel(totalPages)}</span>
+      {/if}
+    {/if}
+
+    <div class="next">
+      <Button
+        size="s"
+        variant="secondary"
+        hideLabel
+        disabled={currentPage >= totalPages}
+        leading_icon={chevronRight}
+        onclick={() => onChange(currentPage + 1)}
+      >
+        {nextLabel}
+      </Button>
+    </div>
+  </nav>
+{/if}
 
 <style>
-  nav {
+  .base {
     display: flex;
-    gap: var(--cui-spacings-kilo);
     align-items: center;
     justify-content: center;
     width: 100%;
     padding: var(--cui-spacings-kilo);
   }
-  .pagination-list {
-    list-style: none;
+
+  /* The chevrons keep their size when the select or the list grows. */
+  .prev {
+    flex-shrink: 0;
+    margin-right: var(--cui-spacings-kilo);
+  }
+
+  .next {
+    flex-shrink: 0;
+    margin-left: var(--cui-spacings-kilo);
+  }
+
+  .list {
     display: flex;
     justify-content: center;
     padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  /* The page buttons come from the Button component, so they carry its scope
+     rather than this one. */
+  .list :global(.page) {
+    padding: var(--cui-spacings-bit);
+    margin-right: var(--cui-spacings-bit);
+  }
+
+  .list li:last-child :global(.page) {
+    margin-right: 0;
+  }
+
+  .total {
+    margin-left: var(--cui-spacings-kilo);
   }
 </style>

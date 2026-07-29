@@ -1,5 +1,10 @@
 <script lang="ts">
-  interface Props {
+  import type { HTMLAttributes } from 'svelte/elements';
+
+  interface Props extends HTMLAttributes<HTMLDivElement> {
+    /**
+     * The id of the label. Generated automatically when omitted.
+     */
     id?: string;
     /**
      * Choose from size variants.
@@ -35,6 +40,7 @@
      * if the purpose of the field can be inferred from other context.
      */
     hideLabel?: boolean;
+    [key: string]: unknown;
   }
 
   function getWidth(value = 0, max = 1): string {
@@ -43,19 +49,23 @@
   }
 
   let {
-    id = 'progress-bar',
+    id,
     size = 'm',
     max = 0,
     value = 0,
     loop = false,
     duration = 3000,
     paused = false,
-    label = 'Loading...',
-    hideLabel = false
+    label,
+    hideLabel = false,
+    ...rest
   }: Props = $props();
+
+  const uid = $props.id();
+  const labelId = $derived(id ?? `progress-bar-${uid}`);
 </script>
 
-<div class="wrapper">
+<div class="wrapper" {...rest}>
   {#if max || value}
     <span
       role="progressbar"
@@ -63,28 +73,27 @@
       aria-valuenow={value}
       aria-valuemin={0}
       aria-valuemax={max}
-      aria-labelledby={id}
-      aria-label={label}
+      aria-labelledby={labelId}
       style="--pagination-width: {getWidth(value, max)};"
     ></span>
   {:else}
     <span
       role="progressbar"
-      aria-labelledby={id}
+      aria-labelledby={labelId}
       class="base {size}"
       data-loop={loop}
-      aria-label={label}
       style="--pagination-animation-duration: {duration}ms; --pagination-animation-play-state: {paused
         ? 'paused'
         : 'running'};"
     ></span>
   {/if}
-  <span {id} class="label" class:hide-visually={hideLabel}>{label}</span>
+  <span id={labelId} class="label" class:hide-visually={hideLabel}>{label}</span>
 </div>
 
 <style>
   .wrapper {
     display: flex;
+    gap: var(--cui-spacings-byte);
     align-items: center;
     width: 100%;
   }
@@ -106,7 +115,7 @@
     width: 1px;
     height: 100%;
     content: '';
-    background-color: var(--cui-bg-accent-strong);
+    background-color: var(--cui-bg-strong);
     transition: width 0.05s ease-out;
   }
 
@@ -151,7 +160,7 @@
     animation-fill-mode: forwards;
   }
 
-  .base:not([aria-valuenow])[data-loop]::after {
+  .base:not([aria-valuenow])[data-loop='true']::after {
     animation-name: loop;
     animation-iteration-count: infinite;
   }
@@ -171,9 +180,8 @@
 
   .label {
     flex-shrink: 0;
-    margin-left: var(--cui-spacings-byte);
-    font-size: var(--cui-typography-body-m-font-size);
-    line-height: var(--cui-typography-body-m-line-height);
+    font-size: var(--cui-body-s-font-size);
+    line-height: var(--cui-body-s-line-height);
   }
 
   .hide-visually {

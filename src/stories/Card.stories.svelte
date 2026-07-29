@@ -4,7 +4,7 @@
   import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
-    title: 'Typography/Card',
+    title: 'Components/Card',
     component: Card,
     argTypes: {
       children: {
@@ -66,14 +66,14 @@
   {#snippet template()}
     <Stack>
       <Card>
-        <CardHeader title="Title">
-          <Headline size="four" as="h2">Card Heading</Headline>
+        <CardHeader>
+          <Headline size="s" as="h2">Card Heading</Headline>
         </CardHeader>
         <Body>This is some text showing in my card</Body>
       </Card>
       <Card>
-        <CardHeader title="Title" showCloseButton>
-          <Headline size="four" as="h2">Card Heading w/Button</Headline>
+        <CardHeader closeButtonLabel="Close" onClose={() => alert('Card closed')}>
+          <Headline size="s" as="h2">Card Heading w/Button</Headline>
         </CardHeader>
         <Body>This is some text showing in my card</Body>
       </Card>

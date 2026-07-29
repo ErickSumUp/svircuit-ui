@@ -1,0 +1,103 @@
+import * as Stories from './Calendar.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Calendar
+
+The Calendar component displays a monthly date grid. This is a low-level component for advanced use
+cases, meant as the foundation for a date input.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Usage
+
+Dates are ISO 8601 date strings (`YYYY-MM-DD`), which are time zone agnostic. The same format is
+used for the `selection`, `minDate` and `maxDate` props, for the keys of `modifiers`, and for the
+date passed to `onselect`.
+
+### Selection
+
+Use the `selection` prop to set the currently selected date and the `onselect` prop to update the
+selection when the user picks a different date. The Calendar navigates on its own, but it never
+changes the selection: that is up to you.
+
+Pass an object with a `start` and an `end` to select a range instead. While only the `start` is set,
+hovering over a later date previews the range. Use the `numberOfMonths` prop to display several
+months at a time, which makes picking a range easier.
+
+<Canvas of={Stories.Range} />
+
+Use the `minDate` and `maxDate` props to restrict the available date range, or use
+[modifiers](#modifiers) to disable individual days. Dates outside the range can't be selected, and
+the navigation buttons stop at the months that contain them.
+
+### Localization
+
+Dates are formatted with the
+[`Intl.DateTimeFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat).
+Use the `locale` prop to set the locale explicitly; it defaults to the user's locale.
+
+Use the `firstDayOfWeek` prop to set the first day of the week for the locale, either `1` (Monday,
+the default) or `7` (Sunday). This information can be obtained using the
+[`Intl.Locale.prototype.getWeekInfo()` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale/getWeekInfo#firstday)
+in supported browsers.
+
+Only the `iso8601` calendar and the left-to-right writing direction are currently supported.
+
+<Canvas of={Stories.Localized} />
+
+### Modifiers
+
+Modifiers enable advanced use cases that require disabling or adding a description to specific
+dates. Pass an object that maps dates to their modifiers. A date with a description is marked with a
+dot, and the description is announced by screen readers.
+
+<Canvas of={Stories.Modifiers} />
+
+Use the `onmonthschange` prop to lazy-load modifiers for the visible months. It is called with the
+visible months as `YYYY-MM` strings on the initial render and whenever the user navigates.
+Preloading the preceding and following months is recommended.
+
+```svelte
+<script lang="ts">
+  import { Calendar } from 'svircuit-ui';
+
+  let modifiers = $state({
+    '2020-03-15': { disabled: true },
+    '2020-03-20': { description: 'Booked' }
+  });
+
+  async function handleMonthsChange(months: string[]) {
+    // Lazy-load the modifiers from the backend and ideally, preload the
+    // surrounding months
+    const response = await fetchModifiers(months);
+    modifiers = { ...modifiers, ...response };
+  }
+</script>
+
+<Calendar {modifiers} onmonthschange={handleMonthsChange} />
+```
+
+## How it works
+
+The date arithmetic is built on the native `Date` API rather than on Temporal or a date library.
+Dates are passed around as ISO 8601 strings, which sort lexicographically, so comparing two dates is
+a plain string comparison. All arithmetic runs in UTC so that it is never shifted by daylight saving
+time, while today's date is read from the user's local calendar.
+
+## Accessibility
+
+The grid follows the roving tabindex pattern: one day is tabbable at a time, and the arrow keys move
+focus between days. `PageUp` and `PageDown` move by a month, with `Shift` by a year, and `Home` and
+`End` jump to the first and last day of the week. Navigating past the visible months scrolls the
+Calendar along.
+
+Pass `prevMonthButtonLabel` and `nextMonthButtonLabel` to translate the accessible names of the
+navigation buttons.
+
+### Resources
+
+- [Date Picker Dialog Example](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/)
+  by the W3C Web Accessibility Initiative

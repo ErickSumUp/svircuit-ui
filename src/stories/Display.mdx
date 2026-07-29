@@ -1,0 +1,53 @@
+import * as Stories from './Display.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Display
+
+The Display component renders a large, marketing-style title. Use it for hero sections and landing
+pages. For titles that structure an application's content, use the
+[Headline](Typography/Headline) component instead.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Component variations
+
+### Sizes
+
+Display comes in four sizes: `s`, `m`, `l` and `xl`. They scale down below 960px so a title still
+fits on a phone — the `xl` size drops from 6rem to 4rem, for example.
+
+The legacy `one`, `two`, `three` and `four` sizes are deprecated. They map onto `l`, `m`, `m` and
+`s` respectively.
+
+<Canvas of={Stories.Sizes} inline={false} />
+
+### Weights
+
+The `xl` size is set in the SumUp Black display typeface by default; the other sizes are bold in the
+default typeface. Pass `weight` to override that.
+
+<Canvas of={Stories.Weights} inline={false} />
+
+---
+
+## Accessibility
+
+### Choose the heading level with `as`
+
+Display renders whichever heading element you pass to `as`, independently of its size. Pick the
+level that reflects the document structure, not the one that looks right — a page should have a
+single `<h1>`, and levels should nest without skipping. Learn more in
+[Page Structure: Headings](https://www.w3.org/WAI/tutorials/page-structure/headings/).
+
+### Large text is not always a heading
+
+If a piece of text is visually large but doesn't introduce a section, don't give it a heading
+element. Screen reader users navigate by heading, and a title that leads nowhere is disorienting.
+
+### Related WCAG success criteria
+
+- 1.3.1: [Info and Relationships](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html)
+- 2.4.6: [Headings and Labels](https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels.html)

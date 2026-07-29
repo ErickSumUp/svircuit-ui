@@ -131,3 +131,34 @@
     </Stack>
   {/snippet}
 </Story>
+
+<Story name="Links">
+  {#snippet template()}
+    <Stack>
+      <Button href="https://sumup.com" target="_blank" rel="noreferrer">Visit SumUp</Button>
+      <Button variant="primary" href="https://sumup.com" target="_blank" rel="noreferrer">
+        {#snippet trailing_icon()}
+          <ArrowSlanted size="16" />
+        {/snippet}
+        Open in a new tab
+      </Button>
+    </Stack>
+  {/snippet}
+</Story>
+
+<Story name="Loading">
+  {#snippet template()}
+    <Stack>
+      <Button isLoading loadingLabel="Loading">Save</Button>
+      <Button variant="primary" isLoading loadingLabel="Loading">Save</Button>
+    </Stack>
+  {/snippet}
+</Story>
+
+<Story name="Stretched">
+  {#snippet template()}
+    <div style="width: 320px;">
+      <Button variant="primary" stretch>Continue</Button>
+    </div>
+  {/snippet}
+</Story>

@@ -44,9 +44,18 @@
      */
     leading_icon?: Snippet;
     /**
-     * Snippet for the trailing icon.
+     * Snippet for the trailing icon. A navigation icon hints that the button
+     * performs an unexpected action, such as opening a dropdown.
      */
     trailing_icon?: Snippet;
+    /**
+     * Render the button using any element. Passing an `href` renders an `a`.
+     */
+    as?: string;
+    /**
+     * The URL to navigate to. Renders the button as a link.
+     */
+    href?: string;
     children?: Snippet;
     [key: string]: unknown;
   }
@@ -64,12 +73,19 @@
     onclick,
     leading_icon = undefined,
     trailing_icon = undefined,
+    as,
+    href,
     children,
     ...rest
   }: Props = $props();
+
+  const element = $derived(as ?? (href ? 'a' : 'button'));
+
+  const isButton = $derived(element === 'button');
 </script>
 
-<button
+<svelte:element
+  this={element}
   class="base focus-visible"
   class:primary={variant === 'primary'}
   class:secondary={variant === 'secondary'}
@@ -81,8 +97,9 @@
   class:destructive
   class:stretch
   class:compress
-  disabled={disabled || isLoading}
-  aria-disabled={disabled}
+  {href}
+  disabled={isButton ? disabled || isLoading : undefined}
+  aria-disabled={disabled || (!isButton && isLoading) || undefined}
   aria-busy={isLoading}
   aria-live={isLoading ? 'polite' : null}
   {onclick}
@@ -97,13 +114,17 @@
     </span>
   {/if}
   <span class="content">
-    {@render leading_icon?.()}
+    {#if leading_icon}
+      <span class="leading-icon">{@render leading_icon()}</span>
+    {/if}
     <span class="label" class:hide-label={hideLabel}>
       {@render children?.()}
     </span>
-    {@render trailing_icon?.()}
+    {#if trailing_icon}
+      <span class="trailing-icon">{@render trailing_icon()}</span>
+    {/if}
   </span>
-</button>
+</svelte:element>
 
 <style>
   .base {
@@ -112,9 +133,9 @@
     align-items: center;
     justify-content: center;
     width: auto;
-    height: max-content;
+    height: auto;
     margin: 0;
-    font-size: var(--cui-typography-body-s-font-size);
+    font-size: var(--cui-body-m-font-size);
     font-weight: var(--cui-font-weight-semibold);
     text-align: center;
     text-decoration: none;
@@ -126,6 +147,10 @@
       color var(--cui-transitions-default),
       background-color var(--cui-transitions-default),
       border-color var(--cui-transitions-default);
+  }
+
+  .base[hidden] {
+    display: none;
   }
 
   .base[aria-busy='true'] {
@@ -245,7 +270,9 @@
     transition: opacity var(--cui-transitions-default);
   }
 
-  .base:active .content {
+  .base:active .content,
+  .base[aria-expanded='true'] .content,
+  .base[aria-pressed='true'] .content {
     transform: translate(0, 1px);
   }
 
@@ -256,26 +283,26 @@
   .label {
     overflow: hidden;
     text-overflow: ellipsis;
-    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  /*
-  .leading-icon {
+  /* The icons are sized by the button, whatever the consumer passes in. */
+  .leading-icon,
+  .leading-icon :global(svg) {
     width: var(--leading-icon-size);
     height: var(--leading-icon-size);
   }
 
-  .trailing-icon {
-    width: var(--cui-icon-sizes-kilo);
-    height: var(--cui-icon-sizes-kilo);
+  .trailing-icon,
+  .trailing-icon :global(svg) {
+    width: var(--cui-icon-sizes-s);
+    height: var(--cui-icon-sizes-s);
   }
-   */
 
   /* Sizes */
   .s {
     --content-gap: var(--cui-spacings-bit);
-    --leading-icon-size: var(--cui-icon-sizes-kilo);
+    --leading-icon-size: var(--cui-icon-sizes-s);
     --loader-diameter: 4px;
     --loader-gap: 3px;
     --loader-transform: scale(150%);
@@ -290,35 +317,43 @@
 
   .m {
     --content-gap: var(--cui-spacings-byte);
-    --leading-icon-size: var(--cui-icon-sizes-mega);
+    --leading-icon-size: var(--cui-icon-sizes-m);
     --loader-diameter: 6px;
     --loader-gap: 5px;
     --loader-transform: scale(133%);
 
     font-size: var(--cui-body-m-font-size);
     line-height: var(--cui-body-m-line-height);
-    border-radius: var(--cui-border-radius-byte);
+    border-radius: var(--cui-border-radius-kilo);
 
     padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo))
       calc(var(--cui-spacings-giga) - var(--cui-border-width-kilo));
   }
 
+  .tertiary.s,
+  .tertiary.m {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
   /* Variants */
   .primary {
     color: var(--cui-fg-on-strong);
-    background-color: var(--cui-bg-accent-strong);
+    background-color: var(--cui-bg-strong);
     border-color: transparent;
   }
 
   .primary:hover {
     color: var(--cui-fg-on-strong-hovered);
-    background-color: var(--cui-bg-accent-strong-hovered);
+    background-color: var(--cui-bg-strong-hovered);
     border-color: transparent;
   }
 
-  .primary:active {
+  .primary:active,
+  .primary[aria-expanded='true'],
+  .primary[aria-pressed='true'] {
     color: var(--cui-fg-on-strong-pressed);
-    background-color: var(--cui-bg-accent-strong-pressed);
+    background-color: var(--cui-bg-strong-pressed);
     border-color: transparent;
   }
 
@@ -330,7 +365,9 @@
     background-color: var(--cui-bg-danger-strong-hovered);
   }
 
-  .primary.destructive:active {
+  .primary.destructive:active,
+  .primary.destructive[aria-expanded='true'],
+  .primary.destructive[aria-pressed='true'] {
     background-color: var(--cui-bg-danger-strong-pressed);
   }
 
@@ -338,7 +375,7 @@
   .primary[disabled],
   .primary[aria-disabled='true'] {
     color: var(--cui-fg-normal-disabled);
-    background-color: var(--cui-bg-highlight-disabled);
+    background-color: var(--cui-bg-accent-strong-disabled);
     border-color: transparent;
   }
 
@@ -362,7 +399,9 @@
     border-color: var(--cui-border-normal-hovered);
   }
 
-  .secondary:active {
+  .secondary:active,
+  .secondary[aria-expanded='true'],
+  .secondary[aria-pressed='true'] {
     color: var(--cui-fg-normal-pressed);
     background-color: var(--cui-bg-subtle-pressed);
     border-color: var(--cui-border-normal-pressed);
@@ -378,7 +417,9 @@
     border-color: var(--cui-border-danger-hovered);
   }
 
-  .secondary.destructive:active {
+  .secondary.destructive:active,
+  .secondary.destructive[aria-expanded='true'],
+  .secondary.destructive[aria-pressed='true'] {
     color: var(--cui-fg-danger-pressed);
     background-color: var(--cui-bg-danger-pressed);
     border-color: var(--cui-border-danger-pressed);
@@ -484,20 +525,8 @@
     transform: translate(0);
   }
 
-  /* Disabled */
-  .base:disabled,
-  .base[disabled],
-  .base[aria-disabled='true'] {
-    cursor: not-allowed;
-  }
-
-  .base:disabled .content,
-  .base[disabled] .content,
-  .base[aria-disabled='true'] .content {
-    transform: translate(0);
-  }
-
-  .stretch {
+  /* The duplicated class raises the specificity over the container query. */
+  .stretch.stretch {
     width: 100%;
   }
 
@@ -528,11 +557,13 @@
     border: 0;
   }
 
-  .hide-label-s {
+  /* An icon-only button is square, which has to win over the tertiary
+     variant's flush padding. */
+  .s.hide-label-s {
     padding: calc(var(--cui-spacings-bit) - var(--cui-border-width-kilo));
   }
 
-  .hide-label-m {
+  .m.hide-label-m {
     padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo));
   }
 

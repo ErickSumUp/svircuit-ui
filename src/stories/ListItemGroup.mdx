@@ -1,0 +1,54 @@
+import * as Stories from './ListItemGroup.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# ListItemGroup
+
+The ListItemGroup renders a named list of [ListItem](Components/ListItem) components, drawing the
+border and the dividers between them so that the items read as one surface.
+
+Because it composes ListItems rather than standing alone, the group takes an `items` array of
+ListItem props instead of children. Each item needs a unique `key`.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Component variations
+
+### Variants
+
+The default `inset` variant draws a border around the whole group. Use `plain` where the group spans
+the full width of the screen, for example on mobile, so that only the dividers remain.
+
+<Canvas of={Stories.Variants} />
+
+### Interactive
+
+Pass `onclick` or `href` to an item to make it interactive. The dividers touching a hovered, focused
+or selected item are hidden, so its background reads as a single block.
+
+<Canvas of={Stories.Interactive} />
+
+### Selected
+
+<Canvas of={Stories.Selected} />
+
+### Hidden label
+
+Hide the label visually where the purpose of the group is clear from its surroundings. The label is
+still announced by screen readers.
+
+<Canvas of={Stories.HiddenLabel} />
+
+---
+
+## Accessibility
+
+- **Always label the group**, either with the `label` prop or with `aria-label` / `aria-labelledby`.
+  The label names the list for screen reader users, who often navigate a page by its landmarks and
+  headings ([1.3.1: Info and Relationships](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html)).
+- **The items are a list.** They render as `li` elements inside a `ul`, so assistive technology
+  announces how many items the group holds and where the user is within it.
+- **Don't rely on the selected background alone.** A selected item also gets an accent border and
+  `aria-current`, so its state is conveyed to screen readers as well.

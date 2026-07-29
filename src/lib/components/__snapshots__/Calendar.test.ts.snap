@@ -1,0 +1,797 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case variants 1`] = `
+<div>
+  <div
+    class="svelte-1iu5iby"
+    role="group"
+  >
+    <div
+      class="header svelte-1iu5iby"
+    >
+      <div
+        class="prev svelte-1iu5iby"
+      >
+        <button
+          class="nav-button focus-visible svelte-1iu5iby"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.47 1.47a.75.75 0 1 1 1.06 1.06L3.81 7.25h10.94v1.5H3.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06z"
+              fill="currentColor"
+            />
+          </svg>
+           
+          <span
+            class="hide-visually svelte-1iu5iby"
+          >
+            Previous month
+          </span>
+        </button>
+      </div>
+       
+      <div
+        class="next svelte-1iu5iby"
+      >
+        <button
+          class="nav-button focus-visible svelte-1iu5iby"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.47 1.47a.75.75 0 0 1 1.06 0l6 6a.75.75 0 0 1 0 1.06l-6 6a.75.75 0 1 1-1.06-1.06l4.72-4.72H1.25v-1.5h10.94L7.47 2.53a.75.75 0 0 1 0-1.06"
+              fill="currentColor"
+            />
+          </svg>
+           
+          <span
+            class="hide-visually svelte-1iu5iby"
+          >
+            Next month
+          </span>
+        </button>
+      </div>
+    </div>
+     
+    <div
+      class="months svelte-1iu5iby"
+    >
+      <div
+        aria-labelledby="calendar-c1-2020-03"
+        class="month svelte-1iu5iby"
+        role="group"
+        style="--calendar-days-in-week: 7;"
+      >
+        <h2
+          aria-atomic="true"
+          aria-live="polite"
+          class="headline svelte-1iu5iby"
+          id="calendar-c1-2020-03"
+        >
+          March 2020
+        </h2>
+         
+        <table
+          class="grid svelte-1iu5iby"
+          role="grid"
+        >
+          <thead>
+            <tr>
+              <th
+                class="svelte-1iu5iby"
+                scope="col"
+              >
+                <span
+                  class="hide-visually svelte-1iu5iby"
+                >
+                  Monday
+                </span>
+                 
+                <span
+                  aria-hidden="true"
+                  class="weekday svelte-1iu5iby"
+                >
+                  M
+                </span>
+              </th>
+              <th
+                class="svelte-1iu5iby"
+                scope="col"
+              >
+                <span
+                  class="hide-visually svelte-1iu5iby"
+                >
+                  Tuesday
+                </span>
+                 
+                <span
+                  aria-hidden="true"
+                  class="weekday svelte-1iu5iby"
+                >
+                  T
+                </span>
+              </th>
+              <th
+                class="svelte-1iu5iby"
+                scope="col"
+              >
+                <span
+                  class="hide-visually svelte-1iu5iby"
+                >
+                  Wednesday
+                </span>
+                 
+                <span
+                  aria-hidden="true"
+                  class="weekday svelte-1iu5iby"
+                >
+                  W
+                </span>
+              </th>
+              <th
+                class="svelte-1iu5iby"
+                scope="col"
+              >
+                <span
+                  class="hide-visually svelte-1iu5iby"
+                >
+                  Thursday
+                </span>
+                 
+                <span
+                  aria-hidden="true"
+                  class="weekday svelte-1iu5iby"
+                >
+                  T
+                </span>
+              </th>
+              <th
+                class="svelte-1iu5iby"
+                scope="col"
+              >
+                <span
+                  class="hide-visually svelte-1iu5iby"
+                >
+                  Friday
+                </span>
+                 
+                <span
+                  aria-hidden="true"
+                  class="weekday svelte-1iu5iby"
+                >
+                  F
+                </span>
+              </th>
+              <th
+                class="svelte-1iu5iby"
+                scope="col"
+              >
+                <span
+                  class="hide-visually svelte-1iu5iby"
+                >
+                  Saturday
+                </span>
+                 
+                <span
+                  aria-hidden="true"
+                  class="weekday svelte-1iu5iby"
+                >
+                  S
+                </span>
+              </th>
+              <th
+                class="svelte-1iu5iby"
+                scope="col"
+              >
+                <span
+                  class="hide-visually svelte-1iu5iby"
+                >
+                  Sunday
+                </span>
+                 
+                <span
+                  aria-hidden="true"
+                  class="weekday svelte-1iu5iby"
+                >
+                  S
+                </span>
+              </th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              />
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              />
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              />
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              />
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              />
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              />
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby first-day"
+                  data-date="2020-03-01"
+                  tabindex="-1"
+                  type="button"
+                >
+                  1
+                </button>
+                 
+                <!---->
+              </td>
+              
+              
+            </tr>
+            <tr>
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-02"
+                  tabindex="-1"
+                  type="button"
+                >
+                  2
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-03"
+                  tabindex="-1"
+                  type="button"
+                >
+                  3
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-04"
+                  tabindex="-1"
+                  type="button"
+                >
+                  4
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-05"
+                  tabindex="-1"
+                  type="button"
+                >
+                  5
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-06"
+                  tabindex="-1"
+                  type="button"
+                >
+                  6
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-07"
+                  tabindex="-1"
+                  type="button"
+                >
+                  7
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-08"
+                  tabindex="-1"
+                  type="button"
+                >
+                  8
+                </button>
+                 
+                <!---->
+              </td>
+              
+              
+            </tr>
+            <tr>
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-09"
+                  tabindex="-1"
+                  type="button"
+                >
+                  9
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-10"
+                  tabindex="-1"
+                  type="button"
+                >
+                  10
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-11"
+                  tabindex="-1"
+                  type="button"
+                >
+                  11
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-12"
+                  tabindex="-1"
+                  type="button"
+                >
+                  12
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-13"
+                  tabindex="-1"
+                  type="button"
+                >
+                  13
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-14"
+                  tabindex="-1"
+                  type="button"
+                >
+                  14
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  aria-pressed="true"
+                  class="day focus-visible svelte-1iu5iby selected"
+                  data-date="2020-03-15"
+                  tabindex="0"
+                  type="button"
+                >
+                  15
+                </button>
+                 
+                <!---->
+              </td>
+              
+              
+            </tr>
+            <tr>
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-16"
+                  tabindex="-1"
+                  type="button"
+                >
+                  16
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-17"
+                  tabindex="-1"
+                  type="button"
+                >
+                  17
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-18"
+                  tabindex="-1"
+                  type="button"
+                >
+                  18
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-19"
+                  tabindex="-1"
+                  type="button"
+                >
+                  19
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-20"
+                  tabindex="-1"
+                  type="button"
+                >
+                  20
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-21"
+                  tabindex="-1"
+                  type="button"
+                >
+                  21
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-22"
+                  tabindex="-1"
+                  type="button"
+                >
+                  22
+                </button>
+                 
+                <!---->
+              </td>
+              
+              
+            </tr>
+            <tr>
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-23"
+                  tabindex="-1"
+                  type="button"
+                >
+                  23
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-24"
+                  tabindex="-1"
+                  type="button"
+                >
+                  24
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-25"
+                  tabindex="-1"
+                  type="button"
+                >
+                  25
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-26"
+                  tabindex="-1"
+                  type="button"
+                >
+                  26
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-27"
+                  tabindex="-1"
+                  type="button"
+                >
+                  27
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-28"
+                  tabindex="-1"
+                  type="button"
+                >
+                  28
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-29"
+                  tabindex="-1"
+                  type="button"
+                >
+                  29
+                </button>
+                 
+                <!---->
+              </td>
+              
+              
+            </tr>
+            <tr>
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby"
+                  data-date="2020-03-30"
+                  tabindex="-1"
+                  type="button"
+                >
+                  30
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              >
+                <button
+                  class="day focus-visible svelte-1iu5iby last-day"
+                  data-date="2020-03-31"
+                  tabindex="-1"
+                  type="button"
+                >
+                  31
+                </button>
+                 
+                <!---->
+              </td>
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              />
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              />
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              />
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              />
+              
+              <!---->
+              <td
+                class="svelte-1iu5iby"
+              />
+              
+              
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+`;

@@ -1,0 +1,87 @@
+import * as Stories from './Toggletip.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Toggletip
+
+Toggletips display additional information that is contextual, helpful, and nonessential to the user
+upon pressing a UI trigger element, and can contain interactive elements.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Usage
+
+Toggletips hide information by default and require user interaction to be shown. They should be used
+as a last resort when space truly is limited and the information cannot be shown inline.
+
+The trigger must be a `button` element. Spread the attributes the `trigger` snippet receives onto it
+so that the browser can wire the two elements together.
+
+The optional headline is always accompanied by body text, so use it only whenever necessary. Keep it
+short and under 120 characters.
+
+When defining the body text, make sure it does not contain essential task instructions, since a
+toggletip is not present at all times. Use it to provide additional help or to define a term.
+
+## Variations
+
+### Placement
+
+By default, the toggletip is positioned above the trigger and center-aligned. Use the `placement`
+prop to specify a different initial position and alignment, and the `offset` prop to change the
+distance in pixels between the two.
+
+The toggletip automatically flips to the opposite side to stay within the viewport when there isn't
+enough space available, and the arrow follows it.
+
+<Canvas of={Stories.Placements} />
+
+### Without a headline
+
+Without a headline, the body text acts as the toggletip's accessible name.
+
+<Canvas of={Stories.WithoutHeadline} />
+
+### With an action
+
+Use the `action` prop to point the user to additional information or to enable a contextual action.
+Use one strong, clear imperative verb and follow with a one-word object if needed to clarify. Pass
+an `href` to render it as a link, or an `onclick` handler to render it as a button. The toggletip
+closes once the action has been pressed.
+
+<Canvas of={Stories.WithAction} />
+
+## How it works
+
+The toggletip is built entirely on browser primitives, with no positioning library:
+
+- The [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) handles the top
+  layer, dismissing on outside clicks and on escape, returning focus to the trigger, and the
+  accessible relationship between the two elements.
+- [CSS anchor positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning)
+  tethers the toggletip to its trigger, using `position-area` for the placement and
+  `position-try-fallbacks` for the flipping behaviour.
+- A media query turns the toggletip into a sheet at the bottom of the viewport on narrow screens.
+
+The side the toggletip ends up on is measured once it opens, so that the arrow keeps pointing at the
+trigger even after the browser has flipped it to a fallback placement.
+
+## Related components
+
+- [Popover](Components/Popover/Docs): Popovers display content in an overlay, anchored to the element
+  that toggles them.
+
+## Accessibility
+
+### Best practices
+
+- Only use `button` elements as the trigger element
+- Do not put essential information in toggletips
+- Provide a means to dismiss the toggletip with both keyboard and pointer
+
+### Resources
+
+- [Inclusive Components: Tooltips & Toggletips](https://inclusive-components.design/tooltips-toggletips/)
+  by Heydon Pickering

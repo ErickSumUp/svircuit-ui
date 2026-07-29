@@ -4,7 +4,7 @@
   import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
-    title: 'Stories/Table',
+    title: 'Components/Table',
     component: Table,
     argTypes: {},
     parameters: {

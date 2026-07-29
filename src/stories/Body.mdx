@@ -16,15 +16,38 @@ The Body component is used to present content to our users.
 
 ### Sizes
 
-The Body component comes in three sizes. Use the default m size in most cases.
+The Body component comes in three sizes: `s`, `m` and `l`. Use the default `m` size in most cases.
+The legacy `one` and `two` sizes are deprecated, and map onto `m` and `s` respectively.
 
 <Canvas of={Stories.Sizes} />
+
+### Weights
+
+Choose from three font weights. Use the `as` prop to render the text as the `strong` element where
+that is semantically correct; it defaults to the semibold weight.
+
+<Canvas of={Stories.Weights} />
+
+### Decorations
+
+Use the `strikethrough` decoration for text that is no longer relevant, such as a previous price.
+Underline is reserved for hyperlinks. Use the `as` prop to render the text as the `del` element where
+that is semantically correct.
+
+<Canvas of={Stories.Decorations} />
 
 ### Colors
 
 The Body component accepts any foreground color token name. Use the default normal color in most cases.
 
 <Canvas of={Stories.Colors} />
+
+### Deprecated variants
+
+The `variant` prop is deprecated. Use `color` instead of the `alert`, `confirm` and `subtle`
+variants, `weight` instead of the `highlight` variant, and custom CSS instead of the `quote` variant.
+
+<Canvas of={Stories.Variants} />
 
 ### Semantic usage
 

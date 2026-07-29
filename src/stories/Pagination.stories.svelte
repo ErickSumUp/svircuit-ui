@@ -1,26 +1,44 @@
 <script lang="ts" module>
   import Pagination from '$lib/stories/Pagination.svelte';
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
-    title: 'Stories/Pagination',
+    title: 'Navigation/Pagination',
     component: Pagination,
-    argTypes: {},
     parameters: {
       layout: 'centered'
     }
   });
+
+  const baseArgs = {
+    label: 'Pagination',
+    totalPages: 5,
+    pageLabel: (page: number) => `Go to page ${page}`,
+    totalLabel: (total: number) => `of ${total}`,
+    previousLabel: 'Previous page',
+    nextLabel: 'Next page'
+  };
 </script>
 
-<Story name="Base" args={{ currentPage: 1, totalPages: 5, label: 'Pages' }}>
-  {#snippet template({ ...args }: ComponentProps<typeof Pagination>)}
-    <Pagination {...args} />
+<script lang="ts">
+  let page = $state(1);
+  let manyPage = $state(1);
+</script>
+
+<Story name="Base" args={baseArgs}>
+  {#snippet template(args)}
+    <Pagination {...args} currentPage={page} onChange={(next) => (page = next)} />
   {/snippet}
 </Story>
 
-<Story name="ManyPages">
-  {#snippet template()}
-    <Pagination totalPages={10} currentPage={5} />
+<Story name="ManyPages" args={{ ...baseArgs, totalPages: 10 }}>
+  {#snippet template(args)}
+    <Pagination {...args} currentPage={manyPage} onChange={(next) => (manyPage = next)} />
+  {/snippet}
+</Story>
+
+<Story name="SinglePage" args={{ ...baseArgs, totalPages: 1 }}>
+  {#snippet template(args)}
+    <Pagination {...args} currentPage={1} onChange={() => {}} />
   {/snippet}
 </Story>

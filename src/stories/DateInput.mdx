@@ -1,0 +1,88 @@
+import * as Stories from './DateInput.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# DateInput
+
+The DateInput component allows users to type or select a specific date. The value is always a string
+in the ISO 8601 format (`YYYY-MM-DD`).
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Usage
+
+Use the component whenever asking for a specific individual date such as a birth date, expiry date,
+or appointment date.
+
+The date is edited through three segments — year, month and day — in the order of the current locale,
+with a button that opens a [Calendar](Components/Calendar) for picking a date visually. Bind the
+`value` prop to read the date, or pass an `onchange` callback:
+
+```svelte
+<script lang="ts">
+  import { DateInput } from 'svircuit-ui';
+
+  let value = $state('2017-08-28');
+</script>
+
+<DateInput label="Date of birth" bind:value />
+```
+
+A hidden native date input carries the value, so the field submits with a form and can be autofilled.
+Pass a `name` for form submission, and `autocomplete="bday"` where a birth date is expected.
+
+For selecting a range of dates, use two fields, one for the start and one for the end date.
+
+## Validations
+
+Use the `validationHint` prop to communicate the expected response to users. The DateInput ensures
+that the entered date exists, but does not validate whether it falls within the minimum or maximum
+date range.
+
+Use `invalid` when the user needs to change the value to proceed, `hasWarning` when they are
+recommended to change it but can proceed without doing so, and `showValid` — sparingly — to reassure
+them that the value is valid.
+
+<Canvas of={Stories.Validations} />
+
+Use the `min` and `max` props to restrict the allowed range. They narrow each segment's limits as the
+date is filled in, and dates outside the range can't be picked in the calendar.
+
+## Optional
+
+Use the `optionalLabel` prop to indicate that the field is optional. This label is only displayed
+when the `required` prop is falsy. An optional field also offers a button to clear the date.
+
+<Canvas of={Stories.Optional} />
+
+## Readonly
+
+Use the `readonly` prop to indicate that the field is not currently editable. This can be useful in
+situations where the user needs to view but not edit the date, such as in a summary or review screen.
+
+<Canvas of={Stories.Readonly} />
+
+## Internationalization
+
+Pass one or more IETF BCP 47 locale identifiers such as `'de-DE'` to the `locale` prop to display the
+date in the local format. The order of the segments and the separators between them come from
+`Intl.DateTimeFormat`. Defaults to the user's locale.
+
+<Canvas of={Stories.Locales} />
+
+## Accessibility
+
+Each segment is a `spinbutton`, so it can be edited by typing or with the arrow keys: up and down
+step by one, `PageUp` and `PageDown` by a decade, a quarter or a week, and `Home` and `End` jump to
+the segment's limits. Typing moves on to the next segment as soon as one is complete, and
+`Backspace` on an empty segment moves back.
+
+Pass `yearInputLabel`, `monthInputLabel` and `dayInputLabel` to translate the segment names, and
+`openCalendarButtonLabel`, `applyDateButtonLabel` and `clearDateButtonLabel` for the buttons. The
+calendar button's accessible name includes the currently selected date.
+
+## Related components
+
+- [Calendar](Components/Calendar): The date grid this component opens, also usable on its own.

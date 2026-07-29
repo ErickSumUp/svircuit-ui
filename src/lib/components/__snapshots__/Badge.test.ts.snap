@@ -2,12 +2,16 @@
 
 exports[`should match story case variants 1`] = `
 <div>
+  <!---->
   <span
-    class="base svelte-1h4t094 neutral"
+    class="base svelte-dtbgkf pill neutral"
   >
-    Example Snippet
     <!---->
+    Example Snippet
+    
+    
   </span>
+  
   
 </div>
 `;

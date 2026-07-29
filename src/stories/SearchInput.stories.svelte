@@ -4,7 +4,7 @@
   import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
-    title: 'Components/SearchInput',
+    title: 'Forms/SearchInput',
     component: SearchInput,
     argTypes: {
       label: {

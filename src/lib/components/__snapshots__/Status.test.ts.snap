@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case variants 1`] = `
+<div>
+  <!---->
+  <div
+    class="base svelte-a1y6eq pill neutral"
+  >
+    <!---->
+    <!---->
+     
+    <!---->
+    <!---->
+    Example Snippet
+    
+    
+    <!---->
+    
+  </div>
+  
+  
+</div>
+`;

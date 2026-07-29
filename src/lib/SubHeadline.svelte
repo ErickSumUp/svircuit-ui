@@ -1,6 +1,11 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
 
+  /**
+   * @deprecated Circuit removed this component. Use `<Headline size="s">`
+   * instead — note that it is mixed case rather than uppercase, so the swap is
+   * a visible design change.
+   */
   interface Props {
     as?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
     children?: Snippet;

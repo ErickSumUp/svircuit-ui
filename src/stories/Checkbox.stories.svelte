@@ -4,7 +4,7 @@
   import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
-    title: 'Components/Checkbox',
+    title: 'Forms/Checkbox',
     component: Checkbox,
     parameters: {
       layout: 'centered'

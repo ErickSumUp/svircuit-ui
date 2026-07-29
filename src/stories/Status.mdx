@@ -1,0 +1,68 @@
+import * as Stories from './Status.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Status
+
+A non-actionable component used to communicate the condition of an element,
+such as an order state, a feature lifecycle, or a count of items.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Best practices
+
+- Keep the label short and concise, one to two words maximum.
+- Never truncate the label within a status.
+- Position the status in close proximity to the element it refers to.
+- Use no more than one status per element.
+
+## Usage guidelines
+
+- **Do** use a status for static, informational display only.
+- **Do not** use a status for anything actionable. If clicking should trigger
+  an action, use the `Tag` component instead.
+- **Do not** use a status to indicate a default state (e.g. in a transaction
+  history, a status should only be shown if it's anything other than the
+  default; failed, refunded, paid out, etc.).
+
+## Component variations
+
+### Pill
+
+Use the pill variant to communicate the condition of an element where a
+prominent label is appropriate. The color conveys the semantic meaning:
+
+- `confirm` for a successful state.
+- `neutral` for an intermediate or pending state.
+- `notify` for a warning tendency.
+- `alert` for a critical or error state.
+- `promo` to raise awareness or attract interest (e.g. a new feature).
+- `special` when no other semantic applies, or the other colors are already
+  in use.
+
+<Canvas of={Stories.Pill} />
+
+### Badge
+
+Use the badge variant to indicate a count of items related to an element,
+such as unread notifications. Short counts stay in a perfect circle, while
+longer counts grow into a pill.
+
+<Canvas of={Stories.Badge} />
+
+### Dot
+
+Use the dot variant to communicate a status in a space-constrained context,
+or where the exact count is unknown. The label is still rendered for
+assistive technology, but hidden visually.
+
+<Canvas of={Stories.Dot} />
+
+### Line
+
+Use the line variant for a more subtle appearance in high-density
+environments, optionally paired with a leading icon.
+
+<Canvas of={Stories.Line} />

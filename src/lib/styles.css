@@ -1,129 +1,213 @@
+/* SumUp Narrow — body text. Split by unicode-range so the browser only
+   downloads the glyph subsets it needs. No italic face exists. */
 @font-face {
-  font-family: 'Inter';
+  font-family: 'SumUp Narrow';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 300 700;
   font-display: swap;
-  src: url('https://static.sumup.com/fonts/Inter/Inter-italic-cyrillic-ext.woff2') format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('https://static.sumup.com/fonts/Inter/Inter-italic-cyrillic.woff2') format('woff2');
-  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('https://static.sumup.com/fonts/Inter/Inter-italic-greek-ext.woff2') format('woff2');
-  unicode-range: U+1F00-1FFF;
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('https://static.sumup.com/fonts/Inter/Inter-italic-greek.woff2') format('woff2');
-  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('https://static.sumup.com/fonts/Inter/Inter-italic-latin-ext.woff2') format('woff2');
+  src: url('https://static.sumup.com/fonts/sumup/sumup-narrow-cyrillic.woff2')
+    format('woff2-variations');
   unicode-range:
-    U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
-    U+2113, U+2C60-2C7F, U+A720-A7FF;
+    U+0020-007E, U+00A0-00A9, U+00AB-00B9, U+00BB-00BF, U+00D7, U+00F7, U+02B9, U+02BB-02BC,
+    U+02C6-02C7, U+02C9, U+02D8-02DD, U+0300-0304, U+0306-0308, U+030A-030D, U+030F, U+0311-0313,
+    U+0315, U+0320, U+0324-0329, U+032D-0332, U+0335, U+035C-035D, U+0361, U+0400-045F, U+0462-0463,
+    U+0472-0475, U+0490-0493, U+0496-0497, U+049A-049B, U+04A2-04A3, U+04AE-04B3, U+04B6-04B7,
+    U+04BA-04BB, U+04C0, U+04CF, U+04D8-04D9, U+04E2-04E3, U+04E8-04E9, U+04EE-04EF, U+1DC6-1DC7,
+    U+2013-2014, U+2018-201F, U+2022, U+2026, U+2030, U+2039-203A, U+2044, U+2070, U+2074-2079,
+    U+2080-2089, U+20A1, U+20A3-20A4, U+20A6-20A7, U+20A9, U+20AB-20AD, U+20B1-20B2, U+20B5,
+    U+20B9-20BA, U+20BC-20BD, U+2116-2117, U+2122, U+212E, U+2153-2154, U+215B-215E, U+2190-2199,
+    U+21A4, U+21A6, U+21A9-21AA, U+2212, U+2248, U+2260, U+2264-2265, U+27F5-27F6, U+FB01-FB02;
 }
 
 @font-face {
-  font-family: 'Inter';
+  font-family: 'SumUp Narrow';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 300 700;
   font-display: swap;
-  src: url('https://static.sumup.com/fonts/Inter/Inter-italic-latin.woff2') format('woff2');
+  src: url('https://static.sumup.com/fonts/sumup/sumup-narrow-greek.woff2')
+    format('woff2-variations');
   unicode-range:
-    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
-    U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    U+0020-007E, U+00A0-00A9, U+00AB-00B9, U+00BB-00BF, U+00D7, U+00F7, U+02B9, U+02BB-02BC,
+    U+02C6-02C7, U+02C9, U+02D8-02DD, U+0300-0304, U+0306-0308, U+030A-030D, U+030F, U+0311-0313,
+    U+0315, U+0320, U+0324-0329, U+032D-0332, U+0335, U+035C-035D, U+0361, U+0374-0375, U+037E,
+    U+0384-038A, U+038C, U+038E-03A1, U+03A3-03CE, U+1DC6-1DC7, U+2013-2014, U+2018-201F, U+2022,
+    U+2026, U+2030, U+2039-203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20A1, U+20A3-20A4,
+    U+20A6-20A7, U+20A9, U+20AB-20AD, U+20B1-20B2, U+20B5, U+20B9-20BA, U+20BC-20BD, U+2116-2117,
+    U+2122, U+212E, U+2153-2154, U+215B-215E, U+2190-2199, U+21A4, U+21A6, U+21A9-21AA, U+2212,
+    U+2248, U+2260, U+2264-2265, U+27F5-27F6, U+FB01-FB02;
 }
 
 @font-face {
-  font-family: 'Inter';
+  font-family: 'SumUp Narrow';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 300 700;
   font-display: swap;
-  src: url('https://static.sumup.com/fonts/Inter/Inter-normal-cyrillic-ext.woff2') format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('https://static.sumup.com/fonts/Inter/Inter-normal-cyrillic.woff2') format('woff2');
-  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('https://static.sumup.com/fonts/Inter/Inter-normal-greek-ext.woff2') format('woff2');
-  unicode-range: U+1F00-1FFF;
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('https://static.sumup.com/fonts/Inter/Inter-normal-greek.woff2') format('woff2');
-  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('https://static.sumup.com/fonts/Inter/Inter-normal-latin-ext.woff2') format('woff2');
+  src: url('https://static.sumup.com/fonts/sumup/sumup-narrow-latin-l.woff2')
+    format('woff2-variations');
   unicode-range:
-    U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
-    U+2113, U+2C60-2C7F, U+A720-A7FF;
+    U+0020-007E, U+00A0-017E, U+018F, U+0192, U+019D, U+01A0-01A1, U+01AF-01B0, U+01C4-01CC,
+    U+01E6-01E7, U+01EA-01EB, U+01F1-01F3, U+01FA-021B, U+022A-022D, U+0230-0233, U+0237, U+0259,
+    U+0272, U+02B9, U+02BB-02BC, U+02C6-02C7, U+02C9, U+02D8-02DD, U+0300-0304, U+0306-030D, U+030F,
+    U+0311-0313, U+0315, U+031B, U+0320, U+0323-0329, U+032D-0332, U+0335, U+035C-035D, U+0361,
+    U+1DC6-1DC7, U+1E20-1E21, U+1E80-1E85, U+1E9E, U+1EA0-1EF9, U+2013-2014, U+2018-2022, U+2026,
+    U+2030, U+2032-2033, U+2039-203A, U+2042, U+2044, U+2058-2059, U+2070, U+2074-2079, U+2080-2089,
+    U+20A1, U+20A3-20A4, U+20A6-20A7, U+20A9, U+20AB-20AD, U+20B1-20B2, U+20B5, U+20B9-20BA,
+    U+20BC-20BD, U+2116-2117, U+2122, U+212E, U+2153-2154, U+215B-215E, U+2190-2199, U+21A4, U+21A6,
+    U+21A9-21AA, U+2212, U+2215, U+2217, U+2219, U+2248, U+2260, U+2264-2265, U+2588, U+2591-2593,
+    U+25A0-25A2, U+25AE-25AF, U+25B2-25B3, U+25B6-25B7, U+25BC-25BD, U+25C0-25C1, U+25C6-25C7,
+    U+25CA-25CB, U+25CF-25D3, U+25D6-25D7, U+25E2-25E5, U+25E7-25EA, U+25EC-25EE, U+25F4-25F7,
+    U+2600, U+2605-2606, U+2611-2612, U+2639-263B, U+2665, U+2714, U+2718, U+271A, U+272A,
+    U+275B-275E, U+2770-2771, U+27F5-27F6, U+29BE-29BF, U+29D6-29D7, U+2B12-2B15, U+3008-3009,
+    U+3010-3011, U+3016-3017, U+FB01-FB02;
 }
 
 @font-face {
-  font-family: 'Inter';
+  font-family: 'SumUp Narrow';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 300 700;
   font-display: swap;
-  src: url('https://static.sumup.com/fonts/Inter/Inter-normal-latin.woff2') format('woff2');
+  src: url('https://static.sumup.com/fonts/sumup/sumup-narrow-latin-s.woff2')
+    format('woff2-variations');
   unicode-range:
-    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
-    U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    U+0020-007E, U+00A0-017E, U+018F, U+0192, U+019D, U+01C4-01CC, U+01E6-01E7, U+01EA-01EB,
+    U+01F1-01F3, U+01FA-021B, U+022A-022D, U+0230-0233, U+0237, U+0259, U+0272, U+02B9, U+02BB-02BC,
+    U+02C6-02C7, U+02C9, U+02D8-02DD, U+0300-0304, U+0306-0308, U+030A-030D, U+030F, U+0311-0313,
+    U+0315, U+0320, U+0324-0329, U+032D-0332, U+0335, U+035C-035D, U+0361, U+1DC6-1DC7, U+1E20-1E21,
+    U+1E80-1E85, U+1E9E, U+1EBC-1EBD, U+1EF2-1EF3, U+1EF8-1EF9, U+2013-2014, U+2018-201F, U+2022,
+    U+2026, U+2030, U+2039-203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20A1, U+20A3-20A4,
+    U+20A6-20A7, U+20A9, U+20AB-20AD, U+20B1-20B2, U+20B5, U+20B9-20BA, U+20BC-20BD, U+2116-2117,
+    U+2122, U+212E, U+2153-2154, U+215B-215E, U+2190-2199, U+21A4, U+21A6, U+21A9-21AA, U+2212,
+    U+2248, U+2260, U+2264-2265, U+27F5-27F6, U+FB01-FB02;
 }
 
+/* SumUp Narrow fallback — matches the metrics of SumUp Narrow so local Arial
+   doesn't cause a layout shift while the webfont loads. One weight per
+   token: regular, semibold, bold. */
 @font-face {
-  font-family: 'Inter-Fallback';
+  font-family: 'SumUp Narrow fallback';
+  font-style: normal;
+  font-weight: 375;
   src: local('Arial');
-  ascent-override: 90.49%;
-  descent-override: 22.56%;
+  size-adjust: 95%;
+  ascent-override: 101.1%;
+  descent-override: 26.6%;
   line-gap-override: 0%;
-  size-adjust: 107.06%;
+}
+
+@font-face {
+  font-family: 'SumUp Narrow fallback';
+  font-style: normal;
+  font-weight: 550;
+  src: local('Arial');
+  size-adjust: 97.5%;
+  ascent-override: 101.1%;
+  descent-override: 26.6%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'SumUp Narrow fallback';
+  font-style: normal;
+  font-weight: 650;
+  src: local('Arial Bold'), local('Arial');
+  size-adjust: 90%;
+  ascent-override: 101%;
+  descent-override: 26.6%;
+  line-gap-override: 0%;
+}
+
+/* SumUp Black — headlines and display text (only a bold weight exists). */
+@font-face {
+  font-family: 'SumUp Black';
+  font-style: normal;
+  font-weight: bold;
+  font-display: swap;
+  src: url('https://static.sumup.com/fonts/sumup/sumup-black-cyrillic.woff2') format('woff2');
+  unicode-range:
+    U+0020-007E, U+00A0-00A9, U+00AB-00B9, U+00BB-00BF, U+00D7, U+00F7, U+02B9, U+02BB-02BC,
+    U+02C6-02C7, U+02C9, U+02D8-02DD, U+0300-0304, U+0306-0308, U+030A-030D, U+030F, U+0311-0313,
+    U+0315, U+0320, U+0324-0329, U+032D-0332, U+0335, U+035C-035D, U+0361, U+0400-045F, U+0462-0463,
+    U+0472-0475, U+0490-0493, U+0496-0497, U+049A-049B, U+04A2-04A3, U+04AE-04B3, U+04B6-04B7,
+    U+04BA-04BB, U+04C0, U+04CF, U+04D8-04D9, U+04E2-04E3, U+04E8-04E9, U+04EE-04EF, U+1DC6-1DC7,
+    U+2013-2014, U+2018-201F, U+2022, U+2026, U+2030, U+2039-203A, U+2044, U+2070, U+2074-2079,
+    U+2080-2089, U+20A1, U+20A3-20A4, U+20A6-20A7, U+20A9, U+20AB-20AD, U+20B1-20B2, U+20B5,
+    U+20B9-20BA, U+20BC-20BD, U+2116-2117, U+2122, U+212E, U+2153-2154, U+215B-215E, U+2190-2199,
+    U+21A4, U+21A6, U+21A9-21AA, U+2212, U+2248, U+2260, U+2264-2265, U+27F5-27F6, U+FB01-FB02;
+}
+
+@font-face {
+  font-family: 'SumUp Black';
+  font-style: normal;
+  font-weight: bold;
+  font-display: swap;
+  src: url('https://static.sumup.com/fonts/sumup/sumup-black-greek.woff2') format('woff2');
+  unicode-range:
+    U+0020-007E, U+00A0-00A9, U+00AB-00B9, U+00BB-00BF, U+00D7, U+00F7, U+02B9, U+02BB-02BC,
+    U+02C6-02C7, U+02C9, U+02D8-02DD, U+0300-0304, U+0306-0308, U+030A-030D, U+030F, U+0311-0313,
+    U+0315, U+0320, U+0324-0329, U+032D-0332, U+0335, U+035C-035D, U+0361, U+0374-0375, U+037E,
+    U+0384-038A, U+038C, U+038E-03A1, U+03A3-03CE, U+1DC6-1DC7, U+2013-2014, U+2018-201F, U+2022,
+    U+2026, U+2030, U+2039-203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20A1, U+20A3-20A4,
+    U+20A6-20A7, U+20A9, U+20AB-20AD, U+20B1-20B2, U+20B5, U+20B9-20BA, U+20BC-20BD, U+2116-2117,
+    U+2122, U+212E, U+2153-2154, U+215B-215E, U+2190-2199, U+21A4, U+21A6, U+21A9-21AA, U+2212,
+    U+2248, U+2260, U+2264-2265, U+27F5-27F6, U+FB01-FB02;
+}
+
+@font-face {
+  font-family: 'SumUp Black';
+  font-style: normal;
+  font-weight: bold;
+  font-display: swap;
+  src: url('https://static.sumup.com/fonts/sumup/sumup-black-latin-l.woff2') format('woff2');
+  unicode-range:
+    U+0020-007E, U+00A0-017E, U+018F, U+0192, U+019D, U+01A0-01A1, U+01AF-01B0, U+01C4-01CC,
+    U+01E6-01E7, U+01EA-01EB, U+01F1-01F3, U+01FA-021B, U+022A-022D, U+0230-0233, U+0237, U+0259,
+    U+0272, U+02B9, U+02BB-02BC, U+02C6-02C7, U+02C9, U+02D8-02DD, U+0300-0304, U+0306-030D, U+030F,
+    U+0311-0313, U+0315, U+031B, U+0320, U+0323-0329, U+032D-0332, U+0335, U+035C-035D, U+0361,
+    U+1DC6-1DC7, U+1E20-1E21, U+1E80-1E85, U+1E9E, U+1EA0-1EF9, U+2013-2014, U+2018-2022, U+2026,
+    U+2030, U+2032-2033, U+2039-203A, U+2042, U+2044, U+2058-2059, U+2070, U+2074-2079, U+2080-2089,
+    U+20A1, U+20A3-20A4, U+20A6-20A7, U+20A9, U+20AB-20AD, U+20B1-20B2, U+20B5, U+20B9-20BA,
+    U+20BC-20BD, U+2116-2117, U+2122, U+212E, U+2153-2154, U+215B-215E, U+2190-2199, U+21A4, U+21A6,
+    U+21A9-21AA, U+2212, U+2215, U+2217, U+2219, U+2248, U+2260, U+2264-2265, U+2588, U+2591-2593,
+    U+25A0-25A2, U+25AE-25AF, U+25B2-25B3, U+25B6-25B7, U+25BC-25BD, U+25C0-25C1, U+25C6-25C7,
+    U+25CA-25CB, U+25CF-25D3, U+25D6-25D7, U+25E2-25E5, U+25E7-25EA, U+25EC-25EE, U+25F4-25F7,
+    U+2600, U+2605-2606, U+2611-2612, U+2639-263B, U+2665, U+2714, U+2718, U+271A, U+272A,
+    U+275B-275E, U+2770-2771, U+27F5-27F6, U+29BE-29BF, U+29D6-29D7, U+2B12-2B15, U+3008-3009,
+    U+3010-3011, U+3016-3017, U+FB01-FB02;
+}
+
+@font-face {
+  font-family: 'SumUp Black';
+  font-style: normal;
+  font-weight: bold;
+  font-display: swap;
+  src: url('https://static.sumup.com/fonts/sumup/sumup-black-latin-s.woff2') format('woff2');
+  unicode-range:
+    U+0020-007E, U+00A0-017E, U+018F, U+0192, U+019D, U+01C4-01CC, U+01E6-01E7, U+01EA-01EB,
+    U+01F1-01F3, U+01FA-021B, U+022A-022D, U+0230-0233, U+0237, U+0259, U+0272, U+02B9, U+02BB-02BC,
+    U+02C6-02C7, U+02C9, U+02D8-02DD, U+0300-0304, U+0306-0308, U+030A-030D, U+030F, U+0311-0313,
+    U+0315, U+0320, U+0324-0329, U+032D-0332, U+0335, U+035C-035D, U+0361, U+1DC6-1DC7, U+1E20-1E21,
+    U+1E80-1E85, U+1E9E, U+1EBC-1EBD, U+1EF2-1EF3, U+1EF8-1EF9, U+2013-2014, U+2018-201F, U+2022,
+    U+2026, U+2030, U+2039-203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20A1, U+20A3-20A4,
+    U+20A6-20A7, U+20A9, U+20AB-20AD, U+20B1-20B2, U+20B5, U+20B9-20BA, U+20BC-20BD, U+2116-2117,
+    U+2122, U+212E, U+2153-2154, U+215B-215E, U+2190-2199, U+21A4, U+21A6, U+21A9-21AA, U+2212,
+    U+2248, U+2260, U+2264-2265, U+27F5-27F6, U+FB01-FB02;
+}
+
+/* SumUp Black fallback — matches the metrics of SumUp Black for local Arial
+   Black/Bold substitution while the webfont loads. */
+@font-face {
+  font-family: 'SumUp Black fallback';
+  font-style: normal;
+  font-weight: bold;
+  src: local('Arial Black'), local('Arial Bold'), local('Arial');
+  size-adjust: 90.1%;
+  ascent-override: 102%;
+  descent-override: 28%;
+  line-gap-override: 0%;
 }
 
 :root {
+  color-scheme: light;
   /* Neutral backgrounds */
   --cui-bg-normal: #ffffff;
   --cui-bg-normal-hovered: #e9edf2;
@@ -186,6 +270,20 @@
   --cui-bg-promo-strong-hovered: #8a1ecc;
   --cui-bg-promo-strong-pressed: #7219a9;
   --cui-bg-promo-strong-disabled: rgba(158, 51, 224, 0.4);
+  /* Neutral backgrounds */
+  --cui-bg-neutral: #f0eee7;
+  --cui-bg-neutral-hovered: #e8e6dc;
+  --cui-bg-neutral-pressed: #d9d6c7;
+  --cui-bg-neutral-disabled: rgba(217, 214, 199, 0.3);
+  --cui-bg-neutral-strong: #c7c3b3;
+  --cui-bg-neutral-strong-hovered: #c3bfaf;
+  --cui-bg-neutral-strong-pressed: #bebaab;
+  --cui-bg-neutral-strong-disabled: rgba(195, 191, 175, 0.3);
+  /* Brand backgrounds */
+  --cui-bg-brand: #ff61f2;
+  --cui-bg-brand-hovered: #eb58df;
+  --cui-bg-brand-pressed: #da4ece;
+  --cui-bg-brand-disabled: rgba(255, 97, 242, 0.2);
   /* Neutral foregrounds */
   --cui-fg-normal: #0f131a;
   --cui-fg-normal-hovered: #0f131a;
@@ -232,6 +330,16 @@
   --cui-fg-promo-hovered: #8a1ecc;
   --cui-fg-promo-pressed: #7219a9;
   --cui-fg-promo-disabled: rgba(158, 51, 224, 0.4);
+  /* Neutral (semantic) foregrounds */
+  --cui-fg-neutral: #786464;
+  --cui-fg-neutral-hovered: #6a5959;
+  --cui-fg-neutral-pressed: #5c4d4d;
+  --cui-fg-neutral-disabled: rgba(120, 100, 100, 0.4);
+  /* Brand foregrounds */
+  --cui-fg-brand: #ff61f2;
+  --cui-fg-brand-hovered: #eb58df;
+  --cui-fg-brand-pressed: #da4ece;
+  --cui-fg-brand-disabled: rgba(255, 97, 242, 0.6);
   /* Neutral borders */
   --cui-border-normal: #aeb6be;
   --cui-border-normal-hovered: #85919e;
@@ -274,6 +382,11 @@
   --cui-border-promo-hovered: #8a1ecc;
   --cui-border-promo-pressed: #7219a9;
   --cui-border-promo-disabled: rgba(158, 51, 224, 0.4);
+  /* Brand borders */
+  --cui-border-brand: #ff61f2;
+  --cui-border-brand-hovered: #eb58df;
+  --cui-border-brand-pressed: #da4ece;
+  --cui-border-brand-disabled: rgba(255, 97, 242, 0.4);
   /* Special colors */
   --cui-bg-overlay: rgba(0, 0, 0, 0.4);
   --cui-bg-elevated: #ffffff;
@@ -283,6 +396,9 @@
   --cui-border-radius-byte: 8px;
   --cui-border-radius-kilo: 12px;
   --cui-border-radius-mega: 16px;
+  --cui-border-radius-giga: 24px;
+  --cui-border-radius-tera: 32px;
+  --cui-border-radius-peta: 40px;
   --cui-border-radius-circle: 100%;
   --cui-border-radius-pill: 999999px;
   /* Border widths */
@@ -290,20 +406,23 @@
   --cui-border-width-mega: 2px;
   /* Font families */
   --cui-font-stack-default:
-    'Inter', 'Inter-Fallback', Arial, system-ui, sans-serif, 'Segoe UI', Roboto,
+    'SumUp Narrow', 'SumUp Narrow fallback', Arial, system-ui, sans-serif, 'Segoe UI', Roboto,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --cui-font-stack-display:
+    'SumUp Black', 'SumUp Black fallback', Arial, system-ui, sans-serif, 'Segoe UI', Roboto,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   --cui-font-stack-mono: 'Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace';
 
   /* Font weights */
   --cui-font-weight-regular: 375;
-  --cui-font-weight-semibold: 560;
-  --cui-font-weight-bold: 630;
+  --cui-font-weight-semibold: 550;
+  --cui-font-weight-bold: 650;
 
   /* Icon sizes */
-  --cui-icon-sizes-kilo: 16px;
-  --cui-icon-sizes-mega: 24px;
-  --cui-icon-sizes-giga: 32px;
-  --cui-icon-sizes-tera: 48px;
+  --cui-icon-sizes-s: 1rem;
+  --cui-icon-sizes-m: 1.5rem;
+  --cui-icon-sizes-l: 2rem;
+  --cui-icon-sizes-xl: 3rem;
 
   /* Spacings */
   --cui-spacings-bit: 4px;
@@ -315,6 +434,9 @@
   --cui-spacings-peta: 40px;
   --cui-spacings-exa: 48px;
   --cui-spacings-zetta: 56px;
+  --cui-spacings-yotta: 72px;
+  --cui-spacings-ronna: 96px;
+  --cui-spacings-quetta: 128px;
 
   /* Transitions */
   --cui-transitions-default: 120ms ease-in-out;
@@ -339,17 +461,13 @@
   --cui-typography-title-four-line-height: 3.5rem;
   --cui-typography-sub-headline-font-size: 0.875rem;
   --cui-typography-sub-headline-line-height: 1.25rem;
-  --cui-typography-body-s-font-size: 0.875rem;
-  --cui-typography-body-s-line-height: 1.25rem;
-  --cui-typography-body-m-font-size: 1rem;
-  --cui-typography-body-m-line-height: 1.375rem;
-  --cui-typography-body-l-font-size: 1.25rem;
-  --cui-typography-body-l-line-height: 1.5rem;
-
   /* Letter spacing */
-  --cui-letter-spacing: -0.01375rem;
+  --cui-letter-spacing: 0rem;
+  --cui-letter-spacing-tight: 0rem;
 
   /* Typography */
+  --cui-display-xl-font-size: 6rem;
+  --cui-display-xl-line-height: 90%;
   --cui-display-l-font-size: 4rem;
   --cui-display-l-line-height: 4.5rem;
   --cui-display-m-font-size: 3rem;
@@ -374,6 +492,8 @@
   --cui-compact-m-line-height: 1.0625rem;
   --cui-compact-s-font-size: 0.8125rem;
   --cui-compact-s-line-height: 0.9375rem;
+  --cui-numeral-xl-font-size: 4rem;
+  --cui-numeral-xl-line-height: 4rem;
   --cui-numeral-l-font-size: 3rem;
   --cui-numeral-l-line-height: 3.375rem;
   --cui-numeral-m-font-size: 1.5rem;
@@ -381,24 +501,40 @@
   --cui-numeral-s-font-size: 1rem;
   --cui-numeral-s-line-height: 1.375rem;
 
-  --cui-typography-body-one-font-size: 1rem;
-  --cui-typography-body-one-line-height: 1.375rem;
-  --cui-typography-body-two-font-size: 0.875rem;
-  --cui-typography-body-two-line-height: 1.25rem;
-  --cui-typography-body-large-font-size: 1.25rem;
-  --cui-typography-body-large-line-height: 1.5rem;
+  /**
+   * Deprecated typography aliases.
+   *
+   * Circuit renamed these to the t-shirt scale above. They resolve to the new
+   * tokens so the two can't drift apart while components are migrated; remove
+   * an alias once nothing references it.
+   */
+  --cui-typography-body-s-font-size: var(--cui-body-s-font-size);
+  --cui-typography-body-s-line-height: var(--cui-body-s-line-height);
+  --cui-typography-body-m-font-size: var(--cui-body-m-font-size);
+  --cui-typography-body-m-line-height: var(--cui-body-m-line-height);
+  --cui-typography-body-l-font-size: var(--cui-body-l-font-size);
+  --cui-typography-body-l-line-height: var(--cui-body-l-line-height);
+  --cui-typography-body-one-font-size: var(--cui-body-m-font-size);
+  --cui-typography-body-one-line-height: var(--cui-body-m-line-height);
+  --cui-typography-body-two-font-size: var(--cui-body-s-font-size);
+  --cui-typography-body-two-line-height: var(--cui-body-s-line-height);
+  --cui-typography-body-large-font-size: var(--cui-body-l-font-size);
+  --cui-typography-body-large-line-height: var(--cui-body-l-line-height);
 
   /* Z-indices */
   --cui-z-index-default: 0;
   --cui-z-index-absolute: 1;
   --cui-z-index-input: 20;
-  --cui-z-index-popover: 30;
+  --cui-z-index-side-panel: 30;
   --cui-z-index-tooltip: 40;
   --cui-z-index-header: 600;
-  --cui-z-index-backdrop: 700;
   --cui-z-index-navigation: 800;
-  --cui-z-index-modal: 1000;
+  --cui-z-index-popover: 1000;
   --cui-z-index-toast: 1100;
+
+  /* Deprecated z-indices; circuit dropped both in favour of the top layer. */
+  --cui-z-index-backdrop: 700;
+  --cui-z-index-modal: 1000;
 
   --cui-ty-headline-font-size-one: 2rem;
   --cui-ty-headline-line-height-one: 2.25rem;
@@ -412,13 +548,622 @@
   --cui-ty-sub-headline-font-size: 0.875rem;
   --cui-ty-sub-headline-line-height: 1.25rem;
 
-  --cui-icon-size-kilo: 16px;
-  --cui-icon-size-mega: 24px;
-  --cui-icon-size-giga: 32px;
-  --cui-icon-size-tera: 48px;
+  /* Deprecated icon size aliases, both the singular and plural spellings. */
+  --cui-icon-size-kilo: var(--cui-icon-sizes-s);
+  --cui-icon-size-mega: var(--cui-icon-sizes-m);
+  --cui-icon-size-giga: var(--cui-icon-sizes-l);
+  --cui-icon-size-tera: var(--cui-icon-sizes-xl);
+  --cui-icon-sizes-kilo: var(--cui-icon-sizes-s);
+  --cui-icon-sizes-mega: var(--cui-icon-sizes-m);
+  --cui-icon-sizes-giga: var(--cui-icon-sizes-l);
+  --cui-icon-sizes-tera: var(--cui-icon-sizes-xl);
 
   --cui-secondary-navigation-width-open: 220px;
   --cui-secondary-navigation-width-closed: 48px;
+}
+
+/**
+ * Responsive typography
+ *
+ * The display sizes are the only tokens that change with the viewport. Circuit
+ * scales them down below its `giga` breakpoint so a marketing title still fits
+ * on a phone.
+ */
+@media (max-width: 959px) {
+  :root {
+    --cui-display-xl-font-size: 4rem;
+    --cui-display-l-font-size: 3rem;
+    --cui-display-m-font-size: 2.5rem;
+    --cui-display-s-font-size: 2.5rem;
+  }
+}
+
+/**
+ * Dark mode
+ *
+ * Only color tokens change between light and dark — everything else
+ * (spacing, typography, radii, transitions, z-indices) is shared.
+ *
+ * Two pure-CSS mechanisms are supported, no theming library required:
+ * 1. `@media (prefers-color-scheme: dark)` - follows the OS/browser setting
+ *    automatically.
+ * 2. `[data-color-scheme="dark"]` - lets a consumer force dark mode by
+ *    setting that attribute on `<html>` (e.g. `document.documentElement
+ *    .dataset.colorScheme = 'dark'`), regardless of the OS setting. No
+ *    framework or state-management library is needed to do this.
+ *
+ * Forcing light mode while the OS prefers dark isn't covered yet — add a
+ * `:root[data-color-scheme='light'] { ... }` block with the light values
+ * above if you need it; its higher selector specificity will win over the
+ * media query.
+ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    /* Neutral backgrounds */
+    --cui-bg-normal: #000000;
+    --cui-bg-normal-hovered: #0f0e0c;
+    --cui-bg-normal-pressed: #1a1816;
+    --cui-bg-normal-disabled: rgba(10, 9, 8, 0.6);
+    --cui-bg-subtle: #141311;
+    --cui-bg-subtle-hovered: #1a1816;
+    --cui-bg-subtle-pressed: #1e1c18;
+    --cui-bg-subtle-disabled: rgba(20, 19, 17, 0.6);
+    --cui-bg-highlight: #1e1c18;
+    --cui-bg-highlight-hovered: #262420;
+    --cui-bg-highlight-pressed: #2e2c28;
+    --cui-bg-highlight-disabled: rgba(30, 28, 24, 0.4);
+    --cui-bg-strong: #f5f4ed;
+    --cui-bg-strong-hovered: #e8e6dc;
+    --cui-bg-strong-pressed: #d9d6c7;
+    --cui-bg-strong-disabled: rgba(245, 244, 237, 0.2);
+    /* Accent backgrounds */
+    --cui-bg-accent: #1a1816;
+    --cui-bg-accent-hovered: #222018;
+    --cui-bg-accent-pressed: #2a2820;
+    --cui-bg-accent-disabled: rgba(26, 24, 22, 0.6);
+    --cui-bg-accent-strong: #f5f4ed;
+    --cui-bg-accent-strong-hovered: #e8e6dc;
+    --cui-bg-accent-strong-pressed: #d9d6c7;
+    --cui-bg-accent-strong-disabled: rgba(245, 244, 237, 0.1);
+    /* Success backgrounds */
+    --cui-bg-success: #122913;
+    --cui-bg-success-hovered: #122814;
+    --cui-bg-success-pressed: #18321a;
+    --cui-bg-success-disabled: rgba(13, 31, 14, 0.6);
+    --cui-bg-success-strong: #2db843;
+    --cui-bg-success-strong-hovered: #35cc4e;
+    --cui-bg-success-strong-pressed: #3dd856;
+    --cui-bg-success-strong-disabled: rgba(45, 184, 67, 0.4);
+    /* Warning backgrounds */
+    --cui-bg-warning: #39260f;
+    --cui-bg-warning-hovered: #281c0c;
+    --cui-bg-warning-pressed: #302410;
+    --cui-bg-warning-disabled: rgba(31, 21, 8, 0.6);
+    --cui-bg-warning-strong: #f8ab2f;
+    --cui-bg-warning-strong-hovered: #fabb50;
+    --cui-bg-warning-strong-pressed: #fcc96e;
+    --cui-bg-warning-strong-disabled: rgba(248, 171, 47, 0.4);
+    /* Danger backgrounds */
+    --cui-bg-danger: #3c1e13;
+    --cui-bg-danger-hovered: #28140c;
+    --cui-bg-danger-pressed: #301a10;
+    --cui-bg-danger-disabled: rgba(31, 15, 9, 0.6);
+    --cui-bg-danger-strong: #ff6b33;
+    --cui-bg-danger-strong-hovered: #ff8050;
+    --cui-bg-danger-strong-pressed: #ff9468;
+    --cui-bg-danger-strong-disabled: rgba(255, 107, 51, 0.4);
+    /* Promo backgrounds */
+    --cui-bg-promo: #30182d;
+    --cui-bg-promo-hovered: #221020;
+    --cui-bg-promo-pressed: #2a1428;
+    --cui-bg-promo-disabled: rgba(26, 12, 24, 0.6);
+    --cui-bg-promo-strong: #d464ca;
+    --cui-bg-promo-strong-hovered: #dc76d2;
+    --cui-bg-promo-strong-pressed: #e488dc;
+    --cui-bg-promo-strong-disabled: rgba(212, 100, 202, 0.4);
+    /* Neutral backgrounds */
+    --cui-bg-neutral: #2b2927;
+    --cui-bg-neutral-hovered: #201f1e;
+    --cui-bg-neutral-pressed: #282726;
+    --cui-bg-neutral-disabled: rgba(24, 23, 22, 0.6);
+    --cui-bg-neutral-strong: #555149;
+    --cui-bg-neutral-strong-hovered: #605c54;
+    --cui-bg-neutral-strong-pressed: #6b665e;
+    --cui-bg-neutral-strong-disabled: rgba(85, 81, 73, 0.4);
+    /* Brand backgrounds */
+    --cui-bg-brand: #ff61f2;
+    --cui-bg-brand-hovered: #eb58df;
+    --cui-bg-brand-pressed: #da4ece;
+    --cui-bg-brand-disabled: rgba(255, 97, 242, 0.4);
+    /* Neutral foregrounds */
+    --cui-fg-normal: #f0eee7;
+    --cui-fg-normal-hovered: #f0eee7;
+    --cui-fg-normal-pressed: #f0eee7;
+    --cui-fg-normal-disabled: rgba(240, 238, 231, 0.4);
+    --cui-fg-subtle: #9b9590;
+    --cui-fg-subtle-hovered: #ada8a2;
+    --cui-fg-subtle-pressed: #c0bbb5;
+    --cui-fg-subtle-disabled: rgba(155, 149, 144, 0.4);
+    --cui-fg-placeholder: #706b65;
+    --cui-fg-placeholder-hovered: #807b75;
+    --cui-fg-placeholder-pressed: #8a8580;
+    --cui-fg-placeholder-disabled: rgba(112, 107, 101, 0.4);
+    --cui-fg-on-strong: #1e1c1c;
+    --cui-fg-on-strong-hovered: #1e1c1c;
+    --cui-fg-on-strong-pressed: #1e1c1c;
+    --cui-fg-on-strong-disabled: rgba(30, 28, 28, 0.4);
+    --cui-fg-on-strong-subtle: rgba(30, 28, 28, 0.7);
+    --cui-fg-on-strong-subtle-hovered: #3a3635;
+    --cui-fg-on-strong-subtle-pressed: #3a3635;
+    --cui-fg-on-strong-subtle-disabled: rgba(58, 54, 53, 0.4);
+    /* Accent foregrounds */
+    --cui-fg-accent: #f0eee7;
+    --cui-fg-accent-hovered: #c7c3b8;
+    --cui-fg-accent-pressed: #ada9a0;
+    --cui-fg-accent-disabled: rgba(240, 238, 231, 0.4);
+    /* Success foregrounds */
+    --cui-fg-success: #5abf2e;
+    --cui-fg-success-hovered: #6acc40;
+    --cui-fg-success-pressed: #7ad852;
+    --cui-fg-success-disabled: rgba(90, 191, 46, 0.4);
+    /* Warning foregrounds */
+    --cui-fg-warning: #f8ab2f;
+    --cui-fg-warning-hovered: #fabb50;
+    --cui-fg-warning-pressed: #fcc96e;
+    --cui-fg-warning-disabled: rgba(248, 171, 47, 0.4);
+    /* Danger foregrounds */
+    --cui-fg-danger: #ff7a47;
+    --cui-fg-danger-hovered: #ff8e5c;
+    --cui-fg-danger-pressed: #ffa070;
+    --cui-fg-danger-disabled: rgba(255, 122, 71, 0.4);
+    /* Promo foregrounds */
+    --cui-fg-promo: #d87ccf;
+    --cui-fg-promo-hovered: #e08ed8;
+    --cui-fg-promo-pressed: #e8a0e0;
+    --cui-fg-promo-disabled: rgba(216, 124, 207, 0.4);
+    /* Neutral (semantic) foregrounds */
+    --cui-fg-neutral: #a09894;
+    --cui-fg-neutral-hovered: #aea8a4;
+    --cui-fg-neutral-pressed: #bcb6b2;
+    --cui-fg-neutral-disabled: rgba(160, 152, 148, 0.4);
+    /* Brand foregrounds */
+    --cui-fg-brand: #ff61f2;
+    --cui-fg-brand-hovered: #eb58df;
+    --cui-fg-brand-pressed: #da4ece;
+    --cui-fg-brand-disabled: rgba(255, 97, 242, 0.4);
+    /* Neutral borders */
+    --cui-border-normal: #302d28;
+    --cui-border-normal-hovered: #3a3730;
+    --cui-border-normal-pressed: #454238;
+    --cui-border-normal-disabled: rgba(48, 45, 40, 0.5);
+    --cui-border-subtle: #221f1b;
+    --cui-border-subtle-hovered: #2c2923;
+    --cui-border-subtle-pressed: #36332c;
+    --cui-border-subtle-disabled: rgba(34, 31, 27, 0.4);
+    --cui-border-divider: #171614;
+    --cui-border-divider-hovered: #201e1a;
+    --cui-border-divider-pressed: #2a2822;
+    --cui-border-divider-disabled: rgba(23, 22, 20, 0.4);
+    --cui-border-strong: #f0eee7;
+    --cui-border-strong-hovered: #e0ded6;
+    --cui-border-strong-pressed: #d0cdc5;
+    --cui-border-strong-disabled: rgba(240, 238, 231, 0.2);
+    /* Accent borders */
+    --cui-border-accent: #f0eee7;
+    --cui-border-accent-hovered: #c7c3b8;
+    --cui-border-accent-pressed: #ada9a0;
+    --cui-border-accent-disabled: rgba(240, 238, 231, 0.4);
+    /* Success borders */
+    --cui-border-success: #5abf2e;
+    --cui-border-success-hovered: #6acc40;
+    --cui-border-success-pressed: #7ad852;
+    --cui-border-success-disabled: rgba(90, 191, 46, 0.4);
+    /* Warning borders */
+    --cui-border-warning: #f8ab2f;
+    --cui-border-warning-hovered: #fabb50;
+    --cui-border-warning-pressed: #fcc96e;
+    --cui-border-warning-disabled: rgba(248, 171, 47, 0.4);
+    /* Danger borders */
+    --cui-border-danger: #ff7a47;
+    --cui-border-danger-hovered: #ff8e5c;
+    --cui-border-danger-pressed: #ffa070;
+    --cui-border-danger-disabled: rgba(255, 122, 71, 0.4);
+    /* Promo borders */
+    --cui-border-promo: #d87ccf;
+    --cui-border-promo-hovered: #e08ed8;
+    --cui-border-promo-pressed: #e8a0e0;
+    --cui-border-promo-disabled: rgba(216, 124, 207, 0.4);
+    /* Brand borders */
+    --cui-border-brand: #ff61f2;
+    --cui-border-brand-hovered: #eb58df;
+    --cui-border-brand-pressed: #da4ece;
+    --cui-border-brand-disabled: rgba(255, 97, 242, 0.4);
+    /* Special colors */
+    --cui-bg-overlay: rgba(0, 0, 0, 0.7);
+    --cui-bg-elevated: #1a1916;
+    --cui-border-focus: #f0eee7;
+  }
+}
+
+:root[data-color-scheme='dark'] {
+  color-scheme: dark;
+  /* Neutral backgrounds */
+  --cui-bg-normal: #000000;
+  --cui-bg-normal-hovered: #0f0e0c;
+  --cui-bg-normal-pressed: #1a1816;
+  --cui-bg-normal-disabled: rgba(10, 9, 8, 0.6);
+  --cui-bg-subtle: #141311;
+  --cui-bg-subtle-hovered: #1a1816;
+  --cui-bg-subtle-pressed: #1e1c18;
+  --cui-bg-subtle-disabled: rgba(20, 19, 17, 0.6);
+  --cui-bg-highlight: #1e1c18;
+  --cui-bg-highlight-hovered: #262420;
+  --cui-bg-highlight-pressed: #2e2c28;
+  --cui-bg-highlight-disabled: rgba(30, 28, 24, 0.4);
+  --cui-bg-strong: #f5f4ed;
+  --cui-bg-strong-hovered: #e8e6dc;
+  --cui-bg-strong-pressed: #d9d6c7;
+  --cui-bg-strong-disabled: rgba(245, 244, 237, 0.2);
+  /* Accent backgrounds */
+  --cui-bg-accent: #1a1816;
+  --cui-bg-accent-hovered: #222018;
+  --cui-bg-accent-pressed: #2a2820;
+  --cui-bg-accent-disabled: rgba(26, 24, 22, 0.6);
+  --cui-bg-accent-strong: #f5f4ed;
+  --cui-bg-accent-strong-hovered: #e8e6dc;
+  --cui-bg-accent-strong-pressed: #d9d6c7;
+  --cui-bg-accent-strong-disabled: rgba(245, 244, 237, 0.1);
+  /* Success backgrounds */
+  --cui-bg-success: #122913;
+  --cui-bg-success-hovered: #122814;
+  --cui-bg-success-pressed: #18321a;
+  --cui-bg-success-disabled: rgba(13, 31, 14, 0.6);
+  --cui-bg-success-strong: #2db843;
+  --cui-bg-success-strong-hovered: #35cc4e;
+  --cui-bg-success-strong-pressed: #3dd856;
+  --cui-bg-success-strong-disabled: rgba(45, 184, 67, 0.4);
+  /* Warning backgrounds */
+  --cui-bg-warning: #39260f;
+  --cui-bg-warning-hovered: #281c0c;
+  --cui-bg-warning-pressed: #302410;
+  --cui-bg-warning-disabled: rgba(31, 21, 8, 0.6);
+  --cui-bg-warning-strong: #f8ab2f;
+  --cui-bg-warning-strong-hovered: #fabb50;
+  --cui-bg-warning-strong-pressed: #fcc96e;
+  --cui-bg-warning-strong-disabled: rgba(248, 171, 47, 0.4);
+  /* Danger backgrounds */
+  --cui-bg-danger: #3c1e13;
+  --cui-bg-danger-hovered: #28140c;
+  --cui-bg-danger-pressed: #301a10;
+  --cui-bg-danger-disabled: rgba(31, 15, 9, 0.6);
+  --cui-bg-danger-strong: #ff6b33;
+  --cui-bg-danger-strong-hovered: #ff8050;
+  --cui-bg-danger-strong-pressed: #ff9468;
+  --cui-bg-danger-strong-disabled: rgba(255, 107, 51, 0.4);
+  /* Promo backgrounds */
+  --cui-bg-promo: #30182d;
+  --cui-bg-promo-hovered: #221020;
+  --cui-bg-promo-pressed: #2a1428;
+  --cui-bg-promo-disabled: rgba(26, 12, 24, 0.6);
+  --cui-bg-promo-strong: #d464ca;
+  --cui-bg-promo-strong-hovered: #dc76d2;
+  --cui-bg-promo-strong-pressed: #e488dc;
+  --cui-bg-promo-strong-disabled: rgba(212, 100, 202, 0.4);
+  /* Neutral backgrounds */
+  --cui-bg-neutral: #2b2927;
+  --cui-bg-neutral-hovered: #201f1e;
+  --cui-bg-neutral-pressed: #282726;
+  --cui-bg-neutral-disabled: rgba(24, 23, 22, 0.6);
+  --cui-bg-neutral-strong: #555149;
+  --cui-bg-neutral-strong-hovered: #605c54;
+  --cui-bg-neutral-strong-pressed: #6b665e;
+  --cui-bg-neutral-strong-disabled: rgba(85, 81, 73, 0.4);
+  /* Brand backgrounds */
+  --cui-bg-brand: #ff61f2;
+  --cui-bg-brand-hovered: #eb58df;
+  --cui-bg-brand-pressed: #da4ece;
+  --cui-bg-brand-disabled: rgba(255, 97, 242, 0.4);
+  /* Neutral foregrounds */
+  --cui-fg-normal: #f0eee7;
+  --cui-fg-normal-hovered: #f0eee7;
+  --cui-fg-normal-pressed: #f0eee7;
+  --cui-fg-normal-disabled: rgba(240, 238, 231, 0.4);
+  --cui-fg-subtle: #9b9590;
+  --cui-fg-subtle-hovered: #ada8a2;
+  --cui-fg-subtle-pressed: #c0bbb5;
+  --cui-fg-subtle-disabled: rgba(155, 149, 144, 0.4);
+  --cui-fg-placeholder: #706b65;
+  --cui-fg-placeholder-hovered: #807b75;
+  --cui-fg-placeholder-pressed: #8a8580;
+  --cui-fg-placeholder-disabled: rgba(112, 107, 101, 0.4);
+  --cui-fg-on-strong: #1e1c1c;
+  --cui-fg-on-strong-hovered: #1e1c1c;
+  --cui-fg-on-strong-pressed: #1e1c1c;
+  --cui-fg-on-strong-disabled: rgba(30, 28, 28, 0.4);
+  --cui-fg-on-strong-subtle: rgba(30, 28, 28, 0.7);
+  --cui-fg-on-strong-subtle-hovered: #3a3635;
+  --cui-fg-on-strong-subtle-pressed: #3a3635;
+  --cui-fg-on-strong-subtle-disabled: rgba(58, 54, 53, 0.4);
+  /* Accent foregrounds */
+  --cui-fg-accent: #f0eee7;
+  --cui-fg-accent-hovered: #c7c3b8;
+  --cui-fg-accent-pressed: #ada9a0;
+  --cui-fg-accent-disabled: rgba(240, 238, 231, 0.4);
+  /* Success foregrounds */
+  --cui-fg-success: #5abf2e;
+  --cui-fg-success-hovered: #6acc40;
+  --cui-fg-success-pressed: #7ad852;
+  --cui-fg-success-disabled: rgba(90, 191, 46, 0.4);
+  /* Warning foregrounds */
+  --cui-fg-warning: #f8ab2f;
+  --cui-fg-warning-hovered: #fabb50;
+  --cui-fg-warning-pressed: #fcc96e;
+  --cui-fg-warning-disabled: rgba(248, 171, 47, 0.4);
+  /* Danger foregrounds */
+  --cui-fg-danger: #ff7a47;
+  --cui-fg-danger-hovered: #ff8e5c;
+  --cui-fg-danger-pressed: #ffa070;
+  --cui-fg-danger-disabled: rgba(255, 122, 71, 0.4);
+  /* Promo foregrounds */
+  --cui-fg-promo: #d87ccf;
+  --cui-fg-promo-hovered: #e08ed8;
+  --cui-fg-promo-pressed: #e8a0e0;
+  --cui-fg-promo-disabled: rgba(216, 124, 207, 0.4);
+  /* Neutral (semantic) foregrounds */
+  --cui-fg-neutral: #a09894;
+  --cui-fg-neutral-hovered: #aea8a4;
+  --cui-fg-neutral-pressed: #bcb6b2;
+  --cui-fg-neutral-disabled: rgba(160, 152, 148, 0.4);
+  /* Brand foregrounds */
+  --cui-fg-brand: #ff61f2;
+  --cui-fg-brand-hovered: #eb58df;
+  --cui-fg-brand-pressed: #da4ece;
+  --cui-fg-brand-disabled: rgba(255, 97, 242, 0.4);
+  /* Neutral borders */
+  --cui-border-normal: #302d28;
+  --cui-border-normal-hovered: #3a3730;
+  --cui-border-normal-pressed: #454238;
+  --cui-border-normal-disabled: rgba(48, 45, 40, 0.5);
+  --cui-border-subtle: #221f1b;
+  --cui-border-subtle-hovered: #2c2923;
+  --cui-border-subtle-pressed: #36332c;
+  --cui-border-subtle-disabled: rgba(34, 31, 27, 0.4);
+  --cui-border-divider: #171614;
+  --cui-border-divider-hovered: #201e1a;
+  --cui-border-divider-pressed: #2a2822;
+  --cui-border-divider-disabled: rgba(23, 22, 20, 0.4);
+  --cui-border-strong: #f0eee7;
+  --cui-border-strong-hovered: #e0ded6;
+  --cui-border-strong-pressed: #d0cdc5;
+  --cui-border-strong-disabled: rgba(240, 238, 231, 0.2);
+  /* Accent borders */
+  --cui-border-accent: #f0eee7;
+  --cui-border-accent-hovered: #c7c3b8;
+  --cui-border-accent-pressed: #ada9a0;
+  --cui-border-accent-disabled: rgba(240, 238, 231, 0.4);
+  /* Success borders */
+  --cui-border-success: #5abf2e;
+  --cui-border-success-hovered: #6acc40;
+  --cui-border-success-pressed: #7ad852;
+  --cui-border-success-disabled: rgba(90, 191, 46, 0.4);
+  /* Warning borders */
+  --cui-border-warning: #f8ab2f;
+  --cui-border-warning-hovered: #fabb50;
+  --cui-border-warning-pressed: #fcc96e;
+  --cui-border-warning-disabled: rgba(248, 171, 47, 0.4);
+  /* Danger borders */
+  --cui-border-danger: #ff7a47;
+  --cui-border-danger-hovered: #ff8e5c;
+  --cui-border-danger-pressed: #ffa070;
+  --cui-border-danger-disabled: rgba(255, 122, 71, 0.4);
+  /* Promo borders */
+  --cui-border-promo: #d87ccf;
+  --cui-border-promo-hovered: #e08ed8;
+  --cui-border-promo-pressed: #e8a0e0;
+  --cui-border-promo-disabled: rgba(216, 124, 207, 0.4);
+  /* Brand borders */
+  --cui-border-brand: #ff61f2;
+  --cui-border-brand-hovered: #eb58df;
+  --cui-border-brand-pressed: #da4ece;
+  --cui-border-brand-disabled: rgba(255, 97, 242, 0.4);
+  /* Special colors */
+  --cui-bg-overlay: rgba(0, 0, 0, 0.7);
+  --cui-bg-elevated: #1a1916;
+  --cui-border-focus: #f0eee7;
+}
+
+/**
+ * Forces light mode even when the OS prefers dark. Re-declares the same
+ * values as the base `:root` above — `:root[data-color-scheme='light']`
+ * has higher selector specificity than the plain `:root` used inside the
+ * `@media (prefers-color-scheme: dark)` block, so it always wins.
+ */
+:root[data-color-scheme='light'] {
+  color-scheme: light;
+  /* Neutral backgrounds */
+  --cui-bg-normal: #ffffff;
+  --cui-bg-normal-hovered: #e9edf2;
+  --cui-bg-normal-pressed: #bfc6cf;
+  --cui-bg-normal-disabled: rgba(255, 255, 255, 0.4);
+  --cui-bg-subtle: #f0f1f5;
+  --cui-bg-subtle-hovered: #e0e2ea;
+  --cui-bg-subtle-pressed: #9da7b1;
+  --cui-bg-subtle-disabled: rgba(227, 231, 235, 0.4);
+  --cui-bg-highlight: #e3e7eb;
+  --cui-bg-highlight-hovered: #c2c9d1;
+  --cui-bg-highlight-pressed: #9da7b1;
+  --cui-bg-highlight-disabled: rgba(15, 19, 26, 0.08);
+  --cui-bg-strong: #000000;
+  --cui-bg-strong-hovered: #313941;
+  --cui-bg-strong-pressed: #4f5a65;
+  --cui-bg-strong-disabled: rgba(23, 29, 36, 0.4);
+  /* Accent backgrounds */
+  --cui-bg-accent: #eef0f2;
+  --cui-bg-accent-hovered: #e3e7eb;
+  --cui-bg-accent-pressed: #c2c9d1;
+  --cui-bg-accent-disabled: rgba(238, 240, 242, 0.4);
+  --cui-bg-accent-strong: #0f131a;
+  --cui-bg-accent-strong-hovered: #3b3f46;
+  --cui-bg-accent-strong-pressed: #6a737c;
+  --cui-bg-accent-strong-disabled: rgba(15, 19, 26, 0.4);
+  /* Success backgrounds */
+  --cui-bg-success: #e9fbe9;
+  --cui-bg-success-hovered: #d7f8d7;
+  --cui-bg-success-pressed: #c1e8c1;
+  --cui-bg-success-disabled: rgba(233, 251, 233, 0.4);
+  --cui-bg-success-strong: #018850;
+  --cui-bg-success-strong-hovered: #007a4e;
+  --cui-bg-success-strong-pressed: #016c26;
+  --cui-bg-success-strong-disabled: rgba(1, 136, 80, 0.4);
+  /* Warning backgrounds */
+  --cui-bg-warning: #fdf4db;
+  --cui-bg-warning-hovered: #faeec6;
+  --cui-bg-warning-pressed: #f5dea3;
+  --cui-bg-warning-disabled: rgba(253, 244, 219, 0.4);
+  --cui-bg-warning-strong: #e87c00;
+  --cui-bg-warning-strong-hovered: #cc6d00;
+  --cui-bg-warning-strong-pressed: #b25c00;
+  --cui-bg-warning-strong-disabled: rgba(232, 124, 0, 0.4);
+  /* Danger backgrounds */
+  --cui-bg-danger: #fbe9e7;
+  --cui-bg-danger-hovered: #fcddd9;
+  --cui-bg-danger-pressed: #f2bbb5;
+  --cui-bg-danger-disabled: rgba(251, 233, 231, 0.64);
+  --cui-bg-danger-strong: #de331d;
+  --cui-bg-danger-strong-hovered: #bd2c19;
+  --cui-bg-danger-strong-pressed: #9e2415;
+  --cui-bg-danger-strong-disabled: rgba(222, 51, 29, 0.4);
+  /* Promo backgrounds */
+  --cui-bg-promo: #f5edfe;
+  --cui-bg-promo-hovered: #ede0fc;
+  --cui-bg-promo-pressed: #e0c9f8;
+  --cui-bg-promo-disabled: rgba(245, 237, 254, 0.4);
+  --cui-bg-promo-strong: #9e33e0;
+  --cui-bg-promo-strong-hovered: #8a1ecc;
+  --cui-bg-promo-strong-pressed: #7219a9;
+  --cui-bg-promo-strong-disabled: rgba(158, 51, 224, 0.4);
+  /* Neutral backgrounds */
+  --cui-bg-neutral: #f0eee7;
+  --cui-bg-neutral-hovered: #e8e6dc;
+  --cui-bg-neutral-pressed: #d9d6c7;
+  --cui-bg-neutral-disabled: rgba(217, 214, 199, 0.3);
+  --cui-bg-neutral-strong: #c7c3b3;
+  --cui-bg-neutral-strong-hovered: #c3bfaf;
+  --cui-bg-neutral-strong-pressed: #bebaab;
+  --cui-bg-neutral-strong-disabled: rgba(195, 191, 175, 0.3);
+  /* Brand backgrounds */
+  --cui-bg-brand: #ff61f2;
+  --cui-bg-brand-hovered: #eb58df;
+  --cui-bg-brand-pressed: #da4ece;
+  --cui-bg-brand-disabled: rgba(255, 97, 242, 0.2);
+  /* Neutral foregrounds */
+  --cui-fg-normal: #0f131a;
+  --cui-fg-normal-hovered: #0f131a;
+  --cui-fg-normal-pressed: #0f131a;
+  --cui-fg-normal-disabled: rgba(15, 19, 26, 0.4);
+  --cui-fg-subtle: #6a737c;
+  --cui-fg-subtle-hovered: #6a737c;
+  --cui-fg-subtle-pressed: #6a737c;
+  --cui-fg-subtle-disabled: rgba(106, 115, 124, 0.4);
+  --cui-fg-placeholder: #929396;
+  --cui-fg-placeholder-hovered: #787a7c;
+  --cui-fg-placeholder-pressed: #484a51;
+  --cui-fg-placeholder-disabled: rgba(146, 147, 150, 0.4);
+  --cui-fg-on-strong: #ffffff;
+  --cui-fg-on-strong-hovered: #ffffff;
+  --cui-fg-on-strong-pressed: #ffffff;
+  --cui-fg-on-strong-disabled: rgba(255, 255, 255, 0.4);
+  --cui-fg-on-strong-subtle: rgba(255, 255, 255, 0.7);
+  --cui-fg-on-strong-subtle-hovered: rgba(255, 255, 255, 0.7);
+  --cui-fg-on-strong-subtle-pressed: rgba(255, 255, 255, 0.7);
+  --cui-fg-on-strong-subtle-disabled: rgba(255, 255, 255, 0.3);
+  /* Accent foregrounds */
+  --cui-fg-accent: #0f131a;
+  --cui-fg-accent-hovered: #52565d;
+  --cui-fg-accent-pressed: #676e7a;
+  --cui-fg-accent-disabled: rgba(15, 19, 26, 0.4);
+  /* Success foregrounds */
+  --cui-fg-success: #018850;
+  --cui-fg-success-hovered: #007a4e;
+  --cui-fg-success-pressed: #016c26;
+  --cui-fg-success-disabled: rgba(1, 136, 80, 0.4);
+  /* Warning foregrounds */
+  --cui-fg-warning: #e27900;
+  --cui-fg-warning-hovered: #cc6d00;
+  --cui-fg-warning-pressed: #b25c00;
+  --cui-fg-warning-disabled: rgba(226, 121, 0, 0.4);
+  /* Danger foregrounds */
+  --cui-fg-danger: #de331d;
+  --cui-fg-danger-hovered: #bd2c19;
+  --cui-fg-danger-pressed: #9e2415;
+  --cui-fg-danger-disabled: rgba(222, 51, 29, 0.64);
+  /* Promo foregrounds */
+  --cui-fg-promo: #9e33e0;
+  --cui-fg-promo-hovered: #8a1ecc;
+  --cui-fg-promo-pressed: #7219a9;
+  --cui-fg-promo-disabled: rgba(158, 51, 224, 0.4);
+  /* Neutral (semantic) foregrounds */
+  --cui-fg-neutral: #786464;
+  --cui-fg-neutral-hovered: #6a5959;
+  --cui-fg-neutral-pressed: #5c4d4d;
+  --cui-fg-neutral-disabled: rgba(120, 100, 100, 0.4);
+  /* Brand foregrounds */
+  --cui-fg-brand: #ff61f2;
+  --cui-fg-brand-hovered: #eb58df;
+  --cui-fg-brand-pressed: #da4ece;
+  --cui-fg-brand-disabled: rgba(255, 97, 242, 0.6);
+  /* Neutral borders */
+  --cui-border-normal: #aeb6be;
+  --cui-border-normal-hovered: #85919e;
+  --cui-border-normal-pressed: #687686;
+  --cui-border-normal-disabled: rgba(194, 201, 209, 0.4);
+  --cui-border-subtle: #e3e7ec;
+  --cui-border-subtle-hovered: #c2c9d1;
+  --cui-border-subtle-pressed: #9da7b1;
+  --cui-border-subtle-disabled: rgba(230, 230, 230, 0.4);
+  --cui-border-divider: #e3e7eb;
+  --cui-border-divider-hovered: #9da7b1;
+  --cui-border-divider-pressed: #6a737c;
+  --cui-border-divider-disabled: rgba(194, 201, 209, 0.4);
+  --cui-border-strong: #0f131a;
+  --cui-border-strong-hovered: #494a4a;
+  --cui-border-strong-pressed: #696969;
+  --cui-border-strong-disabled: rgba(15, 19, 26, 0.4);
+  /* Accent borders */
+  --cui-border-accent: #0f131a;
+  --cui-border-accent-hovered: #52565d;
+  --cui-border-accent-pressed: #676e7a;
+  --cui-border-accent-disabled: rgba(15, 19, 26, 0.4);
+  /* Success borders */
+  --cui-border-success: #018850;
+  --cui-border-success-hovered: #007a4e;
+  --cui-border-success-pressed: #016c26;
+  --cui-border-success-disabled: rgba(1, 136, 80, 0.4);
+  /* Warning borders */
+  --cui-border-warning: #e87c00;
+  --cui-border-warning-hovered: #cc6d00;
+  --cui-border-warning-pressed: #b25c00;
+  --cui-border-warning-disabled: rgba(226, 121, 0, 0.4);
+  /* Danger borders */
+  --cui-border-danger: #de331d;
+  --cui-border-danger-hovered: #bd2c19;
+  --cui-border-danger-pressed: #9e2415;
+  --cui-border-danger-disabled: rgba(222, 51, 29, 0.4);
+  /* Promo borders */
+  --cui-border-promo: #9e33e0;
+  --cui-border-promo-hovered: #8a1ecc;
+  --cui-border-promo-pressed: #7219a9;
+  --cui-border-promo-disabled: rgba(158, 51, 224, 0.4);
+  /* Brand borders */
+  --cui-border-brand: #ff61f2;
+  --cui-border-brand-hovered: #eb58df;
+  --cui-border-brand-pressed: #da4ece;
+  --cui-border-brand-disabled: rgba(255, 97, 242, 0.4);
+  /* Special colors */
+  --cui-bg-overlay: rgba(0, 0, 0, 0.4);
+  --cui-bg-elevated: #ffffff;
+  --cui-border-focus: #0f131a;
 }
 
 /**
@@ -570,8 +1315,8 @@ html[type='button'] {
 }
 
 body {
-  background-color: #ffffff;
-  color: #1a1a1a;
+  background-color: var(--cui-bg-normal);
+  color: var(--cui-fg-normal);
   font-size: 1rem;
   line-height: 1.5rem;
 }
