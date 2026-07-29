@@ -4,9 +4,28 @@
 
   interface Props extends HTMLAttributes<HTMLHeadingElement> {
     /**
-     * A Circuit UI headline size. Defaults to `one`.
+     * Choose from 3 font sizes. Default: `m`.
      */
-    size?: 'one' | 'two' | 'three' | 'four';
+    size?:
+      | 's'
+      | 'm'
+      | 'l'
+      /**
+       * @deprecated Use `l` instead.
+       */
+      | 'one'
+      /**
+       * @deprecated Use `m` instead.
+       */
+      | 'two'
+      /**
+       * @deprecated Use `s` instead.
+       */
+      | 'three'
+      /**
+       * @deprecated Use `s` instead.
+       */
+      | 'four';
     /**
      * The HTML heading element to render.
      * Headings should be nested sequentially without skipping any levels.
@@ -17,16 +36,24 @@
     [key: string]: unknown;
   }
 
-  let { size = 'one', as = 'h1', children, ...rest }: Props = $props();
+  let { size = 'm', as = 'h2', children, ...rest }: Props = $props();
+
+  const deprecatedSizeMap: Record<string, string> = {
+    one: 'l',
+    two: 'm',
+    three: 's',
+    four: 's'
+  };
+
+  const fontSize = $derived(deprecatedSizeMap[size] ?? size);
 </script>
 
 <svelte:element
   this={as}
   class="base"
-  class:one={size === 'one'}
-  class:two={size === 'two'}
-  class:three={size === 'three'}
-  class:four={size === 'four'}
+  class:s={fontSize === 's'}
+  class:m={fontSize === 'm'}
+  class:l={fontSize === 'l'}
   {...rest}
 >
   {@render children()}
@@ -34,27 +61,29 @@
 
 <style>
   .base {
-    font-weight: var(--cui-font-weight-bold);
+    margin: 0;
     color: var(--cui-fg-normal);
-    letter-spacing: -0.03em;
-  }
-  .one {
-    font-size: var(--cui-typography-headline-one-font-size);
-    line-height: var(--cui-typography-headline-one-line-height);
+    letter-spacing: var(--cui-letter-spacing);
   }
 
-  .two {
-    font-size: var(--cui-typography-headline-two-font-size);
-    line-height: var(--cui-typography-headline-two-line-height);
+  /* Sizes — the largest headline is set in the display typeface */
+  .l {
+    font-family: var(--cui-font-stack-display);
+    font-size: var(--cui-headline-l-font-size);
+    line-height: var(--cui-headline-l-line-height);
   }
 
-  .three {
-    font-size: var(--cui-typography-headline-three-font-size);
-    line-height: var(--cui-typography-headline-three-line-height);
+  .m {
+    font-family: var(--cui-font-stack-default);
+    font-size: var(--cui-headline-m-font-size);
+    font-weight: var(--cui-font-weight-bold);
+    line-height: var(--cui-headline-m-line-height);
   }
 
-  .four {
-    font-size: var(--cui-typography-headline-four-font-size);
-    line-height: var(--cui-typography-headline-four-line-height);
+  .s {
+    font-family: var(--cui-font-stack-default);
+    font-size: var(--cui-headline-s-font-size);
+    font-weight: var(--cui-font-weight-bold);
+    line-height: var(--cui-headline-s-line-height);
   }
 </style>

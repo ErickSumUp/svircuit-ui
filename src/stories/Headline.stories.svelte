@@ -22,18 +22,17 @@
   type Args = ComponentProps<typeof Headline>;
 </script>
 
-<Story name="Base" args={{ as: 'h1', size: 'one' }}>
+<Story name="Base" args={{ as: 'h2', size: 'm' }}>
   {#snippet template({ children, ...args }: Args)}
-    <Headline {...args}>{children || 'This is a headline!'}</Headline>
+    <Headline {...args}>{children || 'This is a headline'}</Headline>
   {/snippet}
 </Story>
 
 <Story name="Sizes">
   {#snippet template()}
-    <Headline size="one">This is a headline one</Headline>
-    <Headline size="two" as="h2">This is a headline two</Headline>
-    <Headline size="three" as="h3">This is a headline three</Headline>
-    <Headline size="four" as="h4">This is a headline four</Headline>
+    {#each ['l', 'm', 's'] as const as size (size)}
+      <Headline as="h2" {size}>This is size {size}</Headline>
+    {/each}
   {/snippet}
 </Story>
 
@@ -47,7 +46,7 @@
 
 <Story name="HeadlineNoSection">
   {#snippet template()}
-    <Headline>This is a headline</Headline>
+    <Headline as="h2">This is a headline</Headline>
     <Body>This is a body</Body>
     <Body color="accent">This is a highlighted body that can be used also</Body>
   {/snippet}

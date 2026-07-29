@@ -9,69 +9,79 @@
     argTypes: {
       children: {
         control: { type: 'text' }
+      },
+      as: {
+        control: { type: 'text' }
       }
     },
     parameters: {
       layout: 'centered'
-    },
-    render: template
+    }
   });
 
   type Args = Omit<ComponentProps<typeof Body>, 'children'> & {
     children: string;
   };
+
+  const content =
+    'An electronic circuit is composed of individual electronic components, such as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires or traces through which electric current can flow.';
 </script>
 
-{#snippet template({ children, ...args }: Args)}
-  <Body {...args}>{children}</Body>
-{/snippet}
-
-<Story
-  name="Base"
-  args={{
-    children: `An electronic circuit is composed of many individual electronic
-    components, such as resistors, transistors, capacitors, inductors and diodes, connected by conductive
-    wires or traces through which electric current can flow`,
-    size: 'l',
-    color: 'accent'
-  }}
-/>
-
-<Story name="Colors">
-  <Body color="normal">This is a normal body</Body>
-  <Body color="subtle">This is a subtle body</Body>
-  <Body color="placeholder">This is a placeholder body</Body>
-  <Body color="accent">This is an accent body</Body>
-  <Body color="success">This is a success body</Body>
-  <Body color="warning">This is a warning body</Body>
-  <Body color="danger">This is a danger body</Body>
-  <Body color="promo">This is a promo body</Body>
+<Story name="Base" args={{ children: content }}>
+  {#snippet template({ children, ...args }: Args)}
+    <Body {...args}>{children || content}</Body>
+  {/snippet}
 </Story>
 
 <Story name="Sizes">
-  <Body size="s"
-    >This is a body small. An electronic circuit is composed of individual electronic components,
-    such as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires
-    or traces through which electric current can flow.
-  </Body>
-  <Body size="m"
-    >This is a body medium. An electronic circuit is composed of individual electronic components,
-    such as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires
-    or traces through which electric current can flow.
-  </Body>
-  <Body size="l"
-    >This is a body large. An electronic circuit is composed of individual electronic components,
-    such as resistors, transistors, capacitors, inductors and diodes, connected by conductive wires
-    or traces through which electric current can flow.
-  </Body>
+  {#snippet template()}
+    {#each ['l', 'm', 's'] as const as size (size)}
+      <Body {size}>This is size {size}. {content}</Body>
+    {/each}
+  {/snippet}
+</Story>
+
+<Story name="Weights">
+  {#snippet template()}
+    {#each ['regular', 'semibold', 'bold'] as const as weight (weight)}
+      <Body {weight}>This is the {weight} weight. {content}</Body>
+    {/each}
+  {/snippet}
+</Story>
+
+<Story name="Decorations">
+  {#snippet template()}
+    <Body decoration="strikethrough">{content}</Body>
+  {/snippet}
+</Story>
+
+<Story name="Colors">
+  {#snippet template()}
+    {#each ['normal', 'subtle', 'placeholder', 'on-strong', 'on-strong-subtle', 'accent', 'success', 'warning', 'danger', 'promo'] as const as color (color)}
+      <Body
+        {color}
+        style={color.startsWith('on-strong') ? 'background: var(--cui-bg-strong)' : undefined}
+      >
+        This is the {color} color. {content}
+      </Body>
+    {/each}
+  {/snippet}
+</Story>
+
+<Story name="Variants">
+  {#snippet template()}
+    {#each ['highlight', 'quote', 'confirm', 'alert', 'subtle'] as const as variant (variant)}
+      <Body {variant}>This is a {variant} body</Body>
+    {/each}
+  {/snippet}
 </Story>
 
 <Story name="Semantic">
-  <Body>
-    <p>
-      An <em>electronic</em> circuit <strong>is</strong> composed of <s>many</s> individual electronic
-      components, such as resistors, transistors, capacitors, inductors and diodes, connected by conductive
-      wires or traces through which electric current can flow
-    </p>
-  </Body>
+  {#snippet template()}
+    <Body>
+      An electronic circuit <strong>is</strong> composed of individual electronic components, such as
+      resistors, transistors, capacitors, inductors and diodes, connected by conductive wires or traces
+      through which electric current can flow.
+    </Body>
+  {/snippet}
 </Story>

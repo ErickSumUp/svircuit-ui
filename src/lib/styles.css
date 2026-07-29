@@ -396,6 +396,9 @@
   --cui-border-radius-byte: 8px;
   --cui-border-radius-kilo: 12px;
   --cui-border-radius-mega: 16px;
+  --cui-border-radius-giga: 24px;
+  --cui-border-radius-tera: 32px;
+  --cui-border-radius-peta: 40px;
   --cui-border-radius-circle: 100%;
   --cui-border-radius-pill: 999999px;
   /* Border widths */
@@ -416,10 +419,10 @@
   --cui-font-weight-bold: 650;
 
   /* Icon sizes */
-  --cui-icon-sizes-kilo: 16px;
-  --cui-icon-sizes-mega: 24px;
-  --cui-icon-sizes-giga: 32px;
-  --cui-icon-sizes-tera: 48px;
+  --cui-icon-sizes-s: 1rem;
+  --cui-icon-sizes-m: 1.5rem;
+  --cui-icon-sizes-l: 2rem;
+  --cui-icon-sizes-xl: 3rem;
 
   /* Spacings */
   --cui-spacings-bit: 4px;
@@ -431,6 +434,9 @@
   --cui-spacings-peta: 40px;
   --cui-spacings-exa: 48px;
   --cui-spacings-zetta: 56px;
+  --cui-spacings-yotta: 72px;
+  --cui-spacings-ronna: 96px;
+  --cui-spacings-quetta: 128px;
 
   /* Transitions */
   --cui-transitions-default: 120ms ease-in-out;
@@ -455,17 +461,13 @@
   --cui-typography-title-four-line-height: 3.5rem;
   --cui-typography-sub-headline-font-size: 0.875rem;
   --cui-typography-sub-headline-line-height: 1.25rem;
-  --cui-typography-body-s-font-size: 0.875rem;
-  --cui-typography-body-s-line-height: 1.25rem;
-  --cui-typography-body-m-font-size: 1rem;
-  --cui-typography-body-m-line-height: 1.375rem;
-  --cui-typography-body-l-font-size: 1.25rem;
-  --cui-typography-body-l-line-height: 1.5rem;
-
   /* Letter spacing */
-  --cui-letter-spacing: -0.01375rem;
+  --cui-letter-spacing: 0rem;
+  --cui-letter-spacing-tight: 0rem;
 
   /* Typography */
+  --cui-display-xl-font-size: 6rem;
+  --cui-display-xl-line-height: 90%;
   --cui-display-l-font-size: 4rem;
   --cui-display-l-line-height: 4.5rem;
   --cui-display-m-font-size: 3rem;
@@ -490,6 +492,8 @@
   --cui-compact-m-line-height: 1.0625rem;
   --cui-compact-s-font-size: 0.8125rem;
   --cui-compact-s-line-height: 0.9375rem;
+  --cui-numeral-xl-font-size: 4rem;
+  --cui-numeral-xl-line-height: 4rem;
   --cui-numeral-l-font-size: 3rem;
   --cui-numeral-l-line-height: 3.375rem;
   --cui-numeral-m-font-size: 1.5rem;
@@ -497,24 +501,40 @@
   --cui-numeral-s-font-size: 1rem;
   --cui-numeral-s-line-height: 1.375rem;
 
-  --cui-typography-body-one-font-size: 1rem;
-  --cui-typography-body-one-line-height: 1.375rem;
-  --cui-typography-body-two-font-size: 0.875rem;
-  --cui-typography-body-two-line-height: 1.25rem;
-  --cui-typography-body-large-font-size: 1.25rem;
-  --cui-typography-body-large-line-height: 1.5rem;
+  /**
+   * Deprecated typography aliases.
+   *
+   * Circuit renamed these to the t-shirt scale above. They resolve to the new
+   * tokens so the two can't drift apart while components are migrated; remove
+   * an alias once nothing references it.
+   */
+  --cui-typography-body-s-font-size: var(--cui-body-s-font-size);
+  --cui-typography-body-s-line-height: var(--cui-body-s-line-height);
+  --cui-typography-body-m-font-size: var(--cui-body-m-font-size);
+  --cui-typography-body-m-line-height: var(--cui-body-m-line-height);
+  --cui-typography-body-l-font-size: var(--cui-body-l-font-size);
+  --cui-typography-body-l-line-height: var(--cui-body-l-line-height);
+  --cui-typography-body-one-font-size: var(--cui-body-m-font-size);
+  --cui-typography-body-one-line-height: var(--cui-body-m-line-height);
+  --cui-typography-body-two-font-size: var(--cui-body-s-font-size);
+  --cui-typography-body-two-line-height: var(--cui-body-s-line-height);
+  --cui-typography-body-large-font-size: var(--cui-body-l-font-size);
+  --cui-typography-body-large-line-height: var(--cui-body-l-line-height);
 
   /* Z-indices */
   --cui-z-index-default: 0;
   --cui-z-index-absolute: 1;
   --cui-z-index-input: 20;
-  --cui-z-index-popover: 30;
+  --cui-z-index-side-panel: 30;
   --cui-z-index-tooltip: 40;
   --cui-z-index-header: 600;
-  --cui-z-index-backdrop: 700;
   --cui-z-index-navigation: 800;
-  --cui-z-index-modal: 1000;
+  --cui-z-index-popover: 1000;
   --cui-z-index-toast: 1100;
+
+  /* Deprecated z-indices; circuit dropped both in favour of the top layer. */
+  --cui-z-index-backdrop: 700;
+  --cui-z-index-modal: 1000;
 
   --cui-ty-headline-font-size-one: 2rem;
   --cui-ty-headline-line-height-one: 2.25rem;
@@ -528,13 +548,34 @@
   --cui-ty-sub-headline-font-size: 0.875rem;
   --cui-ty-sub-headline-line-height: 1.25rem;
 
-  --cui-icon-size-kilo: 16px;
-  --cui-icon-size-mega: 24px;
-  --cui-icon-size-giga: 32px;
-  --cui-icon-size-tera: 48px;
+  /* Deprecated icon size aliases, both the singular and plural spellings. */
+  --cui-icon-size-kilo: var(--cui-icon-sizes-s);
+  --cui-icon-size-mega: var(--cui-icon-sizes-m);
+  --cui-icon-size-giga: var(--cui-icon-sizes-l);
+  --cui-icon-size-tera: var(--cui-icon-sizes-xl);
+  --cui-icon-sizes-kilo: var(--cui-icon-sizes-s);
+  --cui-icon-sizes-mega: var(--cui-icon-sizes-m);
+  --cui-icon-sizes-giga: var(--cui-icon-sizes-l);
+  --cui-icon-sizes-tera: var(--cui-icon-sizes-xl);
 
   --cui-secondary-navigation-width-open: 220px;
   --cui-secondary-navigation-width-closed: 48px;
+}
+
+/**
+ * Responsive typography
+ *
+ * The display sizes are the only tokens that change with the viewport. Circuit
+ * scales them down below its `giga` breakpoint so a marketing title still fits
+ * on a phone.
+ */
+@media (max-width: 959px) {
+  :root {
+    --cui-display-xl-font-size: 4rem;
+    --cui-display-l-font-size: 3rem;
+    --cui-display-m-font-size: 2.5rem;
+    --cui-display-s-font-size: 2.5rem;
+  }
 }
 
 /**

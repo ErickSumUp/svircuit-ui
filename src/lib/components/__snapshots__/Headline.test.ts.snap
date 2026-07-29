@@ -3,16 +3,14 @@
 exports[`should match story case 1`] = `
 <div>
   <!---->
-  <a
-    class="text base m regular svelte-1otgkfv"
-    href="https://opensource.sumup.com/"
+  <h2
+    class="base svelte-kner5g m"
   >
     <!---->
     Example Snippet
-    <!---->
-    <!---->
     
-  </a>
+    
+  </h2>
   
   
 </div>

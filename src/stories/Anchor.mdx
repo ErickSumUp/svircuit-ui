@@ -5,10 +5,25 @@ import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
 
 # Anchor
 
-The Anchor component is used to display a link or button that visually looks like a hyperlink.
+The Anchor component is used to display a link or button that visually looks like a hyperlink. It is
+based on the Body component, so it shares its `size`, `weight` and `decoration` props.
 
-<Canvas withToolbar={true} of={Stories.Base} />
+<Canvas withToolbar={true} of={Stories.AsLink} />
 <Controls />
+
+## Component variations
+
+Pass an `href` to render a link. Pass an `onclick` handler instead to render a button that looks like
+a link, for actions that don't navigate anywhere.
+
+<Canvas of={Stories.AsButton} />
+
+With neither, the text is rendered as a `span`, so that it isn't announced as a link.
+
+Links that open in a new tab or lead to an external page need an `externalLabel`, which is read by
+screen readers after the link text.
+
+<Canvas of={Stories.ExternalLink} />
 
 ## Accessibility
 
