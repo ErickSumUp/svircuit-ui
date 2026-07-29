@@ -5,14 +5,18 @@ import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
 
 # Pagination
 
-Pagination provides a way for users to visualize bulks of information distributed over multiple pages, while always providing an anchor to move from where they currently are in the list.
+Pagination provides a way for users to visualize bulks of information distributed over multiple
+pages, while always providing an anchor to move from where they currently are in the list.
+
+The component is controlled: pass the `currentPage` and update it from `onChange`.
 
 <Canvas withToolbar={true} of={Stories.Base} />
 <Controls />
 
 ## When to use it
 
-Use it when you have a list of more than 25 items related to the same category. This allows a better experience searching through the data for our users.
+Use it when you have a list of more than 25 items related to the same category. This allows a better
+experience searching through the data for our users.
 
 ## Usage guidelines
 
@@ -21,6 +25,26 @@ Use it when you have a list of more than 25 items related to the same category. 
 
 ### Many pages
 
-When there are more than 7 pages in total, the pagination is displayed with spaces in between.
+Up to five pages the component shows one button per page. Above that it switches to a select, which
+keeps the control the same width no matter how many pages there are. Pass `totalLabel` to show how
+many pages there are in total next to it.
 
 <Canvas of={Stories.ManyPages} />
+
+### A single page
+
+There is nothing to navigate with one page, so the component renders nothing at all.
+
+<Canvas of={Stories.SinglePage} />
+
+---
+
+## Accessibility
+
+- **Label the navigation.** The `label` prop names the `nav` landmark, which is how screen reader
+  users tell it apart from the other navigation on the page
+  ([2.4.1: Bypass Blocks](https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html)).
+- **The current page is marked** with `aria-current="page"`, so it is announced as the user's
+  position in the list rather than only being shown by its color.
+- **Every control has a text label.** The page buttons are numbers, so `pageLabel` provides the
+  fuller "Go to page 9" phrasing, and the chevrons take `previousLabel` and `nextLabel`.

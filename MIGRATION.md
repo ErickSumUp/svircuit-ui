@@ -10,6 +10,35 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-07-29 — Phase 4 attempted, only Pagination kept ⚠️
+
+Pagination is done and stays. **The Table and NotificationToast rewrites were rolled back by
+decision** — the code is back to the version that was there before. Read the two reasons below before
+attempting either again, because a faithful port is what got reverted.
+
+- **Pagination (4.3) ✅** now follows circuit: controlled via `currentPage` + a required `onChange`,
+  `ariaLabel` renamed to `label`, up to five pages it renders one button per page and above that a
+  `<Select>` with an optional `totalLabel` wired through `aria-describedby`. It renders nothing below
+  two pages, and the active page carries `aria-current="page"`. Verified in the browser: the button
+  list, the ten-option select, the disabled chevrons at both bounds and the empty single-page case.
+  Adopting circuit's shape deleted our windowing algorithm, which removed two bugs with it — the dead
+  focusable `…` buttons and the branch that returned an empty page list for some inputs.
+- **Table (4.1) reverted.** The data-driven `headers`/`rows` contract cost more than it bought. It
+  cannot express `colspan`, `rowspan`, `tfoot`, `caption` or grouped headers at all, so a consumer
+  with a non-rectangular table is stuck, and it takes markup authoring away from the consumer for no
+  gain on the output — both versions emit the same native table elements. The port also came out at
+  639 lines, because copying circuit's contract meant copying its dual shapes (a cell is a scalar
+  _or_ an object, a row is an array _or_ `{ cells }`, a `sortLabel` is a string _or_ a function),
+  each of which needs a normalization helper and pushes shape-checking into the markup.
+- **NotificationToast (4.2) reverted** along with it.
+- **Two principles came out of this, now in the ground rules:** the port has to be readable in one
+  pass, and where a native element is already expressive the consumer should write the markup. Do not
+  copy a circuit structure just because it is circuit's.
+
+**Next up: Phase 0.2 (field foundation), which still needs the decision, or Phase 5 (new simple
+components), which is independent.** Phase 2 is blocked on 0.2. Phases 4.1 and 4.2 are re-scoped
+below and should not be re-attempted as originally written.
+
 ### 2026-07-29 — Phase 3 core components ✅
 
 Every item in Phase 3 is done. 34 unit tests pass, and all the touched stories were checked in the
@@ -100,6 +129,13 @@ is deferred, Phase 1 (typography) is independent and can go first.
   `DateInput`, `SideNavigation`) live in `src/lib/stories/` and may compose atomic components.
 - **Native over libraries.** Popover API, CSS anchor positioning, `<dialog>`, `Intl`, container
   queries and `prefers-color-scheme` instead of JS dependencies.
+- **Native authoring where the element is expressive.** Prefer letting the consumer write the markup
+  through snippets over a data-driven props contract when the HTML element already says it better —
+  tables being the case that settled this. A props array is right when the component has to own
+  cross-cutting state, not merely to avoid children.
+- **Readable in one pass.** Circuit's internals are not a target to copy. Where circuit carries
+  dual-shaped props and normalization helpers for backwards compatibility, pick one shape: we have no
+  consumers to keep happy. Normalize in the script and keep the markup dumb enough to read as HTML.
 - **Icons are inlined** as SVG per component rather than pulled from `@sumup-oss/icons`.
 - Each ported component ships with: the component, a unit test, a `*.stories.svelte`, an `*.mdx` doc
   page, an export in `src/lib/index.ts`, and a browser check of the rendered result.
@@ -109,13 +145,13 @@ is deferred, Phase 1 (typography) is independent and can go first.
 Circuit has 74 components. We share 27 with it, 35 do not exist here yet, and 4 are our own
 inventions (`Stack`, `Spacer`, `TestText`, plus the story components).
 
-| Status         | Components                                                                                                                                                                       |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| In sync        | Body, Headline, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner |
-| Minor drift    | Checkbox, InputRadio, ButtonGroup, Popover, Toggletip, DateInput                                                                                                                 |
-| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast, SideNavigation, Pagination                                                                                |
-| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, the duplicate `src/lib/SideNavigation.svelte`                                                                                           |
-| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                   |
+| Status         | Components                                                                                                                                                                                   |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| In sync        | Body, Headline, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
+| Minor drift    | Checkbox, InputRadio, ButtonGroup, Popover, Toggletip, DateInput                                                                                                                             |
+| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast, SideNavigation                                                                                                        |
+| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, the duplicate `src/lib/SideNavigation.svelte`                                                                                                       |
+| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                               |
 
 Colors are fully in sync — every token in circuit's `light.ts` exists in our `styles.css`.
 
@@ -338,33 +374,61 @@ Do these after 0.2, in this order — `SearchInput` is a wrapper over `Input` up
 
 ---
 
-## Phase 4 — Rebuild the three big ones
+## Phase 4 — The three big ones
 
-### 4.1 Table (L)
+Attempted 2026-07-29. Pagination landed; the Table and NotificationToast rewrites were rolled back.
+See the progress log entry for that date.
 
-- [ ] Adopt the data-driven contract: `headers`, `rows`, and the `HeaderCell`/`RowCell` shapes, with the
-      component rendering head and body itself. Our thin DOM wrappers make every consumer write markup
-      by hand.
-- [ ] Add sorting: `onSortBy`, `initialSortDirection`, `initialSortedColumn`, per-header `sortable` /
-      `sortLabel` / `sortByValue`, `aria-sort`, the sort arrow, and the hovered-column highlight.
-- [ ] Add `condensed` (cascading from the table, not per cell), `rowHeaders` (sticky first column on
-      mobile), `scrollable` (measures the parent for `--table-height` and translates the `thead`), and
-      `onRowClick`.
-- [ ] Row interaction: `tabIndex`, Enter/Space activation and the focus ring belong on `tr`. Ours are on
-      `tbody`, so they never trigger.
+### 4.1 Table — on hold, needs re-scoping ⚠️
+
+**Do not re-attempt the data-driven rewrite.** It was written, reviewed and reverted: the
+`headers`/`rows` contract cannot express `colspan`, `rowspan`, `tfoot`, `caption` or grouped headers,
+it takes markup authoring away from the consumer for no change in the rendered output, and the port
+came out at 639 lines because circuit's dual-shaped props each need a normalization helper. The
+wrapper components (`Table`, `THead`, `TBody`, `TR`, `TD`, `TH`) stay for now.
+
+Two questions need answering before any further work, because they decide the shape of everything
+else:
+
+- [ ] **Where does sorting live?** It is the one feature that needs a single owner of the row order,
+      and it is the reason circuit went data-driven. Options: keep the wrappers and have `Table` own an
+      optional sort state that the consumer reads through a snippet parameter; expose a sort helper
+      the consumer calls itself; or accept that sorting is out of scope and leave it to the consumer.
+- [ ] **Do the wrappers stay six components?** Six components to render one table is the pattern the
+      atomic rule exists to avoid, but each file is short and readable, which is the pattern the
+      rewrite failed on. A middle option is one `Table` that takes snippet children and styles the
+      cells through `:global()`, so the consumer still writes `tr`/`td` but there is one file.
+
+These fixes are worth doing on the current wrappers regardless of the outcome above, and are
+independent of each other:
+
 - [ ] **The mobile media query is inverted** — `Table.svelte` uses `min-width: 767px` where circuit uses
-      `max-width: 767px`, so horizontal scrolling doesn't work on mobile.
+      `max-width: 767px`, so horizontal scrolling doesn't work on mobile. Smallest, highest-value fix
+      on this list.
 - [ ] `TH`'s `fixed` is a hardcoded `let fixed = true`, so every header is sticky instead of only the
       first column.
+- [ ] Row interaction: `tabIndex`, Enter/Space activation and the focus ring belong on `tr`. Ours are on
+      `tbody`, so they never trigger.
 - [ ] Rename `borderCollapse` → `borderCollapsed`, `isScrollable` → `scrollable`; fix
       `--cui-spacings-bit` used where `--cui-border-radius-bit` was meant; move typography to `body-s`
       and borders to `--cui-border-width-kilo` + `--cui-border-divider`.
+- [ ] Make `condensed` cascade from the table instead of being repeated on every cell — the one piece
+      of consumer pain the rewrite did fix.
+- [ ] The scroll-following head does not need JavaScript. Circuit tracks `scrollTop` and translates the
+      `thead` because sticky table headers were unreliable when it was written; `position: sticky` on
+      the header cells does it natively today. Caveat: sticky headers and `border-collapse: collapse`
+      are unreliable together, so it interacts with `borderCollapsed`.
 
-### 4.2 NotificationToast (M)
+### 4.2 NotificationToast — on hold ⚠️
 
-- [ ] Add the provider layer: `ToastProvider` + a `useToast` equivalent with `position`
-      (`bottom` | `top` | `top-right`), rendered in the top layer via the Popover API. Ours is a
-      module-level `$state` array pinned to the bottom.
+Reverted together with the Table. The audit below still describes real gaps, but the same two
+principles apply: keep it readable, and don't adopt circuit's provider structure just because it is
+circuit's. Worth deciding first whether the toasts stay a module-level `$state` array with an
+`addToast` function — which is a perfectly good Svelte idiom and simpler than a provider — and only
+port the parts that are about behaviour and looks rather than architecture.
+
+- [ ] Position support (`bottom` | `top` | `top-right`), rendered in the top layer via the Popover API.
+      Ours is pinned to the bottom.
 - [ ] Add `onClose` and `isVisible`, and drive the enter/exit animation — our CSS declares the
       transitions but nothing changes the values, so only the `animate:flip` reorder animates.
 - [ ] Rename `timeout` → `duration` with circuit's 6000 ms minimum, and allow a toast to persist (ours
@@ -373,20 +437,23 @@ Do these after 0.2, in this order — `SearchInput` is a wrapper over `Input` up
       and mark the close button `aria-hidden` with `tabindex="-1"`.
 - [ ] Restyle: filled variant backgrounds (`--cui-bg-subtle`/`-success`/`-warning`/`-danger`) with
       `--cui-border-radius-kilo` and no border, instead of our elevated bordered card.
+- [ ] Open question, deferred: circuit's `ToastProvider` + `useToast`. Only port it if the module-level
+      store turns out to be the thing blocking something.
 
-### 4.3 Pagination (M)
+### 4.3 Pagination (M) ✅ done 2026-07-29
 
-- [ ] Port `PageSelect` — above 5 pages circuit swaps the number list for a `<Select>`, with the
+- [x] Port `PageSelect` — above 5 pages circuit swaps the number list for a `<Select>`, with the
       `totalLabel(totalPages)` prop and its `aria-describedby` wiring.
-- [ ] Move to `onChange(page)` + required `label` instead of mutating bindable `currentPage`/`totalPages`;
+- [x] Move to `onChange(page)` + required `label` instead of mutating bindable `currentPage`/`totalPages`;
       rename `ariaLabel` → `label`.
-- [ ] Render nothing when `totalPages < 2` (we render a lone page "1").
-- [ ] The `…` separator is a focusable `<Button role="link">` with no handler and no `aria-hidden` —
-      keyboard users tab onto dead buttons.
-- [ ] Drop `role="link"` from page buttons and set `aria-current` on the active page.
-- [ ] Fix the windowing hole: the `totalPages > 5 && !isCloseToBoth` branch is the only one that pushes
-      pages beyond 7, so some inputs return an empty list.
-- [ ] Add `flex-shrink: 0` to the chevron buttons.
+- [x] Render nothing when `totalPages < 2` (we render a lone page "1").
+- [x] The `…` separator is a focusable `<Button role="link">` with no handler and no `aria-hidden` —
+      keyboard users tab onto dead buttons. **Moot:** circuit has no `…`; the select replaces the whole
+      windowed list.
+- [x] Drop `role="link"` from page buttons and set `aria-current` on the active page.
+- [x] Fix the windowing hole: the `totalPages > 5 && !isCloseToBoth` branch is the only one that pushes
+      pages beyond 7, so some inputs return an empty list. **Moot:** the windowing algorithm is gone.
+- [x] Add `flex-shrink: 0` to the chevron buttons.
 
 ---
 
