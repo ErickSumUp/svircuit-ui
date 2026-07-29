@@ -1,0 +1,83 @@
+import * as Stories from './Popover.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Popover
+
+Popovers display content in an overlay, anchored to the element that toggles
+them.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Best practices
+
+- The trigger must be a `button`, or a component that renders one, such as the
+  `Button` component. Spread the attributes the `trigger` snippet receives onto
+  it so that the browser can wire the two elements together.
+- Keep the content short. A popover is not a page: if you need a long form or a
+  flow with several steps, use the `Dialog` component instead.
+- Position the popover so that it never covers the content it refers to.
+
+## Usage guidelines
+
+- **Do** use a popover for versatile content that supports the element that
+  opens it, such as a list of notifications, a set of filters, an inline edit
+  field, or a preview of a file.
+- **Do not** use a popover for critical information or for anything the user
+  must act on. It is dismissed as soon as they click elsewhere.
+- **Do not** nest a popover inside another popover.
+
+## Component variations
+
+### Placements
+
+The `placement` prop decides which side of the trigger the popover opens on.
+When there isn't enough room on that side, the browser flips it to the
+opposite one, so the popover always stays within the viewport.
+
+<Canvas of={Stories.Placements} />
+
+### Offset
+
+Use the `offset` prop to change the distance in pixels between the popover and
+its trigger.
+
+<Canvas of={Stories.Offset} />
+
+### Closing from the content
+
+The content receives a `close` function, which is useful when an action inside
+the popover should dismiss it.
+
+<Canvas of={Stories.ClosingFromTheContent} />
+
+### Controlled
+
+Bind to the `open` prop to read or write the state of the popover. The browser
+remains the source of truth, so `open` is also updated when the user dismisses
+the popover by clicking outside of it or pressing escape.
+
+<Canvas of={Stories.Controlled} />
+
+## How it works
+
+The popover is built entirely on browser primitives, with no positioning
+library:
+
+- The [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
+  handles the top layer, dismissing on outside clicks and on escape, returning
+  focus to the trigger, and the accessible relationship between the two
+  elements.
+- [CSS anchor positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning)
+  tethers the popover to its trigger, using `position-area` for the placement
+  and `position-try-fallbacks` for the flipping behaviour.
+- A media query turns the popover into a sheet at the bottom of the viewport on
+  narrow screens. Pass `sheetOnMobile={false}` to keep it anchored to its
+  trigger on every screen size.
+
+Both APIs are
+[baseline in 2026](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/position-area).
+Where the Popover API is missing, the content stays visible instead of being
+hidden behind an interaction.

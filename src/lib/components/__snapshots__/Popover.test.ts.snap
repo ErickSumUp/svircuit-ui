@@ -1,0 +1,28 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case variants 1`] = `
+<div>
+  <div
+    class="trigger svelte-okkiwd"
+    style="anchor-name: --popover-anchor-c1;"
+  >
+    Example Snippet
+    <!---->
+  </div>
+   
+  <div
+    class="base svelte-okkiwd bottom sheet"
+    id="popover-c1"
+    popover="auto"
+    style="position-anchor: --popover-anchor-c1; --popover-offset: 8px;"
+  >
+    <div
+      class="content svelte-okkiwd"
+    >
+      Example Snippet
+      <!---->
+    </div>
+  </div>
+  
+</div>
+`;

@@ -27,11 +27,13 @@ const preview: Preview = {
       }
     }
   },
+  initialGlobals: {
+    colorScheme: 'light'
+  },
   globalTypes: {
     colorScheme: {
       name: 'Theme',
       description: 'Color scheme',
-      defaultValue: 'light',
       toolbar: {
         title: 'Theme',
         icon: 'mirror',
