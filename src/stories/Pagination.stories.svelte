@@ -4,7 +4,7 @@
   import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
-    title: 'Stories/Pagination',
+    title: 'Navigation/Pagination',
     component: Pagination,
     argTypes: {},
     parameters: {

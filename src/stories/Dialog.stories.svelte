@@ -4,7 +4,7 @@
   import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
-    title: 'Components/Dialog',
+    title: 'Components/Modal/Dialog',
     component: Dialog,
     parameters: {
       layout: 'centered'

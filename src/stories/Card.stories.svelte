@@ -4,7 +4,7 @@
   import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
-    title: 'Typography/Card',
+    title: 'Components/Card',
     component: Card,
     argTypes: {
       children: {
