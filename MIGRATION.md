@@ -10,6 +10,28 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-07-29 — Phase 1 typography ✅
+
+All four missing typography components ported, plus both deprecations. 30 unit tests pass, and every
+size, weight and color was verified against circuit's computed values in the browser.
+
+- **Compact**, **Display**, **List** and **Numeral** are in `src/lib/components/`, each with a unit
+  test, a `*.stories.svelte` mirroring circuit's story set, an `*.mdx` page, and an export.
+- Sizes verified against circuit: Compact 18/15/13px, Display 96/64/48/40px (64/48/40/40 below
+  960px), Numeral 64/48/24/16px with `tabular-nums`, List on the Body scale.
+- **List needed `:global()`.** Its `li`/`ul`/`ol` rules style children that the consumer passes in,
+  which carry the consumer's scope, not the component's. Any future component that styles
+  consumer-supplied markup (ListItemGroup, Table) will hit the same thing.
+- Deprecated size aliases are implemented the same way as Body and Headline: a `deprecatedSizeMap`
+  plus a `$derived`. Display maps one → l, two → m, three → m, four → s; List follows Body with
+  one → m, two → s.
+- `Badge` and `SubHeadline` now carry `@deprecated` JSDoc pointing at `Status` and
+  `<Headline size="s">`. Neither is removed — `SubHeadline` in particular is a visible design change,
+  so it needs sign-off before anything switches over.
+
+**Next up: Phase 0.2 (field foundation, still needs the decision) or Phase 3, which is independent
+of it.** Phase 2 is blocked on 0.2.
+
 ### 2026-07-29 — Phase 0.1 design tokens ✅
 
 `src/lib/styles.css` only. All 16 missing shared tokens added, all 20 unit tests still pass, and the
@@ -53,12 +75,12 @@ is deferred, Phase 1 (typography) is independent and can go first.
 
 ## Status overview
 
-Circuit has 74 components. We share 20 with it, 42 do not exist here yet, and 4 are our own
+Circuit has 74 components. We share 24 with it, 38 do not exist here yet, and 4 are our own
 inventions (`Stack`, `Spacer`, `TestText`, plus the story components).
 
 | Status         | Components                                                                                                             |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| In sync        | Body, Headline, Anchor, Status, Calendar, Card, CardFooter                                                             |
+| In sync        | Body, Headline, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter                            |
 | Minor drift    | Button, Tag, ListItem, ProgressBar, Checkbox, InputRadio, ButtonGroup, Popover, Toggletip, DateInput                   |
 | Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, CardHeader, NotificationToast, SideNavigation, Pagination, Spinner |
 | Dead / removed | CircleButton, SubHeadline, the duplicate `src/lib/SideNavigation.svelte`                                               |
@@ -116,20 +138,21 @@ We have no equivalent, so all six form components re-inline that markup and have
 
 ---
 
-## Phase 1 — Finish typography
+## Phase 1 — Finish typography ✅ done 2026-07-29
 
-- [ ] **Compact** — like Body but denser, for tables and dense UI. Sizes `s`/`m`/`l`, weights
+- [x] **Compact** — like Body but denser, for tables and dense UI. Sizes `s`/`m`/`l`, weights
       `regular`/`semibold`/`bold`, same color set as Body.
-- [ ] **Display** — marketing title in the SumUp Black display typeface. Sizes `s`/`m`/`l`/`xl`,
-      renders as any heading element. Needs the `--cui-display-xl-*` tokens from 0.1.
-- [ ] **List** — ordered and unordered lists, sizes inherited from Body, `variant` and `marker` props.
-- [ ] **Numeral** — numbers with tabular figures, sizes `s`/`m`/`l`/`xl`. Needs `--cui-numeral-xl-*`.
-- [ ] **Deprecate Badge.** Upstream it is a thin shim over `Status` (`variant={circle ? 'badge' : 'pill'}`,
-      success→confirm, warning→notify, danger→alert). Ours re-implements it with no deprecation marker.
-      Add a JSDoc `@deprecated` pointing at `Status`.
-- [ ] **Deprecate SubHeadline.** Circuit removed it: "Use the Headline component in size `s` instead."
-      Not a drop-in swap — ours is uppercase with `--cui-ty-sub-headline-*` tokens, Headline `s` is
-      mixed case, so this is a visible design change.
+- [x] **Display** — marketing title in the SumUp Black display typeface. Sizes `s`/`m`/`l`/`xl`,
+      renders as any heading element. Defaults to the `black` weight at `xl` and `bold` elsewhere.
+- [x] **List** — ordered and unordered lists, sizes inherited from Body, nesting supported.
+- [x] **Numeral** — numbers with tabular figures, sizes `s`/`m`/`l`/`xl`, weight tied to the size.
+- [x] **Deprecate Badge.** JSDoc `@deprecated` added pointing at `Status`, with the color mapping
+      (success→confirm, warning→notify, danger→alert) recorded. The component still works as before.
+- [x] **Deprecate SubHeadline.** JSDoc `@deprecated` added pointing at `<Headline size="s">`. Not a
+      drop-in swap — ours is uppercase, Headline `s` is mixed case — so nothing has been switched over
+      yet. Needs design sign-off, and the `--cui-ty-sub-headline-*` tokens go away with it.
+- [ ] Follow-up: `Compact` should replace the hand-rolled dense typography in `Table`, `ListItem` and
+      the form field labels when those are migrated (Phases 2–4).
 
 ---
 

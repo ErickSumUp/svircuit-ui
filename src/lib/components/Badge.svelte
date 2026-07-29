@@ -2,6 +2,11 @@
   import type { HTMLAttributes } from 'svelte/elements';
   import type { Snippet } from 'svelte';
 
+  /**
+   * @deprecated Use the {@link Status} component instead. A Badge maps onto a
+   * Status with `variant="pill"`, or `variant="badge"` when `circle` is set,
+   * and the colors map success → confirm, warning → notify, danger → alert.
+   */
   interface Props extends HTMLAttributes<HTMLSpanElement> {
     /**
      * Choose the semantic style variant. Default: 'neutral'.
@@ -20,13 +25,7 @@
     [key: string]: unknown;
   }
 
-  let {
-    variant = 'neutral',
-    circle = false,
-    as = 'span',
-    children,
-    ...rest
-  }: Props = $props();
+  let { variant = 'neutral', circle = false, as = 'span', children, ...rest }: Props = $props();
 </script>
 
 <svelte:element

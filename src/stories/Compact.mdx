@@ -1,0 +1,48 @@
+import * as Stories from './Compact.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Compact
+
+The Compact component presents the same textual content as the [Body](Typography/Body) component,
+but in a denser type scale. Use it where vertical space is at a premium — table cells, list rows,
+badges and other dense UI — and use Body everywhere else.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Component variations
+
+### Sizes
+
+Compact comes in three sizes: `s`, `m` and `l`. Use the default `m` size in most cases, and match
+the size to the surrounding text.
+
+<Canvas of={Stories.Sizes} />
+
+### Weights
+
+Choose from three font weights. Use the `as` prop to render the text as the `strong` element where
+that is semantically correct.
+
+<Canvas of={Stories.Weights} />
+
+### Colors
+
+Compact accepts the same foreground color token names as Body. Use the default `normal` color in
+most cases; the two `on-strong` colors are for text placed on a strong background.
+
+<Canvas of={Stories.Colors} />
+
+---
+
+## Accessibility
+
+The same guidance applies as for the [Body](Typography/Body) component. Two points deserve extra
+attention because of the smaller type:
+
+- **Don't use Compact for long-form copy.** The tighter line height makes paragraphs harder to read,
+  particularly for users with dyslexia or low vision.
+- **Don't rely on color alone** to convey meaning. Pair the `success`, `warning` and `danger` colors
+  with an icon or explicit wording ([1.4.1: Use of Color](https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html)).
