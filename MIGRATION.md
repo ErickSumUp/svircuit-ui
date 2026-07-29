@@ -16,13 +16,17 @@ Pagination is done and stays. **The Table and NotificationToast rewrites were ro
 decision** — the code is back to the version that was there before. Read the two reasons below before
 attempting either again, because a faithful port is what got reverted.
 
-- **Pagination (4.3) ✅** now follows circuit: controlled via `currentPage` + a required `onChange`,
-  `ariaLabel` renamed to `label`, up to five pages it renders one button per page and above that a
-  `<Select>` with an optional `totalLabel` wired through `aria-describedby`. It renders nothing below
-  two pages, and the active page carries `aria-current="page"`. Verified in the browser: the button
-  list, the ten-option select, the disabled chevrons at both bounds and the empty single-page case.
-  Adopting circuit's shape deleted our windowing algorithm, which removed two bugs with it — the dead
-  focusable `…` buttons and the branch that returned an empty page list for some inputs.
+- **Pagination (4.3) ✅ with a deliberate deviation.** We took circuit's API — controlled
+  `currentPage` + a required `onChange`, `ariaLabel` renamed to `label`, nothing rendered below two
+  pages, `aria-current="page"` on the active page, `flex-shrink: 0` chevrons — but **not** its
+  `<Select>` for large page counts. Circuit renders one `<option>` per page, which means a thousand
+  pages is a thousand options and the browser stalls. We keep the windowed number list instead:
+  `getPages(totalPages, currentPage)` is exported from the module script and always returns at most
+  seven items (first page, a gap, the three around the current one, a gap, last page), so ten pages
+  and ten million cost the same. The `totalLabel` prop is gone with the select. The old windowing bugs
+  are fixed rather than deleted: the gap is now an `aria-hidden` `<span>` rather than a focusable
+  `<Button>` with no handler, and the out-of-range and short-list branches are covered by tests up to
+  ten million pages.
 - **Table (4.1) reverted.** The data-driven `headers`/`rows` contract cost more than it bought. It
   cannot express `colspan`, `rowspan`, `tfoot`, `caption` or grouped headers at all, so a consumer
   with a non-rectangular table is stuck, and it takes markup authoring away from the consumer for no
@@ -310,7 +314,8 @@ Do these after 0.2, in this order — `SearchInput` is a wrapper over `Input` up
       inline their own copy today.
 - [x] Reconcile our extra `compress` and `hideLabel` props — `hideLabel` is how old circuit did
       icon-only buttons; current circuit uses a separate `IconButton`. **Kept both**: `hideLabel` is
-      our IconButton, and Pagination depends on `compress`.
+      our IconButton. Nothing uses `compress` any more since the Pagination rewrite — it is a
+      candidate for removal.
 - [x] Size `m` should use `--cui-border-radius-kilo` (we use `byte`), disabled primary should use
       `--cui-bg-accent-strong-disabled` (we use `--cui-bg-highlight-disabled`), and tertiary needs
       `padding-inline: 0`.
@@ -442,17 +447,17 @@ port the parts that are about behaviour and looks rather than architecture.
 
 ### 4.3 Pagination (M) ✅ done 2026-07-29
 
-- [x] Port `PageSelect` — above 5 pages circuit swaps the number list for a `<Select>`, with the
-      `totalLabel(totalPages)` prop and its `aria-describedby` wiring.
+- [x] ~~Port `PageSelect`~~ — **intentionally not ported.** Circuit renders one `<option>` per page,
+      so a large `totalPages` freezes the browser. Our windowed list stays, and `totalLabel` with it.
 - [x] Move to `onChange(page)` + required `label` instead of mutating bindable `currentPage`/`totalPages`;
       rename `ariaLabel` → `label`.
 - [x] Render nothing when `totalPages < 2` (we render a lone page "1").
 - [x] The `…` separator is a focusable `<Button role="link">` with no handler and no `aria-hidden` —
-      keyboard users tab onto dead buttons. **Moot:** circuit has no `…`; the select replaces the whole
-      windowed list.
+      keyboard users tab onto dead buttons. Now an `aria-hidden` `<span>`.
 - [x] Drop `role="link"` from page buttons and set `aria-current` on the active page.
-- [x] Fix the windowing hole: the `totalPages > 5 && !isCloseToBoth` branch is the only one that pushes
-      pages beyond 7, so some inputs return an empty list. **Moot:** the windowing algorithm is gone.
+- [x] Rewrite the windowing so every input returns a bounded list: `getPages` is a pure exported
+      function with four branches (all pages, near the start, near the end, in the middle) and clamps
+      an out-of-range `currentPage`. Tested up to ten million pages.
 - [x] Add `flex-shrink: 0` to the chevron buttons.
 
 ---

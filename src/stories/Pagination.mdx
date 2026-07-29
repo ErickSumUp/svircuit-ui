@@ -25,11 +25,13 @@ experience searching through the data for our users.
 
 ### Many pages
 
-Up to five pages the component shows one button per page. Above that it switches to a select, which
-keeps the control the same width no matter how many pages there are. Pass `totalLabel` to show how
-many pages there are in total next to it.
+Up to seven pages every page gets a button. Above that the list keeps the first page, the last page
+and the three around the current one, with an ellipsis standing in for each stretch it skips. The
+list is therefore never longer than seven items, so a thousand pages render just as fast as ten.
 
 <Canvas of={Stories.ManyPages} />
+
+<Canvas of={Stories.ThousandsOfPages} />
 
 ### A single page
 
@@ -48,3 +50,6 @@ There is nothing to navigate with one page, so the component renders nothing at 
   position in the list rather than only being shown by its color.
 - **Every control has a text label.** The page buttons are numbers, so `pageLabel` provides the
   fuller "Go to page 9" phrasing, and the chevrons take `previousLabel` and `nextLabel`.
+- **The ellipsis is decoration.** It is a `span` marked `aria-hidden`, not a button, so keyboard users
+  never land on something that does nothing. The page numbers around it already convey that pages
+  were skipped.

@@ -1,12 +1,46 @@
+<script lang="ts" module>
+  /** The gap between two page numbers, rendered as an ellipsis. */
+  export const GAP = 'gap';
+
+  export type PageItem = number | typeof GAP;
+
+  /**
+   * The number of slots in the list. Seven fits the first page, a gap, three
+   * pages around the current one, another gap and the last page.
+   */
+  const SLOTS = 7;
+
+  /**
+   * The list never grows beyond seven items, whether there are eight pages or
+   * eight thousand.
+   */
+  export function getPages(totalPages: number, currentPage: number): PageItem[] {
+    if (totalPages <= SLOTS) {
+      return Array.from({ length: totalPages }, (_, index) => index + 1);
+    }
+
+    const page = Math.min(Math.max(currentPage, 1), totalPages);
+
+    if (page <= 4) {
+      return [1, 2, 3, 4, 5, GAP, totalPages];
+    }
+
+    if (page >= totalPages - 3) {
+      return [1, GAP, totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+    }
+
+    return [1, GAP, page - 1, page, page + 1, GAP, totalPages];
+  }
+</script>
+
 <script lang="ts">
   import type { HTMLAttributes } from 'svelte/elements';
 
   import Button from '$lib/components/Button.svelte';
-  import Select from '$lib/components/Select.svelte';
   import ChevronLeft from '$lib/icons/ChevronLeft.svelte';
   import ChevronRight from '$lib/icons/ChevronRight.svelte';
 
-  interface Props extends Omit<HTMLAttributes<HTMLElement>, 'onchange'> {
+  interface Props extends HTMLAttributes<HTMLElement> {
     /**
      * The currently active page. Default: 1.
      */
@@ -36,11 +70,6 @@
      * example `Go to page 9`.
      */
     pageLabel?: (page: number) => string;
-    /**
-     * Returns the label shown after the select, called with the total number of
-     * pages, for example `of 10`.
-     */
-    totalLabel?: (totalPages: number) => string;
     [key: string]: unknown;
   }
 
@@ -52,18 +81,10 @@
     previousLabel = 'Previous page',
     nextLabel = 'Next page',
     pageLabel = (page: number) => `Go to page ${page}`,
-    totalLabel,
     ...rest
   }: Props = $props();
 
-  const uid = $props.id();
-  const selectId = `pagination-${uid}`;
-  const descriptionId = `pagination-total-${uid}`;
-
-  const pages = $derived(Array.from({ length: totalPages }, (_, index) => index + 1));
-
-  /** Beyond five pages the list of buttons is swapped for a select. */
-  const showList = $derived(totalPages <= 5);
+  const pages = $derived(getPages(totalPages, currentPage));
 </script>
 
 {#snippet chevronLeft()}
@@ -89,11 +110,15 @@
       </Button>
     </div>
 
-    {#if showList}
-      <ol class="list">
-        {#each pages as page (page)}
-          {@const isCurrent = page === currentPage}
-          <li>
+    <ol class="list">
+      {#each pages as page, index (index)}
+        <li>
+          {#if page === GAP}
+            <!-- The gap is decoration: the page buttons around it already tell
+                 a screen reader where it is in the list. -->
+            <span class="gap" aria-hidden="true">…</span>
+          {:else}
+            {@const isCurrent = page === currentPage}
             <Button
               class="page"
               size="s"
@@ -105,27 +130,10 @@
             >
               {page}
             </Button>
-          </li>
-        {/each}
-      </ol>
-    {:else}
-      <Select
-        id={selectId}
-        {label}
-        hideLabel
-        size="s"
-        value={currentPage}
-        ariaDescribedBy={totalLabel ? descriptionId : undefined}
-        onchange={(event) => onChange(Number.parseInt(event.currentTarget.value, 10))}
-      >
-        {#each pages as page (page)}
-          <option value={page}>{page}</option>
-        {/each}
-      </Select>
-      {#if totalLabel}
-        <span id={descriptionId} class="total">{totalLabel(totalPages)}</span>
-      {/if}
-    {/if}
+          {/if}
+        </li>
+      {/each}
+    </ol>
 
     <div class="next">
       <Button
@@ -151,7 +159,7 @@
     padding: var(--cui-spacings-kilo);
   }
 
-  /* The chevrons keep their size when the select or the list grows. */
+  /* The chevrons keep their size when the list of pages grows. */
   .prev {
     flex-shrink: 0;
     margin-right: var(--cui-spacings-kilo);
@@ -181,7 +189,15 @@
     margin-right: 0;
   }
 
-  .total {
-    margin-left: var(--cui-spacings-kilo);
+  .gap {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    padding: var(--cui-spacings-bit);
+    margin-right: var(--cui-spacings-bit);
+    font-size: var(--cui-body-s-font-size);
+    line-height: var(--cui-body-s-line-height);
+    color: var(--cui-fg-subtle);
+    user-select: none;
   }
 </style>
