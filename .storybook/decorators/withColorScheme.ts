@@ -10,7 +10,7 @@ import type { Decorator } from '@storybook/sveltekit';
  * attribute for Storybook — no theming library needed, `svircuit-ui` never
  * ships this file.
  */
-function applyColorScheme(colorScheme: string) {
+export function applyColorScheme(colorScheme: string) {
   const { documentElement } = document;
 
   if (colorScheme === 'light' || colorScheme === 'dark') {
