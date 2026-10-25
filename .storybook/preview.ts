@@ -1,9 +1,18 @@
 import type { Preview } from '@storybook/sveltekit';
+import { addons } from 'storybook/preview-api';
 
 import '../src/lib/styles.css';
-import { themes } from 'storybook/theming';
-import { withColorScheme } from './decorators/withColorScheme';
+import { applyColorScheme, withColorScheme } from './decorators/withColorScheme';
 import { modes } from './modes';
+import { createDocsTheme, listenToColorScheme, type ColorScheme } from './themes';
+
+let colorScheme: ColorScheme = 'light';
+
+listenToColorScheme(addons.getChannel(), 'light', (resolved) => {
+  colorScheme = resolved;
+  // Pages without stories (e.g. MDX) never run the `withColorScheme` decorator.
+  applyColorScheme(resolved);
+});
 
 const preview: Preview = {
   parameters: {
@@ -12,7 +21,7 @@ const preview: Preview = {
         title: 'On this page',
         headingSelector: 'h2, h3'
       },
-      theme: themes.light
+      theme: createDocsTheme(() => colorScheme)
     },
     options: {
       storySort: {
