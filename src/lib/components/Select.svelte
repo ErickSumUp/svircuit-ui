@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type ChangeEventHandler } from 'svelte/elements';
+  import type { ChangeEventHandler } from 'svelte/elements';
   import { type Snippet } from 'svelte';
 
   interface Props {

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { type Snippet } from 'svelte';
-  import { type HTMLInputTypeAttribute } from 'svelte/elements';
+  import type { HTMLInputTypeAttribute } from 'svelte/elements';
 
   interface Props {
     /**

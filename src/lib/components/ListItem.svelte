@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
-  import {
-    type HTMLAnchorAttributes,
-    type HTMLAttributes,
-    type HTMLButtonAttributes
+  import type {
+    HTMLAnchorAttributes,
+    HTMLAttributes,
+    HTMLButtonAttributes
   } from 'svelte/elements';
 
   type Props = HTMLAttributes<HTMLDivElement> &
