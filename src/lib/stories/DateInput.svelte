@@ -128,6 +128,11 @@
      */
     clearDateButtonLabel?: string;
     /**
+     * Label for the button that closes the calendar. Only shown on narrow
+     * viewports. Default: 'Close'.
+     */
+    closeCalendarButtonLabel?: string;
+    /**
      * Text label for the button to navigate to the previous month.
      * Default: 'Previous month'.
      */
@@ -167,6 +172,7 @@
     openCalendarButtonLabel = 'Change date',
     applyDateButtonLabel = 'Apply',
     clearDateButtonLabel = 'Clear',
+    closeCalendarButtonLabel,
     prevMonthButtonLabel = 'Previous month',
     nextMonthButtonLabel = 'Next month',
     ...rest
@@ -182,6 +188,7 @@
 
   const uid = $props.id();
   const validationHintId = `date-input-hint-${uid}`;
+  const headlineId = `date-input-headline-${uid}`;
 
   /* On narrow screens the calendar is a sheet, where picking a date only stages
      it and an explicit Apply commits it. */
@@ -599,7 +606,15 @@
       {/each}
     </div>
 
-    <Popover bind:open {placement} offset={4} sheetOnMobile>
+    <Popover
+      bind:open
+      {placement}
+      offset={4}
+      sheetOnMobile
+      hideCloseButton={!isMobile.current}
+      closeButtonLabel={closeCalendarButtonLabel}
+      aria-labelledby={headlineId}
+    >
       {#snippet trigger(props)}
         <button
           {...props}
@@ -625,49 +640,47 @@
         </button>
       {/snippet}
 
-      {#snippet children()}
-        <div class="dialog">
-          <!-- The label names the calendar. On wide screens the field itself is
+      <div class="dialog">
+        <!-- The label names the calendar. On wide screens the field itself is
                visible next to it, so the heading is only announced. -->
-          <header class="dialog-header">
-            <h2 class="dialog-headline">{label}</h2>
-          </header>
+        <header class="dialog-header">
+          <h2 id={headlineId} class="dialog-headline">{label}</h2>
+        </header>
 
-          {#if open}
-            <!-- Mounted on open, so that the calendar always opens on the
+        {#if open}
+          <!-- Mounted on open, so that the calendar always opens on the
                  month of the current date. -->
-            <Calendar
-              class="calendar"
-              {selection}
-              onselect={handleCalendarSelect}
-              minDate={min}
-              maxDate={max}
-              {locale}
-              {firstDayOfWeek}
-              {modifiers}
-              {prevMonthButtonLabel}
-              {nextMonthButtonLabel}
-            />
-          {/if}
+          <Calendar
+            class="calendar"
+            {selection}
+            onselect={handleCalendarSelect}
+            minDate={min}
+            maxDate={max}
+            {locale}
+            {firstDayOfWeek}
+            {modifiers}
+            {prevMonthButtonLabel}
+            {nextMonthButtonLabel}
+          />
+        {/if}
 
-          {#if !required || isMobile.current}
-            <div class="buttons">
-              {#if !required}
-                <Button variant="tertiary" size="s" onclick={handleClear}>
-                  {clearDateButtonLabel}
+        {#if !required || isMobile.current}
+          <div class="buttons">
+            {#if !required}
+              <Button variant="tertiary" size="s" onclick={handleClear}>
+                {clearDateButtonLabel}
+              </Button>
+            {/if}
+            {#if isMobile.current}
+              <div class="apply">
+                <Button variant="primary" size="s" onclick={handleApply}>
+                  {applyDateButtonLabel}
                 </Button>
-              {/if}
-              {#if isMobile.current}
-                <div class="apply">
-                  <Button variant="primary" size="s" onclick={handleApply}>
-                    {applyDateButtonLabel}
-                  </Button>
-                </div>
-              {/if}
-            </div>
-          {/if}
-        </div>
-      {/snippet}
+              </div>
+            {/if}
+          </div>
+        {/if}
+      </div>
     </Popover>
   </div>
 

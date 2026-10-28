@@ -6,15 +6,23 @@ exports[`should match story case variants 1`] = `
     class="trigger svelte-okkiwd"
     style="anchor-name: --popover-anchor-c1;"
   >
-    Example Snippet
+    <button
+      aria-controls="popover-c1"
+      aria-expanded="false"
+      popovertarget="popover-c1"
+      type="button"
+    >
+      Open
+    </button>
     <!---->
   </div>
    
   <div
-    class="base svelte-okkiwd bottom sheet"
+    class="base bottom sheet svelte-okkiwd"
     id="popover-c1"
     popover="auto"
-    style="position-anchor: --popover-anchor-c1; --popover-offset: 8px;"
+    role="dialog"
+    style="position-anchor: --popover-anchor-c1; --popover-offset: 8px; --popover-cross-offset: 0px;"
   >
     <div
       class="content svelte-okkiwd"
@@ -22,6 +30,27 @@ exports[`should match story case variants 1`] = `
       Example Snippet
       <!---->
     </div>
+     
+    <button
+      aria-label="Close"
+      class="close focus-visible svelte-okkiwd"
+      title="Close"
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        fill="none"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <path
+          d="M17.293 5.293a1 1 0 1 1 1.414 1.414L13.414 12l5.293 5.293a1 1 0 0 1-1.414 1.414L12 13.414l-5.293 5.293a1 1 0 1 1-1.414-1.414L10.586 12 5.293 6.707a1 1 0 1 1 1.414-1.414L12 10.586z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
+    <!---->
   </div>
   
 </div>

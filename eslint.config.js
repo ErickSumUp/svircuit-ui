@@ -38,5 +38,12 @@ export default ts.config(
       'svelte/no-use-before-define': 'off'
     }
   },
+  {
+    // Library components render consumer-provided hrefs, which consumers resolve.
+    files: ['src/lib/**/*.svelte'],
+    rules: {
+      'svelte/no-navigation-without-resolve': 'off'
+    }
+  },
   storybook.configs['flat/recommended']
 );

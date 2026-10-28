@@ -45,6 +45,12 @@ import SecondaryNavigation, {
 } from './components/SecondaryNavigation.svelte';
 export { SecondaryNavigation };
 export type { Link, Group, LinkBadge };
+export { default as SideNavigation } from './stories/SideNavigation.svelte';
+export type {
+  NavigationGroup,
+  PrimaryNavigationItem,
+  NavigationItem
+} from './stories/SideNavigation.svelte';
 import NotificationToastsSection, {
   addToast
 } from '$lib/components/NotificationToastsSection.svelte';

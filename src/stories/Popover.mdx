@@ -33,11 +33,21 @@ them.
 
 ### Placements
 
-The `placement` prop decides which side of the trigger the popover opens on.
+The `placement` prop decides which side of the trigger the popover opens on, and
+the `-start` and `-end` variants align it with one of the trigger's edges.
 When there isn't enough room on that side, the browser flips it to the
 opposite one, so the popover always stays within the viewport.
 
 <Canvas of={Stories.Placements} />
+
+### Fallback placements
+
+Pass `fallbackPlacements` to choose where the popover goes instead when its
+placement doesn't fit. The browser tries them in order and uses the first one
+with enough room. Without the prop it flips to the opposite side, which unlike
+circuit also works for a popover placed on top.
+
+<Canvas of={Stories.FallbackPlacements} />
 
 ### Offset
 
@@ -46,10 +56,22 @@ its trigger.
 
 <Canvas of={Stories.Offset} />
 
+Pass an object to move the popover on both axes: `mainAxis` is the distance from
+the trigger and `crossAxis` slides it along the trigger's edge.
+
+<Canvas of={Stories.CrossAxisOffset} />
+
+### Close button
+
+The popover has a close button in its top right corner. Pass `closeButtonLabel`
+to translate its label, and `hideCloseButton` when the content already offers a
+way to dismiss the popover.
+
 ### Closing from the content
 
 The content receives a `close` function, which is useful when an action inside
-the popover should dismiss it.
+the popover should dismiss it. The close button is hidden here, since the
+action already dismisses the popover.
 
 <Canvas of={Stories.ClosingFromTheContent} />
 

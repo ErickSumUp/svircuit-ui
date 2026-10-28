@@ -1,0 +1,23 @@
+<script lang="ts">
+  import type { SVGAttributes } from 'svelte/elements';
+
+  interface Props extends SVGAttributes<SVGSVGElement> {
+    size?: '24';
+  }
+
+  let { size = '24', ...rest }: Props = $props();
+</script>
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  {...rest}
+>
+  <path
+    fill="currentColor"
+    d="M13.75 2.001a3.05 3.05 0 0 1 2.208.937l3.137 3.227A3.21 3.21 0 0 1 20 8.4v10.8c0 .734-.284 1.443-.796 1.97a2.73 2.73 0 0 1-1.954.83H6.75c-.738 0-1.44-.302-1.954-.83A2.83 2.83 0 0 1 4 19.2V4.8c0-.734.283-1.443.796-1.97A2.73 2.73 0 0 1 6.75 2zM14.5 15a1.5 1.5 0 1 0 .001 3 1.5 1.5 0 0 0-.001-3m-5.5.5a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2zm5.5-4.5a1.5 1.5 0 1 0 .001 3 1.5 1.5 0 0 0-.001-3m-5.5.5a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2zM14 8h4l-4-4z"
+  />
+</svg>

@@ -20,6 +20,10 @@
 <script lang="ts">
   import { type Snippet } from 'svelte';
 
+  /**
+   * @deprecated Use the {@link SideNavigation} component instead. Its groups
+   * hold the links directly; nested links go in an item's `secondaryItems`.
+   */
   interface Props {
     groups?: Group[];
     footerContent?: Snippet;

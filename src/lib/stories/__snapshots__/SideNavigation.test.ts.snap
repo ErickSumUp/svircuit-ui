@@ -1,0 +1,656 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SideNavigation > should match the snapshot 1`] = `
+<div>
+  <div
+    class="desktop svelte-1v4eq8g"
+  >
+    <div
+      class="content hide-scrollbar svelte-1v4eq8g"
+    >
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="sections svelte-1v4eq8g"
+      >
+        <nav
+          aria-labelledby="c1-shortcuts-desktop"
+          class="svelte-1v4eq8g"
+        >
+          <h2
+            class="group-label skeleton svelte-1v4eq8g"
+            id="c1-shortcuts-desktop"
+          >
+            Your shortcuts
+          </h2>
+           
+          <ul
+            class="list svelte-1v4eq8g"
+          >
+            <li
+              class="primary-item svelte-1v4eq8g"
+            >
+              <a
+                class="item svelte-1v4eq8g"
+                data-focus-list="c1-desktop"
+                href="/payouts"
+              >
+                <span
+                  class="label-container skeleton svelte-1v4eq8g"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M18 7h2v1.556H4.79Q4.382 8.555 4 8.44v9.783c0 .204.082.4.229.547.147.146.349.23.56.23H20v2H4.79a2.8 2.8 0 0 1-1.97-.811A2.77 2.77 0 0 1 2 18.223V5.777c0-.738.296-1.445.82-1.965A2.8 2.8 0 0 1 4.79 3H18zM4.79 5a.8.8 0 0 0-.561.23.77.77 0 0 0 0 1.095c.147.147.349.23.56.23H16V5z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M15.707 10.293a1 1 0 0 0-1.414 0l-3 3a1 1 0 0 0 0 1.414l3 3a1 1 0 1 0 1.414-1.414L14.414 15H20a1 1 0 1 0 0-2h-5.586l1.293-1.293a1 1 0 0 0 0-1.414"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M15.707 10.293a1 1 0 0 0-1.414 0l-3 3a1 1 0 0 0 0 1.414l3 3a1 1 0 1 0 1.414-1.414L14.414 15H20a1 1 0 1 0 0-2h-5.586l1.293-1.293a1 1 0 0 0 0-1.414"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <!---->
+                   
+                  <span
+                    class="label svelte-1v4eq8g"
+                  >
+                    Payouts
+                  </span>
+                </span>
+                 
+                <!---->
+                 
+                <!---->
+                <!---->
+              </a>
+              <!---->
+               
+              <!---->
+              
+              <!---->
+               
+              <!---->
+            </li>
+            
+          </ul>
+        </nav>
+        <nav
+          aria-labelledby="c1-business-desktop"
+          class="svelte-1v4eq8g"
+        >
+          <h2
+            class="group-label skeleton svelte-1v4eq8g"
+            id="c1-business-desktop"
+          >
+            Your business
+          </h2>
+           
+          <ul
+            class="list svelte-1v4eq8g"
+          >
+            <li
+              class="primary-item svelte-1v4eq8g"
+            >
+              <button
+                aria-controls="c1-business-0-desktop-items"
+                aria-current="page"
+                aria-expanded="true"
+                class="item svelte-1v4eq8g"
+                data-focus-list="c1-desktop"
+                type="button"
+              >
+                <span
+                  class="label-container skeleton svelte-1v4eq8g"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M18.3 3A2.7 2.7 0 0 1 21 5.7v6.098a2.7 2.7 0 0 1-.791 1.909l-7.402 7.402a3.064 3.064 0 0 1-4.318 0l-.003-.002-5.593-5.593-.002-.003a3.06 3.06 0 0 1 0-4.318l7.402-7.402A2.7 2.7 0 0 1 12.203 3zm-2.976 4.251a1.426 1.426 0 1 0 0 2.852 1.426 1.426 0 0 0 0-2.852"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <!---->
+                   
+                  <span
+                    class="label svelte-1v4eq8g active"
+                  >
+                    Items
+                  </span>
+                </span>
+                 
+                <!---->
+                 
+                <svg
+                  aria-hidden="true"
+                  class="chevron svelte-1v4eq8g chevron-up"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <path
+                    class="svelte-1v4eq8g"
+                    d="M11.528 6.528a.667.667 0 0 1 .944.944l-4 4a.667.667 0 0 1-.944 0l-4-4a.667.667 0 0 1 .944-.944L8 10.057z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <!---->
+                <!---->
+              </button>
+              <!---->
+               
+              <!---->
+              
+              <!---->
+               
+              <div
+                class="collapsible svelte-1v4eq8g expanded"
+                id="c1-business-0-desktop-items"
+              >
+                <ul
+                  class="secondary-list svelte-1v4eq8g"
+                >
+                  <li
+                    class="svelte-1v4eq8g"
+                  >
+                    <a
+                      aria-current="page"
+                      class="item svelte-1v4eq8g"
+                      data-focus-list="c1-business-0-desktop-items"
+                      href="/items/catalog"
+                    >
+                      <span
+                        class="label secondary-label skeleton svelte-1v4eq8g active"
+                      >
+                        Catalog
+                      </span>
+                       
+                      <!---->
+                    </a>
+                    <!---->
+                     
+                    <!---->
+                    
+                    <!---->
+                  </li>
+                  <li
+                    class="svelte-1v4eq8g"
+                  >
+                    <a
+                      aria-describedby="c1-business-0-desktop-1-external"
+                      class="item svelte-1v4eq8g"
+                      data-focus-list="c1-business-0-desktop-items"
+                      href="/items/reports"
+                      target="_blank"
+                    >
+                      <span
+                        class="label secondary-label skeleton svelte-1v4eq8g"
+                      >
+                        Reports
+                      </span>
+                       
+                      <svg
+                        aria-hidden="true"
+                        class="external svelte-1v4eq8g"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <path
+                          class="svelte-1v4eq8g"
+                          d="M1.25 12.667V3.333A2.083 2.083 0 0 1 3.333 1.25h4a.75.75 0 0 1 0 1.5h-4a.583.583 0 0 0-.583.583v9.334a.583.583 0 0 0 .583.583h9.334a.583.583 0 0 0 .583-.583v-4a.75.75 0 0 1 1.5 0v4a2.083 2.083 0 0 1-2.083 2.083H3.333a2.083 2.083 0 0 1-2.083-2.083M14.75 6a.75.75 0 0 1-1.5 0V3.81L8.53 8.53a.75.75 0 1 1-1.06-1.06l4.72-4.72H10a.75.75 0 0 1 0-1.5h4a.75.75 0 0 1 .75.75z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <!---->
+                    </a>
+                    <!---->
+                     
+                    <!---->
+                    <span
+                      class="visually-hidden svelte-1v4eq8g"
+                      id="c1-business-0-desktop-1-external"
+                    >
+                      Opens in a new tab
+                    </span>
+                    
+                    <!---->
+                  </li>
+                  
+                </ul>
+              </div>
+              <!---->
+            </li>
+            <li
+              class="primary-item svelte-1v4eq8g"
+            >
+              <a
+                aria-describedby="c1-business-1-desktop-external"
+                class="item svelte-1v4eq8g"
+                data-focus-list="c1-desktop"
+                href="/documents"
+                target="_blank"
+              >
+                <span
+                  class="label-container skeleton svelte-1v4eq8g"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.188 7.723C15.188 5.66 13.53 4 11.5 4S7.813 5.66 7.813 7.723s1.658 3.721 3.687 3.721 3.687-1.659 3.688-3.721m2 0c0 1.82-.847 3.443-2.167 4.492a8.5 8.5 0 0 1 2.492 1.738A8.58 8.58 0 0 1 20 20a1 1 0 1 1-2 0c0-1.74-.687-3.409-1.906-4.638a6.47 6.47 0 0 0-4.594-1.918c-1.722 0-3.374.69-4.594 1.918A6.58 6.58 0 0 0 5 20a1 1 0 1 1-2 0c0-2.267.894-4.442 2.487-6.047a8.5 8.5 0 0 1 2.492-1.738 5.73 5.73 0 0 1-2.166-4.492C5.813 4.569 8.352 2 11.5 2s5.688 2.57 5.688 5.723"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <!---->
+                   
+                  <span
+                    class="label svelte-1v4eq8g"
+                  >
+                    Documents
+                  </span>
+                </span>
+                 
+                <svg
+                  aria-hidden="true"
+                  class="external svelte-1v4eq8g"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <path
+                    class="svelte-1v4eq8g"
+                    d="M1.25 12.667V3.333A2.083 2.083 0 0 1 3.333 1.25h4a.75.75 0 0 1 0 1.5h-4a.583.583 0 0 0-.583.583v9.334a.583.583 0 0 0 .583.583h9.334a.583.583 0 0 0 .583-.583v-4a.75.75 0 0 1 1.5 0v4a2.083 2.083 0 0 1-2.083 2.083H3.333a2.083 2.083 0 0 1-2.083-2.083M14.75 6a.75.75 0 0 1-1.5 0V3.81L8.53 8.53a.75.75 0 1 1-1.06-1.06l4.72-4.72H10a.75.75 0 0 1 0-1.5h4a.75.75 0 0 1 .75.75z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <!---->
+                 
+                <!---->
+                <!---->
+              </a>
+              <!---->
+               
+              <!---->
+              <span
+                class="visually-hidden svelte-1v4eq8g"
+                id="c1-business-1-desktop-external"
+              >
+                Opens in a new tab
+              </span>
+              
+              <!---->
+               
+              <!---->
+            </li>
+            
+          </ul>
+        </nav>
+        
+      </div>
+    </div>
+    <!---->
+  </div>
+   
+  <dialog
+    aria-label="Side navigation"
+    class="mobile svelte-1v4eq8g"
+  >
+    <div
+      class="mobile-content svelte-1v4eq8g"
+    >
+      <div
+        class="content hide-scrollbar svelte-1v4eq8g"
+      >
+        <!---->
+         
+        <!---->
+         
+        <div
+          class="sections svelte-1v4eq8g"
+        >
+          <nav
+            aria-labelledby="c1-shortcuts-mobile"
+            class="svelte-1v4eq8g"
+          >
+            <h2
+              class="group-label skeleton svelte-1v4eq8g"
+              id="c1-shortcuts-mobile"
+            >
+              Your shortcuts
+            </h2>
+             
+            <ul
+              class="list svelte-1v4eq8g"
+            >
+              <li
+                class="primary-item svelte-1v4eq8g"
+              >
+                <a
+                  class="item svelte-1v4eq8g"
+                  data-focus-list="c1-mobile"
+                  href="/payouts"
+                >
+                  <span
+                    class="label-container skeleton svelte-1v4eq8g"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      fill="none"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M18 7h2v1.556H4.79Q4.382 8.555 4 8.44v9.783c0 .204.082.4.229.547.147.146.349.23.56.23H20v2H4.79a2.8 2.8 0 0 1-1.97-.811A2.77 2.77 0 0 1 2 18.223V5.777c0-.738.296-1.445.82-1.965A2.8 2.8 0 0 1 4.79 3H18zM4.79 5a.8.8 0 0 0-.561.23.77.77 0 0 0 0 1.095c.147.147.349.23.56.23H16V5z"
+                        fill="currentColor"
+                      />
+                      <path
+                        d="M15.707 10.293a1 1 0 0 0-1.414 0l-3 3a1 1 0 0 0 0 1.414l3 3a1 1 0 1 0 1.414-1.414L14.414 15H20a1 1 0 1 0 0-2h-5.586l1.293-1.293a1 1 0 0 0 0-1.414"
+                        fill="currentColor"
+                      />
+                      <path
+                        d="M15.707 10.293a1 1 0 0 0-1.414 0l-3 3a1 1 0 0 0 0 1.414l3 3a1 1 0 1 0 1.414-1.414L14.414 15H20a1 1 0 1 0 0-2h-5.586l1.293-1.293a1 1 0 0 0 0-1.414"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <!---->
+                     
+                    <span
+                      class="label svelte-1v4eq8g"
+                    >
+                      Payouts
+                    </span>
+                  </span>
+                   
+                  <!---->
+                   
+                  <!---->
+                  <!---->
+                </a>
+                <!---->
+                 
+                <!---->
+                
+                <!---->
+                 
+                <!---->
+              </li>
+              
+            </ul>
+          </nav>
+          <nav
+            aria-labelledby="c1-business-mobile"
+            class="svelte-1v4eq8g"
+          >
+            <h2
+              class="group-label skeleton svelte-1v4eq8g"
+              id="c1-business-mobile"
+            >
+              Your business
+            </h2>
+             
+            <ul
+              class="list svelte-1v4eq8g"
+            >
+              <li
+                class="primary-item svelte-1v4eq8g"
+              >
+                <button
+                  aria-controls="c1-business-0-mobile-items"
+                  aria-current="page"
+                  aria-expanded="true"
+                  class="item svelte-1v4eq8g"
+                  data-focus-list="c1-mobile"
+                  type="button"
+                >
+                  <span
+                    class="label-container skeleton svelte-1v4eq8g"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      fill="none"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M18.3 3A2.7 2.7 0 0 1 21 5.7v6.098a2.7 2.7 0 0 1-.791 1.909l-7.402 7.402a3.064 3.064 0 0 1-4.318 0l-.003-.002-5.593-5.593-.002-.003a3.06 3.06 0 0 1 0-4.318l7.402-7.402A2.7 2.7 0 0 1 12.203 3zm-2.976 4.251a1.426 1.426 0 1 0 0 2.852 1.426 1.426 0 0 0 0-2.852"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <!---->
+                     
+                    <span
+                      class="label svelte-1v4eq8g active"
+                    >
+                      Items
+                    </span>
+                  </span>
+                   
+                  <!---->
+                   
+                  <svg
+                    aria-hidden="true"
+                    class="chevron svelte-1v4eq8g chevron-up"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <path
+                      class="svelte-1v4eq8g"
+                      d="M11.528 6.528a.667.667 0 0 1 .944.944l-4 4a.667.667 0 0 1-.944 0l-4-4a.667.667 0 0 1 .944-.944L8 10.057z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <!---->
+                  <!---->
+                </button>
+                <!---->
+                 
+                <!---->
+                
+                <!---->
+                 
+                <div
+                  class="collapsible svelte-1v4eq8g expanded"
+                  id="c1-business-0-mobile-items"
+                >
+                  <ul
+                    class="secondary-list svelte-1v4eq8g"
+                  >
+                    <li
+                      class="svelte-1v4eq8g"
+                    >
+                      <a
+                        aria-current="page"
+                        class="item svelte-1v4eq8g"
+                        data-focus-list="c1-business-0-mobile-items"
+                        href="/items/catalog"
+                      >
+                        <span
+                          class="label secondary-label skeleton svelte-1v4eq8g active"
+                        >
+                          Catalog
+                        </span>
+                         
+                        <!---->
+                      </a>
+                      <!---->
+                       
+                      <!---->
+                      
+                      <!---->
+                    </li>
+                    <li
+                      class="svelte-1v4eq8g"
+                    >
+                      <a
+                        aria-describedby="c1-business-0-mobile-1-external"
+                        class="item svelte-1v4eq8g"
+                        data-focus-list="c1-business-0-mobile-items"
+                        href="/items/reports"
+                        target="_blank"
+                      >
+                        <span
+                          class="label secondary-label skeleton svelte-1v4eq8g"
+                        >
+                          Reports
+                        </span>
+                         
+                        <svg
+                          aria-hidden="true"
+                          class="external svelte-1v4eq8g"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <path
+                            class="svelte-1v4eq8g"
+                            d="M1.25 12.667V3.333A2.083 2.083 0 0 1 3.333 1.25h4a.75.75 0 0 1 0 1.5h-4a.583.583 0 0 0-.583.583v9.334a.583.583 0 0 0 .583.583h9.334a.583.583 0 0 0 .583-.583v-4a.75.75 0 0 1 1.5 0v4a2.083 2.083 0 0 1-2.083 2.083H3.333a2.083 2.083 0 0 1-2.083-2.083M14.75 6a.75.75 0 0 1-1.5 0V3.81L8.53 8.53a.75.75 0 1 1-1.06-1.06l4.72-4.72H10a.75.75 0 0 1 0-1.5h4a.75.75 0 0 1 .75.75z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                        <!---->
+                      </a>
+                      <!---->
+                       
+                      <!---->
+                      <span
+                        class="visually-hidden svelte-1v4eq8g"
+                        id="c1-business-0-mobile-1-external"
+                      >
+                        Opens in a new tab
+                      </span>
+                      
+                      <!---->
+                    </li>
+                    
+                  </ul>
+                </div>
+                <!---->
+              </li>
+              <li
+                class="primary-item svelte-1v4eq8g"
+              >
+                <a
+                  aria-describedby="c1-business-1-mobile-external"
+                  class="item svelte-1v4eq8g"
+                  data-focus-list="c1-mobile"
+                  href="/documents"
+                  target="_blank"
+                >
+                  <span
+                    class="label-container skeleton svelte-1v4eq8g"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      fill="none"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M15.188 7.723C15.188 5.66 13.53 4 11.5 4S7.813 5.66 7.813 7.723s1.658 3.721 3.687 3.721 3.687-1.659 3.688-3.721m2 0c0 1.82-.847 3.443-2.167 4.492a8.5 8.5 0 0 1 2.492 1.738A8.58 8.58 0 0 1 20 20a1 1 0 1 1-2 0c0-1.74-.687-3.409-1.906-4.638a6.47 6.47 0 0 0-4.594-1.918c-1.722 0-3.374.69-4.594 1.918A6.58 6.58 0 0 0 5 20a1 1 0 1 1-2 0c0-2.267.894-4.442 2.487-6.047a8.5 8.5 0 0 1 2.492-1.738 5.73 5.73 0 0 1-2.166-4.492C5.813 4.569 8.352 2 11.5 2s5.688 2.57 5.688 5.723"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <!---->
+                     
+                    <span
+                      class="label svelte-1v4eq8g"
+                    >
+                      Documents
+                    </span>
+                  </span>
+                   
+                  <svg
+                    aria-hidden="true"
+                    class="external svelte-1v4eq8g"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <path
+                      class="svelte-1v4eq8g"
+                      d="M1.25 12.667V3.333A2.083 2.083 0 0 1 3.333 1.25h4a.75.75 0 0 1 0 1.5h-4a.583.583 0 0 0-.583.583v9.334a.583.583 0 0 0 .583.583h9.334a.583.583 0 0 0 .583-.583v-4a.75.75 0 0 1 1.5 0v4a2.083 2.083 0 0 1-2.083 2.083H3.333a2.083 2.083 0 0 1-2.083-2.083M14.75 6a.75.75 0 0 1-1.5 0V3.81L8.53 8.53a.75.75 0 1 1-1.06-1.06l4.72-4.72H10a.75.75 0 0 1 0-1.5h4a.75.75 0 0 1 .75.75z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <!---->
+                   
+                  <!---->
+                  <!---->
+                </a>
+                <!---->
+                 
+                <!---->
+                <span
+                  class="visually-hidden svelte-1v4eq8g"
+                  id="c1-business-1-mobile-external"
+                >
+                  Opens in a new tab
+                </span>
+                
+                <!---->
+                 
+                <!---->
+              </li>
+              
+            </ul>
+          </nav>
+          
+        </div>
+      </div>
+      <!---->
+    </div>
+     
+    <button
+      aria-label="Close navigation"
+      class="close-button svelte-1v4eq8g"
+      title="Close navigation"
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        class="svelte-1v4eq8g"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <path
+          class="svelte-1v4eq8g"
+          d="M17.293 5.293a1 1 0 1 1 1.414 1.414L13.414 12l5.293 5.293a1 1 0 0 1-1.414 1.414L12 13.414l-5.293 5.293a1 1 0 1 1-1.414-1.414L10.586 12 5.293 6.707a1 1 0 1 1 1.414-1.414L12 10.586z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
+  </dialog>
+  
+</div>
+`;

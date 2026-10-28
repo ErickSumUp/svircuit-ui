@@ -10,6 +10,107 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-10-27 — SideNavigation migrated ✅, SecondaryNavigation deprecated
+
+One `SideNavigation` in `src/lib/stories/` replaces both the Svelte 4 duplicate at
+`src/lib/SideNavigation.svelte` (deleted, with its old story) and `SecondaryNavigation` (kept, marked
+`@deprecated`). It overwrites an unused, primary-rail-only Svelte 5 draft at the same path. It
+composes CloseButton and Status; everything else is inlined.
+
+- **API** follows circuit: `primaryLinks`, `primaryNavigationLabel`, `secondaryNavigationLabel`,
+  `closeButtonLabel`, `isLoading`, `skipNavigationHref`/`skipNavigationLabel`. Circuit's
+  `isOpen`/`onClose` is a bindable `open` plus `onclose`, like Popover. Types are exported:
+  `PrimaryLink`, `SecondaryGroup`, `SecondaryLink`, `NavigationBadge`.
+- **PrimaryLink** gains `activeIcon`, `externalLabel` (with an external-link icon), `secondaryGroups`,
+  `badge { label, variant }` (a dot on the icon; the label is the link's description) and renders a
+  button without `href`. Icons are components, rendered at size 24.
+- **The secondary panel is derived** from the active primary link's `secondaryGroups`, headed by its
+  label. Secondary badges render as a Status pill; variants map success → confirm, warning → notify,
+  danger → alert.
+- **Desktop (from 1280px):** a fixed 48px icon rail that expands to 220px on hover and focus, always
+  expanded from 1900px, and a sticky 200px secondary panel. Respects `--top-navigation-height`.
+- **Mobile (below 1280px):** a full-screen native `<dialog>` opened with `showModal()`, sliding down
+  via `@starting-style`. Primary links with groups become `aria-expanded` toggles whose links collapse
+  with a `grid-template-rows` transition (`visibility` keeps hidden links out of the tab order).
+  Escape, the close button and any link close it. Page scroll is locked with `html:has(...)`.
+- **Inlined instead of composed:** the skip link (SkipLink is not ported yet) and the loading
+  placeholders (Skeleton is not ported yet; `isLoading` also sets `aria-busy` and `inert`).
+- **Arrow keys** move focus within each list and wrap around, like circuit's `useFocusList`.
+- **Deviations:** no `tier` on secondary links (TierIndicator isn't ported), no ComponentsContext for
+  a router link (SvelteKit handles plain anchors), and the badge text prop is `label` rather than
+  `children`. Circuit's dev-time errors for missing labels are replaced by required props.
+- **Lint:** `svelte/no-navigation-without-resolve` is off for `src/lib/**/*.svelte`, as library
+  components render hrefs that consumers resolve.
+- 15 unit tests (jsdom has no `showModal`, so it is stubbed). Verified in Chrome: rail 48px → 220px
+  on hover, secondary panel at 48px offset and 200px wide, the skip link is the first Tab stop,
+  arrow keys wrap, the dialog is `:modal` with page scroll locked, Escape and links close it, and
+  dark mode and the loading placeholders render correctly.
+
+### 2026-10-27 — Popover migrated ✅
+
+Still built on the Popover API and CSS anchor positioning, not Floating UI. The four gaps from the
+follow-up list are closed, plus a few that turned up on the way.
+
+- **Close button**, as circuit inherits from Dialog: top right, `closeButtonLabel` (default `Close`,
+  circuit's Dialog default) and `hideCloseButton`. Its markup and CSS are inlined from CloseButton
+  (tertiary, size `m`), the same as CardHeader and Tag.
+- **Placements** `left-start`, `left-end`, `right-start` and `right-end`. The union is exported from
+  the module script as `Placement`.
+- **`fallbackPlacements`** maps each placement to a `@position-try --popover-<placement>` rule and
+  passes the list through `--popover-try-fallbacks`, so the mobile sheet can still set
+  `position-try-fallbacks: none`. A fallback replaces every margin, so each rule restates its offset.
+  **Deliberate deviation:** without the prop we keep flipping to the opposite side. Circuit's default
+  is `['top', 'right', 'left']`, so its `placement="top"` popover can never fall back to the bottom.
+- **`offset`** also takes `{ mainAxis, crossAxis }`. The cross offset is a `translate`, so it doesn't
+  fight the animated `transform`. Limitation: it doesn't change axis when a fallback moves the popover
+  from a vertical to a horizontal side.
+- **Semantics:** the popover is `role="dialog"` (circuit renders a `<dialog>`), and the trigger
+  snippet now also receives `aria-controls`.
+- **The content scrolls instead of the popover**, so the close button stays in its corner. The open
+  popover is a flex column; `display` is only set under `:popover-open`, or it would override the
+  user agent rule that hides a closed popover.
+- Content padding is `kilo` below 480px and `mega` above, like circuit's.
+- **Bugs fixed:** a consumer `class` replaced the component's own classes, and `children` failed
+  type-checking because the native type wasn't omitted.
+- **DateInput** follows circuit: the close button only shows on mobile, labelled by the new
+  `closeCalendarButtonLabel`, and the popover is named after the headline with `aria-labelledby`.
+  Also removed a lint error there: a `children` snippet with no parameters.
+- 13 unit tests cover the wiring, offsets, fallbacks, close button and class merging. jsdom has no
+  Popover API, so opening, light dismiss and positioning were verified in Chrome: the close button
+  and Escape close it and return focus to the trigger, `right-start` is 8px off and top-aligned, the
+  cross offset is exact, the fallback lands on the left, all 12 `@position-try` rules survive Svelte's
+  compiler, and DateInput has no close button on desktop and one on mobile that doesn't overlap
+  "next month".
+
+### 2026-10-27 — Calendar re-synced ✅, Avatar removed
+
+- **Avatar was ported and then removed on request** before it was finished. Nothing of it is left in
+  the code; the Phase 5 item stays open.
+- **Calendar** was listed as in sync but had drifted in four places, now fixed:
+  - The month buttons used the native `disabled` attribute, so pressing "previous" until the minimum
+    month disabled the button under the user and dropped keyboard focus to the page. They now use
+    `aria-disabled` and swallow the click, like circuit's buttons. Verified in the browser: focus
+    stays on the button.
+  - Clicks on disabled days now also call `stopImmediatePropagation`, as circuit does.
+  - The month headline moved from the legacy `--cui-typography-headline-four-*` tokens and a literal
+    `-0.03em` letter spacing to circuit's Headline `s` (18px / 22px, `--cui-letter-spacing`). This
+    is a visible change: the line height drops from 24px to 22px.
+  - The test went from one snapshot to a port of circuit's suite (23 tests): navigation, the keyboard
+    grid, selection, ranges, min/max, modifiers, and the new focus behaviour. "Today" is pinned with
+    `vi.useFakeTimers({ toFake: ['Date'] })`, which leaves `requestAnimationFrame` real.
+- **Not ported, deliberately:**
+  - Circuit throws in development when a `modifiers` key isn't an ISO date. With our string dates an
+    invalid key simply never matches.
+  - When `numberOfMonths` changes, circuit restarts the view at the focused date; we keep the first
+    visible month.
+- **Open decision — localized default labels.** Circuit translates the default `prevMonthButtonLabel`
+  and `nextMonthButtonLabel` into 42 locales through a shared i18n layer, and does the same for other
+  components. Ours are English-only, as are DateInput's. This is cross-cutting like 0.2, so it wasn't
+  added to one component. If it is ported, note that circuit's `findSupportedLocale` checks
+  `locale.length === 5` on the whole argument rather than on each entry, so an array of locales takes
+  the prefix-match path.
+- Testing note: Playwright refuses to click an `aria-disabled` element; use `click({ force: true })`.
+
 ### 2026-10-26 — Phase 5: Image ✅
 
 - **Image** is in `src/lib/components/` with a unit test, stories, an `*.mdx` page and an export. A
@@ -24,7 +125,7 @@ Newest first. Each entry records what was completed and anything the next sessio
   inside `AspectRatio aspectRatio={1}` it fills a 600×600 box with `object-fit: cover`, and the
   AspectRatio stories still measure exactly.
 
-**Next up: Avatar, then Skeleton and Timestamp.**
+**Next up: Avatar, then Skeleton and Timestamp.** _(Avatar was attempted and removed; see 2026-10-27.)_
 
 ### 2026-10-26 — Phase 5: AspectRatio ✅
 
@@ -196,13 +297,13 @@ is deferred, Phase 1 (typography) is independent and can go first.
 Circuit has 74 components. We share 30 with it, 32 do not exist here yet, and 4 are our own
 inventions (`Stack`, `Spacer`, `TestText`, plus the story components).
 
-| Status         | Components                                                                                                                                                                                                           |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| In sync        | Body, Headline, Hr, AspectRatio, Image, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
-| Minor drift    | Checkbox, InputRadio, ButtonGroup, Popover, Toggletip, DateInput                                                                                                                                                     |
-| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast, SideNavigation                                                                                                                                |
-| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, the duplicate `src/lib/SideNavigation.svelte`                                                                                                                               |
-| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                       |
+| Status         | Components                                                                                                                                                                                                                                    |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| In sync        | Body, Headline, Hr, AspectRatio, Image, Popover, SideNavigation, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
+| Minor drift    | Checkbox, InputRadio, ButtonGroup, Toggletip, DateInput                                                                                                                                                                                       |
+| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                         |
+| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                        |
+| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                |
 
 Colors are fully in sync — every token in circuit's `light.ts` exists in our `styles.css`.
 
@@ -225,7 +326,7 @@ Everything else depends on these two steps.
 - [ ] `--cui-ty-headline-*`, `--cui-ty-sub-headline-*` and `--cui-typography-headline-*` were left as
       literals on purpose: circuit's new headline scale has different line heights, so they are not
       aliasable. They disappear when `SubHeadline` is deprecated (Phase 1) and when the last
-      `--cui-typography-headline-four-*` references go (Calendar, Toggletip, DateInput).
+      `--cui-typography-headline-four-*` references go (Toggletip, DateInput; Calendar is done).
 - [ ] Note for later: circuit moved primary Button, selected Tag and the ProgressBar fill from
       `--cui-bg-accent-strong` to `--cui-bg-strong`. Both tokens exist here; the swap happens per
       component, not globally.
@@ -515,7 +616,7 @@ port the parts that are about behaviour and looks rather than architecture.
 - [x] **AspectRatio** — aspect-ratio wrapper. ✅ done 2026-10-26
 - [x] **Image** — with the object-fit and loading behavior circuit ships. ✅ done 2026-10-26
 - [ ] **Avatar** — `variant` object/identity, sizes, initials fallback.
-- [ ] **Skeleton** — loading placeholder, needed by SideNavigation's `isLoading` in Phase 8.
+- [ ] **Skeleton** — loading placeholder. SideNavigation inlines its own placeholder CSS for `isLoading`.
 - [ ] **Timestamp** — relative and absolute formatting via `Intl.RelativeTimeFormat`.
 
 ---
@@ -532,8 +633,8 @@ port the parts that are about behaviour and looks rather than architecture.
 - [ ] **PhoneNumberInput** — country code select plus subscriber number.
 - [ ] **ImageInput** — upload with preview and clear.
 
-Also here: **DateInput** is missing `defaultValue`, `closeCalendarButtonLabel` and
-`autoComplete="bday"` from the original port.
+Also here: **DateInput** is missing `defaultValue` and `autoComplete="bday"` from the original port.
+`closeCalendarButtonLabel` was added with the Popover migration on 2026-10-27.
 
 ---
 
@@ -549,18 +650,13 @@ Also here: **DateInput** is missing `defaultValue`, `closeCalendarButtonLabel` a
 
 ## Phase 8 — Navigation
 
-- [ ] **SkipLink**
+- [ ] **SkipLink** — SideNavigation inlines one; keep the CSS in step.
 - [ ] **Hamburger**
 - [ ] **Tabs** (Tab, TabList, TabPanel inlined into one atomic component)
 - [ ] **TopNavigation** (+ utility links)
 - [ ] **SidePanel**
-- [ ] **SideNavigation rewrite** — the largest single item. We have no mobile navigation at all
-      (circuit switches to a full-screen modal below 1280px), no `isOpen`/`onClose`/`closeButtonLabel`,
-      no `isLoading` skeletons, no `primaryNavigationLabel`/`secondaryNavigationLabel`, no skip link.
-      `PrimaryLink` lacks `activeIcon`, `externalLabel`, `secondaryGroups`, `suffix` and the
-      button-vs-anchor switch; our `badge` is a boolean `isNew` where circuit takes full badge props.
-      Primary and secondary are unwired — circuit derives the secondary panel from the active primary
-      link. Delete the Svelte 4 duplicate at `src/lib/SideNavigation.svelte` as part of this.
+- [x] **SideNavigation rewrite** ✅ done 2026-10-27 (see the progress log). Still open: secondary
+      link `tier` (needs TierIndicator, Phase 9) and removing the deprecated SecondaryNavigation.
 
 ---
 
@@ -581,9 +677,9 @@ Also here: **DateInput** is missing `defaultValue`, `closeCalendarButtonLabel` a
 
 ## Smaller follow-ups
 
-- [ ] **Popover** — no close button (circuit inherits Dialog's), no configurable `fallbackPlacements`
+- [x] **Popover** — no close button (circuit inherits Dialog's), no configurable `fallbackPlacements`
       (ours are hardcoded in CSS), `offset` takes a number rather than `{ mainAxis, crossAxis }`, and the
-      placement union omits `left-start`/`left-end`/`right-start`/`right-end`.
+      placement union omits `left-start`/`left-end`/`right-start`/`right-end`. ✅ done 2026-10-27
 - [ ] **Toggletip** — `action` should accept the full Button prop set (`destructive`, `disabled`,
       `isLoading`), not our narrow `{ label, href, target, onclick, icon }`.
 - [ ] **ButtonGroup** — add `size` (`s`/`m`) driving the gap, replace the hardcoded `1rem` gap with

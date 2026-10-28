@@ -5,9 +5,63 @@ import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
 
 # SideNavigation
 
-The side navigation is part of the [application shell](https://developers.google.com/web/fundamentals/architecture/app-shell). It contains the primary and secondary navigation links.
+The SideNavigation is part of the [application shell](https://developers.google.com/web/fundamentals/architecture/app-shell). It displays one or more groups of links that help users move between key areas of an application.
 
 <Canvas withToolbar={true} of={Stories.Base} />
 <Controls />
 
-## Usage with the top navigation
+## How to use it
+
+### Structure
+
+The SideNavigation displays one or more navigation groups. Each group supports up to two levels of nested links.
+
+```
+|__ Group 1
+|  |__ First level item 1
+|  |  |__ Second level item 1
+|  |  |__ Second level item 2
+|  |
+|  |__ First level item 2
+|
+|__ Group 2
+   |__ First level item 3
+```
+
+Each group needs a unique `id` and a `label`. Keep labels short. If a visible label is repetitive or unnecessary, use `hideLabel` to hide it visually while keeping it available to assistive technologies.
+
+A first level item either links somewhere (`href`) or holds `secondaryItems`, which it shows in a collapsible list. The list starts expanded when the item `isActive`. Every first level item needs an `icon` and an `activeIcon`.
+
+### Layout
+
+From 1024px, the navigation is fixed to the left edge of the viewport. It sets `--side-navigation-width` on the document, so offset your main content with it:
+
+```css
+@media (min-width: 1024px) {
+  main {
+    margin-left: var(--side-navigation-width);
+  }
+}
+```
+
+### Small viewports
+
+Below 1024px, the SideNavigation is displayed as a modal. Bind `open` to the button that toggles it (usually a hamburger in the top navigation). It closes via its close button, the Escape key, a click outside, or when a link is clicked, and calls `onclose`. Provide `label` and `closeButtonLabel` for the accessibility of the modal and its close button.
+
+```svelte
+<script>
+  let open = $state(false);
+</script>
+
+<button onclick={() => (open = true)}>Menu</button>
+
+<SideNavigation {groups} bind:open label="Side navigation" closeButtonLabel="Close navigation" />
+```
+
+## Accessibility
+
+The navigation includes a skip link that lets keyboard and screen reader users jump directly to the main content. Pass a hash link to your main content as `skipNavigationHref` and a `skipNavigationLabel`.
+
+Links that open in a new tab (`target="_blank"` or `rel="external"`) should have an `externalLabel`, which is read as the link's description. Arrow up and down move focus between the items of a list.
+
+<Canvas of={Stories.Loading} />

@@ -22,7 +22,7 @@
 </script>
 
 {#snippet notifications()}
-  <Headline as="h3" size="four">Notifications</Headline>
+  <Headline as="h3" size="s">Notifications</Headline>
   <Body as="p">Your monthly payment is due in 3 days 💸</Body>
   <Body as="p" size="s" color="subtle">3 hours ago</Body>
   <hr />
@@ -76,6 +76,12 @@
         {/snippet}
         <Body>Placed next to the trigger.</Body>
       </Popover>
+      <Popover placement="right-start">
+        {#snippet trigger(attrs)}
+          <Button {...attrs} size="s">Right start</Button>
+        {/snippet}
+        <Body>Next to the trigger, aligned with its top edge.</Body>
+      </Popover>
     </Stack>
   {/snippet}
 </Story>
@@ -91,9 +97,33 @@
   {/snippet}
 </Story>
 
+<Story name="Cross axis offset">
+  {#snippet template()}
+    <Popover placement="bottom-start" offset={{ mainAxis: 4, crossAxis: 24 }}>
+      {#snippet trigger(attrs)}
+        <Button {...attrs} size="s">Shifted along the edge</Button>
+      {/snippet}
+      <Body>I am 4px below my trigger and 24px to the right of its start edge.</Body>
+    </Popover>
+  {/snippet}
+</Story>
+
+<Story name="Fallback placements">
+  {#snippet template()}
+    <div style="display: flex; justify-content: flex-end">
+      <Popover placement="right" fallbackPlacements={['left', 'bottom-end']}>
+        {#snippet trigger(attrs)}
+          <Button {...attrs} size="s">No room on the right</Button>
+        {/snippet}
+        <Body>I tried the right side first, then fell back to the left.</Body>
+      </Popover>
+    </div>
+  {/snippet}
+</Story>
+
 <Story name="ClosingFromTheContent">
   {#snippet template()}
-    <Popover>
+    <Popover hideCloseButton>
       {#snippet trigger(attrs)}
         <Button {...attrs} size="s">Confirm something</Button>
       {/snippet}
