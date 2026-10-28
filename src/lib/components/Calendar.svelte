@@ -379,10 +379,28 @@
     }
   }
 
+  /* Disabled buttons stay focusable, so that reaching the first or last month
+     doesn't drop the focus of the button that was just pressed. Their clicks
+     are swallowed instead, before any listener further up sees them. */
+  function swallowClick(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+  }
+
+  function handleNavClick(event: MouseEvent, amount: number) {
+    const isDisabled = amount < 0 ? isPrevMonthDisabled : isNextMonthDisabled;
+
+    if (isDisabled) {
+      swallowClick(event);
+    } else {
+      shiftMonths(amount);
+    }
+  }
+
   function handleDayClick(event: MouseEvent, date: string) {
     if (isDateDisabled(date)) {
-      event.preventDefault();
-      event.stopPropagation();
+      swallowClick(event);
     } else {
       onselect?.(date);
     }
@@ -442,8 +460,8 @@
       <button
         class="nav-button focus-visible"
         type="button"
-        disabled={isPrevMonthDisabled}
-        onclick={() => shiftMonths(-1)}
+        aria-disabled={isPrevMonthDisabled ? 'true' : undefined}
+        onclick={(event) => handleNavClick(event, -1)}
       >
         <svg
           width="16"
@@ -465,8 +483,8 @@
       <button
         class="nav-button focus-visible"
         type="button"
-        disabled={isNextMonthDisabled}
-        onclick={() => shiftMonths(1)}
+        aria-disabled={isNextMonthDisabled ? 'true' : undefined}
+        onclick={(event) => handleNavClick(event, 1)}
       >
         <svg
           width="16"
@@ -608,7 +626,7 @@
     color: var(--cui-fg-accent-pressed);
   }
 
-  .nav-button:disabled {
+  .nav-button[aria-disabled='true'] {
     color: var(--cui-fg-normal-disabled);
     cursor: not-allowed;
   }
@@ -641,12 +659,13 @@
     max-width: calc(var(--calendar-days-in-week, 7) * var(--calendar-day-max-width));
     margin-top: var(--cui-spacings-bit);
     margin-bottom: var(--cui-spacings-mega);
-    font-size: var(--cui-typography-headline-four-font-size);
+    font-family: var(--cui-font-stack-default);
+    font-size: var(--cui-headline-s-font-size);
     font-weight: var(--cui-font-weight-bold);
-    line-height: var(--cui-typography-headline-four-line-height);
+    line-height: var(--cui-headline-s-line-height);
     color: var(--cui-fg-normal);
     text-align: center;
-    letter-spacing: -0.03em;
+    letter-spacing: var(--cui-letter-spacing);
   }
 
   .grid {

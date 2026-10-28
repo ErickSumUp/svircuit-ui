@@ -1,5 +1,6 @@
 // Reexport your entry components here
 export { default as Anchor } from './components/Anchor.svelte';
+export { default as AspectRatio } from './components/AspectRatio.svelte';
 export { default as Badge } from './components/Badge.svelte';
 export { default as Status } from './components/Status.svelte';
 export { default as Popover } from './components/Popover.svelte';
@@ -24,6 +25,8 @@ export { default as THead } from './components/THead.svelte';
 export { default as TR } from './components/TR.svelte';
 export { default as Select } from './components/Select.svelte';
 export { default as Headline } from './components/Headline.svelte';
+export { default as Hr } from './components/Hr.svelte';
+export { default as Image } from './components/Image.svelte';
 export { default as Body } from './components/Body.svelte';
 export { default as Compact } from './components/Compact.svelte';
 export { default as Display } from './components/Display.svelte';

@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <!---->
+  <!---->
+  <div
+    class="base svelte-ur4f3"
+    style="--aspect-ratio: 1.5;"
+  >
+    Example Snippet
+    <!---->
+  </div>
+  
+  
+  
+</div>
+`;

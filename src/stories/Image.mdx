@@ -1,0 +1,50 @@
+import * as Stories from './Image.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Image
+
+A responsive image that adapts to the available width.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Component variations
+
+### Fixed ratio
+
+Wrap the image in an [AspectRatio](Components/AspectRatio) to crop it to a fixed shape. The image
+covers the box instead of being distorted.
+
+<Canvas of={Stories.FixedRatio} />
+
+---
+
+## Usage
+
+- **Use it to showcase visual content** and keep it responsive. Do not use unauthorized images from
+  external sources.
+- **Pass `width` and `height`** with the image's intrinsic size when you know it. The browser then
+  reserves the right amount of space before the file arrives, so the page does not jump.
+- **Native attributes are passed through**, so `loading="lazy"`, `srcset` and `sizes` work as they do
+  on a plain `img`.
+
+## Accessibility
+
+- **`alt` is required.** Describe the information the image conveys, or what it does when it is a
+  link or a button. If the image is purely decorative, pass `alt=""` so assistive technology skips
+  it.
+- **Avoid images of text.** If text in an image cannot be avoided, repeat the same words in `alt`.
+
+### Resources
+
+- [Write helpful Alt Text to describe images](https://accessibility.huit.harvard.edu/describe-content-images)
+  from _Harvard University_
+- [Images tutorial](https://www.w3.org/WAI/tutorials/images/) from the _Web Accessibility Initiative_
+
+#### Related WCAG success criteria
+
+- 1.1.1: [Non-text Content](https://www.w3.org/WAI/WCAG21/quickref/#qr-text-equiv-all) (Level A)
+- 1.4.5: [Images of Text](https://www.w3.org/WAI/WCAG21/quickref/#qr-visual-audio-contrast-text-presentation)
+  (Level AA)

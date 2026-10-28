@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <!---->
+  <hr
+    aria-hidden="true"
+    class="base svelte-ucmzuu"
+  >
+    
+  </hr>
+  
+  
+</div>
+`;

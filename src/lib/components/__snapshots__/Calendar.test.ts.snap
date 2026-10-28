@@ -433,6 +433,7 @@ exports[`should match story case variants 1`] = `
                 class="svelte-1iu5iby"
               >
                 <button
+                  aria-current="date"
                   class="day focus-visible svelte-1iu5iby"
                   data-date="2020-03-12"
                   tabindex="-1"

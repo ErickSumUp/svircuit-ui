@@ -10,6 +10,53 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-10-26 — Phase 5: Image ✅
+
+- **Image** is in `src/lib/components/` with a unit test, stories, an `*.mdx` page and an export. A
+  straight port: required `src` and `alt`, `width: 100%; height: auto`, native attributes such as
+  `loading`, `srcset` and `width`/`height` passed through, and `alt=""` kept for decorative images.
+- **The stories use an inline SVG data URI**, not circuit's `sumup-tablet-insights.jpg`. That photo
+  is a 568KB SumUp brand asset with unclear licensing, and we have no Storybook static folder to put
+  it in.
+- **Fixed in AspectRatio on the way:** its child rule and Image's `.base` had equal specificity, so
+  whether an image inside an AspectRatio filled the box depended on stylesheet order. The child rule
+  is now `div.base > :global(*)`. Verified in the browser: Image alone renders at its intrinsic 3:2,
+  inside `AspectRatio aspectRatio={1}` it fills a 600×600 box with `object-fit: cover`, and the
+  AspectRatio stories still measure exactly.
+
+**Next up: Avatar, then Skeleton and Timestamp.**
+
+### 2026-10-26 — Phase 5: AspectRatio ✅
+
+- **AspectRatio** is in `src/lib/components/` with a unit test, stories, an `*.mdx` page and an
+  export. Same contract as circuit: `aspectRatio` as a number, one child stretched to fill the box
+  with `object-fit: cover`, nothing rendered without children, and a plain unconstrained wrapper
+  without a ratio.
+- **Deliberate deviation:** circuit reserves the height with the `height: 0; padding-top: N%` trick
+  and rounds `1 / ratio` to a whole percent, so `16 / 9` comes out as 56% instead of 56.25%. We use
+  the native `aspect-ratio` property, which is exact. Verified in the browser: 1.5, 1, 16/9 and 3/4
+  measure exactly, and the child fills the box.
+- Circuit clones the child to add a class; we reach it with `.base > :global(*)` instead.
+- The one 404 that the first page load of a Storybook session logs is Chrome's automatic
+  `/favicon.ico` request; Storybook only serves `favicon.svg`. Harmless, and unrelated to components.
+
+### 2026-10-26 — Phase 5 started: Hr ✅
+
+- **Hr** is in `src/lib/components/` with a unit test, a story, an `*.mdx` page and an export. It is a
+  straight port: `as` renders any element, `aria-hidden` defaults to `"true"` and `"false"` restores
+  the `separator` role, and the border uses `--cui-border-width-kilo` + `--cui-border-divider`.
+  Verified in the browser: full width, 16px block margins, 1px divider in light (`#e7e6df`) and dark
+  (`#2e2c29`).
+- **Storybook's dark mode comes from the `colorScheme` global**, not `prefers-color-scheme` —
+  `.storybook/preview.ts` defaults it to `light`, which sets `data-color-scheme`. To check a story in
+  dark mode headlessly, append `&globals=colorScheme:dark` to the iframe URL.
+- **Pre-existing, not fixed:** `svelte-check` reports every jest-dom matcher (`toHaveClass`,
+  `toHaveAttribute`, …) as unknown in all test files. The matchers work at runtime via
+  `vitest-setup.js`; only the types are missing from `tsconfig.json`.
+
+**Next up: the rest of Phase 5** (AspectRatio, Image, Avatar, Skeleton, Timestamp), or Phase 0.2,
+which still needs the decision.
+
 ### 2026-07-29 — Phase 4 attempted, only Pagination kept ⚠️
 
 Pagination is done and stays. **The Table and NotificationToast rewrites were rolled back by
@@ -146,16 +193,16 @@ is deferred, Phase 1 (typography) is independent and can go first.
 
 ## Status overview
 
-Circuit has 74 components. We share 27 with it, 35 do not exist here yet, and 4 are our own
+Circuit has 74 components. We share 30 with it, 32 do not exist here yet, and 4 are our own
 inventions (`Stack`, `Spacer`, `TestText`, plus the story components).
 
-| Status         | Components                                                                                                                                                                                   |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| In sync        | Body, Headline, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
-| Minor drift    | Checkbox, InputRadio, ButtonGroup, Popover, Toggletip, DateInput                                                                                                                             |
-| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast, SideNavigation                                                                                                        |
-| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, the duplicate `src/lib/SideNavigation.svelte`                                                                                                       |
-| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                               |
+| Status         | Components                                                                                                                                                                                                           |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| In sync        | Body, Headline, Hr, AspectRatio, Image, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
+| Minor drift    | Checkbox, InputRadio, ButtonGroup, Popover, Toggletip, DateInput                                                                                                                                                     |
+| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast, SideNavigation                                                                                                                                |
+| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, the duplicate `src/lib/SideNavigation.svelte`                                                                                                                               |
+| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                       |
 
 Colors are fully in sync — every token in circuit's `light.ts` exists in our `styles.css`.
 
@@ -464,9 +511,9 @@ port the parts that are about behaviour and looks rather than architecture.
 
 ## Phase 5 — New simple components
 
-- [ ] **Hr** — semantic rule with `--cui-border-divider`.
-- [ ] **AspectRatio** — aspect-ratio wrapper.
-- [ ] **Image** — with the object-fit and loading behavior circuit ships.
+- [x] **Hr** — semantic rule with `--cui-border-divider`. ✅ done 2026-10-26
+- [x] **AspectRatio** — aspect-ratio wrapper. ✅ done 2026-10-26
+- [x] **Image** — with the object-fit and loading behavior circuit ships. ✅ done 2026-10-26
 - [ ] **Avatar** — `variant` object/identity, sizes, initials fallback.
 - [ ] **Skeleton** — loading placeholder, needed by SideNavigation's `isLoading` in Phase 8.
 - [ ] **Timestamp** — relative and absolute formatting via `Intl.RelativeTimeFormat`.

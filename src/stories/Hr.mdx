@@ -1,0 +1,25 @@
+import * as Stories from './Hr.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Hr
+
+A [horizontal rule](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hr) visually and
+semantically separates content into sections.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+---
+
+## Usage
+
+Use a horizontal rule to indicate a thematic break between paragraphs of text or to split a list of
+items into thematic groups.
+
+## Accessibility
+
+- **Hidden by default.** Most horizontal rules are purely visual, so the element is hidden from the
+  accessibility tree. If the rule is essential to understanding the structure of the content, pass
+  `aria-hidden="false"` to restore its `separator` semantics.

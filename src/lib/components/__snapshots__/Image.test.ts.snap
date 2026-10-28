@@ -1,0 +1,12 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <img
+    alt="A card reader on a counter"
+    class="base svelte-3ned59"
+    src="/example.jpg"
+  />
+  
+</div>
+`;

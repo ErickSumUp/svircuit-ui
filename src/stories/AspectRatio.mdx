@@ -1,0 +1,34 @@
+import * as Stories from './AspectRatio.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# AspectRatio
+
+The AspectRatio component gives its content a fixed ratio of width to height. The box takes the full
+width of its container and derives its height from the ratio.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Component variations
+
+### Ratios
+
+Pass the ratio as a number. A fraction such as `16 / 9` reads best.
+
+<Canvas of={Stories.Ratios} />
+
+---
+
+## Usage
+
+- **Wrap a single element**, such as an `img`, a `video` or an `iframe`. It is stretched to fill the
+  box, and images and videos are cropped to cover it rather than distorted.
+- **Reserve space before media loads.** The box has its final height from the first render, so the
+  page does not jump when the image arrives.
+- **Leave out `aspectRatio`** to render the content at its own size, for example when the ratio is
+  only known for some breakpoints or some items.
+
+Unlike circuit, the ratio is applied with the native CSS `aspect-ratio` property, so it is exact
+rather than rounded to a whole percent.
