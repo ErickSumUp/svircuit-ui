@@ -10,41 +10,66 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
-### 2026-10-27 — SideNavigation migrated ✅, SecondaryNavigation deprecated
+### 2026-10-27 — Hamburger added ✅
 
-One `SideNavigation` in `src/lib/stories/` replaces both the Svelte 4 duplicate at
-`src/lib/SideNavigation.svelte` (deleted, with its old story) and `SecondaryNavigation` (kept, marked
-`@deprecated`). It overwrites an unused, primary-rail-only Svelte 5 draft at the same path. It
-composes CloseButton and Status; everything else is inlined.
+New atomic `Hamburger` in `src/lib/components/`, exported from the index, ported from v12 and
+measured against circuit.sumup.com: 46×46px at size `m` (11px padding around a 24px icon), `bg-subtle`
+circle, `fg-normal` lines at 22px, 14px and 18px, focus outline 2px offset by 2px.
 
-- **API** follows circuit: `primaryLinks`, `primaryNavigationLabel`, `secondaryNavigationLabel`,
-  `closeButtonLabel`, `isLoading`, `skipNavigationHref`/`skipNavigationLabel`. Circuit's
-  `isOpen`/`onClose` is a bindable `open` plus `onclose`, like Popover. Types are exported:
-  `PrimaryLink`, `SecondaryGroup`, `SecondaryLink`, `NavigationBadge`.
-- **PrimaryLink** gains `activeIcon`, `externalLabel` (with an external-link icon), `secondaryGroups`,
-  `badge { label, variant }` (a dot on the icon; the label is the link's description) and renders a
-  button without `href`. Icons are components, rendered at size 24.
-- **The secondary panel is derived** from the active primary link's `secondaryGroups`, headed by its
-  label. Secondary badges render as a Status pill; variants map success → confirm, warning → notify,
-  danger → alert.
-- **Desktop (from 1280px):** a fixed 48px icon rail that expands to 220px on hover and focus, always
-  expanded from 1900px, and a sticky 200px secondary panel. Respects `--top-navigation-height`.
-- **Mobile (below 1280px):** a full-screen native `<dialog>` opened with `showModal()`, sliding down
-  via `@starting-style`. Primary links with groups become `aria-expanded` toggles whose links collapse
-  with a `grid-template-rows` transition (`visibility` keeps hidden links out of the tab order).
-  Escape, the close button and any link close it. Page scroll is locked with `html:has(...)`.
-- **Inlined instead of composed:** the skip link (SkipLink is not ported yet) and the loading
-  placeholders (Skeleton is not ported yet; `isLoading` also sets `aria-busy` and `inert`).
-- **Arrow keys** move focus within each list and wrap around, like circuit's `useFocusList`.
-- **Deviations:** no `tier` on secondary links (TierIndicator isn't ported), no ComponentsContext for
-  a router link (SvelteKit handles plain anchors), and the badge text prop is `label` rather than
-  `children`. Circuit's dev-time errors for missing labels are replaced by required props.
+- **Props:** `isActive`, `activeLabel`, `inactiveLabel`, `size` (`s` | `m`), plus any button
+  attribute. The label is the accessible name and a `title`, like CloseButton (circuit shows a
+  Tooltip, which we don't have). The `aria-current`, `aria-pressed` and `aria-expanded` highlight from
+  circuit's NavigationButton is kept.
+- **Deliberate deviation:** the morph into a close icon is driven by `isActive`. In v12 it only
+  triggers on `aria-pressed="true"`, which the component no longer sets, so on circuit.sumup.com it
+  never morphs and only the label changes. We follow the documented behavior ("Morphs into a close
+  icon when active") without adding `aria-pressed`, since the changing label already conveys the
+  state.
+- Circuit's legacy `kilo`/`mega` sizes and its dev-time label errors are left out; the labels are
+  required props.
+- The SideNavigation story now opens the modal with a Hamburger, as circuit's does.
+- 6 unit tests. Verified in Chrome: identical computed styles at rest, the X after a click, and in
+  the SideNavigation story it opens the drawer, resets after Escape, and hides from 1024px.
+
+### 2026-10-27 — SideNavigation migrated to the v12 design ✅, SecondaryNavigation deprecated
+
+Circuit v12 rebuilt its navigation ([#3821](https://github.com/sumup-oss/circuit-ui/pull/3821),
+"Revamp navigation components"). The first pass today ported the pre-v12 icon rail plus secondary
+panel; it was replaced with the v12 design after a side-by-side check against circuit.sumup.com.
+
+One `SideNavigation` in `src/lib/stories/` replaces the Svelte 4 duplicate at
+`src/lib/SideNavigation.svelte` (deleted, with its old story), an unused Svelte 5 draft at the same
+path, and `SecondaryNavigation` (kept, marked `@deprecated`). Everything is inlined.
+
+- **API** follows v12: `groups` of `{ id, label, hideLabel?, items }`, `label` (the modal's name),
+  `closeButtonLabel` (default `Close`), `isLoading`, `skipNavigationHref`/`skipNavigationLabel` and a
+  `logo` snippet. Circuit's `isOpen`/`onClose` is a bindable `open` plus `onclose`, like Popover.
+  Exported types: `NavigationGroup`, `PrimaryNavigationItem`, `NavigationItem`.
+- **Items:** a primary item needs `icon` and `activeIcon` and has either an `href` or
+  `secondaryItems` (encoded as a union, as in circuit). Secondary items open in a collapsible list,
+  expanded initially when the item is active. Active items are bold; external links get a 16px icon
+  and `externalLabel` as their description. Items without `href` render as buttons.
+- **Desktop (from 1024px):** a fixed 240px panel with a sticky logo and fade-outs at the top and
+  bottom. It sets `--side-navigation-width` on the document for the page to offset its content.
+- **Mobile (below 1024px):** a native modal `<dialog>`, 80vw up to 300px, translucent with a blur,
+  sliding in from the left. Escape, the round close button (top left), a click outside, and any link
+  close it. Toggling an accordion doesn't. Page scroll is locked with `html:has(...)`. The modal only
+  opens below 1024px, so a stale `open` on desktop never makes the page inert.
+- **Inlined instead of composed:** the skip link (SkipLink isn't ported) and the loading
+  placeholders (Skeleton isn't ported; `isLoading` sets `aria-busy`).
+- **Arrow keys** move focus between the primary items across groups, and within each secondary
+  list, wrapping around like circuit's `useFocusList`.
+- **Deviations:** no ComponentsContext for a router link (SvelteKit handles plain anchors); the
+  external description is a sibling of the link rather than inside it, so it isn't read twice; the
+  logo wrapper isn't rendered without a `logo`.
+- **Icons:** Payouts, Invoice, Items, Bookings, Profile and Settings (plus filled variants) were
+  added to `src/lib/icons/` for the story, 24px only, written with runes.
 - **Lint:** `svelte/no-navigation-without-resolve` is off for `src/lib/**/*.svelte`, as library
   components render hrefs that consumers resolve.
-- 15 unit tests (jsdom has no `showModal`, so it is stubbed). Verified in Chrome: rail 48px → 220px
-  on hover, secondary panel at 48px offset and 200px wide, the skip link is the first Tab stop,
-  arrow keys wrap, the dialog is `:modal` with page scroll locked, Escape and links close it, and
-  dark mode and the loading placeholders render correctly.
+- 15 unit tests (jsdom has no `showModal`, so it is stubbed). Compared in Chrome against
+  circuit.sumup.com at 1440px and 390px with the same content: row heights (36px), indents, icon
+  sizes and positions match. **Text is about 1px smaller and corners 2px tighter because our tokens
+  predate v12** (see the Phase 0.1 note).
 
 ### 2026-10-27 — Popover migrated ✅
 
@@ -297,13 +322,13 @@ is deferred, Phase 1 (typography) is independent and can go first.
 Circuit has 74 components. We share 30 with it, 32 do not exist here yet, and 4 are our own
 inventions (`Stack`, `Spacer`, `TestText`, plus the story components).
 
-| Status         | Components                                                                                                                                                                                                                                    |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| In sync        | Body, Headline, Hr, AspectRatio, Image, Popover, SideNavigation, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
-| Minor drift    | Checkbox, InputRadio, ButtonGroup, Toggletip, DateInput                                                                                                                                                                                       |
-| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                         |
-| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                        |
-| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                |
+| Status         | Components                                                                                                                                                                                                                                               |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| In sync        | Body, Headline, Hr, AspectRatio, Image, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
+| Minor drift    | Checkbox, InputRadio, ButtonGroup, Toggletip, DateInput                                                                                                                                                                                                  |
+| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                                    |
+| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                   |
+| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                           |
 
 Colors are fully in sync — every token in circuit's `light.ts` exists in our `styles.css`.
 
@@ -314,6 +339,11 @@ Colors are fully in sync — every token in circuit's `light.ts` exists in our `
 Everything else depends on these two steps.
 
 ### 0.1 Design tokens ✅ done 2026-07-29
+
+> **Needs a re-sync for v12 (found 2026-10-27).** About 30 shared tokens changed: body, headline,
+> compact, numeral and display font sizes grew (e.g. `--cui-body-s-font-size` 0.875rem → 0.9375rem,
+> `--cui-compact-s-font-size` 0.8125rem → 0.875rem), display line heights became percentages, and
+> `--cui-border-radius-byte` is 10px instead of 8px. Color tokens weren't compared yet.
 
 - [x] Add the 16 shared tokens we are missing:
       `--cui-icon-sizes-s/m/l/xl`, `--cui-display-xl-font-size`, `--cui-display-xl-line-height`,
@@ -651,7 +681,7 @@ Also here: **DateInput** is missing `defaultValue` and `autoComplete="bday"` fro
 ## Phase 8 — Navigation
 
 - [ ] **SkipLink** — SideNavigation inlines one; keep the CSS in step.
-- [ ] **Hamburger**
+- [x] **Hamburger** ✅ done 2026-10-27
 - [ ] **Tabs** (Tab, TabList, TabPanel inlined into one atomic component)
 - [ ] **TopNavigation** (+ utility links)
 - [ ] **SidePanel**

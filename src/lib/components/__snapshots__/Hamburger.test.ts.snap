@@ -1,0 +1,22 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <button
+    aria-label="Open menu"
+    class="base m svelte-1ltwp5z"
+    title="Open menu"
+    type="button"
+  >
+    <span
+      aria-hidden="true"
+      class="icon svelte-1ltwp5z"
+    >
+      <span
+        class="lines svelte-1ltwp5z"
+      />
+    </span>
+  </button>
+  
+</div>
+`;

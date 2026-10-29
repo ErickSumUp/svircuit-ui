@@ -13,7 +13,7 @@
 
 <script lang="ts">
   import type { NavigationGroup } from '$lib/stories/SideNavigation.svelte';
-  import Button from '$lib/components/Button.svelte';
+  import Hamburger from '$lib/components/Hamburger.svelte';
   import Body from '$lib/components/Body.svelte';
   import Headline from '$lib/components/Headline.svelte';
   import Payouts from '$lib/icons/Payouts.svelte';
@@ -104,8 +104,13 @@
 {/snippet}
 
 {#snippet page()}
-  <div class="open-button">
-    <Button size="s" onclick={() => (open = true)}>Open navigation</Button>
+  <div class="hamburger">
+    <Hamburger
+      isActive={open}
+      activeLabel="Close"
+      inactiveLabel="Open"
+      onclick={() => (open = !open)}
+    />
   </div>
   <main id="main-content" class="main">
     <Headline as="h1">Main content</Headline>
@@ -149,7 +154,7 @@
     padding: var(--cui-spacings-tera);
   }
 
-  .open-button {
+  .hamburger {
     margin-top: var(--cui-spacings-byte);
     margin-left: var(--cui-spacings-byte);
   }
@@ -159,7 +164,7 @@
       margin-left: var(--side-navigation-width);
     }
 
-    .open-button {
+    .hamburger {
       display: none;
     }
   }

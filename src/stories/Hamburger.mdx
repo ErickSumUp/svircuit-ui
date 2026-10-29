@@ -1,0 +1,38 @@
+import * as Stories from './Hamburger.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Hamburger
+
+A hamburger button for menus. It morphs into a close icon when active.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Usage
+
+Use the Hamburger to toggle a navigation menu on narrow viewports, such as the mobile [SideNavigation](?path=/docs/navigation-sidenavigation--docs). Toggle `isActive` with the menu's open state.
+
+```svelte
+<script>
+  let open = $state(false);
+</script>
+
+<Hamburger
+  isActive={open}
+  activeLabel="Close menu"
+  inactiveLabel="Open menu"
+  onclick={() => (open = !open)}
+/>
+```
+
+## Accessibility
+
+The button is named by `inactiveLabel` or `activeLabel`, depending on its state, so the label describes the action it performs next. The label is also shown as a tooltip on hover.
+
+If the Hamburger controls a menu on the same page, pass `aria-controls` and `aria-expanded` as well.
+
+## Sizes
+
+<Canvas of={Stories.Sizes} />

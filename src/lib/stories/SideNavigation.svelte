@@ -455,6 +455,7 @@
   }
 
   .group-label {
+    width: fit-content;
     height: var(--cui-compact-s-line-height);
     padding: 0 var(--cui-spacings-kilo);
     margin: 0 0 var(--cui-spacings-kilo);

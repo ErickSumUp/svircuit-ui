@@ -45,6 +45,7 @@ import SecondaryNavigation, {
 } from './components/SecondaryNavigation.svelte';
 export { SecondaryNavigation };
 export type { Link, Group, LinkBadge };
+export { default as Hamburger } from './components/Hamburger.svelte';
 export { default as SideNavigation } from './stories/SideNavigation.svelte';
 export type {
   NavigationGroup,
