@@ -25,6 +25,7 @@
   import Bookings from '$lib/icons/Bookings.svelte';
   import BookingsFilled from '$lib/icons/BookingsFilled.svelte';
   import Profile from '$lib/icons/Profile.svelte';
+  import ProfileFilled from '$lib/icons/ProfileFilled.svelte';
   import Settings from '$lib/icons/Settings.svelte';
   import SettingsFilled from '$lib/icons/SettingsFilled.svelte';
 
@@ -73,7 +74,12 @@
       id: 'account',
       label: 'Account',
       items: [
-        { icon: Profile, activeIcon: Profile, label: 'Personal information', href: '/#account' },
+        {
+          icon: Profile,
+          activeIcon: ProfileFilled,
+          label: 'Personal information',
+          href: '/#account'
+        },
         { icon: Settings, activeIcon: SettingsFilled, label: 'Settings', href: '/#settings' }
       ]
     }

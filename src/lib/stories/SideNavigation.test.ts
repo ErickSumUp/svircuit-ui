@@ -8,6 +8,7 @@ import ItemsFilled from '$lib/icons/ItemsFilled.svelte';
 import Payouts from '$lib/icons/Payouts.svelte';
 import PayoutsFilled from '$lib/icons/PayoutsFilled.svelte';
 import Profile from '$lib/icons/Profile.svelte';
+import ProfileFilled from '$lib/icons/ProfileFilled.svelte';
 
 function mockViewport(isMobile: boolean) {
   window.matchMedia = vi.fn().mockReturnValue({
@@ -54,7 +55,7 @@ const groups: NavigationGroup[] = [
       },
       {
         icon: Profile,
-        activeIcon: Profile,
+        activeIcon: ProfileFilled,
         label: 'Documents',
         href: '/documents',
         target: '_blank',
