@@ -11,6 +11,7 @@ export { default as Close } from './Close.svelte';
 export { default as Confirm } from './Confirm.svelte';
 export { default as DownloadCloud } from './DownloadCloud.svelte';
 export { default as Home } from './Home.svelte';
+export { default as HomeFilled } from './HomeFilled.svelte';
 export { default as Indeterminate } from './Indeterminate.svelte';
 export { default as Info } from './Info.svelte';
 export { default as Invoice } from './Invoice.svelte';
