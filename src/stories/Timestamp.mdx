@@ -1,0 +1,51 @@
+import * as Stories from './Timestamp.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Timestamp
+
+Displays a human readable date time, as a relative ("7 minutes ago") or an absolute ("March 15,
+2020") value. The full date and time is available in the `title`, and the machine-readable value in
+the `datetime` attribute of the `<time>` element.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Usage
+
+Pass the `datetime` in the ISO-8601 format **with an offset**, optionally followed by an
+[IANA time zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) in brackets:
+`2020-01-01T00:00+01:00[Europe/Berlin]`. With a time zone, absolute values show the wall-clock time
+in that zone; without one, they're shown in the user's time zone. `formattingLocale` defaults to the
+user's locale.
+
+## Format styles
+
+`formatStyle` sets the verbosity. Longer formats are easier to read. `includeTime` adds the time to
+absolute values.
+
+<Canvas of={Stories.FormatStyles} />
+
+## Variants
+
+### Auto
+
+The default. Displays a relative value within a month of the date time, and an absolute value
+otherwise.
+
+### Absolute
+
+<Canvas of={Stories.Absolute} />
+
+### Relative
+
+Updates itself at regular intervals: every second while the difference is in seconds, every five
+seconds in minutes, every minute in hours, and every five minutes beyond that.
+
+<Canvas of={Stories.Relative} />
+
+## Server rendering
+
+The server renders the absolute value, which switches to the relative one once the component mounts.
+That keeps hydration from mismatching when the server and the browser disagree on the current time.

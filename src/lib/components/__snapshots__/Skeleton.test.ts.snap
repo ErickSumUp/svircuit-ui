@@ -1,0 +1,26 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SkeletonContainer > should match story case 1`] = `
+<div>
+  <div
+    aria-busy="true"
+    class="container svelte-wd3luu"
+    inert="true"
+  >
+    <!---->
+    <span
+      class="base placeholder svelte-x2cdj9"
+    >
+      <!---->
+      <p>
+        content
+      </p>
+      
+      
+    </span>
+    
+    <!---->
+  </div>
+  
+</div>
+`;

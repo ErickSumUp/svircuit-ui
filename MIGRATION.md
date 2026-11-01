@@ -10,6 +10,61 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-11-01 — Tabs ✅
+
+Circuit's `Tabs`, `TabList`, `Tab`, `TabPanel` and `useTabState` are one atomic `Tabs` in
+`src/lib/components/`, with tests, stories, an `*.mdx` page, and `Tabs` plus the `TabItem` type
+exported.
+
+- **API:** `items` of `{ id, tab, panel?, href? }`, `stretched`, `as` (`tablist` | `navigation`),
+  `onTabChange`, and rest props on the element with the `tablist`/`list` role (for `aria-label`).
+  **Deviation:** circuit's `initialSelectedIndex` is a bindable `selectedId`, which also covers the
+  controlled case circuit needs the subcomponents for. The subcomponents and `useTabState` aren't
+  exported; `tab` is a string, and `trailingComponent` waits for TierIndicator (Phase 9).
+- **No measuring in JavaScript.** Circuit positions its sliding underline from `offsetLeft` and
+  `offsetWidth` (with a retry loop until the list has a width) and sets `--tab-list-width` for
+  stretched tabs. Here the underline is anchored to the selected tab with CSS anchor positioning (a
+  per-instance `anchor-name`, so two tab lists don't share an anchor) and transitions `left`/`right`;
+  browsers without anchor positioning get circuit's static `::after` underline. Stretched tabs are
+  `flex: 1 1 0`. JavaScript remains for the scroll fades and for scrolling the selected tab into view
+  on mount, as in circuit.
+- **Keyboard:** left and right arrows select and focus the neighbouring tab without wrapping, down
+  moves focus into the panel (circuit's behaviour). `Home` and `End` were added; circuit's docs
+  mention them but its hook doesn't implement them.
+- **Navigation:** `as="navigation"` renders a `nav` with `role="list"`/`listitem`, `aria-current` on
+  the selected link and no panels. Stretching applies to these too; circuit's stretch rules only
+  target `[role="tab"]`, so its navigation tabs never stretch.
+- 12 unit tests. Compared in Chrome with circuit.sumup.com: tab positions, the 24px gap, the 3px
+  underline 11px below the tab and its width match at rest and after selecting a tab; the text is 14px
+  against circuit's 15px (the v12 tokens again, see Phase 0.1). Checked the scroll fade, the
+  auto-stretch of three tabs below 480px, the navigation variant in dark mode, and that the underline
+  animates.
+
+### 2026-11-01 — Skeleton, Timestamp and SkipLink ✅
+
+Three new atomic components in `src/lib/components/`, each with tests, stories, an `*.mdx` page and
+an export.
+
+- **Skeleton + SkeletonContainer.** Same contract as circuit: the container sets `aria-busy` and
+  `inert` while `isLoading`, and every `Skeleton` inside turns into a pulsing placeholder the size of
+  its content (`circle`, `as`). Circuit's React context is Svelte context under the string key
+  `svircuit:skeleton`, so neither file imports the other. `inert` is passed as `isLoading ||
+undefined`, because without a DOM `inert` property (jsdom) Svelte writes `inert="false"`, which
+  still makes the section inert.
+- **Timestamp, native instead of Temporal.** Circuit depends on `temporal-polyfill` and
+  `@sumup-oss/intl`; ours uses `Date`, `Intl.DateTimeFormat` and `Intl.RelativeTimeFormat`. Same
+  props (`datetime`, `variant`, `formatStyle`, `includeTime`, `formattingLocale`), same unit
+  intervals, the server renders the absolute value and the relative one takes over on mount.
+  **Deviations:** `datetime` must include an offset (`…+01:00[Europe/Berlin]`); circuit also accepts
+  a bare wall time with a zone. The zone is optional here, and the `datetime` attribute is the input
+  without the bracket rather than Temporal's normalized form. Months and years are fixed 30 and 365
+  days, so the `auto` cut-off and month rounding can differ from circuit by a day or two near the
+  boundary. `formattingLocale` defaults to the user's locale (we have no I18nProvider).
+- **SkipLink** inlines Anchor's link styles plus circuit's visually-hidden-until-focus CSS. Verified
+  in Chrome: off-screen at rest, at the top left with the `bg-accent` background after one Tab.
+  SideNavigation still inlines its own copy; keep the two in step.
+- 25 unit tests. Checked in Chrome in light and dark mode, including the docs pages.
+
 ### 2026-10-27 — Hamburger added ✅
 
 New atomic `Hamburger` in `src/lib/components/`, exported from the index, ported from v12 and
@@ -322,13 +377,13 @@ is deferred, Phase 1 (typography) is independent and can go first.
 Circuit has 74 components. We share 30 with it, 32 do not exist here yet, and 4 are our own
 inventions (`Stack`, `Spacer`, `TestText`, plus the story components).
 
-| Status         | Components                                                                                                                                                                                                                                               |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| In sync        | Body, Headline, Hr, AspectRatio, Image, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
-| Minor drift    | Checkbox, InputRadio, ButtonGroup, Toggletip, DateInput                                                                                                                                                                                                  |
-| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                                    |
-| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                   |
-| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                           |
+| Status         | Components                                                                                                                                                                                                                                                                                    |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| In sync        | Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
+| Minor drift    | Checkbox, InputRadio, ButtonGroup, Toggletip, DateInput                                                                                                                                                                                                                                       |
+| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                                                                         |
+| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                        |
+| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                |
 
 Colors are fully in sync — every token in circuit's `light.ts` exists in our `styles.css`.
 
@@ -646,8 +701,9 @@ port the parts that are about behaviour and looks rather than architecture.
 - [x] **AspectRatio** — aspect-ratio wrapper. ✅ done 2026-10-26
 - [x] **Image** — with the object-fit and loading behavior circuit ships. ✅ done 2026-10-26
 - [ ] **Avatar** — `variant` object/identity, sizes, initials fallback.
-- [ ] **Skeleton** — loading placeholder. SideNavigation inlines its own placeholder CSS for `isLoading`.
-- [ ] **Timestamp** — relative and absolute formatting via `Intl.RelativeTimeFormat`.
+- [x] **Skeleton** — loading placeholder. ✅ done 2026-11-01. SideNavigation still inlines its own
+      placeholder CSS for `isLoading`.
+- [x] **Timestamp** — relative and absolute formatting via `Intl.RelativeTimeFormat`. ✅ done 2026-11-01
 
 ---
 
@@ -680,9 +736,9 @@ Also here: **DateInput** is missing `defaultValue` and `autoComplete="bday"` fro
 
 ## Phase 8 — Navigation
 
-- [ ] **SkipLink** — SideNavigation inlines one; keep the CSS in step.
+- [x] **SkipLink** ✅ done 2026-11-01. SideNavigation inlines one; keep the CSS in step.
 - [x] **Hamburger** ✅ done 2026-10-27
-- [ ] **Tabs** (Tab, TabList, TabPanel inlined into one atomic component)
+- [x] **Tabs** (Tab, TabList, TabPanel inlined into one atomic component) ✅ done 2026-11-01
 - [ ] **TopNavigation** (+ utility links)
 - [ ] **SidePanel**
 - [x] **SideNavigation rewrite** ✅ done 2026-10-27 (see the progress log). Still open: secondary

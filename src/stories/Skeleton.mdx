@@ -1,0 +1,29 @@
+import * as Stories from './Skeleton.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Skeleton
+
+A placeholder for content that is loading, with a subtle pulse animation.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+---
+
+## Usage
+
+- **Wrap the loading section in a `SkeletonContainer`** and each piece of content in a `Skeleton`.
+  While `isLoading` is `true`, every Skeleton inside turns into a placeholder; when it turns `false`,
+  the content appears in place.
+- **Render the real markup with representative content.** The placeholder takes the size of what it
+  wraps, so the layout doesn't shift when the content arrives. Pass `circle` for round content such as
+  an avatar.
+- **A Skeleton outside a container** always shows its content.
+
+## Accessibility
+
+- The container sets `aria-busy` while loading, so screen readers know the section is incomplete,
+  and makes it `inert`, so its contents can't be focused or clicked.
+- The pulse animation stops when the user prefers reduced motion.

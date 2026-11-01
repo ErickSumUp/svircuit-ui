@@ -1,0 +1,30 @@
+import * as Stories from './SkipLink.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# SkipLink
+
+A shortcut to the main content of a page, following
+[WCAG 2.1 technique G1](https://www.w3.org/WAI/WCAG21/Techniques/general/G1). It looks like an
+[Anchor](Typography/Anchor) and stays visually hidden until it receives keyboard focus.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+---
+
+## Usage
+
+- **Place it first on the page**, before the navigation, and point `href` at the `id` of the main
+  content. The link is positioned at the top left of its nearest positioned ancestor.
+- **One skip link is usually enough.** On a site with very few navigation items it might not be
+  needed at all; the goal is to save keyboard users from tabbing through repeated links.
+- [SideNavigation](Navigation/SideNavigation) already renders one through `skipNavigationHref` and
+  `skipNavigationLabel`.
+
+## Resources
+
+- [Bypass Blocks](https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks) from the _Web
+  Accessibility Initiative_
+- [Skip Navigation Links](https://webaim.org/techniques/skipnav/) from _WebAIM_

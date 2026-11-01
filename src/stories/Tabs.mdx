@@ -1,0 +1,73 @@
+import * as Stories from './Tabs.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Tabs
+
+Tabs organize related content into sections and show one at a time.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+---
+
+## When to use it
+
+- **Group related content** that doesn't need to be compared side by side, such as subsets of the
+  same data (Active orders | Completed orders | Cancelled orders) or the steps of a long process.
+- **Navigate between related pages** within a larger section, such as a profile (Overview | Posts |
+  Comments | Settings). Use [`as="navigation"`](#navigation) for this.
+
+## How to use it
+
+Pass an `items` array. Each item needs a unique `id`, a short `tab` label and a `panel` snippet with
+the content. The first tab is selected initially; pass `selectedId` to choose another, or bind it with
+`bind:selectedId`. `onTabChange` is called with the id of the newly selected tab.
+
+```svelte
+<script>
+  import { Tabs } from 'svircuit-ui';
+</script>
+
+{#snippet active()}…{/snippet}
+{#snippet completed()}…{/snippet}
+
+<Tabs
+  aria-label="Orders"
+  items={[
+    { id: 'active', tab: 'Active', panel: active },
+    { id: 'completed', tab: 'Completed', panel: completed }
+  ]}
+/>
+```
+
+### Stretched
+
+`stretched` makes the tabs share the available width evenly. Below 480px, lists with three tabs or
+fewer always stretch.
+
+<Canvas of={Stories.Stretched} />
+
+### Scrollable
+
+Tabs that don't fit scroll horizontally, with a fade at the edge that has more tabs. The selected tab
+is scrolled into view initially.
+
+<Canvas of={Stories.Scrollable} />
+
+### Navigation
+
+With `as="navigation"`, the tabs render as a list of links inside a `nav`, with `aria-current="page"`
+on the selected one and no panels. Give each item an `href` and set `selectedId` to the current page.
+
+<Canvas of={Stories.Navigation} />
+
+## Accessibility
+
+- **Name the tab list** with `aria-label` (or `aria-labelledby`), which is passed to the element with
+  the `tablist` role.
+- The tabs follow the [WAI-ARIA tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/): only the
+  selected tab is in the tab order, the left and right arrow keys select the previous or next tab,
+  `Home` and `End` jump to the first and last, and the down arrow moves focus into the panel.
+- Each tab controls its panel with `aria-controls`, and each panel is labelled by its tab.

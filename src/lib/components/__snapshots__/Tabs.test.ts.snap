@@ -1,0 +1,122 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`tablist > should match story case 1`] = `
+<div>
+  <!---->
+  <div
+    class="wrapper svelte-126ak3w"
+  >
+    <div
+      class="list stretched-mobile svelte-126ak3w"
+      role="tablist"
+    >
+      <!---->
+      <!---->
+      <button
+        aria-controls="tabs-c1-panel-one"
+        aria-selected="true"
+        class="tab svelte-126ak3w"
+        id="tabs-c1-tab-one"
+        role="tab"
+        style="anchor-name: --tabs-selected-c1;"
+        type="button"
+      >
+        Tab 1
+        
+      </button>
+      
+      
+      <!---->
+      <!---->
+      <button
+        aria-controls="tabs-c1-panel-two"
+        aria-selected="false"
+        class="tab svelte-126ak3w"
+        id="tabs-c1-tab-two"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        Tab 2
+        
+      </button>
+      
+      
+      <!---->
+      <!---->
+      <button
+        aria-controls="tabs-c1-panel-three"
+        aria-selected="false"
+        class="tab svelte-126ak3w"
+        id="tabs-c1-tab-three"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        Tab 3
+        
+      </button>
+      
+      
+      <!---->
+       
+      <span
+        aria-hidden="true"
+        class="glider svelte-126ak3w"
+        style="position-anchor: --tabs-selected-c1;"
+      />
+      <!---->
+    </div>
+     
+    <span
+      class="scroll-indicator left svelte-126ak3w"
+    />
+     
+    <span
+      class="scroll-indicator right svelte-126ak3w"
+    />
+    
+  </div>
+  <!---->
+   
+  <!---->
+  <div
+    aria-labelledby="tabs-c1-tab-one"
+    id="tabs-c1-panel-one"
+    role="tabpanel"
+    tabindex="-1"
+  >
+    <p>
+      Content 1
+    </p>
+    <!---->
+  </div>
+  <div
+    aria-labelledby="tabs-c1-tab-two"
+    hidden=""
+    id="tabs-c1-panel-two"
+    role="tabpanel"
+    tabindex="-1"
+  >
+    <p>
+      Content 2
+    </p>
+    <!---->
+  </div>
+  <div
+    aria-labelledby="tabs-c1-tab-three"
+    hidden=""
+    id="tabs-c1-panel-three"
+    role="tabpanel"
+    tabindex="-1"
+  >
+    <p>
+      Content 3
+    </p>
+    <!---->
+  </div>
+  
+  <!---->
+  
+</div>
+`;
