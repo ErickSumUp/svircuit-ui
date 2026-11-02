@@ -1,0 +1,52 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <div
+    class="base svelte-4cqiq6"
+  >
+    <img
+      alt=""
+      class="image svelte-4cqiq6"
+      src="/update.svg"
+    />
+     
+    <h2
+      class="headline svelte-4cqiq6"
+    >
+      The browser you're using is no longer supported
+      
+    </h2>
+    <!---->
+     
+    <p
+      class="body svelte-4cqiq6"
+    >
+      You need a more up-to-date browser to continue using SumUp.
+    </p>
+    <!---->
+     
+    <div
+      class="buttons svelte-4cqiq6"
+    >
+      <div
+        class="button-group svelte-4cqiq6"
+      >
+        <!---->
+        <button
+          class="button primary svelte-4cqiq6"
+          type="button"
+        >
+          Update now
+        </button>
+        
+        <!---->
+         
+        <!---->
+      </div>
+    </div>
+    <!---->
+  </div>
+  
+</div>
+`;

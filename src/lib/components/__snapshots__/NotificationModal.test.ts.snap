@@ -1,0 +1,77 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <dialog
+    aria-labelledby="c1"
+    class="base svelte-1lornx8"
+    open=""
+  >
+    <div
+      class="content svelte-1lornx8"
+    >
+      <!---->
+       
+      <h2
+        class="headline svelte-1lornx8"
+        id="c1"
+      >
+        It's time to update your browser
+      </h2>
+       
+      <p
+        class="body svelte-1lornx8"
+      >
+        You'll soon need a more up-to-date browser to continue using SumUp.
+      </p>
+      <!---->
+       
+      <div
+        class="buttons svelte-1lornx8"
+      >
+        <div
+          class="button-group svelte-1lornx8"
+        >
+          <button
+            class="button primary svelte-1lornx8"
+            type="button"
+          >
+            Update now
+          </button>
+           
+          <button
+            autofocus=""
+            class="button secondary svelte-1lornx8"
+            type="button"
+          >
+            Not now
+          </button>
+          <!---->
+        </div>
+      </div>
+    </div>
+     
+    <button
+      aria-label="Close"
+      class="close svelte-1lornx8"
+      title="Close"
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        fill="none"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <path
+          d="M17.293 5.293a1 1 0 1 1 1.414 1.414L13.414 12l5.293 5.293a1 1 0 0 1-1.414 1.414L12 13.414l-5.293 5.293a1 1 0 1 1-1.414-1.414L10.586 12 5.293 6.707a1 1 0 1 1 1.414-1.414L12 10.586z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
+    <!---->
+  </dialog>
+  
+</div>
+`;

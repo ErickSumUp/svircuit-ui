@@ -1,0 +1,57 @@
+import * as Stories from './NotificationModal.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# NotificationModal
+
+The notification modal communicates critical information while blocking everything else on the page,
+and needs the user's attention or action to proceed.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## When to use it
+
+- For information that needs the user's immediate attention.
+- To ask for confirmation before a destructive action.
+
+## How to use it
+
+Bind `open` to show and hide the modal. Closing it from the close button, Escape, a backdrop click
+or either action sets `open` back to `false`, then calls `onClose`.
+
+```svelte
+<script>
+  import { NotificationModal } from 'svircuit-ui';
+
+  let open = $state(false);
+</script>
+
+<button onclick={() => (open = true)}>Open modal</button>
+<NotificationModal
+  bind:open
+  headline="It's time to update your browser"
+  actions={{
+    primary: { label: 'Update now', onclick: update },
+    secondary: { label: 'Not now' }
+  }}
+/>
+```
+
+- Use a concise headline. Body copy and an `image` (`{ src, alt }`) are optional; the image is at
+  most 232px wide and 120px tall.
+- The primary action sits on the right, the secondary on the left; on narrow screens they stack with
+  the primary on top. The secondary action receives focus when the modal opens.
+
+### Destructive confirmation
+
+Mark an action `destructive` to signal that it can't be undone. `preventClose` hides the close
+button and ignores Escape and backdrop clicks, so the user has to pick an action.
+
+<Canvas of={Stories.DestructiveConfirmation} />
+
+## Accessibility
+
+The modal is a native `dialog`: it traps focus while open, makes the rest of the page inert, and
+returns focus to the element that opened it when it closes. Its headline is its accessible name.

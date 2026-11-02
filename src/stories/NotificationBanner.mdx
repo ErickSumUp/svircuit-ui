@@ -1,0 +1,46 @@
+import * as Stories from './NotificationBanner.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# NotificationBanner
+
+The notification banner prominently communicates and promotes high-level, site-wide information to
+the user.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## When to use it
+
+Use the notification banner for global system messages, or for promotions and recommendations.
+
+## Component variations
+
+### Variants
+
+- **system** for system messages that concern the whole site.
+- **promotional** for promotions and recommendations.
+
+The banner rearranges itself to its own width: below 960px the image sits to the right of the
+content with the action underneath; above it, image, content and action form a single row.
+
+### Images
+
+Pass `image` with a `src` and `alt` to add visual context. Use `width` (in pixels, default `200`) to
+size it and `align` to position it within its box. Leave `alt` empty for decorative images.
+
+<Canvas of={Stories.CustomImage} />
+
+### Dismissable
+
+Pass `onClose` and a `closeButtonLabel` to show a close button. Hide the banner by setting
+`isVisible` to `false`; it collapses with a height and opacity animation.
+
+<Canvas of={Stories.Dismissable} />
+
+## Accessibility
+
+- The headline renders as an `h2`, so place the banner where a second-level heading fits the page.
+- The action is a link when it has an `href` and a button otherwise. Label it with what it does, e.g.
+  "Update" rather than "Click here".

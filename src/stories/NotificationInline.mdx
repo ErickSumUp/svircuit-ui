@@ -1,0 +1,50 @@
+import * as Stories from './NotificationInline.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# NotificationInline
+
+An inline notification within the content flow. Use it to give additional guidance or to draw
+attention to a section of the interface.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Component variations
+
+### Variants
+
+<Canvas of={Stories.Variants} />
+
+- **info** for informational, neutral messages.
+- **success** for successful outcomes.
+- **warning** for warnings and other information the user should be aware of.
+- **danger** for errors. Be descriptive and give clear next steps.
+
+### Dismissable
+
+Pass `onClose` and a `closeButtonLabel` to show a close button. Hide the notification by setting
+`isVisible` to `false`; it collapses with a height and opacity animation, as it does when it appears.
+
+<Canvas of={Stories.Dismissable} />
+
+### Headline and action
+
+An optional `headline` goes above the body copy. It renders as an `h3`; use `headlineAs` (`h2` to
+`h6`) to fit the page's heading structure. An optional `action` prompts the user to do something about
+the notification: it renders as a link with `href`, or as a button with `onclick`.
+
+<Canvas of={Stories.WithHeadlineAndAction} />
+
+## Accessibility
+
+- **Place notifications close to their related content**, and use headings and semantic markup to
+  group content into meaningful sections.
+- **Avoid rendering a notification dynamically.** Screen readers don't announce new content by
+  themselves. If you have to, for example after a form submission, put it inside a
+  [live region](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions).
+  A more robust pattern is to navigate on submission and render the notification statically on the
+  new page.
+- **Use `iconLabel`** to describe the icon (e.g. "Error") when the body copy doesn't make the
+  variant's meaning clear on its own.

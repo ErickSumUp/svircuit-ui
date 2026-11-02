@@ -1,0 +1,51 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <div
+    class="base svelte-i4s023"
+  >
+    <div
+      class="collapsible svelte-i4s023"
+    >
+      <div
+        class="banner system svelte-i4s023"
+      >
+        <div
+          class="grid svelte-i4s023"
+        >
+          <div
+            class="content svelte-i4s023"
+          >
+            <h2
+              class="headline svelte-i4s023"
+            >
+              Software update
+            </h2>
+             
+            <p
+              class="body svelte-i4s023"
+            >
+              There is updated firmware available for your card reader.
+            </p>
+            <!---->
+          </div>
+           
+          <button
+            class="button primary svelte-i4s023"
+            type="button"
+          >
+            Update
+          </button>
+          <!---->
+           
+          <!---->
+        </div>
+         
+        <!---->
+      </div>
+    </div>
+  </div>
+  
+</div>
+`;

@@ -10,6 +10,96 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-11-01 — NotificationFullscreen ✅
+
+`NotificationFullscreen` is atomic in `src/lib/components/`, inlining the Image, Headline (size `m`),
+Body, ButtonGroup and Button (size `m`) styles, with tests, stories, an `*.mdx` page and an index
+export.
+
+- **API:** `image`, `headline`, `body` and optional `actions`, as in circuit. **Deviations:** like
+  NotificationInline, the heading level is `headlineAs` (`h1` | `h2`, default `h2`) instead of
+  circuit's string-or-`{ label, as }` `headline`. `body` is a string. `image` is `{ src, alt }`
+  (no `illustration` or `svg` options). Actions are `{ label, href?, onclick?, destructive? }` and
+  render as links with `href`, since this notification often ends a flow with a navigation.
+- 8 unit tests. Compared in Chrome with circuit.sumup.com at 1000px and 375px: the 420px column, the
+  280×160 image, headline, body and button positions match, including the full-width stacked buttons
+  on mobile; text is 1px smaller (the v12 tokens, see Phase 0.1), which at 1000px fits the body copy
+  on one line. Checked the two-action layout, the `h1` story in dark mode and the docs page.
+
+### 2026-11-01 — NotificationModal ✅
+
+`NotificationModal` is atomic in `src/lib/components/`, inlining what circuit takes from `Modal`,
+`Dialog`, `ButtonGroup`, `Button`, `CloseButton`, `Headline`, `Body` and `Image`. Tests, stories, an
+`*.mdx` page and an index export.
+
+- **API:** `open` is bindable; closing the modal (close button, Escape, backdrop click or an action)
+  sets it to `false` and then calls `onClose`, like circuit's `onClose` after the close animation.
+  `headline` (an `h2` that labels the dialog), `body`, `closeButtonLabel` (default `Close`) and
+  `preventClose` as in circuit. **Deviations:** `body` is a string, not a ReactNode. `actions` is
+  `{ primary, secondary? }` of `{ label, onclick?, destructive? }` rather than Button props. `image` is
+  `{ src, alt }`; circuit's `illustration` (needs `@sumup-oss/illustrations`) and `svg` component
+  options are left out. `useNotificationModal`/`ModalProvider` aren't ported.
+- **Native `<dialog>` instead of circuit's machinery.** `showModal()` provides the focus trap, the
+  inert page and focus restore to the trigger, so circuit's dialog polyfill, `useEscapeKey`,
+  `useClickOutside` and focus bookkeeping aren't needed. `preventClose` cancels the native `cancel`
+  event. The secondary action gets the native `autofocus`, as in circuit.
+- **Animations in CSS.** Circuit times the exit with `setTimeout` and swaps animation classes from a
+  `useMedia` hook. Here `@starting-style` plus `display`/`overlay` transitions with `allow-discrete`
+  fade the modal (and its box-shadow backdrop, circuit's Firefox workaround) in and out over 300ms,
+  sliding up instead below 480px.
+- **Scroll lock** is a scoped `:global(html):has(.base[open]) { overflow: hidden }` instead of
+  circuit's `useScrollLock`, which fixes the body in place. It only applies while this component's
+  dialog is open. Swipe-down-to-close isn't ported.
+- 14 unit tests (jsdom has no `showModal`, so it is stubbed). Compared in Chrome with
+  circuit.sumup.com at 1000px and 375px: the 420px width (viewport minus 80px on mobile), 16px radius,
+  24px/16px padding, the 48px close button 8px/4px from the corner, the centred headline, the
+  side-by-side buttons with a 16px gap and the stacked full-width ones with 12px, and focus on the
+  secondary action match. Text is 1px smaller (the v12 tokens, see Phase 0.1). Checked the exit fade,
+  the mobile slide, Escape, backdrop clicks, `preventClose`, focus return, dark mode and the docs page.
+
+### 2026-11-01 — NotificationBanner ✅
+
+`NotificationBanner` is atomic in `src/lib/components/`, with tests, stories, an `*.mdx` page and an
+index export. Migrated against circuit's `origin/main` (the local checkout is 16 commits behind),
+which includes #4003: the action takes any Button variant and defaults to `primary`.
+
+- **API:** `variant` (`system` | `promotional`), `headline` (an `h2`), `body`, `isVisible`, and
+  `onClose` plus `closeButtonLabel`, as in circuit. **Deviations:** the `action` is
+  `{ label, variant?, href?, target?, rel?, onclick? }` instead of Button props, and renders a link or
+  a button styled as circuit's size `s` Button. The `image` is `{ src, alt, width?, align? }`;
+  circuit's `illustration` option needs `@sumup-oss/illustrations` and is left out.
+- **No measuring in JavaScript.** Circuit measures the height to animate dismissing; here the
+  wrapper transitions `grid-template-rows` (200ms, as in circuit) with opacity and `visibility`. The
+  image's width and alignment are inline styles rather than custom properties.
+- The banner switches to its single-row layout with a container query above 960px, as in circuit.
+  The story image is circuit's `illustration-update.svg`, copied to `src/stories/assets/`.
+- 13 unit tests. Compared in Chrome with circuit.sumup.com at 700px and 1200px wide: the box, the 16px
+  radius, background, headline, body, action, image and close button positions match in both
+  layouts, as do the secondary and tertiary actions; the text is 1px smaller (the v12 tokens, see
+  Phase 0.1). Checked dark mode and that dismissing collapses to 0 and showing again restores it.
+- **Follow-up:** the same upstream range changes `ListItem` and `ListItemGroup`, which are marked in
+  sync below.
+
+### 2026-11-01 — NotificationInline ✅
+
+`NotificationInline` is atomic in `src/lib/components/`, with tests, stories, an `*.mdx` page and an
+index export.
+
+- **API:** `variant`, `body`, `isVisible`, `iconLabel`, and `onClose` plus `closeButtonLabel` (the
+  close button shows only when both are set), as in circuit. **Deviations:** circuit's `headline`
+  takes a string or `{ label, as }`; here `headline` is a string and `headlineAs` picks h2–h6
+  (default h3). The `action` is `{ label, href?, target?, rel?, onclick? }` and renders a link or a
+  button, both styled as circuit's tertiary size `s` Button. The `TIMEOUT` static isn't exported.
+- **No measuring in JavaScript.** Circuit's `useCollapsible` measures the content height to animate
+  dismissing. Here the wrapper transitions `grid-template-rows` from `1fr` to `0fr` together with
+  opacity and `visibility`, so a hidden notification is out of the tab order.
+- The v2 24px `info`, `confirm`, `notify` and `alert` icons and the 16px `close` icon are inlined.
+  The close button keeps the button content's 24px minimum, so like circuit's it is 32×32.
+- 15 unit tests. Compared in Chrome with circuit.sumup.com: padding, the 12px radius, backgrounds,
+  icon and text positions and the close button match; the text is 16px against circuit's 17px (the
+  v12 tokens, see Phase 0.1). Checked the variants in dark mode, and that dismissing collapses the
+  height to 0 and showing again restores it.
+
 ### 2026-11-01 — Tabs ✅
 
 Circuit's `Tabs`, `TabList`, `Tab`, `TabPanel` and `useTabState` are one atomic `Tabs` in
@@ -377,13 +467,13 @@ is deferred, Phase 1 (typography) is independent and can go first.
 Circuit has 74 components. We share 30 with it, 32 do not exist here yet, and 4 are our own
 inventions (`Stack`, `Spacer`, `TestText`, plus the story components).
 
-| Status         | Components                                                                                                                                                                                                                                                                                    |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| In sync        | Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
-| Minor drift    | Checkbox, InputRadio, ButtonGroup, Toggletip, DateInput                                                                                                                                                                                                                                       |
-| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                                                                         |
-| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                        |
-| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                |
+| Status         | Components                                                                                                                                                                                                                                                                                                                                                                       |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| In sync        | Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
+| Minor drift    | Checkbox, InputRadio, ButtonGroup, Toggletip, DateInput                                                                                                                                                                                                                                                                                                                          |
+| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                                                                                                                                                            |
+| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                           |
+| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                   |
 
 Colors are fully in sync — every token in circuit's `light.ts` exists in our `styles.css`.
 
@@ -726,10 +816,10 @@ Also here: **DateInput** is missing `defaultValue` and `autoComplete="bday"` fro
 
 ## Phase 7 — Notifications
 
-- [ ] **NotificationInline**
-- [ ] **NotificationBanner**
-- [ ] **NotificationModal**
-- [ ] **NotificationFullscreen**
+- [x] **NotificationInline** ✅ done 2026-11-01
+- [x] **NotificationBanner** ✅ done 2026-11-01
+- [x] **NotificationModal** ✅ done 2026-11-01
+- [x] **NotificationFullscreen** ✅ done 2026-11-01
 - [ ] **Callout** (experimental upstream)
 
 ---

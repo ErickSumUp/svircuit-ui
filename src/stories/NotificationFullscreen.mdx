@@ -1,0 +1,29 @@
+import * as Stories from './NotificationFullscreen.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# NotificationFullscreen
+
+The fullscreen notification provides important information or feedback as part of a process flow,
+for example the outcome of a task or an unsupported browser.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## How to use it
+
+- Pass an `image` with a `src` and `alt`. Leave `alt` empty if the image is decorative. The image is
+  at most 280px wide and 160px tall.
+- Keep the `headline` concise. It renders as an `h2`; use `headlineAs="h1"` when the notification is
+  the page's main content.
+- Optional `body` copy adds details.
+- Optional `actions` let the user act on the notification. Each renders as a link with `href` or as a
+  button with `onclick`; mark one `destructive` if it can't be undone. The primary action sits on the
+  right, the secondary on the left; on narrow screens they stack, full width, with the primary on top.
+
+<Canvas of={Stories.WithTwoActions} />
+
+### Heading level
+
+<Canvas of={Stories.WithHeading1} />
