@@ -1,0 +1,23 @@
+import * as Stories from './TierIndicator.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# TierIndicator
+
+The TierIndicator marks features or content that belong to a subscription tier, such as SumUp Plus.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Variations
+
+There is one tier, `plus`, in three sizes: `s` (16px tall), `m` (24px, the default) and `l` (32px).
+The badge takes the text colour of its surroundings.
+
+<Canvas of={Stories.Variations} />
+
+## Accessibility
+
+The badge itself is hidden from assistive technology; a visually hidden label announces the tier
+name instead.

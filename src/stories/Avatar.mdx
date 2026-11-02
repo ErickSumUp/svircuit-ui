@@ -1,0 +1,34 @@
+import * as Stories from './Avatar.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Avatar
+
+The Avatar displays an image representing an object, person or business.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Variants
+
+There are three variants and two sizes (`s` is 48px, `m` is 96px). Without a `src`, the avatar shows
+a placeholder icon for its variant.
+
+<Canvas of={Stories.Variants} />
+
+- **object** for products, for example in a product catalogue.
+- **business** for commercial entities such as merchants and companies.
+- **person** for individuals, for example a profile or a customer. It is round.
+
+### Initials
+
+The person variant can show one or two `initials` instead of the placeholder icon.
+
+<Canvas of={Stories.Initials} />
+
+## Accessibility
+
+`alt` is required. Describe the image when it carries information, for example in a grid of products
+without visible names. Pass an empty string when the avatar is decorative, for example next to the
+name it depicts; assistive technology then skips it. A placeholder without `alt` is hidden too.

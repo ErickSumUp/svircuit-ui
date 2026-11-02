@@ -1,6 +1,7 @@
 // Reexport your entry components here
 export { default as Anchor } from './components/Anchor.svelte';
 export { default as AspectRatio } from './components/AspectRatio.svelte';
+export { default as Avatar } from './components/Avatar.svelte';
 export { default as Badge } from './components/Badge.svelte';
 export { default as Status } from './components/Status.svelte';
 export { default as Popover } from './components/Popover.svelte';
@@ -31,6 +32,9 @@ export { default as Skeleton } from './components/Skeleton.svelte';
 export { default as SkeletonContainer } from './components/SkeletonContainer.svelte';
 export { default as SkipLink } from './components/SkipLink.svelte';
 export { default as Timestamp } from './components/Timestamp.svelte';
+export { default as TierIndicator } from './components/TierIndicator.svelte';
+export { default as Tooltip } from './components/Tooltip.svelte';
+export { default as SumUpLogo } from './components/SumUpLogo.svelte';
 export { default as NotificationInline } from './components/NotificationInline.svelte';
 export { default as NotificationBanner } from './components/NotificationBanner.svelte';
 export { default as NotificationModal } from './components/NotificationModal.svelte';

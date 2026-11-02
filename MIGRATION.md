@@ -10,6 +10,60 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-11-02 — Tooltip ✅
+
+`Tooltip` is atomic in `src/lib/components/`, with tests, stories, an `*.mdx` page and an index
+export.
+
+- **API:** `label`, `type` (`label` | `description`) and `placement` (12 placements, default
+  `top`), as in circuit; other props are spread onto the tooltip element. **Deviation:** instead of
+  circuit's `component` prop, the trigger is a `trigger` snippet that receives the
+  `aria-labelledby` or `aria-describedby` attribute to spread onto the focusable element. A
+  wrapping `span` handles hover and focus, so any trigger works without forwarding handlers.
+- **Native over libraries:** a `popover="manual"` element positioned with CSS anchor positioning
+  (`position-area` per placement, flipping through `position-try-fallbacks`) replaces Floating UI.
+  After opening, the side it landed on and the trigger's centre are measured once, so the arrow
+  follows a flip and points at the trigger, as circuit's arrow middleware does. Only one tooltip is
+  open at a time through a module-level variable instead of circuit's nanostores atom.
+- **Behaviour as in circuit:** it opens on hover and on `:focus-visible` focus (not on a mouse
+  click), becomes visible after circuit's 1s `transition-delay`, stays open while the pointer
+  moves onto it, and closes on Escape, blur and pointer leave. Circuit's own tooltips currently
+  show instantly once JavaScript has loaded, because its popover skips the transition; we follow
+  the delay its CSS specifies, using `@starting-style`. The gap between trigger and tooltip is bridged with a
+  `::before` area rather than circuit's padding. Circuit's CSS-only initial state (for before
+  hydration) is left out, because the tooltip is rendered into the top layer by the component.
+- 11 unit tests. Compared in Chrome with circuit.sumup.com: the 12px offset, centring, the left
+  placement flipping right, bottom-start alignment, the padding and the arrow match; the text is
+  1px smaller and the radius 8px against circuit's 10px (Phase 0.1). Checked hovering onto the
+  tooltip, Escape, the label type's accessible name, dark mode and the docs page.
+
+### 2026-11-02 — Avatar, TierIndicator and SumUpLogo ✅
+
+All three are atomic in `src/lib/components/`, with tests, stories, an `*.mdx` page and an index
+export. Their icons and logo paths were copied programmatically from circuit's SVG sources and
+verified byte for byte.
+
+- **Avatar is back.** It was ported and removed on request on 2026-10-27 (no reason was recorded);
+  this is a fresh port of circuit's `origin/main`. `src`, `alt` (required), `variant` (`object` |
+  `business` | `person`), `size` (`s` 48px | `m` 96px) and `initials` (person only, at most two,
+  uppercased), as in circuit. The v2 `image`, `company` and `profile` 24px icons are the
+  placeholders; a placeholder without `alt` is `aria-hidden`. Circuit's deprecated `identity`,
+  `giga` and `yotta` aliases are left out, as are its dev-only errors for misused `initials` (they
+  are ignored instead). 11 unit tests. Compared in Chrome with circuit.sumup.com: sizes, colours, the
+  1px ring, icon placement and the round person variant match; size `s` has an 8px radius against
+  circuit's 10px, because `--cui-border-radius-byte` is still 8px (Phase 0.1). The story image is
+  circuit's `illustration-coffee.jpg`, copied to `src/stories/assets/`.
+- **TierIndicator:** `variant: 'plus'` and `size` (`s` 32×16 | `m` 48×24 | `l` 64×32) with the
+  three `plus_tier` icons and a visually hidden tier name, as in circuit. The wrapper is a `span`
+  rather than circuit's `div`, so it can sit inside a heading, button or tab label. 6 unit tests;
+  sizes, colour and the hidden label match circuit. Tabs' `trailingComponent` (see the Tabs entry)
+  can now be built on it.
+- **SumUpLogo:** `variant` (`full` | `short`), `size` (`s` 24px | `m` 32px | `l` 48px tall, the
+  width from `aspect-ratio`) and `label` (default `SumUp`) as the SVG `title`, as in circuit; adds
+  `role="img"` so the title is reliably announced. 8 unit tests; all six size/variant dimensions
+  and the colour match circuit.
+- Checked dark mode and the docs pages of all three.
+
 ### 2026-11-01 — NotificationFullscreen ✅
 
 `NotificationFullscreen` is atomic in `src/lib/components/`, inlining the Image, Headline (size `m`),
@@ -467,13 +521,13 @@ is deferred, Phase 1 (typography) is independent and can go first.
 Circuit has 74 components. We share 30 with it, 32 do not exist here yet, and 4 are our own
 inventions (`Stack`, `Spacer`, `TestText`, plus the story components).
 
-| Status         | Components                                                                                                                                                                                                                                                                                                                                                                       |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| In sync        | Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
-| Minor drift    | Checkbox, InputRadio, ButtonGroup, Toggletip, DateInput                                                                                                                                                                                                                                                                                                                          |
-| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                                                                                                                                                            |
-| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                           |
-| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                   |
+| Status         | Components                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| In sync        | Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Avatar, TierIndicator, SumUpLogo, Tooltip, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
+| Minor drift    | Checkbox, InputRadio, ButtonGroup, Toggletip, DateInput                                                                                                                                                                                                                                                                                                                                                                     |
+| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                                                                                                                                                                                                       |
+| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                                                                      |
+| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                                                              |
 
 Colors are fully in sync — every token in circuit's `light.ts` exists in our `styles.css`.
 
@@ -790,7 +844,7 @@ port the parts that are about behaviour and looks rather than architecture.
 - [x] **Hr** — semantic rule with `--cui-border-divider`. ✅ done 2026-10-26
 - [x] **AspectRatio** — aspect-ratio wrapper. ✅ done 2026-10-26
 - [x] **Image** — with the object-fit and loading behavior circuit ships. ✅ done 2026-10-26
-- [ ] **Avatar** — `variant` object/identity, sizes, initials fallback.
+- [x] **Avatar** — `variant` object/identity, sizes, initials fallback. ✅ done 2026-11-02
 - [x] **Skeleton** — loading placeholder. ✅ done 2026-11-01. SideNavigation still inlines its own
       placeholder CSS for `isLoading`.
 - [x] **Timestamp** — relative and absolute formatting via `Intl.RelativeTimeFormat`. ✅ done 2026-11-01
@@ -838,12 +892,12 @@ Also here: **DateInput** is missing `defaultValue` and `autoComplete="bday"` fro
 
 ## Phase 9 — Overlays, brand and the tail
 
-- [ ] **Tooltip**
+- [x] **Tooltip** ✅ done 2026-11-02
 - [ ] **ActionMenu**
 - [ ] **Modal**
 - [ ] **Step** (under review upstream)
-- [ ] **SumUpLogo**
-- [ ] **TierIndicator**
+- [x] **SumUpLogo** ✅ done 2026-11-02
+- [x] **TierIndicator** ✅ done 2026-11-02
 - [ ] **Carousel** + **CarouselPagination** (under review upstream)
 - [ ] **ComparisonTable** (brand, large)
 - [ ] **AutocompleteInput** (experimental upstream)

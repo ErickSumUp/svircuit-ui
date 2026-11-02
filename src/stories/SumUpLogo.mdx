@@ -1,0 +1,23 @@
+import * as Stories from './SumUpLogo.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# SumUpLogo
+
+The SumUp logo, with the logotype (`full`) or as the logomark alone (`short`).
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Variations
+
+Three sizes set the height: `s` (24px), `m` (32px, the default) and `l` (48px); the width follows
+the logo's proportions. The logo takes the text colour of its surroundings.
+
+<Canvas of={Stories.Variations} />
+
+## Accessibility
+
+The logo is an image named "SumUp". When it is wrapped in a link, set `label` to describe the link's
+destination, e.g. "Go to the homepage".

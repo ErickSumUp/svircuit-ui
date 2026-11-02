@@ -1,0 +1,60 @@
+import * as Stories from './Tooltip.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Tooltip
+
+Tooltips display additional information upon hover or focus that is contextual, helpful and
+nonessential, to clarify the purpose of otherwise ambiguous interactive elements.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Usage
+
+Tooltips hide information by default and need user interaction to show it. Use them as a last resort,
+when space is truly limited and the information can't be shown inline.
+
+Pass the trigger as a snippet and spread the attribute it receives onto a focusable element such as a
+`button`, `a` or `input`. The tooltip appears a second after the pointer rests on the trigger or the
+trigger receives keyboard focus, and hides when the pointer leaves, focus moves on or Escape is
+pressed. The pointer can move onto the tooltip without dismissing it. Only one tooltip is shown at a
+time.
+
+The label must be a single unformatted string. Use a [Toggletip](?path=/docs/components-toggletip--docs)
+instead if the content should be structured or interactive.
+
+```svelte
+<Tooltip label="This may take a few minutes" type="description">
+  {#snippet trigger(attributes)}
+    <Button {...attributes}>Download</Button>
+  {/snippet}
+</Tooltip>
+```
+
+## Variations
+
+### Types
+
+<Canvas of={Stories.Types} />
+
+- **label** makes the tooltip the trigger's accessible name. State the element's function in one or
+  two words.
+- **description** makes it the trigger's accessible description, for supplemental information. Write
+  a complete sentence in sentence case, under 160 characters, and nothing essential.
+
+### Placement
+
+The tooltip sits above its trigger, centred, by default. Use `placement` for another side and
+alignment. When there isn't enough room, the browser flips it to the opposite side.
+
+<Canvas of={Stories.Placements} />
+
+## Accessibility
+
+- Only interactive elements should trigger tooltips, and the tooltip should directly describe its
+  trigger.
+- Don't put essential information in tooltips, and don't use the `title` attribute instead.
+- The tooltip satisfies WCAG 1.4.13 (content on hover or focus): it can be dismissed with Escape,
+  stays open while hovered, and doesn't time out.

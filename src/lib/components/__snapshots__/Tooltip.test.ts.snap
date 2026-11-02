@@ -1,0 +1,39 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <span
+    class="trigger svelte-11extwn"
+    style="anchor-name: --tooltip-anchor-c1;"
+  >
+    <button
+      aria-describedby="tooltip-c1"
+      type="button"
+    >
+      Upload
+    </button>
+    <!---->
+  </span>
+   
+  <div
+    class="base svelte-11extwn"
+    data-placement="top"
+    data-side="top"
+    id="tooltip-c1"
+    popover="manual"
+    role="tooltip"
+    style="position-anchor: --tooltip-anchor-c1;"
+  >
+    <div
+      class="content svelte-11extwn"
+    >
+      This may take a few minutes
+    </div>
+     
+    <div
+      class="arrow svelte-11extwn"
+    />
+  </div>
+  
+</div>
+`;
