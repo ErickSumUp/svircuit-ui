@@ -17,6 +17,19 @@
      */
     target?: string;
     /**
+     * The link's relationship. Default: `noreferrer noopener` when `target`
+     * is `_blank`.
+     */
+    rel?: string;
+    /**
+     * Styles the action for destructive actions, such as deleting.
+     */
+    destructive?: boolean;
+    /**
+     * Disables the action. A disabled link renders as a disabled button.
+     */
+    disabled?: boolean;
+    /**
      * Called when the action is pressed. The toggletip closes afterwards
      * either way.
      */
@@ -211,14 +224,18 @@
     {/if}
     <p id={bodyId} class="body">{body}</p>
     {#if action}
+      {@const isLink = action.href && !action.disabled}
       <svelte:element
-        this={action.href ? 'a' : 'button'}
-        class="action"
-        href={action.href}
-        target={action.target}
-        rel={action.target === '_blank' ? 'noreferrer noopener' : undefined}
-        type={action.href ? undefined : 'button'}
-        role={action.href ? undefined : 'button'}
+        this={isLink ? 'a' : 'button'}
+        class={['action', action.destructive && 'destructive']}
+        href={isLink ? action.href : undefined}
+        target={isLink ? action.target : undefined}
+        rel={isLink
+          ? (action.rel ?? (action.target === '_blank' ? 'noreferrer noopener' : undefined))
+          : undefined}
+        type={isLink ? undefined : 'button'}
+        role={isLink ? undefined : 'button'}
+        disabled={isLink ? undefined : action.disabled}
         onclick={handleActionClick}
       >
         <span class="action-label">{action.label}</span>
@@ -464,6 +481,33 @@
     color: var(--cui-fg-normal-pressed);
     background-color: var(--cui-bg-subtle-pressed);
     border-color: var(--cui-border-normal-pressed);
+  }
+
+  .action.destructive {
+    color: var(--cui-fg-danger);
+  }
+
+  .action.destructive:hover {
+    color: var(--cui-fg-danger-hovered);
+    background-color: var(--cui-bg-danger-hovered);
+    border-color: var(--cui-border-danger-hovered);
+  }
+
+  .action.destructive:active {
+    color: var(--cui-fg-danger-pressed);
+    background-color: var(--cui-bg-danger-pressed);
+    border-color: var(--cui-border-danger-pressed);
+  }
+
+  .action:disabled {
+    color: var(--cui-fg-normal-disabled);
+    cursor: not-allowed;
+    background-color: var(--cui-bg-normal);
+    border-color: var(--cui-border-normal-disabled);
+  }
+
+  .action.destructive:disabled {
+    color: var(--cui-fg-danger-disabled);
   }
 
   .action :global(svg) {

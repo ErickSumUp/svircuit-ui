@@ -43,3 +43,18 @@
     </Stack>
   {/snippet}
 </Story>
+
+<Story name="Sizes">
+  {#snippet template()}
+    <Stack vertical>
+      <ButtonGroup size="s">
+        <Button variant="primary" size="s">Look Again</Button>
+        <Button variant="secondary" size="s">Go elsewhere</Button>
+      </ButtonGroup>
+      <ButtonGroup size="m">
+        <Button variant="primary" size="m">Look Again</Button>
+        <Button variant="secondary" size="m">Go elsewhere</Button>
+      </ButtonGroup>
+    </Stack>
+  {/snippet}
+</Story>

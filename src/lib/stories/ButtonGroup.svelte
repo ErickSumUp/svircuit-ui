@@ -7,20 +7,20 @@
      * Direction to align the buttons. Defaults to `center`.
      */
     align?: 'left' | 'center' | 'right';
+    /**
+     * The size of the buttons, which sets the gap between them on wide
+     * viewports. Pass the same `size` to the buttons. Defaults to `m`.
+     */
+    size?: 's' | 'm';
     children: Snippet;
     [key: string]: unknown;
   }
 
-  let { align = 'center', children, ...rest }: Props = $props();
+  let { align = 'center', size = 'm', class: className, children, ...rest }: Props = $props();
 </script>
 
-<div class="container" {...rest}>
-  <div
-    class="base"
-    class:left={align === 'left'}
-    class:center={align === 'center'}
-    class:right={align === 'right'}
-  >
+<div {...rest} class={['container', className]}>
+  <div class={['base', align, size]}>
     {@render children()}
   </div>
 </div>
@@ -34,14 +34,21 @@
   .base {
     display: flex;
     flex-direction: column;
+    gap: var(--cui-spacings-kilo);
     align-items: center;
-    margin-top: var(--cui-spacings-kilo);
-    gap: 1rem;
   }
 
   @container cui-button-group (width > 370px) {
     .base {
       flex-direction: row-reverse;
+    }
+
+    .s {
+      gap: var(--cui-spacings-kilo);
+    }
+
+    .m {
+      gap: var(--cui-spacings-mega);
     }
 
     .left {
@@ -54,11 +61,6 @@
 
     .right {
       justify-content: flex-start;
-    }
-
-    .base .secondary {
-      margin-top: 0;
-      margin-right: var(--cui-spacings-mega);
     }
   }
 </style>

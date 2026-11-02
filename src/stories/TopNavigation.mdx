@@ -1,0 +1,42 @@
+import * as Stories from './TopNavigation.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# TopNavigation
+
+The top navigation is part of the
+[application shell](https://developers.google.com/web/fundamentals/architecture/app-shell). It
+contains the branding, page links and the user profile menu.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## How to use it
+
+Pass the brand as a `logo` snippet, usually a SumUpLogo inside a link to the home page, and the
+utility links on the right as `links`:
+
+- A utility link is a `label`, a 24px `icon` snippet and an `href` (a link) or an `onclick` (a
+  button). The label names the link for screen readers and shows in a tooltip. Mark the current page
+  with `isActive`.
+- A custom item is a `key` and a `children` snippet, for example the name of a test account. Make
+  sure interactive content matches the hover, focus and active styles of the regular links.
+
+The navigation sticks to the top of the page and is 68px tall, which is exported as
+`TOP_NAVIGATION_HEIGHT` and set as `--top-navigation-height` inside the navigation. Once the page is
+scrolled, a line separates it from the content.
+
+## Usage with the side navigation
+
+<Canvas of={Stories.WithSideNavigation} />
+
+When used alongside the SideNavigation, pass a `hamburger` with the Hamburger's props. It shows on
+viewports narrower than 1024px, where it toggles the side navigation.
+
+## Accessibility
+
+To improve the navigation experience, the component can render a skip link that lets users jump
+directly to the main content of the page. This is particularly useful for users who rely on screen
+readers or keyboard navigation. Pass a hash link to your main content as `skipNavigationHref` and a
+`skipNavigationLabel` as its label. Learn more on the SkipLink page.

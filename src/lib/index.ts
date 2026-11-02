@@ -39,6 +39,7 @@ export { default as NotificationInline } from './components/NotificationInline.s
 export { default as NotificationBanner } from './components/NotificationBanner.svelte';
 export { default as NotificationModal } from './components/NotificationModal.svelte';
 export { default as NotificationFullscreen } from './components/NotificationFullscreen.svelte';
+export { default as Callout } from './components/Callout.svelte';
 import Tabs, { type TabItem } from './components/Tabs.svelte';
 export { Tabs };
 export type { TabItem };
@@ -61,6 +62,8 @@ import SecondaryNavigation, {
 export { SecondaryNavigation };
 export type { Link, Group, LinkBadge };
 export { default as Hamburger } from './components/Hamburger.svelte';
+export { default as TopNavigation, TOP_NAVIGATION_HEIGHT } from './stories/TopNavigation.svelte';
+export type { UtilityLink, CustomLink } from './stories/TopNavigation.svelte';
 export { default as SideNavigation } from './stories/SideNavigation.svelte';
 export type {
   NavigationGroup,

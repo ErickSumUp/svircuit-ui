@@ -16,6 +16,12 @@ By default, buttons passed to the ButtonGroup will be centered. Use the `align` 
 
 <Canvas of={Stories.Alignment} />
 
+Use the `size` prop to match the gap to the buttons' size on wide viewports: `s` for small buttons,
+`m` (the default) for medium ones. The ButtonGroup doesn't size the buttons themselves, so pass the
+same `size` to each Button.
+
+<Canvas of={Stories.Sizes} />
+
 ## Accessibility
 
 All accessibility considerations for the [`Button` component](Components/Button) also apply to the `ButtonGroup`.

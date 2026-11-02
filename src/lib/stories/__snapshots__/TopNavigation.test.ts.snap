@@ -1,0 +1,103 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <header
+    class="base svelte-3ehdx6"
+  >
+    <a
+      class="base svelte-supu7d"
+      href="#main"
+    >
+      Skip navigation
+      <!---->
+    </a>
+    <!---->
+     
+    <div
+      class="wrapper svelte-3ehdx6"
+    >
+      <!---->
+       
+      <div
+        class="logo svelte-3ehdx6"
+      >
+        <a
+          href="/"
+        >
+          SumUp
+        </a>
+        <!---->
+      </div>
+      <!---->
+    </div>
+     
+    <div
+      aria-busy="false"
+      class="container svelte-wd3luu"
+    >
+      <ul
+        class="links svelte-3ehdx6"
+      >
+        <!---->
+        <li
+          class="custom svelte-3ehdx6"
+        >
+          <p>
+            Test account
+          </p>
+          <!---->
+        </li>
+        
+        <!---->
+        <li>
+          <span
+            class="trigger svelte-11extwn"
+            style="anchor-name: --tooltip-anchor-c1;"
+          >
+            <!---->
+            <a
+              aria-labelledby="tooltip-c1"
+              class="link svelte-3ehdx6"
+              href="/settings"
+            >
+              <svg
+                data-testid="icon"
+              />
+              <!---->
+            </a>
+            
+            <!---->
+          </span>
+           
+          <div
+            class="base svelte-11extwn"
+            data-placement="bottom"
+            data-side="bottom"
+            id="tooltip-c1"
+            popover="manual"
+            role="tooltip"
+            style="position-anchor: --tooltip-anchor-c1;"
+          >
+            <div
+              class="content svelte-11extwn"
+            >
+              Settings
+            </div>
+             
+            <div
+              class="arrow svelte-11extwn"
+            />
+          </div>
+          <!---->
+        </li>
+        
+        
+      </ul>
+      <!---->
+    </div>
+    <!---->
+  </header>
+  
+</div>
+`;

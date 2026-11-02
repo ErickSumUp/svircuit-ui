@@ -1,0 +1,48 @@
+import * as Stories from './Callout.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# Callout
+
+Experimental upstream. The `Callout` component renders static guidance or emphasis content within
+the content flow.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## When to use it
+
+Use callouts to highlight persistent guidance, contextual tips, or extra information that belongs
+next to related content.
+
+Keep callout copy concise and static. For semantic feedback in response to user actions, such as
+success or error messages, use the [NotificationInline](?path=/docs/notification-notificationinline--docs)
+component. For dismissible content or content with a call to action, use the
+[NotificationBanner](?path=/docs/notification-notificationbanner--docs) component.
+
+## How to use it
+
+### Colors
+
+<Canvas of={Stories.Colors} />
+
+- Use **confirm** for positive guidance.
+- Use **neutral** for informational, neutral messages. This is the default.
+- Use **notify** for cautionary guidance.
+- Use **alert** for urgent or critical guidance.
+- Use **promo** for promotional or upgrade-related messages.
+
+### Icon
+
+The callout shows an info icon by default. Pass a 24px icon in the `icon` snippet to replace it, and
+mark the icon `aria-hidden`. If the body copy doesn't explain the icon, describe it with `iconLabel`,
+which is rendered visually hidden.
+
+### Content
+
+The body of the callout should be static and purely informational. Keep the content limited to text
+and links to related resources, and avoid buttons, form controls or other actions. `body` takes a
+string, or a snippet for text with links.
+
+<Canvas of={Stories.WithRichContent} />

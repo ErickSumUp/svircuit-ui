@@ -10,6 +10,63 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-11-02 — Callout, ButtonGroup size and Toggletip action ✅
+
+`Callout` is a new atomic component (experimental upstream), with tests, stories (Base, Colors and
+With rich content), an `*.mdx` page and an index export.
+
+- **Callout API:** `color` (`confirm`, `neutral`, `notify`, `alert`, `promo`; default `neutral`),
+  `body`, `icon` and `iconLabel`, as in circuit; other attributes go on the `div`.
+  **Deviations:** `body` is a string or a snippet (circuit's is a ReactNode), `icon` is a snippet
+  with circuit's v2 info icon inlined as the default, and the visually hidden icon label is only
+  rendered when `iconLabel` is set (circuit always renders an empty span). The story's sparkles
+  icon is circuit's v2 24px icon, injected from the SVG source and verified.
+- Compared in Chrome with circuit.sumup.com at 1280px: height, padding, radius, the icon position
+  and colour, the content padding, the background in light and dark mode, and the rich content's
+  link match. The text is 1px smaller (Phase 0.1).
+- **ButtonGroup:** added `size` (`s` | `m`, default `m`), which sets circuit's gap on wide
+  viewports (`kilo` for small, `mega` for medium). The stacked gap is now `--cui-spacings-kilo`
+  instead of `1rem`, the extra `margin-top` and the dead `.base .secondary` rule are gone, and a
+  custom `class` is merged instead of being overwritten. Because the buttons are our children,
+  the group can't size them as circuit's does: pass the same `size` to each Button. New Sizes story
+  and tests. Compared with circuit at 1280px and 360px: the gaps, the stacked layout and the
+  position match.
+- **Toggletip action:** added `rel`, `destructive` and `disabled`, with the secondary Button's
+  destructive and disabled styles inlined. A disabled link renders as a disabled button, as in
+  ActionMenu. `isLoading` is still missing, because it needs Button's loader markup inlined; it
+  stays in Smaller follow-ups.
+
+### 2026-11-02 — TopNavigation ✅
+
+`TopNavigation` is a story component in `src/lib/stories/`: it composes Hamburger,
+SkeletonContainer, SkipLink and Tooltip, as circuit's composes Hamburger, SkeletonContainer,
+SkipLink and IconButton (which wraps itself in a Tooltip). Tests, stories (Base and With
+SideNavigation), an `*.mdx` page and an index export (plus `TOP_NAVIGATION_HEIGHT` and the
+`UtilityLink` and `CustomLink` types).
+
+- **API:** `logo`, `links`, `hamburger` (the Hamburger's props), `isLoading`,
+  `skipNavigationHref` and `skipNavigationLabel`, as in circuit; other attributes go on the
+  `header`. A utility link is `{ label, icon, href?, target?, rel?, onclick?, isActive? }`, a link
+  with an `href` and a button without; a custom item is `{ key, children }`. **Deviations:**
+  `logo`, `icon` and `children` are snippets. Circuit's `activeIcon` is left out, because circuit's
+  NavigationButton never renders it. The utility links' markup and styles are inlined from circuit's
+  NavigationButton (a 46px tertiary IconButton on `bg-subtle`); the label is a label-type Tooltip,
+  as in circuit.
+- **No global custom property.** Circuit sets `--top-navigation-height` on the document from an
+  effect, so that SidePanel and ComparisonTable can offset themselves. Ours only defines it on the
+  navigation, and exports `TOP_NAVIGATION_HEIGHT`. An app that needs the offset sets the property on
+  a shared ancestor itself. (SideNavigation does set `--side-navigation-width` on the document, as
+  circuit's does; that predates this entry.)
+- **Native over JavaScript:** the line under the navigation once the page is scrolled is a
+  scroll-driven animation (`animation-timeline: scroll(root block)` over the first pixel) instead of
+  circuit's sentinel element and IntersectionObserver. Without support for scroll-driven animations
+  (Firefox, for now) there is no line.
+- 11 unit tests. Compared in Chrome with circuit.sumup.com at 1280px and 375px, for both stories:
+  height, padding, position, z-index, the logo, the link sizes, background and radius, the icon
+  position and the hamburger match. The custom item's text is 1px smaller (Phase 0.1). Checked the
+  tooltip, the hover colour, the skip link, the scrolled line, the hamburger opening the side
+  navigation, dark mode and the docs page.
+
 ### 2026-11-02 — ActionMenu ✅
 
 `ActionMenu` is a story component in `src/lib/stories/`, because, like circuit's, it is a Popover
@@ -594,13 +651,13 @@ is deferred, Phase 1 (typography) is independent and can go first.
 Circuit has 74 components. We share 30 with it, 32 do not exist here yet, and 4 are our own
 inventions (`Stack`, `Spacer`, `TestText`, plus the story components).
 
-| Status         | Components                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| In sync        | ActionMenu, Dialog (circuit's Modal), Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Avatar, TierIndicator, SumUpLogo, Tooltip, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
-| Minor drift    | Checkbox, InputRadio, ButtonGroup, Toggletip, DateInput                                                                                                                                                                                                                                                                                                                                                                                                           |
-| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                                                                                                                                                                                                                                             |
-| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                                                                                                            |
-| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                                                                                                    |
+| Status         | Components                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| In sync        | Callout, ButtonGroup, TopNavigation, ActionMenu, Dialog (circuit's Modal), Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Avatar, TierIndicator, SumUpLogo, Tooltip, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
+| Minor drift    | Checkbox, InputRadio, Toggletip, DateInput                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                                                                                                                                                 |
+| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                                                                                                                                         |
 
 Colors are fully in sync — every token in circuit's `light.ts` exists in our `styles.css`.
 
@@ -947,7 +1004,7 @@ Also here: **DateInput** is missing `defaultValue` and `autoComplete="bday"` fro
 - [x] **NotificationBanner** ✅ done 2026-11-01
 - [x] **NotificationModal** ✅ done 2026-11-01
 - [x] **NotificationFullscreen** ✅ done 2026-11-01
-- [ ] **Callout** (experimental upstream)
+- [x] **Callout** (experimental upstream) ✅ done 2026-11-02
 
 ---
 
@@ -956,7 +1013,7 @@ Also here: **DateInput** is missing `defaultValue` and `autoComplete="bday"` fro
 - [x] **SkipLink** ✅ done 2026-11-01. SideNavigation inlines one; keep the CSS in step.
 - [x] **Hamburger** ✅ done 2026-10-27
 - [x] **Tabs** (Tab, TabList, TabPanel inlined into one atomic component) ✅ done 2026-11-01
-- [ ] **TopNavigation** (+ utility links)
+- [x] **TopNavigation** (+ utility links) ✅ done 2026-11-02
 - [ ] **SidePanel**
 - [x] **SideNavigation rewrite** ✅ done 2026-10-27 (see the progress log). Still open: secondary
       link `tier` (needs TierIndicator, Phase 9) and removing the deprecated SecondaryNavigation.
@@ -985,9 +1042,11 @@ Also here: **DateInput** is missing `defaultValue` and `autoComplete="bday"` fro
       (ours are hardcoded in CSS), `offset` takes a number rather than `{ mainAxis, crossAxis }`, and the
       placement union omits `left-start`/`left-end`/`right-start`/`right-end`. ✅ done 2026-10-27
 - [ ] **Toggletip** — `action` should accept the full Button prop set (`destructive`, `disabled`,
-      `isLoading`), not our narrow `{ label, href, target, onclick, icon }`.
-- [ ] **ButtonGroup** — add `size` (`s`/`m`) driving the gap, replace the hardcoded `1rem` gap with
+      `isLoading`), not our narrow `{ label, href, target, onclick, icon }`. `rel`, `destructive`
+      and `disabled` added 2026-11-02; only `isLoading` is left.
+- [x] **ButtonGroup** — add `size` (`s`/`m`) driving the gap, replace the hardcoded `1rem` gap with
       `--cui-spacings-kilo`, drop the extra `margin-top`, remove the dead `.base .secondary` rule.
+      ✅ done 2026-11-02
 - [x] **Dialog** — we deliberately kept our simpler API. Still worth taking from circuit: scroll lock,
       focus restore to the trigger, `hideCloseButton`, and renaming `preventClose` (it only hides the
       close button; Escape and backdrop clicks still close). ✅ done 2026-11-02 with the Modal
