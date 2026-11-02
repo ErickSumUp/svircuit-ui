@@ -8,6 +8,10 @@
     component: Dialog,
     parameters: {
       layout: 'centered'
+    },
+    args: { variant: 'contextual', preventClose: false, closeButtonLabel: 'Close' },
+    argTypes: {
+      variant: { control: 'select', options: ['contextual', 'immersive'] }
     }
   });
 
@@ -22,6 +26,8 @@
 
   let baseDialog: HTMLDialogElement;
   let dialog: HTMLDialogElement;
+  let immersiveDialog: HTMLDialogElement;
+  let preventCloseDialog: HTMLDialogElement;
   let dialogContext: HTMLDialogElement;
 
   type DialogContext = {
@@ -43,8 +49,10 @@
 
 <Story name="Base">
   {#snippet template({ ...args }: Args)}
-    <Dialog bind:dialog={baseDialog} {...args}>
-      <Headline as="h2" size="four" style="margin-bottom: 1rem">Hello World!</Headline>
+    <Dialog bind:dialog={baseDialog} {...args} aria-labelledby="dialog-base-title">
+      <Headline id="dialog-base-title" as="h2" size="s" style="margin-bottom: 1rem">
+        Hello World!
+      </Headline>
       <Body>I am a Dialog.</Body>
     </Dialog>
 
@@ -58,8 +66,8 @@
 
 <Story name="Opener">
   {#snippet template()}
-    <Dialog bind:dialog>
-      <Headline as="h2" size="four">You just opened the Dialog!</Headline>
+    <Dialog bind:dialog aria-labelledby="dialog-opener-title">
+      <Headline id="dialog-opener-title" as="h2" size="s">You just opened the Dialog!</Headline>
       <Body>In this case the button is "next to" the Dialog code-wise.</Body>
     </Dialog>
 
@@ -67,10 +75,49 @@
   {/snippet}
 </Story>
 
+<Story name="Immersive">
+  {#snippet template()}
+    <Dialog
+      bind:dialog={immersiveDialog}
+      variant="immersive"
+      aria-labelledby="dialog-immersive-title"
+    >
+      <Headline id="dialog-immersive-title" as="h2" size="s" style="margin-bottom: 1rem">
+        Hello World!
+      </Headline>
+      <Body>I am an immersive Dialog.</Body>
+    </Dialog>
+
+    <Button onclick={() => immersiveDialog.showModal()}>Show Dialog</Button>
+  {/snippet}
+</Story>
+
+<Story name="Prevent close">
+  {#snippet template()}
+    <Dialog
+      bind:dialog={preventCloseDialog}
+      preventClose
+      aria-labelledby="dialog-prevent-close-title"
+    >
+      <Headline id="dialog-prevent-close-title" as="h2" size="s" style="margin-bottom: 1rem">
+        Hello World!
+      </Headline>
+      <Body style="margin-bottom: 1rem">Only the button below closes me.</Body>
+      <form method="dialog">
+        <Button variant="primary">Got it</Button>
+      </form>
+    </Dialog>
+
+    <Button onclick={() => preventCloseDialog.showModal()}>Show Dialog</Button>
+  {/snippet}
+</Story>
+
 <Story name="Context">
   {#snippet template()}
-    <Dialog bind:dialog={dialogContext}>
-      <Headline as="h2" size="four">You just opened the Dialog with context!</Headline>
+    <Dialog bind:dialog={dialogContext} aria-labelledby="dialog-context-title">
+      <Headline id="dialog-context-title" as="h2" size="s">
+        You just opened the Dialog with context!
+      </Headline>
       <Body>In this case the button connected using a context.</Body>
     </Dialog>
 

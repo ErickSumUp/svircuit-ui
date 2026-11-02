@@ -6,13 +6,31 @@ import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
 # Dialog
 
 The dialog component displays self-contained tasks in a focused window that overlays the page content.
+It requires the user to interact with it before returning to the page.
 
 <Canvas withToolbar={true} of={Stories.Base} />
 <Controls />
 
+## Why there is no Modal
+
+Circuit has a `Modal` component, built on its own `Dialog`. We don't port it: circuit's version wraps
+the native `dialog` element in React state and re-implements in JavaScript what the browser already
+does. Ours is the native element with circuit's styles: open it with `dialog.showModal()`, close it
+with `dialog.close()` or a `<form method="dialog">`, and listen to its `close` event. Every other
+attribute is passed on to the `dialog`. Circuit's `variant` and `preventClose` are the only props
+added on top.
+
 ## When to use it
 
-Generally, use the dialog component sparingly. Consider displaying more complex tasks and large amounts of information on a separate page instead.
+Use the dialog sparingly. Consider showing more complex tasks and large amounts of information on a
+separate page instead. A dialog interrupts the user's current task, so only use it when the task
+needs immediate attention or a decision before the user continues:
+
+- Confirming a critical action, such as deleting an item or abandoning a task (also see the
+  NotificationModal component).
+- Forms that collect a small amount of data without leaving the page, such as a login or feedback
+  form.
+- Focused tasks like editing an item, uploading files or reviewing details.
 
 ## Usage in code
 
@@ -23,6 +41,23 @@ To show a dialog you just need to connect the Dialog with the opener.
 The opener is usually a button and it's around the same svelte file as the Dialog.
 
 <Canvas withToolbar={true} of={Stories.Opener} />
+
+The close button, Escape and a click on the backdrop close the dialog. On viewports narrower than
+480px, it slides up from the bottom of the screen.
+
+### Immersive
+
+Use the `immersive` variant to focus the user's attention on the content. On small viewports, it
+covers the whole page.
+
+<Canvas of={Stories.Immersive} />
+
+### Prevent close
+
+`preventClose` hides the close button and ignores Escape and backdrop clicks, so the content has to
+close the dialog itself, for example with a `<form method="dialog">`.
+
+<Canvas of={Stories.PreventClose} />
 
 ### Different components or different pages
 
@@ -56,3 +91,13 @@ it will show in browser as expected without any need to define it in a parent co
 ```
 
 <Canvas withToolbar={true} of={Stories.Context} />
+
+## Accessibility
+
+Opened with `showModal()`, the native `dialog` traps focus, makes the rest of the page inert, and
+returns focus to the element that opened it when it closes.
+
+- Give the dialog an accessible name: pass `aria-labelledby` with the ID of its title, or an
+  `aria-label` if it has none.
+- When the dialog opens, focus moves to its first focusable element. To focus a different one, give
+  it the `autofocus` attribute. Prefer the least destructive element, such as a cancel button.

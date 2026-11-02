@@ -208,6 +208,10 @@
     color: var(--cui-fg-normal);
     background-color: var(--cui-bg-elevated);
     border: none;
+
+    /* An elevated surface, as in circuit: content on the normal background
+       matches the popover instead of the page. */
+    --cui-bg-normal: var(--cui-bg-elevated);
     border-radius: var(--cui-border-radius-byte);
     box-shadow: 0 3px 8px 0 rgb(0 0 0 / 20%);
 
@@ -402,9 +406,12 @@
     margin: 0 0 0 var(--popover-offset);
   }
 
+  /* A composition can override the padding with `--popover-padding-block` and
+     `--popover-padding-inline`, set inline through `style`. */
   .content {
     min-height: 0;
-    padding: var(--cui-spacings-mega);
+    padding: var(--popover-padding-block, var(--cui-spacings-mega))
+      var(--popover-padding-inline, var(--cui-spacings-mega));
     overflow-y: auto;
   }
 
@@ -471,7 +478,8 @@
 
   @media (max-width: 479px) {
     .content {
-      padding: var(--cui-spacings-kilo);
+      padding: var(--popover-padding-block, var(--cui-spacings-kilo))
+        var(--popover-padding-inline, var(--cui-spacings-kilo));
     }
 
     .close {
@@ -511,7 +519,9 @@
     }
 
     .sheet .content {
-      padding-bottom: calc(env(safe-area-inset-bottom) + var(--cui-spacings-kilo));
+      padding-bottom: calc(
+        env(safe-area-inset-bottom) + var(--popover-padding-block, var(--cui-spacings-kilo))
+      );
     }
   }
 

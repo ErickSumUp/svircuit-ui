@@ -11,8 +11,6 @@
       size: { control: 'select', options: ['s', 'm', 'l'] }
     }
   });
-
-  const sizes = ['s', 'm', 'l'] as const;
 </script>
 
 <Story name="Base" />
@@ -20,9 +18,9 @@
 <Story name="Variations">
   {#snippet template()}
     <div style="display: flex; flex-direction: column; gap: 1rem; align-items: flex-start;">
-      {#each sizes as size (size)}
-        <TierIndicator variant="plus" {size} />
-      {/each}
+      <TierIndicator variant="plus" size="s" />
+      <TierIndicator variant="plus" size="m" />
+      <TierIndicator variant="plus" size="l" />
     </div>
   {/snippet}
 </Story>

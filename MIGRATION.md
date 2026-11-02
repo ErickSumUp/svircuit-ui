@@ -10,6 +10,79 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-11-02 — ActionMenu ✅
+
+`ActionMenu` is a story component in `src/lib/stories/`, because, like circuit's, it is a Popover
+with a list of actions: it composes our Popover rather than inlining its positioning. Tests,
+stories, an `*.mdx` page and an index export (plus the `ActionMenuAction` and `ActionMenuDivider`
+types).
+
+- **API:** `actions` of `{ label, onclick?, href?, target?, rel?, icon?, destructive?, disabled? }`
+  or `{ type: 'divider' }`, and Popover's `open` (bindable), `placement`, `fallbackPlacements`,
+  `offset`, `sheetOnMobile` and `closeButtonLabel`. **Deviations:** the label is `label` instead of
+  `children`, `icon` is a snippet (as in Toggletip) instead of an icon component, and the trigger
+  is a `trigger` snippet instead of circuit's `component`. An action with an `href` is a link
+  unless it is disabled, then it is a disabled button.
+- **Behaviour as in circuit:** focus moves to the first action when the menu opens (to the last
+  one when opened with the up arrow), the arrow keys open it from the trigger and move between the
+  actions, wrapping and skipping disabled ones, and clicking an action calls it and closes the menu.
+  Escape and outside clicks are the Popover's native light dismiss, and focus returns to the
+  trigger. The close button only shows in the mobile sheet. `offset` defaults to 0, as in circuit.
+- **Popover change:** its content padding can be overridden with `--popover-padding-block` and
+  `--popover-padding-inline`, which ActionMenu sets to 0 in its inline `style`. They are per-element
+  custom properties, not global ones. ActionMenu's list carries circuit's `byte` vertical padding,
+  1px subtle border and `byte` radius.
+- The story icons are circuit's v2 `add`, `edit` and `delete` 24px icons, inlined in the story with
+  their paths injected from the SVG sources and verified.
+- 9 unit tests (jsdom has no Popover API, so `togglePopover` is stubbed). Compared in Chrome with
+  circuit.sumup.com at 1280px and 375px: the offset, the 1px inset, item padding, height and icon
+  position, the divider, colours and the mobile sheet with its close button match. The menu is 3px
+  narrower because the text is 1px smaller, and the radius is 8px against 10px (Phase 0.1). Checked
+  the keyboard flow, outside click, the Offset story, dark mode and the docs page.
+- **Dark mode fix:** Popover and Toggletip had the elevated background but not circuit's elevated
+  surface, which also sets `--cui-bg-normal: var(--cui-bg-elevated)`. In dark mode, the actions
+  (and Toggletip's action button) were filled with the darker page background (`#141211` against
+  `#191716`). Both now set the variable, and the colours match circuit's. Light mode was
+  unaffected, because the two tokens are equal there.
+- **Found on the way:** our Popover defaults `offset` to 8, while circuit's Popover has no default
+  offset (0). Listed under Smaller follow-ups.
+
+### 2026-11-02 — Modal is our Dialog ✅
+
+**Decision: circuit's `Modal` is not ported as its own component.** Our `Dialog` is the port of
+circuit's Modal. Circuit's Modal is built on circuit's `Dialog`, which does use the native `dialog`
+(`showModal()`), but wraps it in React state and re-implements in JavaScript what the browser
+already provides: a polyfill, Escape and outside-click hooks, focus saving and restoring, a scroll
+lock hook, swipe-to-close and timers that wait for the closing animation. Ours extends the native
+element instead, so its API is the native one: bind `dialog`, open it with `dialog.showModal()`,
+close it with `dialog.close()` or a `<form method="dialog">`, listen to `onclose`, and pass any
+other attribute through. The decision is documented in the component's `@component` comment and on
+its docs page ("Why there is no Modal"). Future migrations of circuit's Modal, or of its `Dialog`,
+apply to `src/lib/components/Dialog.svelte`. No placeholder `Modal` component was added, because it
+would ship in the package and show up in imports and autocompletion.
+
+- **Added from circuit's Modal:** `variant` (`contextual` | `immersive`, fullscreen below 480px),
+  `closeButtonLabel` (default `Close`) and circuit's styles: centred, 480px up to 50vw wide, at
+  most 90dvh tall, the elevated surface, the box-shadow backdrop, a 300ms fade (a slide-up bottom
+  sheet below 480px) with `@starting-style`, the scroll fade, and the tertiary close button.
+- **`preventClose` now does what it says**, as in circuit: it hides the close button and stops
+  Escape and backdrop clicks (`closedby="none"`, plus `cancel` prevented for browsers without
+  `closedby`). Before, it only hid the button. Light dismiss is `closedby="any"`, with a click
+  handler as the fallback.
+- Page scroll is locked while open as a modal, with `:global(html):has(.base:modal)` (scoped to the
+  dialog's class, like NotificationModal's). A dialog opened with `show()` doesn't lock it.
+- Consumer `oncancel` and `onclick` handlers are still called. Content stays mounted while closed,
+  as native `dialog` content does; circuit only renders it while open. `useModal`/`ModalProvider`
+  and circuit's `hideCloseButton` (separate from `preventClose`) aren't ported.
+- **Breaking:** the dialog's zoom animation and translucent `::backdrop` are replaced by circuit's,
+  the close button is circuit's tertiary one, and `[key: string]: unknown` is gone from the props
+  (they are the dialog's attributes now).
+- Stories: Immersive and Prevent close added; the deprecated `size="four"` headlines are `s`. 12
+  unit tests (Dialog had none). Compared in Chrome with circuit.sumup.com's Modal at 1280px and
+  375px for both variants: position, size, radius, background, backdrop, padding and close button
+  match exactly. Checked Escape, backdrop click, focus returning to the opener, `preventClose`
+  surviving two Escape presses, `<form method="dialog">`, dark mode and the docs page.
+
 ### 2026-11-02 — Tooltip ✅
 
 `Tooltip` is atomic in `src/lib/components/`, with tests, stories, an `*.mdx` page and an index
@@ -521,13 +594,13 @@ is deferred, Phase 1 (typography) is independent and can go first.
 Circuit has 74 components. We share 30 with it, 32 do not exist here yet, and 4 are our own
 inventions (`Stack`, `Spacer`, `TestText`, plus the story components).
 
-| Status         | Components                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| In sync        | Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Avatar, TierIndicator, SumUpLogo, Tooltip, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
-| Minor drift    | Checkbox, InputRadio, ButtonGroup, Toggletip, DateInput                                                                                                                                                                                                                                                                                                                                                                     |
-| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                                                                                                                                                                                                       |
-| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                                                                      |
-| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                                                              |
+| Status         | Components                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| In sync        | ActionMenu, Dialog (circuit's Modal), Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Avatar, TierIndicator, SumUpLogo, Tooltip, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
+| Minor drift    | Checkbox, InputRadio, ButtonGroup, Toggletip, DateInput                                                                                                                                                                                                                                                                                                                                                                                                           |
+| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                                                                                                                                                                                                                                             |
+| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                                                                                                            |
+| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                                                                                                    |
 
 Colors are fully in sync — every token in circuit's `light.ts` exists in our `styles.css`.
 
@@ -893,8 +966,9 @@ Also here: **DateInput** is missing `defaultValue` and `autoComplete="bday"` fro
 ## Phase 9 — Overlays, brand and the tail
 
 - [x] **Tooltip** ✅ done 2026-11-02
-- [ ] **ActionMenu**
-- [ ] **Modal**
+- [x] **ActionMenu** ✅ done 2026-11-02
+- [x] **Modal** — not ported as its own component; our `Dialog` is circuit's Modal on the native
+      `dialog` (see the 2026-11-02 entry) ✅ done 2026-11-02
 - [ ] **Step** (under review upstream)
 - [x] **SumUpLogo** ✅ done 2026-11-02
 - [x] **TierIndicator** ✅ done 2026-11-02
@@ -914,9 +988,13 @@ Also here: **DateInput** is missing `defaultValue` and `autoComplete="bday"` fro
       `isLoading`), not our narrow `{ label, href, target, onclick, icon }`.
 - [ ] **ButtonGroup** — add `size` (`s`/`m`) driving the gap, replace the hardcoded `1rem` gap with
       `--cui-spacings-kilo`, drop the extra `margin-top`, remove the dead `.base .secondary` rule.
-- [ ] **Dialog** — we deliberately kept our simpler API. Still worth taking from circuit: scroll lock,
+- [x] **Dialog** — we deliberately kept our simpler API. Still worth taking from circuit: scroll lock,
       focus restore to the trigger, `hideCloseButton`, and renaming `preventClose` (it only hides the
-      close button; Escape and backdrop clicks still close).
+      close button; Escape and backdrop clicks still close). ✅ done 2026-11-02 with the Modal
+      decision: scroll lock added, focus restore is native, and `preventClose` now also stops Escape
+      and backdrop clicks, as circuit's Modal does; `hideCloseButton` isn't ported.
+- [ ] **Popover offset** — our `offset` defaults to 8, circuit's Popover has no default (0). Changing
+      it moves every popover that doesn't pass an `offset` (DateInput passes 4, ActionMenu 0).
 - [ ] **Stack** — drops `...rest`, so no `class`/`style` passthrough, and its default is column below
       600px / row above, which makes `vertical` a no-op on mobile.
 - [ ] **`src/lib/stories/` is doing double duty** — `DateInput`, `ButtonGroup` and `Pagination` are

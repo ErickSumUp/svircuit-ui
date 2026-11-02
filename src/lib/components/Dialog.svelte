@@ -3,208 +3,266 @@
   import type { Snippet } from 'svelte';
 
   interface Props extends HTMLDialogAttributes {
-    dialog: HTMLDialogElement;
+    /**
+     * The native `dialog` element. Bind it to open the dialog with
+     * `dialog.showModal()` and close it with `dialog.close()`.
+     */
+    dialog?: HTMLDialogElement;
+    /**
+     * Use the `immersive` variant to focus the user's attention on the content:
+     * on small viewports it covers the whole screen. Default: `contextual`.
+     */
+    variant?: 'contextual' | 'immersive';
+    /**
+     * Hides the close button and stops Escape and backdrop clicks from closing
+     * the dialog, so only its content can. Default: `false`.
+     */
     preventClose?: boolean;
+    /**
+     * The close button's accessible name. Default: `Close`.
+     */
+    closeButtonLabel?: string;
     children: Snippet;
-    [key: string]: unknown;
   }
 
-  let { dialog = $bindable(), preventClose = false, children, ...rest }: Props = $props();
+  let {
+    dialog = $bindable(),
+    variant = 'contextual',
+    preventClose = false,
+    closeButtonLabel = 'Close',
+    children,
+    oncancel,
+    onclick,
+    ...rest
+  }: Props = $props();
+
+  function handleCancel(event: Event & { currentTarget: EventTarget & HTMLDialogElement }) {
+    if (preventClose) event.preventDefault();
+    oncancel?.(event);
+  }
+
+  /* Fallback for browsers without `closedby`. A click on the backdrop targets
+     the dialog itself, because the content fills it. */
+  function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLDialogElement }) {
+    if (event.target === dialog && !preventClose) dialog.close();
+    onclick?.(event);
+  }
 </script>
 
-<dialog class="base" bind:this={dialog} {...rest}>
+<!--
+  @component
+  A modal dialog for self-contained tasks, which the user has to complete or
+  dismiss before returning to the page.
+
+  This is our port of circuit's `Modal`, built directly on the native `dialog`
+  element. We don't port circuit's `Modal` as a separate component: circuit's
+  version wraps `dialog` in React state and re-implements in JavaScript what the
+  browser already provides (opening, Escape, outside clicks, focus trapping and
+  restoring, closing animations). Here the native element is the API: open it
+  with `dialog.showModal()`, close it with `dialog.close()` or a
+  `<form method="dialog">`, and listen to its `close` event. Every other
+  attribute is passed on to the `dialog`. Only circuit's styles, its `variant`
+  and `preventClose` are added on top.
+-->
+<dialog
+  {...rest}
+  bind:this={dialog}
+  class={['base', variant, rest.class]}
+  closedby={preventClose ? 'none' : 'any'}
+  oncancel={handleCancel}
+  onclick={handleClick}
+>
   <div class="content">
     {@render children()}
-    {#if !preventClose}
-      {@render closeButton()}
-    {/if}
   </div>
+
+  {#if !preventClose}
+    <button
+      type="button"
+      class="close"
+      title={closeButtonLabel}
+      aria-label={closeButtonLabel}
+      onclick={() => dialog?.close()}
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M17.293 5.293a1 1 0 1 1 1.414 1.414L13.414 12l5.293 5.293a1 1 0 0 1-1.414 1.414L12 13.414l-5.293 5.293a1 1 0 1 1-1.414-1.414L10.586 12 5.293 6.707a1 1 0 1 1 1.414-1.414L12 10.586z"
+        />
+      </svg>
+    </button>
+  {/if}
 </dialog>
 
-{#snippet crossSVG()}
-  <svg
-    class="close-button-leading-icon"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M20.71 19.29c.186.19.29.445.29.71a1 1 0 0 1-1 1c-.265 0-.52-.104-.71-.29L12 13.42l-7.29 7.29c-.19.186-.444.29-.71.29a1 1 0 0 1-1-1c0-.265.104-.52.29-.71L10.58 12 3.29 4.71A1.014 1.014 0 0 1 3 4a1 1 0 0 1 1-1c.266 0 .52.104.71.29L12 10.58l7.29-7.29c.19-.186.445-.29.71-.29a1 1 0 0 1 1 1c0 .266-.104.52-.29.71L13.42 12l7.29 7.29z"
-      fill="currentColor"
-    />
-  </svg>
-{/snippet}
-
-{#snippet closeButton()}
-  <button class="close-button" onclick={() => dialog.close()}>
-    <span class="close-button-content">
-      {@render crossSVG()}
-      <span class="close-button-label">Close</span>
-    </span>
-  </button>
-{/snippet}
-
 <style>
-  dialog {
+  /* Locks the page scroll while the dialog is open as a modal. */
+  :global(html):has(.base:modal) {
+    overflow: hidden;
+  }
+
+  .base {
+    --cui-bg-normal: var(--cui-bg-elevated);
+
+    position: fixed;
+    max-height: 90vh;
+    max-height: 90dvh;
     padding: 0;
+    margin: auto;
+    color: var(--cui-fg-normal);
+    background-color: var(--cui-bg-elevated);
     border: none;
-    border-radius: var(--cui-border-radius-mega);
-    z-index: var(--cui-z-index-modal);
+    /* A box shadow as the backdrop, so it fades together with the dialog. */
+    box-shadow: 0 0 0 100vmax var(--cui-bg-overlay);
+    opacity: 0;
+    transition:
+      opacity 300ms,
+      transform 300ms,
+      overlay 300ms allow-discrete,
+      display 300ms allow-discrete;
   }
 
-  dialog[open] {
-    animation: zoom 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  .base[open] {
+    opacity: 1;
   }
 
-  @keyframes zoom {
-    from {
-      transform: scale(0.95);
-    }
-    to {
-      transform: scale(1);
-    }
-  }
-
-  dialog::backdrop {
-    background: var(--cui-bg-overlay);
-  }
-
-  dialog[open]::backdrop {
-    background: var(--cui-bg-overlay);
-    animation: fade 0.2s ease-out;
-  }
-
-  @keyframes fade {
-    from {
+  @starting-style {
+    .base[open] {
       opacity: 0;
     }
-    to {
-      opacity: 1;
-    }
+  }
+
+  .base::backdrop {
+    background: transparent;
+  }
+
+  .base:focus {
+    outline: none;
+  }
+
+  /* Fades out content that scrolls under the bottom padding. */
+  .base::after {
+    position: absolute;
+    right: 0;
+    bottom: env(safe-area-inset-bottom);
+    left: 0;
+    display: block;
+    height: var(--cui-spacings-giga);
+    pointer-events: none;
+    content: '';
+    background: linear-gradient(
+      color-mix(in srgb, var(--cui-bg-elevated) 0%, transparent),
+      color-mix(in srgb, var(--cui-bg-elevated) 66%, transparent),
+      color-mix(in srgb, var(--cui-bg-elevated) 100%, transparent)
+    );
+    border-radius: inherit;
   }
 
   .content {
+    max-height: 90vh;
+    max-height: 90dvh;
+    padding: var(--cui-spacings-giga);
+    padding-bottom: calc(env(safe-area-inset-bottom) + var(--cui-spacings-giga));
     overflow-y: auto;
   }
 
+  @media (min-width: 480px) {
+    .base {
+      inset: 0;
+      min-width: 480px;
+      max-width: 50vw;
+      border-radius: var(--cui-border-radius-mega);
+    }
+  }
+
+  /* A bottom sheet that slides up */
   @media (max-width: 479px) {
+    .base {
+      inset: auto 0 0;
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      border-radius: var(--cui-border-radius-mega) var(--cui-border-radius-mega) 0 0;
+      opacity: 1;
+      transform: translateY(100%);
+    }
+
+    .base[open] {
+      transform: none;
+    }
+
+    @starting-style {
+      .base[open] {
+        transform: translateY(100%);
+      }
+    }
+
+    .base::after {
+      height: var(--cui-spacings-mega);
+    }
+
     .content {
-      width: 100vw;
       padding: var(--cui-spacings-mega);
       padding-bottom: calc(env(safe-area-inset-bottom) + var(--cui-spacings-mega));
-      -webkit-overflow-scrolling: touch;
+    }
+
+    .immersive {
+      height: 100%;
+      max-height: none;
+      border-radius: 0;
+    }
+
+    .immersive .content {
+      max-height: none;
     }
   }
 
-  @media (min-width: 480px) {
-    .content {
-      min-width: 480px;
-      max-width: 90vw;
-      max-height: 90vh;
-      padding: var(--cui-spacings-giga);
-      padding-bottom: calc(env(safe-area-inset-bottom) + var(--cui-spacings-giga));
+  @media (prefers-reduced-motion: reduce) {
+    .base {
+      transition: none;
     }
   }
 
-  .close-button {
+  /* Close button — inlined from the CloseButton component, tertiary, size `m` */
+  .close {
     position: absolute;
     top: var(--cui-spacings-byte);
     right: var(--cui-spacings-byte);
-    z-index: var(--cui-z-index-absolute);
+    z-index: calc(var(--cui-z-index-input) + 1);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: auto;
-    height: max-content;
-    margin: 0;
-    font-weight: var(--cui-font-weight-bold);
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition:
-      opacity var(--cui-transitions-default),
-      color var(--cui-transitions-default),
-      background-color var(--cui-transitions-default),
-      border-color var(--cui-transitions-default);
-
-    --content-gap: var(--cui-spacings-byte);
-    --leading-icon-size: var(--cui-icon-sizes-mega);
-    --loader-diameter: 6px;
-    --loader-gap: 5px;
-    --loader-transform: scale(133%);
-
-    font-size: var(--cui-typography-body-s-font-size);
-    line-height: var(--cui-typography-body-s-line-height);
-    border-radius: var(--cui-border-radius-kilo);
-
-    color: var(--cui-fg-normal);
-    background-color: var(--cui-bg-normal);
-    border-color: var(--cui-border-normal);
-
-    padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo));
-
-    border: none;
-  }
-
-  .close-button-content {
-    display: flex;
-    gap: var(--content-gap);
-    place-content: center;
-    align-items: center;
+    box-sizing: content-box;
     min-width: 24px;
     min-height: 24px;
-    opacity: 1;
-    transition: opacity var(--cui-transitions-default);
+    padding: calc(var(--cui-spacings-kilo) - var(--cui-border-width-kilo));
+    color: var(--cui-fg-accent);
+    cursor: pointer;
+    background-color: transparent;
+    border: var(--cui-border-width-kilo) solid transparent;
+    border-radius: var(--cui-border-radius-kilo);
+    transition: color var(--cui-transitions-default);
   }
 
-  .close-button:active .close-button-content {
+  @media (max-width: 479px) {
+    .close {
+      top: var(--cui-spacings-bit);
+      right: var(--cui-spacings-bit);
+    }
+  }
+
+  .close:hover {
+    color: var(--cui-fg-accent-hovered);
+  }
+
+  .close:active {
+    color: var(--cui-fg-accent-pressed);
     transform: translate(0, 1px);
   }
 
-  .close-button-label {
-    text-overflow: ellipsis;
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-    border: 0;
-  }
-
-  .close-button-leading-icon {
-    width: var(--leading-icon-size);
-    height: var(--leading-icon-size);
-  }
-
-  .close-button:hover {
-    color: var(--cui-fg-normal-hovered);
-    background-color: var(--cui-bg-normal-hovered);
-    border-color: var(--cui-border-normal-hovered);
-  }
-
-  .close-button:active {
-    color: var(--cui-fg-normal-pressed);
-    background-color: var(--cui-bg-normal-pressed);
-    border-color: var(--cui-border-normal-pressed);
-  }
-
-  .close-button:focus {
+  .close:focus-visible {
     outline: 0;
     box-shadow:
       0 0 0 2px var(--cui-bg-normal),
       0 0 0 4px var(--cui-border-focus);
-  }
-
-  .close-button:focus::-moz-focus-inner {
-    border: 0;
-  }
-
-  .close-button:focus:not(:focus-visible) {
-    box-shadow: none;
   }
 </style>

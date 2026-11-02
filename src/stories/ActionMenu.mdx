@@ -1,0 +1,61 @@
+import * as Stories from './ActionMenu.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# ActionMenu
+
+An ActionMenu displays a list of subsequent actions when the user interacts with a button.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## How to use it
+
+Pass the `actions` in order, and a `trigger` snippet that spreads the attributes it receives onto a
+`button`, such as the Button component. Besides opening the menu on click, they let the up and down
+arrow keys open it.
+
+```svelte
+<script>
+  import { ActionMenu, Button } from 'svircuit-ui';
+</script>
+
+<ActionMenu
+  actions={[
+    { label: 'Add', onclick: add },
+    { label: 'Edit', onclick: edit },
+    { type: 'divider' },
+    { label: 'Delete', destructive: true, onclick: remove }
+  ]}
+>
+  {#snippet trigger(props)}
+    <Button {...props} size="s">Open action menu</Button>
+  {/snippet}
+</ActionMenu>
+```
+
+- An action with an `href` renders as a link, otherwise as a button. Clicking either calls its
+  `onclick` and closes the menu.
+- A `{ type: 'divider' }` entry separates groups of actions.
+- The leading `icon` is optional: a snippet that renders a 24px icon.
+- Mark an action `destructive` to signal that it is irreversible or otherwise dangerous, or
+  `disabled` to make it unavailable.
+- The menu is a Popover: change its position with `placement`, and move it away from the trigger
+  with `offset`.
+
+<Canvas of={Stories.Offset} />
+
+On viewports narrower than 480px, the menu opens as a sheet at the bottom of the screen with a close
+button. Set `sheetOnMobile` to `false` to keep it next to its trigger.
+
+## Usage guidelines
+
+- **Do** use clear, concise and actionable labels for the actions.
+- **Do** think about the priority of the actions and put them in a logical order.
+
+## Accessibility
+
+When the menu opens, focus moves to its first action, or to its last one when it was opened with the
+up arrow. The arrow keys move between the actions, wrapping around at the ends and skipping disabled
+ones. Escape or a click outside closes the menu and returns focus to the trigger.

@@ -1,0 +1,113 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <div
+    class="trigger svelte-okkiwd"
+    style="anchor-name: --popover-anchor-c1;"
+  >
+    <!---->
+    <button
+      aria-controls="popover-c1"
+      type="button"
+    >
+      Open
+    </button>
+    
+    <!---->
+  </div>
+   
+  <div
+    class="base bottom sheet svelte-okkiwd"
+    id="popover-c1"
+    popover="auto"
+    role="dialog"
+    style="position-anchor: --popover-anchor-c1; --popover-offset: 0px; --popover-cross-offset: 0px; --popover-padding-block: 0; --popover-padding-inline: 0;"
+  >
+    <div
+      class="content svelte-okkiwd"
+    >
+      <div
+        class="menu svelte-trn89w"
+      >
+        <!---->
+        <button
+          class="item svelte-trn89w"
+          type="button"
+        >
+          <!---->
+          <span
+            aria-hidden="true"
+            class="icon svelte-trn89w"
+          >
+            <svg
+              data-testid="icon"
+            />
+            <!---->
+          </span>
+          <!---->
+           Add
+          <!---->
+        </button>
+        
+        <!---->
+        <button
+          class="item svelte-trn89w"
+          type="button"
+        >
+          <!---->
+          <!---->
+           Edit
+          <!---->
+        </button>
+        
+        <!---->
+        <hr
+          aria-hidden="true"
+          class="divider svelte-trn89w"
+        />
+        
+        <!---->
+        <a
+          class="item svelte-trn89w"
+          href="/help"
+        >
+          <!---->
+          <!---->
+           Help
+          <!---->
+        </a>
+        
+        <!---->
+        <button
+          class="item svelte-trn89w"
+          disabled=""
+          type="button"
+        >
+          <!---->
+          <!---->
+           Archive
+          <!---->
+        </button>
+        
+        <!---->
+        <button
+          class="item destructive svelte-trn89w"
+          type="button"
+        >
+          <!---->
+          <!---->
+           Delete
+          <!---->
+        </button>
+        
+        
+      </div>
+      <!---->
+    </div>
+     
+    <!---->
+  </div>
+  
+</div>
+`;

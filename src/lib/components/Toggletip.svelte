@@ -397,6 +397,10 @@
     outline: 0;
     background-color: var(--cui-bg-elevated);
     border: var(--cui-border-width-kilo) solid var(--cui-border-subtle);
+
+    /* An elevated surface, as in circuit: the action button matches the
+       toggletip instead of the page. */
+    --cui-bg-normal: var(--cui-bg-elevated);
     border-radius: var(--cui-border-radius-byte);
     box-shadow: 0 2px 6px 0 rgb(0 0 0 / 8%);
   }
