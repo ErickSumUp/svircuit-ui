@@ -30,6 +30,15 @@
      */
     disabled?: boolean;
     /**
+     * Disables the action and shows a loading indicator. A loading link
+     * renders as a disabled button.
+     */
+    isLoading?: boolean;
+    /**
+     * Visually hidden label for the loading state. Default: 'Loading'.
+     */
+    loadingLabel?: string;
+    /**
      * Called when the action is pressed. The toggletip closes afterwards
      * either way.
      */
@@ -224,7 +233,7 @@
     {/if}
     <p id={bodyId} class="body">{body}</p>
     {#if action}
-      {@const isLink = action.href && !action.disabled}
+      {@const isLink = action.href && !action.disabled && !action.isLoading}
       <svelte:element
         this={isLink ? 'a' : 'button'}
         class={['action', action.destructive && 'destructive']}
@@ -235,13 +244,25 @@
           : undefined}
         type={isLink ? undefined : 'button'}
         role={isLink ? undefined : 'button'}
-        disabled={isLink ? undefined : action.disabled}
+        disabled={isLink ? undefined : action.disabled || action.isLoading}
+        aria-busy={action.isLoading}
+        aria-live={action.isLoading ? 'polite' : undefined}
         onclick={handleActionClick}
       >
-        <span class="action-label">{action.label}</span>
-        {#if action.icon}
-          {@render action.icon()}
+        {#if action.isLoading}
+          <span class="loader">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="hide-visually">{action.loadingLabel ?? 'Loading'}</span>
+          </span>
         {/if}
+        <span class="action-content">
+          <span class="action-label">{action.label}</span>
+          {#if action.icon}
+            {@render action.icon()}
+          {/if}
+        </span>
       </svelte:element>
     {/if}
     <button class="close" type="button" onclick={close}>
@@ -446,6 +467,7 @@
   /* Action — inlined from the Button component, a secondary button in the
      small size */
   .action {
+    position: relative;
     display: inline-flex;
     gap: var(--cui-spacings-bit);
     align-items: center;
@@ -508,6 +530,103 @@
 
   .action.destructive:disabled {
     color: var(--cui-fg-danger-disabled);
+  }
+
+  .action[aria-busy='true'] {
+    overflow: hidden;
+  }
+
+  .action-content {
+    display: inline-flex;
+    gap: var(--cui-spacings-bit);
+    align-items: center;
+    transition: opacity var(--cui-transitions-default);
+  }
+
+  .action[aria-busy='true'] .action-content {
+    opacity: 0;
+  }
+
+  /* The loader's dots, inlined from the Button component in the small size.
+     The animation has five phases: an 80ms pause and four 160ms transitions
+     between each dot being highlighted. */
+  .loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-auto-flow: column;
+    gap: 3px;
+    place-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .dot {
+    display: block;
+    width: 4px;
+    height: 4px;
+    background-color: currentColor;
+    border-radius: var(--cui-border-radius-circle);
+    animation-duration: 720ms;
+    animation-timing-function: cubic-bezier(0.75, 0, 1, 1);
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes pulse1 {
+    0%,
+    11%,
+    55%,
+    100% {
+      opacity: 0.25;
+      transform: scale(100%);
+    }
+
+    33% {
+      opacity: 1;
+      transform: scale(150%);
+    }
+  }
+
+  @keyframes pulse2 {
+    0%,
+    33%,
+    77%,
+    100% {
+      opacity: 0.25;
+      transform: scale(100%);
+    }
+
+    55% {
+      opacity: 1;
+      transform: scale(150%);
+    }
+  }
+
+  @keyframes pulse3 {
+    0%,
+    55%,
+    100% {
+      opacity: 0.25;
+      transform: scale(100%);
+    }
+
+    77% {
+      opacity: 1;
+      transform: scale(150%);
+    }
+  }
+
+  .dot:nth-child(1) {
+    animation-name: pulse1;
+  }
+
+  .dot:nth-child(2) {
+    animation-name: pulse2;
+  }
+
+  .dot:nth-child(3) {
+    animation-name: pulse3;
   }
 
   .action :global(svg) {

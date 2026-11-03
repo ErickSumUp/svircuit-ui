@@ -21,7 +21,9 @@ exports[`tablist > should match story case 1`] = `
         style="anchor-name: --tabs-selected-c1;"
         type="button"
       >
+        <!---->
         Tab 1
+        
         
       </button>
       
@@ -37,7 +39,9 @@ exports[`tablist > should match story case 1`] = `
         tabindex="-1"
         type="button"
       >
+        <!---->
         Tab 2
+        
         
       </button>
       
@@ -53,7 +57,9 @@ exports[`tablist > should match story case 1`] = `
         tabindex="-1"
         type="button"
       >
+        <!---->
         Tab 3
+        
         
       </button>
       

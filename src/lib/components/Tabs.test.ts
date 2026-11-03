@@ -110,6 +110,14 @@ describe('tablist', () => {
     expect(screen.getByRole('tablist', { name: 'Orders' })).toBeInTheDocument();
     expect(container.firstElementChild).toHaveClass('wrapper', 'foo');
   });
+
+  test('should render a trailing component after the label', async () => {
+    const trailingComponent = createRawSnippet(() => ({ render: () => '<span>plus</span>' }));
+    render(Tabs, { items: [{ ...items[0], trailingComponent }, items[1]] });
+
+    expect(screen.getByRole('tab', { name: 'Tab 1 plus' })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: 'Tab 2' }).querySelector('.content')).toBeNull();
+  });
 });
 
 describe('navigation', () => {

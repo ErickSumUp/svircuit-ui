@@ -16,6 +16,8 @@
 </script>
 
 <script lang="ts">
+  import TierIndicator from '$lib/components/TierIndicator.svelte';
+
   const panels = [panel1, panel2, panel3, panel4, panel5, panel6];
   const items: TabItem[] = labels.map((tab, index) => ({
     id: `tab-${index + 1}`,
@@ -42,9 +44,22 @@
 {#snippet panel5()}{@render content(5)}{/snippet}
 {#snippet panel6()}{@render content(6)}{/snippet}
 
+{#snippet plusTier()}<TierIndicator variant="plus" size="s" />{/snippet}
+
 <Story name="Base" args={{ items }} />
 
 <Story name="Stretched" args={{ items: items.slice(0, 3), stretched: true }} />
+
+<Story
+  name="With TierIndicator"
+  args={{
+    items: [
+      { id: 'services', tab: 'Services', panel: panel1, trailingComponent: plusTier },
+      { id: 'items', tab: 'Items', panel: panel2 },
+      { id: 'discounts', tab: 'Discounts', panel: panel3 }
+    ]
+  }}
+/>
 
 <Story name="Scrollable">
   {#snippet template(args)}

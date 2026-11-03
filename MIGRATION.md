@@ -10,6 +10,22 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-11-02 — Tabs trailing component, Toggletip loading action and Stack attributes ✅
+
+- **Tabs:** a tab item takes a `trailingComponent` snippet after the label, wrapped in circuit's
+  `content` span (flex, `bit` gap). **Deviation:** circuit's is a component that Tab renders as
+  `<TrailingComponent variant="plus" size="s" />`; Tabs is atomic and can't import TierIndicator,
+  so the snippet renders it. New With TierIndicator story (as circuit's), a docs section and a
+  test. Compared in Chrome with circuit at 1280px: the badge's size (32×16), its 4px gap and 2px
+  vertical offset, and the tab height match; the tabs are 3–4px narrower (Phase 0.1).
+- **Toggletip action:** added `isLoading` and `loadingLabel` (default `Loading`), with the small
+  Button's three-dot loader inlined (scoped keyframes, no global names). A loading action is a
+  disabled button with `aria-busy` and keeps its width; a loading link renders as a disabled
+  button, like a disabled one. Checked in Chrome, together with `destructive` and `disabled`.
+- **Stack:** passes attributes through and merges `class`. Its responsive default is unchanged.
+- **SideNavigation `tier`:** not ported. Circuit's navigation revamp (#3821) removed it from the
+  secondary links, so the follow-up was stale.
+
 ### 2026-11-02 — Callout, ButtonGroup size and Toggletip action ✅
 
 `Callout` is a new atomic component (experimental upstream), with tests, stories (Base, Colors and
@@ -33,8 +49,7 @@ With rich content), an `*.mdx` page and an index export.
   position match.
 - **Toggletip action:** added `rel`, `destructive` and `disabled`, with the secondary Button's
   destructive and disabled styles inlined. A disabled link renders as a disabled button, as in
-  ActionMenu. `isLoading` is still missing, because it needs Button's loader markup inlined; it
-  stays in Smaller follow-ups.
+  ActionMenu. (`isLoading` followed in the next entry.)
 
 ### 2026-11-02 — TopNavigation ✅
 
@@ -651,13 +666,13 @@ is deferred, Phase 1 (typography) is independent and can go first.
 Circuit has 74 components. We share 30 with it, 32 do not exist here yet, and 4 are our own
 inventions (`Stack`, `Spacer`, `TestText`, plus the story components).
 
-| Status         | Components                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| In sync        | Callout, ButtonGroup, TopNavigation, ActionMenu, Dialog (circuit's Modal), Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Avatar, TierIndicator, SumUpLogo, Tooltip, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
-| Minor drift    | Checkbox, InputRadio, Toggletip, DateInput                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                                                                                                                                                 |
-| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Status         | Components                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| In sync        | Toggletip, Callout, ButtonGroup, TopNavigation, ActionMenu, Dialog (circuit's Modal), Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Avatar, TierIndicator, SumUpLogo, Tooltip, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
+| Minor drift    | Checkbox, InputRadio, DateInput                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                                                                                                                                                            |
+| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                                                                                                                                                    |
 
 Colors are fully in sync — every token in circuit's `light.ts` exists in our `styles.css`.
 
@@ -1015,8 +1030,9 @@ Also here: **DateInput** is missing `defaultValue` and `autoComplete="bday"` fro
 - [x] **Tabs** (Tab, TabList, TabPanel inlined into one atomic component) ✅ done 2026-11-01
 - [x] **TopNavigation** (+ utility links) ✅ done 2026-11-02
 - [ ] **SidePanel**
-- [x] **SideNavigation rewrite** ✅ done 2026-10-27 (see the progress log). Still open: secondary
-      link `tier` (needs TierIndicator, Phase 9) and removing the deprecated SecondaryNavigation.
+- [x] **SideNavigation rewrite** ✅ done 2026-10-27 (see the progress log). Still open: removing the
+      deprecated SecondaryNavigation. The secondary link `tier` is dropped: circuit removed it in
+      the navigation revamp (#3821).
 
 ---
 
@@ -1041,9 +1057,8 @@ Also here: **DateInput** is missing `defaultValue` and `autoComplete="bday"` fro
 - [x] **Popover** — no close button (circuit inherits Dialog's), no configurable `fallbackPlacements`
       (ours are hardcoded in CSS), `offset` takes a number rather than `{ mainAxis, crossAxis }`, and the
       placement union omits `left-start`/`left-end`/`right-start`/`right-end`. ✅ done 2026-10-27
-- [ ] **Toggletip** — `action` should accept the full Button prop set (`destructive`, `disabled`,
-      `isLoading`), not our narrow `{ label, href, target, onclick, icon }`. `rel`, `destructive`
-      and `disabled` added 2026-11-02; only `isLoading` is left.
+- [x] **Toggletip** — `action` should accept the full Button prop set (`destructive`, `disabled`,
+      `isLoading`), not our narrow `{ label, href, target, onclick, icon }`. ✅ done 2026-11-02
 - [x] **ButtonGroup** — add `size` (`s`/`m`) driving the gap, replace the hardcoded `1rem` gap with
       `--cui-spacings-kilo`, drop the extra `margin-top`, remove the dead `.base .secondary` rule.
       ✅ done 2026-11-02
@@ -1054,8 +1069,10 @@ Also here: **DateInput** is missing `defaultValue` and `autoComplete="bday"` fro
       and backdrop clicks, as circuit's Modal does; `hideCloseButton` isn't ported.
 - [ ] **Popover offset** — our `offset` defaults to 8, circuit's Popover has no default (0). Changing
       it moves every popover that doesn't pass an `offset` (DateInput passes 4, ActionMenu 0).
-- [ ] **Stack** — drops `...rest`, so no `class`/`style` passthrough, and its default is column below
-      600px / row above, which makes `vertical` a no-op on mobile.
+- [x] **Stack** — drops `...rest`, so no `class`/`style` passthrough, and its default is column below
+      600px / row above, which makes `vertical` a no-op on mobile. ✅ done 2026-11-02: attributes
+      and `class` pass through. The responsive default stays: Stack is ours only, and stories rely
+      on it stacking on mobile.
 - [ ] **`src/lib/stories/` is doing double duty** — `DateInput`, `ButtonGroup` and `Pagination` are
       exported as public components from `index.ts` while living in a directory named for stories.
       Consider renaming it (`src/lib/compositions/`?).

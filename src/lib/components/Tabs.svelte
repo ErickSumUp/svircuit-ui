@@ -19,6 +19,11 @@
      * Renders the tab as a link.
      */
     href?: string;
+    /**
+     * Content after the label, such as a `TierIndicator` (`variant="plus"`,
+     * `size="s"`) for features that are part of the plus plan.
+     */
+    trailingComponent?: Snippet;
   };
 
   /** Below 480px, lists with this many tabs or fewer always stretch. */
@@ -159,7 +164,11 @@
           style:anchor-name={selected ? anchorName : undefined}
           onclick={() => select(item.id)}
         >
-          {item.tab}
+          {#if item.trailingComponent}
+            <span class="content">{item.tab}{@render item.trailingComponent()}</span>
+          {:else}
+            {item.tab}
+          {/if}
         </svelte:element>
       {/snippet}
 
@@ -242,6 +251,12 @@
     border: none;
     border-radius: var(--cui-border-radius-bit);
     transition: color var(--cui-transitions-default);
+  }
+
+  .content {
+    display: flex;
+    gap: var(--cui-spacings-bit);
+    align-items: center;
   }
 
   .tab:hover {

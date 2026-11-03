@@ -58,4 +58,16 @@ describe('action', () => {
     expect(screen.queryByRole('link', { hidden: true })).toBeNull();
     expect(screen.getByRole('button', { name: 'Learn more', hidden: true })).toBeDisabled();
   });
+
+  test('should disable a loading action and announce the loading label', async () => {
+    render(Toggletip, {
+      ...baseProps,
+      action: { label: 'Save', isLoading: true, loadingLabel: 'Saving' }
+    });
+
+    const button = screen.getByRole('button', { name: /Save/, hidden: true });
+    expect(button).toBeDisabled();
+    expect(button).toHaveAttribute('aria-busy', 'true');
+    expect(screen.getByText('Saving')).toHaveClass('hide-visually');
+  });
 });

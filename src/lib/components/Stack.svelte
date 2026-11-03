@@ -1,7 +1,8 @@
 <script lang="ts">
   import { type Snippet } from 'svelte';
+  import type { HTMLAttributes } from 'svelte/elements';
 
-  interface Props {
+  interface Props extends HTMLAttributes<HTMLDivElement> {
     vertical?: boolean;
     align?: 'start' | 'center' | 'end' | 'baseline';
     gap?: 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
@@ -9,11 +10,19 @@
     [key: string]: unknown;
   }
 
-  let { vertical = false, align = 'center', gap = 'm', children }: Props = $props();
+  let {
+    vertical = false,
+    align = 'center',
+    gap = 'm',
+    class: className,
+    children,
+    ...rest
+  }: Props = $props();
 </script>
 
 <div
-  class="base"
+  {...rest}
+  class={['base', className]}
   class:vertical
   class:start={align === 'start'}
   class:center={align === 'center'}
