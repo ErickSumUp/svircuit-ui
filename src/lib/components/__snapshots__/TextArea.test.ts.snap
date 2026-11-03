@@ -1,0 +1,37 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <div
+    class="wrapper svelte-ac0k5u"
+  >
+    <label
+      class="label svelte-ac0k5u"
+      for="textarea-c1"
+    >
+      <span
+        class="label-text svelte-ac0k5u"
+      >
+        Describe your issue 
+        <!---->
+      </span>
+    </label>
+     
+    <textarea
+      class="base svelte-ac0k5u"
+      id="textarea-c1"
+      placeholder="Be detailed..."
+    />
+     
+    <!---->
+     
+    <span
+      aria-live="polite"
+      role="status"
+    >
+      <!---->
+    </span>
+  </div>
+  
+</div>
+`;

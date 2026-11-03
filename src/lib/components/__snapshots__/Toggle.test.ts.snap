@@ -1,0 +1,51 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <div
+    class="wrapper svelte-d39fdc"
+  >
+    <span
+      class="base-wrapper svelte-d39fdc"
+    >
+      <input
+        aria-describedby="toggle-c1-description"
+        aria-labelledby="toggle-c1-label"
+        class="base svelte-d39fdc"
+        id="toggle-c1"
+        role="switch"
+        type="checkbox"
+      />
+       
+      <span
+        aria-hidden="true"
+        class="knob svelte-d39fdc"
+      />
+    </span>
+     
+    <label
+      class="label svelte-d39fdc"
+      for="toggle-c1"
+      id="toggle-c1-label"
+    >
+      Short label 
+      <span
+        aria-hidden="true"
+        class="description svelte-d39fdc"
+      >
+        More detail
+      </span>
+      <!---->
+    </label>
+     
+    <span
+      class="hide-visually svelte-d39fdc"
+      id="toggle-c1-description"
+    >
+      More detail
+    </span>
+    <!---->
+  </div>
+  
+</div>
+`;

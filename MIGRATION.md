@@ -10,6 +10,39 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-11-02 — Toggle and TextArea, and the field decision ✅
+
+**Phase 0.2 is decided: no shared field module.** Each form component inlines the parts of
+circuit's Field it uses, as every atomic component does. Toggle and TextArea are the first two, both
+atomic in `src/lib/components/`, with tests, stories (as circuit's), an `*.mdx` page and an index
+export.
+
+- **Toggle:** `label` (required), `description` and a bindable `checked`, on a native
+  `<input type="checkbox" role="switch">`; other attributes go on the input, `class` and `style` on
+  the wrapper, as in circuit. Inlines circuit's FieldWrapper (`data-disabled`, no pointer events)
+  and FieldDescription (`body-s`, subtle). The description is the accessible description, merged
+  with a passed `aria-describedby`. Below 480px the switch moves to the end of the row.
+- **TextArea:** `label`, `hideLabel`, `optionalLabel`, `validationHint`, `invalid`, `hasWarning`,
+  `showValid`, `textAlign`, `rows` (a number or `auto`), `minRows`, `passwordManagerIgnore` and a
+  bindable `value`, as in circuit. Inlines circuit's Input styles (real 1px borders with an inset
+  focus shadow, not our Input's rings) and Field's label, optional label and validation hint, with
+  the v2 16px alert, notify and confirm icons injected from the SVG sources. Validity precedence is
+  circuit's (`disabled > invalid > hasWarning > showValid`). **The three Phase 0.2 a11y defects are
+  fixed here:** the hint has an `id`, it is merged into `aria-describedby`, and there is no
+  `aria-label` overriding the visible label. **Deviations:** no `size` (circuit's TextArea omits it
+  too) and no prefix or suffix (circuit inherits them from Input; they make little sense on a
+  textarea).
+- **Native over JavaScript:** `rows="auto"` uses CSS `field-sizing: content` with a `min-height`
+  of `minRows` lines, instead of circuit's `useAutoExpand` hook, which measures `scrollHeight` on
+  every input and on resize. Without `field-sizing` (Firefox, for now) it is a resizable textarea
+  of `minRows` lines. Circuit sets the height to `scrollHeight` under `border-box`, which crops
+  its 2px border (178px for seven lines); ours includes it (180px).
+- Compared in Chrome with circuit.sumup.com: the Toggle's track, knob position and colour in every
+  state (off, on, disabled, disabled on), the label and description, and the mobile layout; the
+  TextArea's padding, radius, borders and backgrounds (default, invalid, warning, readonly,
+  disabled), the label gap, the hint colours and icon position, the auto-expand behaviour, and the
+  dark mode text colour. Text is 1px smaller (Phase 0.1).
+
 ### 2026-11-02 — Tabs trailing component, Toggletip loading action and Stack attributes ✅
 
 - **Tabs:** a tab item takes a `trailingComponent` snippet after the label, wrapped in circuit's
@@ -666,13 +699,13 @@ is deferred, Phase 1 (typography) is independent and can go first.
 Circuit has 74 components. We share 30 with it, 32 do not exist here yet, and 4 are our own
 inventions (`Stack`, `Spacer`, `TestText`, plus the story components).
 
-| Status         | Components                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| In sync        | Toggletip, Callout, ButtonGroup, TopNavigation, ActionMenu, Dialog (circuit's Modal), Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Avatar, TierIndicator, SumUpLogo, Tooltip, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
-| Minor drift    | Checkbox, InputRadio, DateInput                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                                                                                                                                                            |
-| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Status         | Components                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| In sync        | Toggle, TextArea, Toggletip, Callout, ButtonGroup, TopNavigation, ActionMenu, Dialog (circuit's Modal), Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Avatar, TierIndicator, SumUpLogo, Tooltip, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
+| Minor drift    | Checkbox, InputRadio, DateInput                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                                                                                                                                                                              |
+| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 
 Colors are fully in sync — every token in circuit's `light.ts` exists in our `styles.css`.
 
@@ -705,7 +738,13 @@ Everything else depends on these two steps.
       `--cui-bg-accent-strong` to `--cui-bg-strong`. Both tokens exist here; the swap happens per
       component, not globally.
 
-### 0.2 Field foundation (decision needed)
+### 0.2 Field foundation ✅ decided 2026-11-02: inline, no shared module
+
+**Decision:** no shared field module. Like every other atomic component, each form component
+inlines the parts of circuit's Field it uses (wrapper, label, optional label, description,
+validation hint and the `--field-input-*` size variables) in its own markup and `<style>`. The cost
+is the copied CSS, kept in step by hand; the proposal below is rejected. Toggle and TextArea are
+the first two built this way (see the 2026-11-02 entry).
 
 Circuit routes every form field through `components/Field/`, which supplies one shared contract:
 `label`, `optionalLabel`, `hideLabel`, `validationHint`, `invalid`, `hasWarning`, `showValid`,
@@ -717,9 +756,9 @@ generated hint id.
 
 We have no equivalent, so all six form components re-inline that markup and have drifted apart.
 
-- [ ] **Decide the shape.** Proposal: a shared `src/lib/styles/field.css` plus a small
-      `src/lib/utils/field.ts` (validity resolution, id merging). Each component imports both and keeps
-      its own markup, so atomicity holds but we stop copying ~150 lines of CSS per field.
+- [x] **Decide the shape.** ~~Proposal: a shared `src/lib/styles/field.css` plus a small
+      `src/lib/utils/field.ts` (validity resolution, id merging).~~ Rejected: components don't
+      reuse each other's code. Each field inlines what it needs.
 - [ ] Fix the three a11y defects that every form component shares, as each one is migrated:
   - validation hints have no `id`, so nothing references them;
   - `ariaDescribedBy` replaces the hint id instead of merging with it;
@@ -998,8 +1037,9 @@ port the parts that are about behaviour and looks rather than architecture.
 
 ## Phase 6 — New form components
 
-- [ ] **TextArea** — built on `Input as="textarea"` from 2.1.
-- [ ] **Toggle** — switch with label and description.
+- [x] **TextArea** — ~~built on `Input as="textarea"` from 2.1~~ its own component with Input's
+      and Field's CSS inlined. ✅ done 2026-11-02
+- [x] **Toggle** — switch with label and description. ✅ done 2026-11-02
 - [ ] **CheckboxGroup** — options array, shared validation.
 - [ ] **Selector** and **SelectorGroup** — card-style radio/checkbox.
 - [ ] **ColorInput**

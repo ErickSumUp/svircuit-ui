@@ -1,0 +1,47 @@
+import * as Stories from './TextArea.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# TextArea
+
+A multi-line text field for forms.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## How to use it
+
+Bind `value` to read and set the text. Other attributes, such as `name`, `placeholder` or
+`maxlength`, go on the `textarea`; `class` and `style` go on the wrapper.
+
+### Validations
+
+Pass a `validationHint` to explain the requirements. With `invalid`, `hasWarning` or `showValid` it
+gets an icon and is announced in a live region. The hint is the textarea's accessible description,
+merged with any `aria-describedby` you pass. A disabled textarea drops the validity styles.
+
+<Canvas of={Stories.Validations} />
+
+### Readonly
+
+<Canvas of={Stories.Readonly} />
+
+### Disabled
+
+<Canvas of={Stories.Disabled} />
+
+### Hidden label
+
+Only hide the label when the purpose of the field is clear from its context. It stays the
+textarea's accessible name.
+
+<Canvas of={Stories.HiddenLabel} />
+
+### Auto expand
+
+With `rows="auto"`, the textarea grows with its content, starting from `minRows` lines. This uses
+the native `field-sizing: content`. Browsers without it (Firefox, for now) show a resizable
+textarea of `minRows` lines instead.
+
+<Canvas of={Stories.AutoExpand} />
