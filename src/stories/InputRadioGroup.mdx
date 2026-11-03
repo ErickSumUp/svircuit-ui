@@ -14,6 +14,30 @@ A radio button group offers users the choice to select a single option from a pr
 
 Use a radio button group when the user has to choose only one option based on a pre-defined list of mutually exclusive options.
 
+## How to use it
+
+Pass the `options`, each with a `label` and a `value`, and bind `value` to the checked value.
+The `name` is shared by every radio and generated unless you pass one. `onchange` is called after
+`value` is updated. Other attributes, such as `class` and `style`, go on the `fieldset`.
+
+```svelte
+<script>
+  import { InputRadioGroup } from 'svircuit-ui';
+
+  let value = $state('apple');
+</script>
+
+<InputRadioGroup
+  name="fruit"
+  label="Choose your favourite fruit"
+  options={[
+    { label: 'Apple', value: 'apple' },
+    { label: 'Banana', value: 'banana' }
+  ]}
+  bind:value
+/>
+```
+
 ## Usage guidelines
 
 - **Do** capitalize each item of the list

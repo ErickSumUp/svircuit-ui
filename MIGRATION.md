@@ -10,6 +10,133 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-11-03 — SearchInput ✅
+
+- **SearchInput** (Phase 2.3) is circuit's SearchInput. Circuit wraps its Input; ours inlines the
+  new Input (markup and CSS, copied from 2026-11-03's Input) under the no-reuse rule, with the
+  search icon as a fixed prefix and the clear button as a fixed suffix, so their CSS is scoped
+  rather than `:global`. **Breaking:** `onClearClick` is now `onClear`, and the component no
+  longer clears `value` itself: clear it in `onClear`, as in circuit. `id` is optional,
+  `textAlignRight` is `textAlign`, and `ariaDescribedBy` is the native `aria-describedby`, as in
+  Input. **Gained from Input:** `validationHint`, `invalid`, `hasWarning`, `showValid`,
+  `optionalLabel`, `required`, `readonly`, `size` and `passwordManagerIgnore`. Fixed: the clear
+  button has an accessible name (`clearLabel`, default "Clear", circuit's English translation)
+  and `type="button"`; it only shows with a value and `onClear`, hides when disabled or read only,
+  and returns the focus to the input. The input is `type="search"` with circuit's
+  `::-webkit-search-*` reset, so browsers no longer draw a second clear button; the icon is the v2
+  24px search icon. The clear button is CloseButton's tertiary `s` CSS, inlined; as in circuit, the
+  suffix rules set its size, padding and resting colour.
+- `src/lib/dev/` (an older SearchInput, a search icon and two close buttons) is imported by nothing
+  and not exported. Left in place; candidate for deletion.
+- Stories follow circuit's (Base, Sizes), with clearing wired in both. The Icons overview passes
+  `onClear`. First unit tests for SearchInput.
+- Compared in Chrome with circuit.sumup.com: the input, prefix and clear button geometry at both
+  sizes, padding with and without the button, the icon and button colours (resting and hover), and
+  the clear-and-refocus behaviour. Circuit's clear button shows a "Clear" tooltip on focus; ours
+  uses `title`, as our CloseButton does.
+
+### 2026-11-03 — Input ✅
+
+- **Input** (Phase 2.1) is circuit's Input with the Field parts inlined, in TextArea's layout.
+  **Breaking:** `id` is optional (generated with `$props.id()`); `textAlignRight` is now
+  `textAlign: 'left' | 'right'`; `ariaDescribedBy` is the native `aria-describedby`, merged with
+  the hint's `id`; the duplicated `aria-label` is dropped, the label element names the input; the
+  `prefix` and `suffix` snippets now receive `{ class }` (the prefix also `value`), which the
+  consumer puts on its root element, as with circuit's `renderPrefix`/`renderSuffix`. Their CSS is
+  `.wrapper :global(.input-prefix)`, scoped under the Input's wrapper because the snippet markup is
+  the consumer's; buttons inside stay clickable. **New:** `size` (`s` | `m`) through circuit's
+  `--field-input-*` variables, `passwordManagerIgnore` and `readonly` typed through
+  `HTMLInputAttributes`. Fixed: input text is `body-m` and label and hint `body-s` (compact-s at
+  size `s`); `aria-invalid` is omitted unless `invalid`, where it was always `"false"`; the border and
+  inset focus shadow are circuit's, not our box-shadow outline; the `<style>` block has no
+  duplicates. `as: 'textarea'` isn't ported: TextArea is its own component (2026-11-02).
+- Stories follow circuit's (Base, Validations, Optional, Readonly, Disabled, Inline, Hidden label,
+  Password, Sizes) plus Prefix and suffix, with circuit's v2 search icon. The Date story is
+  dropped: DateInput covers dates. First unit tests for Input.
+- Compared in Chrome with circuit.sumup.com: height (48px and 32px), padding, line heights,
+  borders, radius, backgrounds and every state colour match. Font sizes are 1px smaller, size `s`
+  has an 8px radius against 10px and its label a 15px line height against 16px, all from the
+  token drift recorded under Phase 0.1.
+
+### 2026-11-02 — Selector and SelectorGroup ✅
+
+- **Selector** (Phase 6) is circuit's Selector with the FieldWrapper inlined: a card-style radio,
+  or a checkbox when `multiple`. **API:** `label`, `description`, `icon` (a snippet, as in
+  Callout), `value`, `size` (`s` | `m` | `flexible`; the deprecated `kilo`/`mega` aren't ported),
+  `invalid`, `multiple` and a bindable `group`: the checked value, or the array of checked values
+  when `multiple`. Other attributes go on the input, `class` and `style` on the wrapper; the `id`
+  is generated unless passed, and the description's `id` is merged into `aria-describedby`.
+  `required` only reaches the radio, as in circuit. **Svelte note:** `bind:group` on checkboxes
+  only collects the inputs within one component instance, so each Selector would overwrite a
+  shared array with its own value. The checkbox branch derives `checked` from `group` and updates
+  the array by hand; radios use `bind:group`.
+- **SelectorGroup** is a story component in `src/lib/stories/`, because it renders Selectors.
+  **API:** circuit's `options`, `name` (generated unless passed), `label`, `hideLabel`,
+  `optionalLabel`, `required`, `multiple`, `size`, `stretch`, `validationHint`, `invalid`,
+  `disabled` and `onchange`. A `radiogroup` with horizontal orientation, or a plain fieldset when
+  `multiple`. The hint only has the invalid state, as in circuit; it has an `id` merged into
+  `aria-describedby` and sits in a `role="status"` live region. `disabled`, `required` and
+  `invalid` cascade to every option; it renders nothing without options. **Deviation:** circuit's
+  `value` and `defaultValue` are one bindable `value`, updated before `onchange` is called.
+  Exported with the `SelectorGroupOption` type.
+- Stories follow circuit's: Base, Multiple, Sizes, With descriptions, With icons (circuit's v2
+  card reader and phone icons, injected from the SVG sources), an interactive Validations and
+  Disabled. Compared in Chrome with circuit.sumup.com: padding per size, radius, borders, the
+  checked, invalid and disabled fills, the title weight and the icon spacing all match. Options are
+  2px taller and a few px narrower, from the global `body` line height and the 1px-smaller tokens
+  recorded under Phase 0.1.
+
+### 2026-11-02 — InputRadio and InputRadioGroup ✅
+
+- **InputRadio** (Phase 2.6) is circuit's RadioButton with its RadioButtonInput and Field parts
+  inlined, aligned to the start as circuit's RadioButton forces. **Breaking:** `id` is optional
+  (generated with `$props.id()`), and the invented `invalid` and `ariaDescribedBy` props are gone:
+  invalid styles come from an ancestor's `aria-invalid="true"`, as in circuit, and
+  `aria-describedby` is the native attribute, merged with the description's `id`. The duplicated
+  `aria-label` is dropped; the label element names the input. `group` stays bindable; other
+  attributes go on the input, `class` and `style` on the wrapper. The geometry is circuit's: 1.25rem
+  circle and label padding, a dot computed from the size, an 8px gap to the text and the outline
+  focus ring. `align` isn't ported: circuit's RadioButton doesn't expose it either.
+- **InputRadioGroup** (Phase 2.4) moved to `src/lib/stories/`, because it now renders InputRadios.
+  **Breaking:** it takes circuit's `options` array instead of InputRadio children. `name` is
+  generated unless passed; `disabled` and `required` cascade to every option; `aria-invalid` and
+  `aria-required` are omitted when falsy; the hint has an `id` merged into `aria-describedby` and
+  sits in a `role="status"` live region, with circuit's v2 16px icons; the options are a flex
+  column with a `bit` gap; it renders nothing without options. **Deviation:** circuit's `value` and
+  `defaultValue` are one bindable `value`, updated before `onchange` is called. Exported with the
+  `InputRadioGroupOption` type. First unit tests for both; the stories follow circuit's.
+- Compared in Chrome with circuit.sumup.com: circle size, position and border, dot size and
+  position, label padding, option gap, the focus ring and the invalid, warning, valid and disabled
+  states. Rows are 3px taller for the global `body` line height recorded under Phase 0.1.
+
+### 2026-11-02 — Checkbox rewrite and CheckboxGroup ✅
+
+- **Checkbox** (Phase 2.5) is circuit's Checkbox with its CheckboxInput and Field parts inlined.
+  **Breaking:** `label` is now required and `id` optional (generated with `$props.id()`); it was
+  the other way round. `checked` and `indeterminate` stay bindable; other attributes go on the
+  input, `class` and `style` on the wrapper. Fixed: the validation hint has an `id` and is merged
+  into `aria-describedby`; both symbols are always rendered, so the checkmark shows when disabled
+  and checked, and animates in; nothing leaks onto the SVGs; the focus ring is circuit's outline,
+  not our old double box-shadow; the box aligns to the first line of the label, as circuit's does;
+  the tokens are circuit's (`bg-strong`, `border-radius-bit`, `border-width-kilo`, `1.25rem`). The
+  checkmark is circuit's v2 16px icon and the alert icon the v2 16px one, injected from the SVG
+  sources. First unit tests for Checkbox; the stories follow circuit's, with the Indeterminate
+  options written out.
+- **CheckboxGroup** is a story component in `src/lib/stories/`, because, like circuit's, it renders
+  Checkboxes; its fieldset, legend, optional label and validation hint are inlined from circuit's
+  Field. **API:** `name`, `options` (Checkbox props plus a `value`), `label`, `hideLabel`,
+  `optionalLabel`, `required`, `validationHint`, `invalid`, `hasWarning`, `showValid`, `disabled`,
+  and `onchange`, as in circuit. **Deviation:** circuit's controlled `value` and uncontrolled
+  `defaultValue` are one bindable `value` array, updated before `onchange` is called. The hint
+  describes the fieldset; `invalid` and `disabled` cascade to every option. Renders nothing without
+  options. Exported with the `CheckboxGroupOption` type.
+- Compared in Chrome with circuit.sumup.com: the box size, radius, border and fill in every state
+  (unchecked, checked, indeterminate, invalid, invalid checked, disabled, disabled checked), the
+  symbols, the label padding, the hint colours (invalid, warning, valid, disabled) and the legend;
+  checked the parent/child indeterminate flow, keyboard toggling and the focus ring. Rows are 2px
+  taller (28px against 26px) because our global `body` line height is 24px against circuit's 22px,
+  a global drift now recorded under Phase 0.1.
+
 ### 2026-11-02 — Toggle and TextArea, and the field decision ✅
 
 **Phase 0.2 is decided: no shared field module.** Each form component inlines the parts of
@@ -699,13 +826,13 @@ is deferred, Phase 1 (typography) is independent and can go first.
 Circuit has 74 components. We share 30 with it, 32 do not exist here yet, and 4 are our own
 inventions (`Stack`, `Spacer`, `TestText`, plus the story components).
 
-| Status         | Components                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| In sync        | Toggle, TextArea, Toggletip, Callout, ButtonGroup, TopNavigation, ActionMenu, Dialog (circuit's Modal), Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Avatar, TierIndicator, SumUpLogo, Tooltip, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
-| Minor drift    | Checkbox, InputRadio, DateInput                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| Major drift    | Input, Select, SearchInput, InputRadioGroup, Table, NotificationToast                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                                                                                                                                                                              |
-| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Status         | Components                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| In sync        | Input, SearchInput, Selector, SelectorGroup, InputRadio, InputRadioGroup, Checkbox, CheckboxGroup, Toggle, TextArea, Toggletip, Callout, ButtonGroup, TopNavigation, ActionMenu, Dialog (circuit's Modal), Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Avatar, TierIndicator, SumUpLogo, Tooltip, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
+| Minor drift    | DateInput                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Major drift    | Select, Table, NotificationToast                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
 Colors are fully in sync — every token in circuit's `light.ts` exists in our `styles.css`.
 
@@ -721,6 +848,12 @@ Everything else depends on these two steps.
 > compact, numeral and display font sizes grew (e.g. `--cui-body-s-font-size` 0.875rem → 0.9375rem,
 > `--cui-compact-s-font-size` 0.8125rem → 0.875rem), display line heights became percentages, and
 > `--cui-border-radius-byte` is 10px instead of 8px. Color tokens weren't compared yet.
+>
+> **Global body style drifted too (found 2026-11-02).** Circuit's `base.css` sets `body` to
+> `font-size: var(--cui-body-m-font-size); line-height: var(--cui-body-m-line-height)`. Ours sets
+> `font-size: 1rem; line-height: 1.5rem`, so everything that inherits its text, such as the
+> Checkbox label, sits 2px taller per line (24px against 22px). This is a global change, so it
+> wasn't made in a component; it belongs with the token re-sync.
 
 - [x] Add the 16 shared tokens we are missing:
       `--cui-icon-sizes-s/m/l/xl`, `--cui-display-xl-font-size`, `--cui-display-xl-line-height`,
@@ -792,17 +925,17 @@ We have no equivalent, so all six form components re-inline that markup and have
 
 Do these after 0.2, in this order — `SearchInput` is a wrapper over `Input` upstream.
 
-### 2.1 Input — major drift (L)
+### 2.1 Input — major drift (L) ✅ done 2026-11-03
 
-- [ ] Add `size: 's' | 'm'` via the `--field-input-*` variables (the largest gap; nothing scales today).
-- [ ] Add `as: 'input' | 'textarea'`, which is how `TextArea` is built in Phase 6.
-- [ ] Add `passwordManagerIgnore` (five `data-*-ignore` attributes) and declare `readOnly` properly.
-- [ ] Replace `textAlignRight?: boolean` with circuit's `textAlign: 'left' | 'right'`.
-- [ ] Pass arguments to the prefix/suffix snippets — circuit's `renderPrefix` receives
+- [x] Add `size: 's' | 'm'` via the `--field-input-*` variables (the largest gap; nothing scales today).
+- [x] ~~Add `as: 'input' | 'textarea'`~~ — not ported: TextArea is its own component.
+- [x] Add `passwordManagerIgnore` (five `data-*-ignore` attributes) and declare `readOnly` properly.
+- [x] Replace `textAlignRight?: boolean` with circuit's `textAlign: 'left' | 'right'`.
+- [x] Pass arguments to the prefix/suffix snippets — circuit's `renderPrefix` receives
       `{ className, value }` and `renderSuffix` receives `{ className }`.
-- [ ] Typography is off by one step in both directions: input text should be `body-m` (we use `body-s`),
+- [x] Typography is off by one step in both directions: input text should be `body-m` (we use `body-s`),
       label and hint should be `body-s` (we use `body-m`).
-- [ ] Clean up the `<style>` block — `.wrapper`, `.prefix`/`.suffix` and `.validation-hint-invalid` are
+- [x] Clean up the `<style>` block — `.wrapper`, `.prefix`/`.suffix` and `.validation-hint-invalid` are
       each defined two or three times, and `.icon` is unused.
 
 ### 2.2 Select — major drift (M)
@@ -820,46 +953,47 @@ Do these after 0.2, in this order — `SearchInput` is a wrapper over `Input` up
 - [ ] Remove `min-width: max-content` (lets a long option push the select past its container) and fix
       the disabled hint color (`fg-subtle-disabled`, not `fg-danger-disabled`).
 
-### 2.3 SearchInput — major drift (M)
+### 2.3 SearchInput — major drift (M) ✅ done 2026-11-03
 
-- [ ] Rebuild as a thin wrapper over the fixed `Input`, which restores `validationHint`, `invalid`,
+- [x] Rebuild ~~as a thin wrapper over~~ by inlining the fixed `Input`, which restores `validationHint`, `invalid`,
       `hasWarning`, `showValid`, `optionalLabel`, `required`, `readOnly` and `size` in one move.
-- [ ] The clear button has **no accessible name** — `aria-labelledby="on clear"` points at nothing.
+- [x] The clear button has **no accessible name** — `aria-labelledby="on clear"` points at nothing.
       Replace with `aria-label={clearLabel}` and add the `clearLabel` prop.
-- [ ] Add `type="button"`; it submits the enclosing form today.
-- [ ] Refocus the input after clearing, and hide the clear button when `disabled` or `readOnly`.
-- [ ] Rename `onClearClick` to `onClear` and stop mutating `value` internally.
-- [ ] Use a 24px search icon (ours is 16px in a 48px box) and add the `::-webkit-search-*` appearance
+- [x] Add `type="button"`; it submits the enclosing form today.
+- [x] Refocus the input after clearing, and hide the clear button when `disabled` or `readOnly`.
+- [x] Rename `onClearClick` to `onClear` and stop mutating `value` internally.
+- [x] Use a 24px search icon (ours is 16px in a 48px box) and add the `::-webkit-search-*` appearance
       reset — Chrome and Safari draw their own clear button next to ours today.
 
-### 2.4 InputRadioGroup — major drift (M/L)
+### 2.4 InputRadioGroup — major drift (M/L) ✅ done 2026-11-02
 
-- [ ] Add the `options` array API so the group renders its radios and propagates `name` (auto-generated),
+- [x] Add the `options` array API so the group renders its radios and propagates `name` (auto-generated),
       `value`/`defaultValue`, `disabled` and `required`. None of those reach the inputs today.
-- [ ] The declared `description` prop is unused, and `validationHint` is missing from the `Props`
+- [x] The declared `description` prop is unused, and `validationHint` is missing from the `Props`
       interface (it only type-checks through the index signature).
-- [ ] Wrap the validation hint in `role="status" aria-live="polite"` — the only field of ours without it.
-- [ ] Add the options container's `display: flex; flex-direction: column; gap: var(--cui-spacings-bit)`.
-- [ ] Return nothing for an empty options array; omit `aria-invalid`/`aria-required` when falsy.
+- [x] Wrap the validation hint in `role="status" aria-live="polite"` — the only field of ours without it.
+- [x] Add the options container's `display: flex; flex-direction: column; gap: var(--cui-spacings-bit)`.
+- [x] Return nothing for an empty options array; omit `aria-invalid`/`aria-required` when falsy.
 
-### 2.5 Checkbox — minor drift (S)
+### 2.5 Checkbox — minor drift (S) ✅ done 2026-11-02
 
-- [ ] Add `align: 'center' | 'start'` and default to `start` like circuit, so the box aligns to the
-      first line of a multi-line label. Ours hardcodes a non-reactive `center`.
-- [ ] Fix disabled + checked: the `{#if}` chain renders no SVG at all, so the box fills with color but
+- [x] Add `align: 'center' | 'start'` and default to `start` like circuit, so the box aligns to the
+      first line of a multi-line label. Ours hardcodes a non-reactive `center`. **Done as circuit's
+      Checkbox does it:** always `start`; `align` only exists on circuit's private CheckboxInput.
+- [x] Fix disabled + checked: the `{#if}` chain renders no SVG at all, so the box fills with color but
       shows no checkmark.
-- [ ] Stop spreading `{...rest}` onto the checked `<svg>` — `name` and `value` leak into the markup.
-- [ ] Swap `--cui-bg-accent-strong` for `--cui-bg-strong`, use `--cui-border-radius-bit` and
+- [x] Stop spreading `{...rest}` onto the checked `<svg>` — `name` and `value` leak into the markup.
+- [x] Swap `--cui-bg-accent-strong` for `--cui-bg-strong`, use `--cui-border-radius-bit` and
       `--cui-border-width-kilo` instead of literal `3px`/`1px`, and drop the 2px icon padding.
-- [ ] Remove the dead `import type { Action }`.
+- [x] Remove the dead `import type { Action }`.
 
-### 2.6 InputRadio — minor drift (S)
+### 2.6 InputRadio — minor drift (S) ✅ done 2026-11-02
 
-- [ ] Give the visually hidden description an `id` and merge it into `aria-describedby`. Today the
+- [x] Give the visually hidden description an `id` and merge it into `aria-describedby`. Today the
       description is duplicated in the DOM and invisible to assistive tech.
-- [ ] Add `align` (circuit forces `start`), make `name` optional so the group can inject it, and drop
+- [x] ~~Add `align`~~ (not ported; circuit forces `start`), make `name` optional so the group can inject it, and drop
       our invented per-radio `invalid` prop in favour of inheriting from the group's fieldset.
-- [ ] Fix the circle geometry: label padding `1.25rem` (not 26px), outer circle `1.25rem` (not 18px),
+- [x] Fix the circle geometry: label padding `1.25rem` (not 26px), outer circle `1.25rem` (not 18px),
       inner dot computed from the size (10px at 5px, not 10px at 4px).
 
 ---
@@ -1040,8 +1174,8 @@ port the parts that are about behaviour and looks rather than architecture.
 - [x] **TextArea** — ~~built on `Input as="textarea"` from 2.1~~ its own component with Input's
       and Field's CSS inlined. ✅ done 2026-11-02
 - [x] **Toggle** — switch with label and description. ✅ done 2026-11-02
-- [ ] **CheckboxGroup** — options array, shared validation.
-- [ ] **Selector** and **SelectorGroup** — card-style radio/checkbox.
+- [x] **CheckboxGroup** — options array, shared validation. ✅ done 2026-11-02
+- [x] **Selector** and **SelectorGroup** — card-style radio/checkbox. ✅ done 2026-11-02
 - [ ] **ColorInput**
 - [ ] **CurrencyInput** — locale-aware, `Intl.NumberFormat`.
 - [ ] **PercentageInput**

@@ -1,7 +1,6 @@
 <script lang="ts" module>
-  import InputRadioGroup from '$lib/components/InputRadioGroup.svelte';
+  import InputRadioGroup from '$lib/stories/InputRadioGroup.svelte';
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
     title: 'Forms/InputRadioGroup',
@@ -10,205 +9,115 @@
       layout: 'centered'
     },
     argTypes: {
-      label: { control: { type: 'text', defaultValue: 'Choose your favourite fruit' } }
+      invalid: { control: 'boolean' },
+      hasWarning: { control: 'boolean' },
+      showValid: { control: 'boolean' }
+    },
+    args: {
+      name: 'fruit',
+      label: 'Choose your favourite fruit',
+      options: [
+        { label: 'Apple', value: 'apple', description: 'Keeps the doctor away' },
+        { label: 'Banana', value: 'banana', description: 'Rich in Mg' },
+        { label: 'Mango', value: 'mango' }
+      ]
     }
   });
-
-  type Args = Omit<ComponentProps<typeof InputRadioGroup>, 'children'> & {
-    label: string;
-  };
 </script>
 
 <script lang="ts">
-  import InputRadio from '$lib/components/InputRadio.svelte';
   import Stack from '$lib/components/Stack.svelte';
 
-  let value = $state('');
-  let valueValidationsInvalid = $state('');
-  let valueValidationsWarning = $state('');
-  let valueValidationsValid = $state('');
-  let valueDisabledFull = $state('');
-  let valueDisabled = $state('apple');
+  let value = $state<string | number>('banana');
+  let valueWarning = $state<string | number>('mango');
+  let valueValid = $state<string | number>('apple');
+  let valueDisabled = $state<string | number>('apple');
+  let valuePartiallyDisabled = $state<string | number>('apple');
 </script>
 
-<Story name="Base" args={{}}>
-  {#snippet template({ label, ...args }: Args)}
-    <InputRadioGroup label={label || 'Choose your favourite fruit'} {...args}>
-      <InputRadio
-        bind:group={value}
-        id="input-apple"
-        name="fruit"
-        value="apple"
-        label="Apple"
-        description="Keeps the doctor away"
-        {...args}
-      />
-      <InputRadio
-        bind:group={value}
-        id="input-banana"
-        name="fruit"
-        value="banana"
-        label="Banana"
-        description="Rich in Mg"
-      />
-      <InputRadio bind:group={value} id="input-mango" name="fruit" value="mango" label="Mango" />
-    </InputRadioGroup>
+<Story name="Base">
+  {#snippet template(args)}
+    <InputRadioGroup {...args} bind:value />
   {/snippet}
 </Story>
 
 <Story name="Validations">
-  <Stack>
-    <InputRadioGroup
-      label="Choose your favourite fruit"
-      invalid
-      validationHint="Please choose an option."
-    >
-      <InputRadio
-        bind:group={valueValidationsInvalid}
-        id="input-apple-invalid"
-        name="fruit-invalid"
-        value="apple"
-        label="Apple"
-        description="Keeps the doctor away"
+  {#snippet template()}
+    <Stack>
+      <InputRadioGroup
+        name="invalid"
+        style="flex: 1; align-self: flex-start"
+        label="Choose your favourite fruit"
+        optionalLabel="Optional"
+        options={[
+          { label: 'Apple', value: 'apple', description: 'Keeps the doctor away' },
+          { label: 'Banana', value: 'banana', description: 'Rich in Mg' },
+          { label: 'Mango', value: 'mango' }
+        ]}
+        validationHint="Please choose an option."
+        required
         invalid
       />
-      <InputRadio
-        bind:group={valueValidationsInvalid}
-        id="input-banana-invalid"
-        name="fruit-invalid"
-        value="banana"
-        label="Banana"
-        description="Rich in Mg"
-        invalid
+      <InputRadioGroup
+        name="warning"
+        style="flex: 1; align-self: flex-start"
+        label="Choose your favourite fruit"
+        optionalLabel="Optional"
+        options={[
+          { label: 'Apple', value: 'apple', description: 'Keeps the doctor away' },
+          { label: 'Banana', value: 'banana', description: 'Rich in Mg' },
+          { label: 'Mango', value: 'mango' }
+        ]}
+        validationHint="Some people are allergic to mangos."
+        hasWarning
+        bind:value={valueWarning}
       />
-      <InputRadio
-        bind:group={valueValidationsInvalid}
-        id="input-mango-invalid"
-        name="fruit-invalid"
-        value="mango"
-        label="Mango"
-        invalid
+      <InputRadioGroup
+        name="valid"
+        style="flex: 1; align-self: flex-start"
+        label="Choose your favourite fruit"
+        optionalLabel="Optional"
+        options={[
+          { label: 'Apple', value: 'apple', description: 'Keeps the doctor away' },
+          { label: 'Banana', value: 'banana', description: 'Rich in Mg' },
+          { label: 'Mango', value: 'mango' }
+        ]}
+        validationHint="Good choice! Apples are delicious."
+        showValid
+        bind:value={valueValid}
       />
-    </InputRadioGroup>
-    <InputRadioGroup
-      label="Choose your favourite fruit"
-      optionalLabel="Optional"
-      hasWarning
-      validationHint="Some people are allergic to mangos."
-    >
-      <InputRadio
-        bind:group={valueValidationsWarning}
-        id="input-apple-warning"
-        name="fruit-warning"
-        value="apple"
-        label="Apple"
-        description="Keeps the doctor away"
-      />
-      <InputRadio
-        bind:group={valueValidationsWarning}
-        id="input-banana-warning"
-        name="fruit-warning"
-        value="banana"
-        label="Banana"
-        description="Rich in Mg"
-      />
-      <InputRadio
-        bind:group={valueValidationsWarning}
-        id="input-mango-warning"
-        name="fruit-warning"
-        value="mango"
-        label="Mango"
-      />
-    </InputRadioGroup>
-    <InputRadioGroup
-      optionalLabel="Optional"
-      label="Choose your favourite fruit"
-      showValid
-      validationHint="Good choice! Apples are delicious."
-    >
-      <InputRadio
-        bind:group={valueValidationsValid}
-        id="input-apple-valid"
-        name="fruit-valid"
-        value="apple"
-        label="Apple"
-        description="Keeps the doctor away"
-      />
-      <InputRadio
-        bind:group={valueValidationsValid}
-        id="input-banana-valid"
-        name="fruit-valid"
-        value="banana"
-        label="Banana"
-        description="Rich in Mg"
-      />
-      <InputRadio
-        bind:group={valueValidationsValid}
-        id="input-mango-valid"
-        name="fruit-valid"
-        value="mango"
-        label="Mango"
-      />
-    </InputRadioGroup>
-  </Stack>
+    </Stack>
+  {/snippet}
 </Story>
 
 <Story name="Disabled">
-  <Stack>
-    <InputRadioGroup
-      label="Select a fruit to order"
-      validationHint="All fruits are sold out"
-      disabled
-    >
-      <InputRadio
-        bind:group={valueDisabledFull}
-        id="input-apple-disabled-full"
-        name="fruit-disabled-full"
-        value="apple"
-        label="Apple"
-        description="Keeps the doctor away"
-      />
-      <InputRadio
-        bind:group={valueDisabledFull}
-        id="input-banana-disabled-full"
-        name="fruit-disabled-full"
-        value="banana"
-        label="Banana"
-        description="Rich in Mg"
-      />
-      <InputRadio
-        bind:group={valueDisabledFull}
-        id="input-mango-disabled-full"
-        name="fruit-disabled-full"
-        value="mango"
-        label="Mango"
-      />
-    </InputRadioGroup>
-    <InputRadioGroup label="Select a fruit to order" validationHint="Some fruits are sold out">
-      <InputRadio
-        bind:group={valueDisabled}
-        id="input-apple-disabled"
-        name="fruit-disabled"
-        value="apple"
-        label="Apple"
-        description="Keeps the doctor away"
-      />
-      <InputRadio
-        bind:group={valueDisabled}
-        id="input-banana-disabled"
-        name="fruit-disabled"
-        value="banana"
-        label="Banana"
-        description="Rich in Mg"
+  {#snippet template()}
+    <Stack>
+      <InputRadioGroup
+        name="fully-disabled"
+        style="flex: 1; align-self: flex-start"
+        label="Select a fruit to order"
+        options={[
+          { label: 'Apple', value: 'apple', description: 'Keeps the doctor away' },
+          { label: 'Banana', value: 'banana', description: 'Rich in Mg' },
+          { label: 'Mango', value: 'mango' }
+        ]}
+        validationHint="All fruits are sold out"
         disabled
+        bind:value={valueDisabled}
       />
-      <InputRadio
-        bind:group={valueDisabled}
-        id="input-mango-disabled"
-        name="fruit-disabled"
-        value="mango"
-        label="Mango"
+      <InputRadioGroup
+        name="partially-disabled"
+        style="flex: 1; align-self: flex-start"
+        label="Select a fruit to order"
+        options={[
+          { label: 'Apple', value: 'apple', description: 'Keeps the doctor away' },
+          { label: 'Banana', value: 'banana', description: 'Rich in Mg', disabled: true },
+          { label: 'Mango', value: 'mango' }
+        ]}
+        validationHint="Some fruits are sold out"
+        bind:value={valuePartiallyDisabled}
       />
-    </InputRadioGroup>
-  </Stack>
+    </Stack>
+  {/snippet}
 </Story>

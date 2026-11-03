@@ -1,110 +1,113 @@
 <script lang="ts">
-  import { type Snippet } from 'svelte';
-  import type { HTMLInputTypeAttribute } from 'svelte/elements';
+  import type { Snippet } from 'svelte';
+  import type { HTMLInputAttributes } from 'svelte/elements';
 
-  interface Props {
+  interface Props extends Omit<HTMLInputAttributes, 'size' | 'prefix'> {
     /**
-     * A clear and concise description of the input purpose. Required for accessibility purposes.
-     * @type {string}
+     * A clear and concise description of the input's purpose.
      */
     label: string;
     /**
-     * A unique identifier for the input field. Must be provided for accessibility.
-     * @type {string} @default
-     */
-    id: string;
-    /**
-     * An information, warning or error message, displayed below the input.
-     * @type {string} @default ''
-     */
-    validationHint?: string;
-    /**
-     * Label to indicate that the input is optional. Only displayed when the
-     * `required` prop is falsy.
-     * @type {string} @default ''
-     */
-    optionalLabel?: string;
-    /**
-     * Triggers error styles on the component. Important for accessibility.
-     * @type {boolean} @default false
-     */
-    invalid?: boolean;
-    /**
-     * Triggers warning styles on the component.
-     * @type {boolean} @default false
-     */
-    hasWarning?: boolean;
-    /**
-     * Enables valid styles on the component.
-     * @type {boolean} @default false
-     */
-    showValid?: boolean;
-    /**
-     * Aligns text to the right in the input
-     * @type {boolean} @default false
-     */
-    textAlignRight?: boolean;
-    /**
-     * Visually hide the label. This should only be used in rare cases and only
-     * if the purpose of the field can be inferred from other context.
-     * @type {boolean} @default false
+     * Visually hide the label. Only use it in rare cases, when the purpose of
+     * the field can be inferred from other context.
      */
     hideLabel?: boolean;
     /**
-     * Disables the input field.
-     * @type {boolean} @default false
+     * Label to indicate that the input is optional. Only displayed when
+     * `required` is falsy.
      */
-    disabled?: boolean;
+    optionalLabel?: string;
     /**
-     * Aria described by
-     * @type {string} @default ''
+     * An information, warning or error message, displayed below the input.
      */
-    ariaDescribedBy?: string;
+    validationHint?: string;
     /**
-     * Sets if the input is required, this will be used in forms.
-     * @type {boolean}
+     * Triggers error styles. Important for accessibility.
      */
-    required?: boolean;
+    invalid?: boolean;
     /**
-     * The value of the input field.
-     * @type {string}
+     * Triggers warning styles.
      */
-    value?: number | string;
-    maxLength?: number;
-    type?: HTMLInputTypeAttribute | undefined | null;
-    placeholder?: string;
-    readonly?: boolean;
-    prefix?: Snippet;
-    suffix?: Snippet;
-    [key: string]: unknown;
+    hasWarning?: boolean;
+    /**
+     * Enables valid styles.
+     */
+    showValid?: boolean;
+    /**
+     * Aligns the text. Default: `left`.
+     */
+    textAlign?: 'left' | 'right';
+    /**
+     * Choose from 2 sizes. Default: `m`.
+     */
+    size?: 's' | 'm';
+    /**
+     * Rendered before the input, usually an icon. Put the `class` it receives
+     * on the root element to position it. Receives the input's `value`.
+     */
+    prefix?: Snippet<[{ class: string; value: HTMLInputAttributes['value'] }]>;
+    /**
+     * Rendered after the input, usually an icon or a button. Put the `class`
+     * it receives on the root element to position it.
+     */
+    suffix?: Snippet<[{ class: string }]>;
+    /**
+     * Disables password manager overlays on fields that might be mistaken for
+     * login fields.
+     */
+    passwordManagerIgnore?: boolean;
   }
 
   let {
     label,
-    id,
-    validationHint = '',
-    optionalLabel = '',
+    hideLabel = false,
+    optionalLabel,
+    validationHint,
     invalid = false,
     hasWarning = false,
     showValid = false,
-    textAlignRight = false,
-    hideLabel = false,
-    disabled = false,
-    ariaDescribedBy = '',
-    required = false,
-    value = $bindable(''),
+    textAlign = 'left',
+    size = 'm',
     prefix,
     suffix,
-    type,
-    placeholder,
-    readonly,
+    passwordManagerIgnore,
+    value = $bindable(),
+    id: customId,
+    required,
+    disabled,
+    class: className,
+    style,
+    'aria-describedby': describedBy,
     ...rest
   }: Props = $props();
+
+  const uid = $props.id();
+  const id = $derived(customId || `input-${uid}`);
+  const validationHintId = `input-${uid}-hint`;
+
+  const validity = $derived(
+    disabled
+      ? undefined
+      : invalid
+        ? 'invalid'
+        : hasWarning
+          ? 'warning'
+          : showValid
+            ? 'valid'
+            : undefined
+  );
+  const ariaDescribedBy = $derived(
+    [describedBy, validationHint && validationHintId].filter(Boolean).join(' ') || undefined
+  );
 </script>
 
-<div class="container" data-disabled={disabled} aria-disabled={disabled}>
-  <label for={id} class="label" data-disabled={disabled}>
-    <span class="label-text" class:label-hide-visually={hideLabel} data-disabled={disabled}>
+<!--
+  @component
+  A single-line text field for forms.
+-->
+<div class={['field', size, className]} {style} data-disabled={disabled}>
+  <label class="label" for={id}>
+    <span class={['label-text', hideLabel && 'hide-visually']}>
       {label}
       {#if optionalLabel && !required}
         <span class="label-text-optional"> ({optionalLabel})</span>
@@ -112,74 +115,52 @@
     </span>
   </label>
   <div class="wrapper">
-    {@render prefix?.()}
+    {@render prefix?.({ class: 'input-prefix', value })}
     <input
       {id}
-      bind:value
+      class={[
+        'base',
+        !disabled && hasWarning && 'warning',
+        textAlign === 'right' && 'align-right',
+        prefix && 'has-prefix',
+        suffix && 'has-suffix'
+      ]}
       aria-describedby={ariaDescribedBy}
-      class="base"
-      class:warning={!disabled && hasWarning}
-      class:has-prefix={prefix}
-      class:has-suffix={suffix}
-      class:select--invalid={invalid && !disabled}
-      class:select--disabled={disabled}
-      class:align-right={textAlignRight}
-      aria-invalid={invalid}
-      {disabled}
+      aria-invalid={invalid ? 'true' : undefined}
       {required}
-      aria-label={label}
-      {type}
-      {placeholder}
-      {readonly}
+      {disabled}
+      data-1p-ignore={passwordManagerIgnore}
+      data-bwignore={passwordManagerIgnore}
+      data-lpignore={passwordManagerIgnore}
+      data-op-ignore={passwordManagerIgnore}
+      data-protonpass-ignore={passwordManagerIgnore}
       {...rest}
+      bind:value
     />
-    {@render suffix?.()}
+    {@render suffix?.({ class: 'input-suffix' })}
   </div>
-  {#if validationHint && (!(invalid || hasWarning || showValid) || disabled)}
-    <div
-      class="validation-hint"
-      data-disabled={disabled}
-      class:validation-hint-invalid={!disabled && invalid}
-      class:validation-hint-warning={!disabled && hasWarning}
-      class:validation-hint-valid={!disabled && showValid}
-    >
-      {validationHint}
-    </div>
+  {#if validationHint && !validity}
+    <div id={validationHintId} class="validation-hint">{validationHint}</div>
   {/if}
   <span role="status" aria-live="polite">
-    {#if validationHint && !disabled && (invalid || hasWarning || showValid)}
-      <div
-        class="validation-hint"
-        data-disabled={disabled}
-        class:validation-hint-invalid={invalid}
-        class:validation-hint-warning={hasWarning}
-        class:validation-hint-valid={showValid}
-      >
+    {#if validationHint && validity}
+      <div id={validationHintId} class={['validation-hint', validity]}>
         <div class="validation-hint-icon">
-          <svg
-            aria-hidden="true"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {#if invalid}
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            {#if validity === 'invalid'}
               <path
-                d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3 11a1 1 0 0 1-1.41 0L8 9.41 6.41 11A1 1 0 0 1 5 9.59L6.59 8 5 6.41A1 1 0 0 1 5 5a1 1 0 0 1 1.41 0L8 6.59 9.59 5A1 1 0 0 1 11 5a1 1 0 0 1 0 1.41L9.41 8 11 9.59A1 1 0 0 1 11 11z"
                 fill="currentColor"
+                d="M8 1.25a6.75 6.75 0 1 1 0 13.5 6.75 6.75 0 0 1 0-13.5m2.33 4.42a.75.75 0 0 0-1.06 0L8 6.94 6.73 5.67a.75.75 0 1 0-1.06 1.06L6.94 8 5.67 9.27a.75.75 0 1 0 1.06 1.06L8 9.06l1.27 1.27a.75.75 0 0 0 1.06-1.06L9.06 8l1.27-1.27a.75.75 0 0 0 0-1.06"
               />
-            {:else if hasWarning}
+            {:else if validity === 'warning'}
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M10.534 1.5c-1.126-2-3.942-2-5.069 0l-5.069 9C-.73 12.5.678 15 2.931 15h10.138c2.253 0 3.661-2.5 2.534-4.5l-5.069-9zm-3.229 8.687a1.25 1.25 0 1 1 1.39 2.08 1.25 1.25 0 0 1-1.39-2.08zM7.293 4.27A1 1 0 0 1 9 4.977v3a1 1 0 0 1-2 0v-3a1 1 0 0 1 .293-.708z"
                 fill="currentColor"
+                d="M8 1.75c.354 0 .704.089 1.015.259s.572.417.756.72l5.194 8.546a1.92 1.92 0 0 1 0 2.006 2 2 0 0 1-.755.714 2.1 2.1 0 0 1-1.007.255H2.811a2.1 2.1 0 0 1-1.007-.248 2 2 0 0 1-.764-.713 1.9 1.9 0 0 1-.29-1.006c0-.357.1-.705.285-1.008L6.23 2.73c.183-.303.446-.55.755-.72.311-.17.661-.259 1.015-.259m.007 8.75a.75.75 0 0 0 0 1.5h.006a.75.75 0 0 0 0-1.5zm0-5.078a.75.75 0 0 0-.75.75v3.61h1.5v-3.61a.75.75 0 0 0-.75-.75"
               />
-            {:else if showValid}
+            {:else}
               <path
-                d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.78 6.62-4 5a.993.993 0 0 1-.72.38H7a1 1 0 0 1-.71-.29l-2-2a1.004 1.004 0 0 1 1.42-1.42L6.92 9.5l3.3-4.12a1 1 0 1 1 1.56 1.24z"
                 fill="currentColor"
+                d="M8 1.25a6.75 6.75 0 1 1 0 13.5 6.75 6.75 0 0 1 0-13.5M10.817 6a.856.856 0 0 0-1.21 0L7.474 8.133l-.764-.764A.856.856 0 0 0 5.5 8.58l1.37 1.37a.857.857 0 0 0 1.21 0l2.737-2.739a.856.856 0 0 0 0-1.21"
               />
             {/if}
           </svg>
@@ -191,47 +172,135 @@
 </div>
 
 <style>
-  .container {
-    flex-grow: 1;
+  /* Field — inlined from circuit's FieldWrapper, FieldLabel, FieldLabelText
+     and FieldValidationHint */
+  .field[data-disabled='true'] {
+    pointer-events: none;
   }
 
   .label {
     display: block;
-    font-size: var(--cui-typography-body-m-font-size);
-    line-height: var(--cui-typography-body-m-line-height);
+    width: 100%;
   }
 
+  .label-text {
+    display: block;
+    margin-bottom: var(--cui-spacings-bit);
+  }
+
+  .field[data-disabled='true'] .label-text {
+    color: var(--cui-fg-normal-disabled);
+  }
+
+  .label-text-optional {
+    color: var(--cui-fg-subtle);
+  }
+
+  .field[data-disabled='true'] .label-text-optional {
+    color: var(--cui-fg-subtle-disabled);
+  }
+
+  .validation-hint {
+    display: flex;
+    margin-top: var(--cui-spacings-bit);
+    color: var(--cui-fg-subtle);
+    transition: color var(--cui-transitions-default);
+  }
+
+  .field[data-disabled='true'] .validation-hint {
+    color: var(--cui-fg-subtle-disabled);
+  }
+
+  .validation-hint.valid {
+    color: var(--cui-fg-success);
+  }
+
+  .validation-hint.warning {
+    color: var(--cui-fg-warning);
+  }
+
+  .validation-hint.invalid {
+    color: var(--cui-fg-danger);
+  }
+
+  .validation-hint-icon {
+    display: block;
+    flex-shrink: 0;
+    align-self: flex-start;
+    width: var(--cui-icon-sizes-s);
+    height: var(--cui-icon-sizes-s);
+    margin-right: var(--cui-spacings-bit);
+  }
+
+  .s {
+    --field-input-padding-block: calc(
+      calc(var(--cui-spacings-kilo) / 2) - var(--cui-border-width-kilo)
+    );
+    --field-input-padding-inline: var(--cui-spacings-byte);
+    --field-input-font-size: var(--cui-body-s-font-size);
+    --field-input-line-height: var(--cui-body-s-line-height);
+    --field-input-border-radius: var(--cui-border-radius-byte);
+  }
+
+  .s .label-text,
+  .s .validation-hint {
+    font-size: var(--cui-compact-s-font-size);
+    line-height: var(--cui-compact-s-line-height);
+  }
+
+  .s .validation-hint-icon {
+    margin-top: calc((var(--cui-compact-s-line-height) - var(--cui-icon-sizes-s)) / 2);
+  }
+
+  .m {
+    --field-input-padding-block: var(--cui-spacings-kilo);
+    --field-input-padding-inline: var(--cui-spacings-mega);
+    --field-input-font-size: var(--cui-body-m-font-size);
+    --field-input-line-height: var(--cui-body-m-line-height);
+    --field-input-border-radius: var(--cui-border-radius-kilo);
+  }
+
+  .m .label-text,
+  .m .validation-hint {
+    font-size: var(--cui-body-s-font-size);
+    line-height: var(--cui-body-s-line-height);
+  }
+
+  .m .validation-hint-icon {
+    margin-top: calc((var(--cui-body-s-line-height) - var(--cui-icon-sizes-s)) / 2);
+  }
+
+  /* Input — from circuit's Input */
   .wrapper {
     position: relative;
   }
 
   .base {
+    box-sizing: border-box;
     width: 100%;
-    padding: var(--cui-spacings-kilo) var(--cui-spacings-mega);
+    padding: var(--field-input-padding-block) var(--field-input-padding-inline);
     margin: 0;
-    font-size: var(--cui-typography-body-s-font-size);
-    line-height: var(--cui-typography-body-s-line-height);
+    font-size: var(--field-input-font-size);
+    line-height: var(--field-input-line-height);
     appearance: none;
+    outline: var(--cui-border-width-mega) solid transparent;
     background-color: var(--cui-bg-normal);
-    border: 0;
-    border-radius: var(--cui-border-radius-byte);
-    outline: 0;
-    box-shadow: 0 0 0 1px var(--cui-border-normal);
+    border: 1px solid var(--cui-border-normal);
+    border-radius: var(--field-input-border-radius);
+    box-shadow: none;
     transition:
       box-shadow var(--cui-transitions-default),
+      border var(--cui-transitions-default),
       padding var(--cui-transitions-default);
   }
 
   .base:hover {
-    box-shadow: 0 0 0 1px var(--cui-border-normal-hovered);
+    border: 1px solid var(--cui-border-normal-hovered);
   }
 
   .base:focus {
-    box-shadow: 0 0 0 2px var(--cui-border-accent);
-  }
-
-  .base:active {
-    box-shadow: 0 0 0 1px var(--cui-border-accent);
+    border: 1px solid var(--cui-border-accent);
+    box-shadow: inset 0 0 0 1px var(--cui-border-accent);
   }
 
   .base::placeholder {
@@ -243,232 +312,126 @@
     text-overflow: ellipsis;
   }
 
-  .base:-moz-focusring {
-    color: transparent;
-    text-shadow: 0 0 0 #000;
-  }
-
-  .base::-ms-expand {
-    display: none;
-  }
-
-  /* Validations */
-
   .base[aria-invalid='true'] {
-    box-shadow: 0 0 0 1px var(--cui-border-danger);
+    border: 1px solid var(--cui-border-danger);
   }
 
   .base[aria-invalid='true']:hover {
-    box-shadow: 0 0 0 1px var(--cui-border-danger-hovered);
+    border: 1px solid var(--cui-border-danger-hovered);
   }
 
   .base[aria-invalid='true']:focus {
-    box-shadow: 0 0 0 2px var(--cui-border-danger);
+    border: 1px solid var(--cui-border-danger);
+    box-shadow: inset 0 0 0 1px var(--cui-border-danger);
   }
 
-  .base[aria-invalid='true']:active {
-    box-shadow: 0 0 0 1px var(--cui-border-danger-pressed);
+  .base.warning {
+    border: 1px solid var(--cui-border-warning);
   }
 
-  .has-prefix {
-    padding-left: var(--cui-spacings-exa);
+  .base.warning:hover {
+    border: 1px solid var(--cui-border-warning-hovered);
   }
 
-  .prefix {
-    position: absolute;
-    z-index: calc(var(--cui-z-index-input) + 1);
-    display: block;
-    width: var(--cui-spacings-exa);
-    height: var(--cui-spacings-exa);
-    padding: var(--cui-spacings-mega);
-    pointer-events: auto;
+  .base.warning:focus {
+    border: 1px solid var(--cui-border-warning);
+    box-shadow: inset 0 0 0 1px var(--cui-border-warning);
   }
 
-  .icon {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: calc(var(--cui-z-index-input) + 1);
-    display: block;
-    width: var(--cui-spacings-exa);
-    height: var(--cui-spacings-exa);
-    padding: var(--cui-spacings-mega);
-    color: var(--cui-fg-subtle);
-    pointer-events: none;
-  }
-
-  .label-hide-visually {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-    border: 0;
-  }
-
-  .label-text {
-    display: inline-block;
-    margin-bottom: var(--cui-spacings-bit);
-  }
-
-  [data-disabled='true'] .label-text {
-    color: var(--cui-fg-normal-disabled);
-  }
-
-  .label-text-optional {
-    color: var(--cui-fg-subtle);
-  }
-
-  [data-disabled='true'] .label-text-optional {
-    color: var(--cui-fg-subtle-disabled);
-  }
-
-  .validation-hint {
-    display: flex;
-    margin-top: var(--cui-spacings-bit);
-    font-size: var(--cui-typography-body-m-font-size);
-    line-height: var(--cui-typography-body-m-line-height);
-    color: var(--cui-fg-subtle);
-    transition: color var(--cui-transitions-default);
-  }
-
-  [data-disabled='true'] .validation-hint,
-  :global([data-disabled='true']) .validation-hint {
-    pointer-events: none;
-    color: var(--cui-fg-subtle-disabled);
-  }
-
-  .validation-hint-invalid {
-    color: var(--cui-fg-danger);
-  }
-
-  [data-disabled='true'] .validation-hint-invalid {
-    color: var(--cui-fg-danger-disabled);
-  }
-
-  .validation-hint-icon {
-    display: block;
-    flex-shrink: 0;
-    align-self: flex-start;
-    width: var(--cui-icon-sizes-kilo);
-    height: var(--cui-icon-sizes-kilo);
-    margin-top: calc((var(--cui-typography-body-m-line-height) - var(--cui-icon-sizes-kilo)) / 2);
-    margin-right: var(--cui-spacings-bit);
-  }
-
-  .wrapper .prefix,
-  .wrapper .suffix {
-    position: absolute;
-    width: var(--cui-spacings-exa);
-    height: var(--cui-spacings-exa);
-    padding: var(--cui-spacings-kilo) var(--cui-spacings-mega);
-    color: var(--cui-fg-subtle);
-    pointer-events: none;
-  }
-
-  .wrapper .suffix {
-    top: 0;
-    right: 0;
-    transition: right var(--cui-transitions-default);
-  }
-
-  .wrapper {
-    position: relative;
-  }
-
-  .warning {
-    box-shadow: 0 0 0 1px var(--cui-border-warning);
-  }
-
-  .warning:hover {
-    box-shadow: 0 0 0 1px var(--cui-border-warning-hovered);
-  }
-
-  .warning:focus {
-    box-shadow: 0 0 0 2px var(--cui-border-warning);
-  }
-
-  .warning:active {
-    box-shadow: 0 0 0 1px var(--cui-border-warning-pressed);
-  }
-
-  .warning:not(:focus):not([disabled])::placeholder {
-    color: var(--cui-fg-warning);
-  }
-
-  .base:disabled,
-  .base[disabled],
-  .base[data-disabled='true'],
-  .base[aria-disabled='true'] {
+  .base:disabled {
     color: var(--cui-fg-normal-disabled);
     background-color: var(--cui-bg-normal-disabled);
-    box-shadow: 0 0 0 1px var(--cui-border-normal-disabled);
+    border: 1px solid var(--cui-border-normal-disabled);
   }
 
   .base[readonly] {
     background-color: var(--cui-bg-subtle-disabled);
   }
 
-  /* Alignment */
-
   .align-right {
     text-align: right;
   }
 
-  /* Prefix & suffix */
-
-  .has-prefix {
-    padding-left: var(--cui-spacings-exa);
-  }
-
-  .has-suffix {
-    padding-right: var(--cui-spacings-exa);
-  }
-
-  .wrapper .prefix,
-  .wrapper .suffix {
+  /* Prefix & suffix: rendered by the consumer's snippets, so only the class
+     names reach them */
+  .wrapper :global(.input-prefix),
+  .wrapper :global(.input-suffix) {
     position: absolute;
-    width: var(--cui-spacings-exa);
-    height: var(--cui-spacings-exa);
-    padding: var(--cui-spacings-kilo) var(--cui-spacings-mega);
+    top: 0;
+    box-sizing: border-box;
     color: var(--cui-fg-subtle);
     pointer-events: none;
   }
 
-  .wrapper .suffix {
-    top: 0;
+  .wrapper :global(.input-prefix) {
+    left: 0;
+  }
+
+  .wrapper :global(.input-suffix) {
     right: 0;
     transition: right var(--cui-transitions-default);
   }
 
-  /* Field */
-  .validation-hint-valid {
-    color: var(--cui-fg-success);
+  .wrapper :global(button.input-prefix),
+  .wrapper :global(button.input-suffix),
+  .wrapper :global(.input-prefix button),
+  .wrapper :global(.input-suffix button) {
+    pointer-events: auto;
   }
 
-  [data-disabled='true'] .validation-hint-valid,
-  :global([data-disabled='true']) .validation-hint-valid {
-    color: var(--cui-fg-success-disabled);
+  .s .has-prefix {
+    padding-left: var(--cui-spacings-tera);
   }
 
-  .validation-hint-warning {
-    color: var(--cui-fg-warning);
+  .s .has-suffix {
+    padding-right: var(--cui-spacings-tera);
   }
 
-  [data-disabled='true'] .validation-hint-warning,
-  :global([data-disabled='true']) .warning {
-    color: var(--cui-fg-warning-disabled);
+  .s .wrapper :global(.input-prefix),
+  .s .wrapper :global(.input-suffix) {
+    width: var(--cui-spacings-tera);
+    height: var(--cui-spacings-tera);
+    padding: var(--cui-spacings-byte);
   }
 
-  .validation-hint-invalid {
-    color: var(--cui-fg-danger);
+  .s .wrapper :global(button.input-prefix),
+  .s .wrapper :global(button.input-suffix),
+  .s .wrapper :global(.input-prefix button),
+  .s .wrapper :global(.input-suffix button) {
+    border-radius: var(--cui-border-radius-byte);
   }
 
-  [data-disabled='true'] .validation-hint-invalid,
-  :global([data-disabled='true']) .validation-hint-invalid {
-    color: var(--cui-fg-danger-disabled);
+  .m .has-prefix {
+    padding-left: var(--cui-spacings-exa);
+  }
+
+  .m .has-suffix {
+    padding-right: var(--cui-spacings-exa);
+  }
+
+  .m .wrapper :global(.input-prefix),
+  .m .wrapper :global(.input-suffix) {
+    width: var(--cui-spacings-exa);
+    height: var(--cui-spacings-exa);
+    padding: var(--cui-spacings-kilo);
+  }
+
+  .m .wrapper :global(button.input-prefix),
+  .m .wrapper :global(button.input-suffix),
+  .m .wrapper :global(.input-prefix button),
+  .m .wrapper :global(.input-suffix button) {
+    border-radius: var(--cui-border-radius-kilo);
+  }
+
+  .hide-visually {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
+    clip-path: rect(0 0 0 0);
   }
 </style>

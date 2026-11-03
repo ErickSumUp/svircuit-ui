@@ -9,3 +9,26 @@ The SearchInput enables users to search information on the page and quickly clea
 
 <Canvas withToolbar={true} of={Stories.Base} />
 <Controls />
+
+## How to use it
+
+The SearchInput takes the same props as the [Input](?path=/docs/forms-input--docs), except
+`prefix`, `suffix` and `type`: it always renders a search icon and a `type="search"` input. Bind
+`value`, and pass `onClear` to show a clear button while there is a value. The button calls
+`onClear` and moves the focus back to the input; clear the value in `onClear`. The button is hidden
+when the input is disabled or read only. `clearLabel` names it for screen readers and defaults to
+"Clear".
+
+```svelte
+<script>
+  import { SearchInput } from 'svircuit-ui';
+
+  let value = $state('');
+</script>
+
+<SearchInput label="Search" bind:value onClear={() => (value = '')} />
+```
+
+## Sizes
+
+<Canvas of={Stories.Sizes} />

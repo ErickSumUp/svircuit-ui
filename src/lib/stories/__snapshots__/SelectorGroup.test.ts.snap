@@ -1,0 +1,113 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <!---->
+  <fieldset
+    aria-orientation="horizontal"
+    class="fieldset svelte-xgazjt"
+    name="fruit"
+    role="radiogroup"
+  >
+    <legend
+      class="legend svelte-xgazjt"
+    >
+      <span
+        class="label-text svelte-xgazjt"
+      >
+        Choose your favourite fruit 
+        <!---->
+      </span>
+    </legend>
+     
+    <div
+      class="base svelte-xgazjt"
+    >
+      <div
+        class="wrapper svelte-14imyzv"
+      >
+        <input
+          class="base hide-visually svelte-14imyzv"
+          id="selector-c2"
+          name="fruit"
+          type="radio"
+          value="apple"
+        />
+        <!---->
+         
+        <label
+          class="label m svelte-14imyzv"
+          for="selector-c2"
+        >
+          <!---->
+           
+          Apple
+          <!---->
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="wrapper svelte-14imyzv"
+      >
+        <input
+          class="base hide-visually svelte-14imyzv"
+          id="selector-c3"
+          name="fruit"
+          type="radio"
+          value="banana"
+        />
+        <!---->
+         
+        <label
+          class="label m svelte-14imyzv"
+          for="selector-c3"
+        >
+          <!---->
+           
+          Banana
+          <!---->
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="wrapper svelte-14imyzv"
+      >
+        <input
+          class="base hide-visually svelte-14imyzv"
+          id="selector-c4"
+          name="fruit"
+          type="radio"
+          value="mango"
+        />
+        <!---->
+         
+        <label
+          class="label m svelte-14imyzv"
+          for="selector-c4"
+        >
+          <!---->
+           
+          Mango
+          <!---->
+        </label>
+         
+        <!---->
+      </div>
+      
+    </div>
+     
+    <!---->
+     
+    <span
+      aria-live="polite"
+      role="status"
+    >
+      <!---->
+    </span>
+  </fieldset>
+  
+  
+</div>
+`;

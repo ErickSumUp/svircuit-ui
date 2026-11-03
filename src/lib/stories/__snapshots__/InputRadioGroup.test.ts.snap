@@ -1,0 +1,129 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <!---->
+  <fieldset
+    aria-orientation="vertical"
+    class="fieldset svelte-1h0toyv"
+    name="fruit"
+    role="radiogroup"
+  >
+    <legend
+      class="legend svelte-1h0toyv"
+    >
+      <span
+        class="label-text svelte-1h0toyv"
+      >
+        Choose your favourite fruit 
+        <!---->
+      </span>
+    </legend>
+     
+    <div
+      class="base svelte-1h0toyv"
+    >
+      <div
+        class="wrapper svelte-46gcfh"
+      >
+        <input
+          aria-describedby="radio-c2-description"
+          class="base hide-visually svelte-46gcfh"
+          id="radio-c2"
+          name="fruit"
+          type="radio"
+          value="apple"
+        />
+         
+        <label
+          class="label svelte-46gcfh"
+          for="radio-c2"
+        >
+          <span
+            class="label-text svelte-46gcfh"
+          >
+            Apple 
+            <span
+              aria-hidden="true"
+              class="description svelte-46gcfh"
+            >
+              Keeps the doctor away
+            </span>
+            <!---->
+          </span>
+        </label>
+         
+        <p
+          class="hide-visually svelte-46gcfh"
+          id="radio-c2-description"
+        >
+          Keeps the doctor away
+        </p>
+        <!---->
+      </div>
+      <div
+        class="wrapper svelte-46gcfh"
+      >
+        <input
+          class="base hide-visually svelte-46gcfh"
+          id="radio-c3"
+          name="fruit"
+          type="radio"
+          value="banana"
+        />
+         
+        <label
+          class="label svelte-46gcfh"
+          for="radio-c3"
+        >
+          <span
+            class="label-text svelte-46gcfh"
+          >
+            Banana 
+            <!---->
+          </span>
+        </label>
+         
+        <!---->
+      </div>
+      <div
+        class="wrapper svelte-46gcfh"
+      >
+        <input
+          class="base hide-visually svelte-46gcfh"
+          id="radio-c4"
+          name="fruit"
+          type="radio"
+          value="mango"
+        />
+         
+        <label
+          class="label svelte-46gcfh"
+          for="radio-c4"
+        >
+          <span
+            class="label-text svelte-46gcfh"
+          >
+            Mango 
+            <!---->
+          </span>
+        </label>
+         
+        <!---->
+      </div>
+      
+    </div>
+     
+    <!---->
+     
+    <span
+      aria-live="polite"
+      role="status"
+    >
+      <!---->
+    </span>
+  </fieldset>
+  
+  
+</div>
+`;

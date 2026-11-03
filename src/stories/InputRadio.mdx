@@ -5,14 +5,18 @@ import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
 
 # InputRadio
 
-A radio button group offers users the choice to select a single option from a predefined list.
+A single radio button with a label and an optional description. To offer a choice between several options, use the [InputRadioGroup](?path=/docs/forms-inputradiogroup--docs), which renders the radios for you.
 
 <Canvas withToolbar={true} of={Stories.Base} />
 <Controls />
 
 ## When to use it
 
-Use a radio button group when the user has to choose only one option based on a pre-defined list of mutually exclusive options.
+Use a standalone radio button only when you need a custom layout that the InputRadioGroup can't provide. Radios that share a `name` form a group.
+
+## How to use it
+
+Bind `group` to the value of the checked radio, as with `bind:group` on a native radio. Other attributes, such as `name` and `value`, go on the input; `class` and `style` go on the wrapper. The `id` is generated unless you pass one. Invalid styles come from an ancestor with `aria-invalid="true"`, such as the InputRadioGroup's fieldset.
 
 ## Usage guidelines
 

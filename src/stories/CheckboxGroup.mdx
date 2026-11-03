@@ -1,0 +1,79 @@
+import * as Stories from './CheckboxGroup.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# CheckboxGroup
+
+A checkbox group offers users the choice to select one or multiple options from a predefined list.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## When to use it
+
+Use it to ask the users questions with one or multiple alternatives.
+
+## Usage guidelines
+
+- **Do** accompany checkboxes with a descriptive label.
+- **Do** write items in a positive manner (e.g. _"Send me reports"_ instead of _"Do not send me
+  reports"_).
+- **Do** display the checkbox list vertically, with one choice per line.
+- **Do** sort the items in a reasonable order (e.g. alphabetical, numerical, time-based, or some
+  other clear system).
+- **Do** use sentence case (e.g. _"I agree..."_ not _"You agree..."_).
+- **Do not** use negations (e.g. _"Don't send me more email"_).
+- **Do not** use checkboxes as action buttons.
+- **Do not** rely on tooltips to explain checkboxes.
+- **Do not** use commas or semicolons at the end of each line.
+
+## How to use it
+
+Pass the `options`, each with a `label` and a `value`, and bind `value` to the array of checked
+values. The group's `name` is shared by every checkbox. `onchange` is called after `value` is
+updated. Other attributes, such as `class` and `style`, go on the `fieldset`.
+
+```svelte
+<script>
+  import { CheckboxGroup } from 'svircuit-ui';
+
+  let value = $state([]);
+</script>
+
+<CheckboxGroup
+  name="fruits"
+  label="Favourite fruits"
+  options={[
+    { label: 'Apple', value: 'apple' },
+    { label: 'Banana', value: 'banana' }
+  ]}
+  bind:value
+/>
+```
+
+## Validations
+
+Use the `validationHint` to communicate the expected response(s) to users. Use the `invalid` and
+`hasWarning` props to require or suggest a change. The `showValid` prop can be used to provide an
+extra confirmation that the response is valid.
+
+<Canvas of={Stories.Validations} />
+
+### Disabled
+
+Disabled form fields can be confusing to users, so use them with caution. Use a disabled checkbox
+only if you need to communicate to the user that an option that existed before is not available for
+choosing now. Consider not displaying the field at all or add an explanation why the field is
+disabled.
+
+The checkbox group can be disabled entirely or in part.
+
+<Canvas of={Stories.Disabled} />
+
+## Accessibility
+
+The `label` is the `legend` of a `fieldset`, which names the group. The `label` of each option names
+its checkbox. Keep both clear and concise, and free of formatted or semantic content (such as
+headings or lists). The `validationHint` is the fieldset's accessible description, merged with any
+`aria-describedby` you pass, and is announced in a live region when it carries a validity state.

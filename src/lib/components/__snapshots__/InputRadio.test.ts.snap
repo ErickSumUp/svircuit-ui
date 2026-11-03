@@ -1,0 +1,45 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <div
+    class="wrapper svelte-46gcfh"
+  >
+    <input
+      aria-describedby="radio-c1-description"
+      class="base hide-visually svelte-46gcfh"
+      id="apple"
+      name="fruit"
+      type="radio"
+      value="apple"
+    />
+     
+    <label
+      class="label svelte-46gcfh"
+      for="apple"
+    >
+      <span
+        class="label-text svelte-46gcfh"
+      >
+        Apple 
+        <span
+          aria-hidden="true"
+          class="description svelte-46gcfh"
+        >
+          Keeps the doctor away
+        </span>
+        <!---->
+      </span>
+    </label>
+     
+    <p
+      class="hide-visually svelte-46gcfh"
+      id="radio-c1-description"
+    >
+      Keeps the doctor away
+    </p>
+    <!---->
+  </div>
+  
+</div>
+`;

@@ -12,7 +12,11 @@ A checkbox provides a way for users to make a binary choice between two options 
 
 ## When to use it
 
-Use it to ask users to confirm something, like the acceptance of terms and conditions. Use a [CheckboxGroup](Forms/CheckboxGroup/Docs) when a user can select multiple options. Use a [Toggle](Forms/Toggle/Docs) for settings.
+Use it to ask users to confirm something, like the acceptance of terms and conditions. Use a [CheckboxGroup](?path=/docs/forms-checkboxgroup--docs) when a user can select multiple options. Use a [Toggle](?path=/docs/forms-toggle--docs) for settings.
+
+## How to use it
+
+Bind `checked` (and `indeterminate`, if you use it) to read and set the state. Other attributes, such as `name` and `value`, go on the input; `class` and `style` go on the wrapper. The `id` is generated unless you pass one.
 
 ## Usage guidelines
 

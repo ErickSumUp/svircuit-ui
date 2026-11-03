@@ -6,35 +6,41 @@
   const { Story } = defineMeta({
     title: 'Forms/SearchInput',
     component: SearchInput,
-    argTypes: {
-      label: {
-        control: { type: 'text', defaultValue: 'SearchInput' }
-      },
-      placeholder: {
-        control: { type: 'text', defaultValue: 'Type a word...' },
-        type: { name: 'string', required: false }
-      }
-    },
     parameters: {
       layout: 'centered'
+    },
+    argTypes: {
+      placeholder: { control: 'text' },
+      size: { control: 'select', options: ['s', 'm'] }
+    },
+    args: {
+      label: 'Search',
+      placeholder: 'Type a word...'
     }
   });
+
+  type Args = ComponentProps<typeof SearchInput>;
 </script>
 
-<script>
+<script lang="ts">
+  import Stack from '$lib/components/Stack.svelte';
+
+  let value = $state('');
+  let valueSmall = $state('Apple');
+  let valueMedium = $state('Apple');
 </script>
 
-<Story
-  name="Base"
-  args={{
-    children: '',
-    label: 'First name',
-    maxLength: 100,
-    validationHint: 'Max 100 characters',
-    placeholder: 'Type a word...'
-  }}
->
-  {#snippet template({ ...args }: ComponentProps<typeof SearchInput>)}
-    <SearchInput {...args} />
+<Story name="Base">
+  {#snippet template(args: Args)}
+    <SearchInput {...args} bind:value onClear={() => (value = '')} />
+  {/snippet}
+</Story>
+
+<Story name="Sizes">
+  {#snippet template(args: Args)}
+    <Stack>
+      <SearchInput {...args} size="s" bind:value={valueSmall} onClear={() => (valueSmall = '')} />
+      <SearchInput {...args} size="m" bind:value={valueMedium} onClear={() => (valueMedium = '')} />
+    </Stack>
   {/snippet}
 </Story>

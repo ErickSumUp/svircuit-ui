@@ -1,0 +1,52 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <div
+    class="field m svelte-8ff5h4"
+  >
+    <label
+      class="label svelte-8ff5h4"
+      for="first-name"
+    >
+      <span
+        class="label-text svelte-8ff5h4"
+      >
+        First name 
+        <!---->
+      </span>
+    </label>
+     
+    <div
+      class="wrapper svelte-8ff5h4"
+    >
+      <!---->
+       
+      <input
+        aria-describedby="input-c1-hint"
+        class="base svelte-8ff5h4"
+        id="first-name"
+        placeholder="Jane"
+      />
+       
+      <!---->
+    </div>
+     
+    <div
+      class="validation-hint svelte-8ff5h4"
+      id="input-c1-hint"
+    >
+      Maximum 100 characters
+    </div>
+    <!---->
+     
+    <span
+      aria-live="polite"
+      role="status"
+    >
+      <!---->
+    </span>
+  </div>
+  
+</div>
+`;

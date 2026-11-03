@@ -1,0 +1,102 @@
+import * as Stories from './SelectorGroup.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# SelectorGroup
+
+A selector group offers users the choice to select a single or multiple options from a predefined list.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## How to use it
+
+Pass the `options`, each with a `label` and a `value`, and bind `value` to the checked value, or
+to the array of checked values when `multiple`. The `name` is shared by every option and generated
+unless you pass one. `onchange` is called after `value` is updated. Other attributes, such as
+`class` and `style`, go on the `fieldset`.
+
+```svelte
+<script>
+  import { SelectorGroup } from 'svircuit-ui';
+
+  let value = $state('apple');
+</script>
+
+<SelectorGroup
+  name="fruit"
+  label="Choose your favourite fruit"
+  options={[
+    { label: 'Apple', value: 'apple' },
+    { label: 'Banana', value: 'banana' }
+  ]}
+  bind:value
+/>
+```
+
+Each option is a `Selector`, which is also exported for custom layouts. Bind its `group` to the
+checked value, or to the array of checked values when `multiple`.
+
+## Component variations
+
+### Multiple selection
+
+Pass the `multiple` prop to allow users to select more than one option. Under the hood, the component switches the default radio buttons for checkboxes.
+
+<Canvas of={Stories.Multiple} />
+
+### Sizes
+
+The `size` prop determines the padding of the options. There are three available sizes:
+
+- **small**, used for compact layouts
+- **medium**, the default size
+- **flexible**, used for more complex content within a selector. Adds equal padding on all sides.
+
+<Canvas of={Stories.Sizes} />
+
+### Descriptions
+
+Use the `description` prop to add relevant context to each option.
+
+<Canvas of={Stories.WithDescriptions} />
+
+### Icons
+
+Use the `icon` snippet to illustrate the option visually with a 24px icon.
+
+<Canvas of={Stories.WithIcons} />
+
+## Validations
+
+Use the `validationHint` to communicate the expected response to users. Use the `invalid` prop to require a change.
+
+<Canvas of={Stories.Validations} />
+
+## Disabled
+
+Disabled form fields can be confusing to users, so use them with caution. Use a disabled selector only if you need to communicate to the user that an option that existed before is not available for choosing now. Consider not displaying the field at all or add an explanation why the field is disabled.
+
+The selector group can be disabled entirely or in part.
+
+<Canvas of={Stories.Disabled} />
+
+## Accessibility
+
+Selectors are semantically either radio buttons or checkboxes. When it comes to accessibility, this means that they should be treated as input elements, with considerations such as proper labeling, keyboard operability, etc.
+
+### Best practices
+
+#### Write clear and concise labels
+
+The `label` prop passed to the SelectorGroup and the `options` prop's `label` property constitute the group's and the input's labels respectively. The labels should be clear and concise, and should not contain any formatted or semantic content (such as headings or lists).
+
+The label acts as the input's accessible name, exposed to assistive technology as plain text. Using non-phrasing content in a label element is invalid HTML.
+
+### Resources
+
+#### Related WCAG success criteria
+
+- 2.4.6: [Headings and Labels](https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels.html)
+- 4.1.1: [Parsing](https://www.w3.org/WAI/WCAG21/Understanding/parsing)

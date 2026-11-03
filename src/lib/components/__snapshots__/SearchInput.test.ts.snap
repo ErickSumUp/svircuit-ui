@@ -1,0 +1,76 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <div
+    class="field m svelte-4cijiw"
+  >
+    <label
+      class="label svelte-4cijiw"
+      for="search"
+    >
+      <span
+        class="label-text svelte-4cijiw"
+      >
+        Search 
+        <!---->
+      </span>
+    </label>
+     
+    <div
+      class="wrapper svelte-4cijiw"
+    >
+      <svg
+        aria-hidden="true"
+        class="prefix svelte-4cijiw"
+        fill="none"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <path
+          d="M11.575 15.65Q10.6 16 9.5 16q-2.725 0-4.612-1.887T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5a6.1 6.1 0 0 1-1.3 3.8l5.6 5.6-1.4 1.4-5.6-5.6q-.75.6-1.725.95M9.5 14q1.875 0 3.188-1.312Q14 11.375 14 9.5t-1.312-3.187T9.5 5 6.313 6.313 5 9.5t1.313 3.188T9.5 14"
+          fill="currentColor"
+        />
+      </svg>
+       
+      <input
+        class="base has-prefix has-suffix svelte-4cijiw"
+        id="search"
+        type="search"
+      />
+       
+      <button
+        aria-label="Clear"
+        class="suffix close-button svelte-4cijiw"
+        title="Clear"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          fill="none"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+        >
+          <path
+            d="M11.528 3.528a.667.667 0 0 1 .944.944L8.943 8l3.529 3.528a.667.667 0 0 1-.944.944L8 8.943l-3.528 3.529a.667.667 0 0 1-.944-.944L7.057 8 3.528 4.472a.667.667 0 0 1 .944-.944L8 7.057z"
+            fill="currentColor"
+          />
+        </svg>
+      </button>
+      <!---->
+    </div>
+     
+    <!---->
+     
+    <span
+      aria-live="polite"
+      role="status"
+    >
+      <!---->
+    </span>
+  </div>
+  
+</div>
+`;

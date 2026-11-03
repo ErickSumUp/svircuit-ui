@@ -1,56 +1,51 @@
 <script lang="ts" module>
   import InputRadio from '$lib/components/InputRadio.svelte';
   import { defineMeta } from '@storybook/addon-svelte-csf';
-  import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
     title: 'Forms/InputRadio',
     component: InputRadio,
     parameters: {
       layout: 'centered'
+    },
+    args: {
+      label: 'Apple',
+      description: 'Keeps the doctor away',
+      value: 'apple',
+      name: 'fruit'
     }
   });
-
-  type Args = Omit<ComponentProps<typeof InputRadio>, 'group'>;
 </script>
 
 <script lang="ts">
-  let value = $state('');
+  let value = $state('apple');
+  let valueDisabled = $state('apple');
 </script>
 
-<Story name="Base" args={{}}>
-  {#snippet template({ ...args }: Args)}
-    <InputRadio
-      bind:group={value}
-      id="input-apple"
-      name="fruit"
-      value="apple"
-      label="Apple"
-      description="Keeps the doctor away"
-      {...args}
-    />
-    <InputRadio bind:group={value} id="input-mango" name="fruit" value="mango" label="Mango" />
+<Story name="Base">
+  {#snippet template(args)}
+    <InputRadio {...args} bind:group={value} />
+    <InputRadio label="Mango" value="mango" name="fruit" bind:group={value} />
     <p>The value is "{value}"</p>
   {/snippet}
 </Story>
 
-<Story name="Disabled" args={{}}>
+<Story name="Disabled">
   {#snippet template()}
     <InputRadio
-      bind:group={value}
-      id="input-apple"
-      name="fruit"
-      value="apple"
       label="Apple"
       description="Keeps the doctor away"
+      value="apple"
+      name="fruit-disabled"
+      disabled
+      bind:group={valueDisabled}
     />
     <InputRadio
-      bind:group={value}
-      id="input-mango"
-      name="fruit"
-      value="mango"
       label="Mango"
+      value="mango"
+      name="fruit-disabled"
       disabled
+      bind:group={valueDisabled}
     />
   {/snippet}
 </Story>

@@ -1,0 +1,49 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <div
+    class="wrapper svelte-14imyzv"
+  >
+    <input
+      aria-describedby="selector-c1-description"
+      class="base hide-visually svelte-14imyzv"
+      id="apple"
+      name="fruit"
+      type="radio"
+      value="apple"
+    />
+    <!---->
+     
+    <label
+      class="label m has-description svelte-14imyzv"
+      for="apple"
+    >
+      <!---->
+       
+      <span
+        class="title svelte-14imyzv"
+      >
+        Apple
+      </span>
+       
+      <span
+        aria-hidden="true"
+        class="description svelte-14imyzv"
+      >
+        Braeburn, Granny Smith, or Jonagold
+      </span>
+      <!---->
+    </label>
+     
+    <p
+      class="hide-visually svelte-14imyzv"
+      id="selector-c1-description"
+    >
+      Braeburn, Granny Smith, or Jonagold
+    </p>
+    <!---->
+  </div>
+  
+</div>
+`;

@@ -16,6 +16,36 @@ multiple functions and supports multiple character types/formats.
 When you need short textual information from the user such as email address,
 first name, phone number, street name, etc.
 
+## How to use it
+
+Bind `value` to read and set the text. Other attributes, such as `type`, `name`, `placeholder` and
+`readonly`, go on the input; `class` and `style` go on the wrapper. The `id` is generated unless
+you pass one, and the validation hint's `id` is merged into `aria-describedby`.
+
+## Sizes
+
+Use the `size` prop to match the input to the surrounding content. `m` is the default; `s` is for
+dense layouts.
+
+<Canvas of={Stories.Sizes} />
+
+## Prefix and suffix
+
+The `prefix` and `suffix` snippets render before and after the input, usually an icon, a unit or
+a button. Put the `class` they receive on the root element, which positions it inside the input
+and reserves space for it. The `prefix` also receives the input's `value`. Buttons inside a prefix
+or suffix stay clickable.
+
+```svelte
+{#snippet search({ class: className })}
+  <SearchIcon class={className} />
+{/snippet}
+
+<Input label="Search" prefix={search} />
+```
+
+<Canvas of={Stories.PrefixAndSuffix} />
+
 ## Usage guidelines
 
 - **Do** always accompany an input field with a visible label.
@@ -50,6 +80,19 @@ already have or need, and we do not want the user to edit it easily. A disabled
 field should only be open for editing again if a button is clicked.
 
 <Canvas of={Stories.Disabled} />
+
+### Readonly
+
+Use `readonly` for values the user can select and copy, but not change.
+
+<Canvas of={Stories.Readonly} />
+
+### Password managers
+
+Pass `passwordManagerIgnore` to keep password managers from offering to fill fields that look like
+login fields but aren't, such as a one time code.
+
+<Canvas of={Stories.Password} />
 
 #### Usage guidelines
 

@@ -1,0 +1,231 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <!---->
+  <fieldset
+    class="fieldset svelte-129we8p"
+    name="fruits"
+  >
+    <legend
+      class="legend svelte-129we8p"
+    >
+      <span
+        class="label-text svelte-129we8p"
+      >
+        Choose your favourite fruit 
+        <!---->
+      </span>
+    </legend>
+     
+    <ul
+      class="base svelte-129we8p"
+    >
+      <li>
+        <div
+          class="wrapper svelte-136uhkj"
+        >
+          <input
+            class="base hide-visually svelte-136uhkj"
+            id="checkbox-c2"
+            name="fruits"
+            type="checkbox"
+            value="apple"
+          />
+           
+          <label
+            class="label svelte-136uhkj"
+            for="checkbox-c2"
+          >
+            <span
+              class="label-text svelte-136uhkj"
+            >
+              Apple 
+              <!---->
+            </span>
+             
+            <svg
+              aria-hidden="true"
+              class="svelte-136uhkj"
+              data-symbol="checked"
+              fill="none"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="m6.269 10.254 6.04-6.04A.68.68 0 0 1 12.808 4q.285 0 .499.214a.7.7 0 0 1 .213.508.7.7 0 0 1-.213.507l-6.54 6.557A.68.68 0 0 1 6.27 12a.68.68 0 0 1-.5-.214L2.706 8.722a.66.66 0 0 1-.205-.508.73.73 0 0 1 .223-.508.7.7 0 0 1 .508-.214q.294 0 .508.214z"
+                fill="currentColor"
+              />
+            </svg>
+             
+            <svg
+              aria-hidden="true"
+              class="svelte-136uhkj"
+              data-symbol="indeterminate"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
+              <rect
+                height="1.5"
+                rx="0.75"
+                width="10"
+                x="3"
+                y="7.25"
+              />
+            </svg>
+          </label>
+           
+          <!---->
+           
+          <span
+            aria-live="polite"
+            role="status"
+          >
+            <!---->
+          </span>
+        </div>
+        <!---->
+      </li>
+      <li>
+        <div
+          class="wrapper svelte-136uhkj"
+        >
+          <input
+            class="base hide-visually svelte-136uhkj"
+            id="checkbox-c3"
+            name="fruits"
+            type="checkbox"
+            value="banana"
+          />
+           
+          <label
+            class="label svelte-136uhkj"
+            for="checkbox-c3"
+          >
+            <span
+              class="label-text svelte-136uhkj"
+            >
+              Banana 
+              <!---->
+            </span>
+             
+            <svg
+              aria-hidden="true"
+              class="svelte-136uhkj"
+              data-symbol="checked"
+              fill="none"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="m6.269 10.254 6.04-6.04A.68.68 0 0 1 12.808 4q.285 0 .499.214a.7.7 0 0 1 .213.508.7.7 0 0 1-.213.507l-6.54 6.557A.68.68 0 0 1 6.27 12a.68.68 0 0 1-.5-.214L2.706 8.722a.66.66 0 0 1-.205-.508.73.73 0 0 1 .223-.508.7.7 0 0 1 .508-.214q.294 0 .508.214z"
+                fill="currentColor"
+              />
+            </svg>
+             
+            <svg
+              aria-hidden="true"
+              class="svelte-136uhkj"
+              data-symbol="indeterminate"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
+              <rect
+                height="1.5"
+                rx="0.75"
+                width="10"
+                x="3"
+                y="7.25"
+              />
+            </svg>
+          </label>
+           
+          <!---->
+           
+          <span
+            aria-live="polite"
+            role="status"
+          >
+            <!---->
+          </span>
+        </div>
+        <!---->
+      </li>
+      <li>
+        <div
+          class="wrapper svelte-136uhkj"
+        >
+          <input
+            class="base hide-visually svelte-136uhkj"
+            id="checkbox-c4"
+            name="fruits"
+            type="checkbox"
+            value="mango"
+          />
+           
+          <label
+            class="label svelte-136uhkj"
+            for="checkbox-c4"
+          >
+            <span
+              class="label-text svelte-136uhkj"
+            >
+              Mango 
+              <!---->
+            </span>
+             
+            <svg
+              aria-hidden="true"
+              class="svelte-136uhkj"
+              data-symbol="checked"
+              fill="none"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="m6.269 10.254 6.04-6.04A.68.68 0 0 1 12.808 4q.285 0 .499.214a.7.7 0 0 1 .213.508.7.7 0 0 1-.213.507l-6.54 6.557A.68.68 0 0 1 6.27 12a.68.68 0 0 1-.5-.214L2.706 8.722a.66.66 0 0 1-.205-.508.73.73 0 0 1 .223-.508.7.7 0 0 1 .508-.214q.294 0 .508.214z"
+                fill="currentColor"
+              />
+            </svg>
+             
+            <svg
+              aria-hidden="true"
+              class="svelte-136uhkj"
+              data-symbol="indeterminate"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
+              <rect
+                height="1.5"
+                rx="0.75"
+                width="10"
+                x="3"
+                y="7.25"
+              />
+            </svg>
+          </label>
+           
+          <!---->
+           
+          <span
+            aria-live="polite"
+            role="status"
+          >
+            <!---->
+          </span>
+        </div>
+        <!---->
+      </li>
+      
+    </ul>
+     
+    <!---->
+     
+    <span
+      aria-live="polite"
+      role="status"
+    >
+      <!---->
+    </span>
+  </fieldset>
+  
+  
+</div>
+`;

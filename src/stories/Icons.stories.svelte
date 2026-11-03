@@ -82,6 +82,7 @@
       label="Search by name"
       placeholder="Search..."
       bind:value={search}
+      onClear={() => (search = '')}
     />
     <Select id="icon-size" label="Size" bind:value={size}>
       {#each sizeOptions as option (option)}
