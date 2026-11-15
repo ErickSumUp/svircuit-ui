@@ -1,0 +1,43 @@
+import * as Stories from './CurrencyInput.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# CurrencyInput
+
+The CurrencyInput indicates to the user that a number should be entered in a given currency.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## How to use it
+
+Bind `value` to read and set the amount as a number. It is `undefined` while the input is empty.
+The input formats the amount as the user types: it groups the thousands, uses the locale's decimal
+separator and cuts off digits beyond the currency's precision, such as the third decimal of a euro
+amount. Typing either `.` or `,` adds the decimal separator, whatever the locale's is. On blur,
+leading zeros are dropped.
+
+A minus sign makes the amount negative, and typing a second one removes it. Use
+`allowNegative={false}` to disallow negative amounts.
+
+The currency symbol is the input's accessible description, together with `aria-describedby` and the
+`validationHint`. A number `placeholder` is formatted in the currency's format.
+
+## Currency
+
+Use the `currency` prop, an ISO 4217 code, to specify which currency the input should use.
+
+<Canvas of={Stories.Currencies} />
+
+## Locale
+
+Use the `formattingLocale` prop to format the amount according to that locale's formatting style.
+For example, euros are formatted differently depending on the locale. Without it, the user's locale
+is used.
+
+<Canvas of={Stories.Locales} />
+
+## Sizes
+
+<Canvas of={Stories.Sizes} />

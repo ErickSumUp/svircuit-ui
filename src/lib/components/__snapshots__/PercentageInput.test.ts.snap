@@ -1,0 +1,57 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match the snapshot 1`] = `
+<div>
+  <div
+    class="field m svelte-md5hpc"
+  >
+    <label
+      class="label svelte-md5hpc"
+      for="discount"
+    >
+      <span
+        class="label-text svelte-md5hpc"
+      >
+        Discount 
+        <!---->
+      </span>
+    </label>
+     
+    <div
+      class="wrapper svelte-md5hpc"
+    >
+      <span
+        class="symbol svelte-md5hpc"
+        id="percentage-input-c1-symbol"
+      >
+        %
+      </span>
+       
+      <input
+        aria-describedby="percentage-input-c1-symbol percentage-input-c1-hint"
+        class="base svelte-md5hpc"
+        id="discount"
+        inputmode="decimal"
+        placeholder="0"
+        type="text"
+      />
+    </div>
+     
+    <div
+      class="validation-hint svelte-md5hpc"
+      id="percentage-input-c1-hint"
+    >
+      Applied to the total
+    </div>
+    <!---->
+     
+    <span
+      aria-live="polite"
+      role="status"
+    >
+      <!---->
+    </span>
+  </div>
+  
+</div>
+`;

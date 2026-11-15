@@ -1,0 +1,43 @@
+import * as Stories from './PercentageInput.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# PercentageInput
+
+The PercentageInput indicates to the user that a fractional number should be entered.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## How to use it
+
+Bind `value` to read and set the percentage as a number: `12.5` for 12.5 %. It is `undefined`
+while the input is empty. The input formats the number as the user types: it groups the thousands
+and uses the locale's decimal separator. Typing either `.` or `,` adds the decimal separator,
+whatever the locale's is. On blur, leading zeros are dropped.
+
+A minus sign makes the number negative, and typing a second one removes it. Use
+`allowNegative={false}` to disallow negative numbers.
+
+The percent sign is the input's accessible description, together with `aria-describedby` and the
+`validationHint`. The placeholder is `0` by default; a number `placeholder` is formatted with the
+input's decimals.
+
+## Locale
+
+Use the `formattingLocale` prop to format the number according to that locale's formatting style.
+Without it, the user's locale is used.
+
+<Canvas of={Stories.Locales} />
+
+## Decimals
+
+Use the `decimalScale` prop to allow users to enter numbers with decimals. The default is `0`.
+Add `fixedDecimalScale` to always show all decimals, padded with zeros.
+
+<Canvas of={Stories.Decimals} />
+
+## Sizes
+
+<Canvas of={Stories.Sizes} />

@@ -10,6 +10,48 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-11-15 — PercentageInput ✅, CurrencyInput fixes
+
+- **PercentageInput** (Phase 6) is new and atomic, built like CurrencyInput: the delimiters come
+  from `Intl.NumberFormat` with `style: 'percent'`, the `%` is always a suffix, as in circuit, and
+  `value` is a bindable `number` (`12.5` for 12.5 %). Circuit's `decimalScale` (default `0`, so a
+  typed separator is ignored) and `fixedDecimalScale` are ported: a fixed scale pads the decimals
+  with zeros while typing, and backspacing over the decimal separator only moves the caret past it.
+  The placeholder defaults to `'0'` and a number placeholder is formatted with the scale.
+- **CurrencyInput fixes**, found in `react-number-format`'s source: the reported `value` is now cut
+  off at the currency's precision too (typing `1,999` showed `1,99` but reported `1.999`), and only
+  the first decimal separator counts: one typed before the existing separator replaces it, one
+  typed after it is ignored (it used to replace it). PercentageInput shares both rules.
+- Stories follow circuit's (Base, Locales, Decimals, Sizes), with a docs page and 21 tests (2 new
+  for CurrencyInput). Compared in Chrome with circuit.sumup.com: paddings, the `%` box,
+  placeholders and alignment match, apart from the Phase 0.1 font drift. The same typing sequences
+  (scale 0, 2 and fixed: grouping, minus, backspace over a delimiter and over the fixed decimal,
+  second separators before, at and after the existing one, blur) give identical text and caret
+  positions on both components.
+
+### 2026-11-15 — CurrencyInput ✅
+
+- **CurrencyInput** (Phase 6) is new and atomic, with circuit's Field parts and Input's base CSS
+  inlined. The symbol, its position (prefix or suffix), the delimiters and the decimal places come
+  from native `Intl.NumberFormat(…).formatToParts()` instead of `@sumup-oss/intl`, and a small
+  formatter replaces `react-number-format`: grouping as you type, `.` or `,` both accepted as the
+  decimal, extra decimals cut off, letters ignored, backspacing a group delimiter deletes the
+  digit next to it, a second `-` removes the minus, leading zeros are fixed on blur.
+- **API differences:** `value` is a bindable `number` (`undefined` when empty) instead of
+  circuit's formatted string, so there's no `onValueChange` (use `bind:value` or `oninput`);
+  `formattingLocale` defaults to the user's locale; a `number` placeholder is formatted. The text
+  is always right-aligned. An unknown currency throws, as `Intl` does; circuit's fallback format
+  isn't ported. No `$effect`: the typed text lives in state and is re-derived from `value` only
+  when `value` was set from outside.
+- **Caret gotcha:** with a `{...rest}` spread, Svelte writes `input.value` whenever the text
+  changes, even when the DOM already holds it, and Chrome then moves the caret to the end (jsdom
+  doesn't). The input handler calls `flushSync()` and then restores the caret.
+- Stories Base, Currencies, Locales and Sizes, a docs page, and 22 tests. Compared in Chrome with
+  circuit.sumup.com: paddings, the 48px and 32px symbol boxes, prefix and suffix positions and
+  placeholders match; widths and font sizes differ by the Phase 0.1 drift. The same typing
+  sequence (grouping, backspace over a delimiter, inserting mid-number, minus, select-all and
+  retype, blur) gives identical text and caret positions on both.
+
 ### 2026-11-15 — SideNavigation `contained` ✅
 
 - **New `contained` prop (ours only).** Consumers run inside a reverse-proxied shell with circuit's
@@ -908,13 +950,13 @@ is deferred, Phase 1 (typography) is independent and can go first.
 Circuit has 74 components. We share 30 with it, 32 do not exist here yet, and 4 are our own
 inventions (`Stack`, `Spacer`, `TestText`, plus the story components).
 
-| Status         | Components                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| In sync        | ColorInput, Select, Input, SearchInput, Selector, SelectorGroup, InputRadio, InputRadioGroup, Checkbox, CheckboxGroup, Toggle, TextArea, Toggletip, Callout, ButtonGroup, TopNavigation, ActionMenu, Dialog (circuit's Modal), Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Avatar, TierIndicator, SumUpLogo, Tooltip, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
-| Minor drift    | DateInput                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| Major drift    | Table, NotificationToast                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| Status         | Components                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| In sync        | PercentageInput, CurrencyInput, ColorInput, Select, Input, SearchInput, Selector, SelectorGroup, InputRadio, InputRadioGroup, Checkbox, CheckboxGroup, Toggle, TextArea, Toggletip, Callout, ButtonGroup, TopNavigation, ActionMenu, Dialog (circuit's Modal), Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Avatar, TierIndicator, SumUpLogo, Tooltip, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
+| Minor drift    | DateInput                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Major drift    | Table, NotificationToast                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
 Colors are fully in sync — every token in circuit's `light.ts` exists in our `styles.css`.
 
@@ -1259,8 +1301,8 @@ port the parts that are about behaviour and looks rather than architecture.
 - [x] **CheckboxGroup** — options array, shared validation. ✅ done 2026-11-02
 - [x] **Selector** and **SelectorGroup** — card-style radio/checkbox. ✅ done 2026-11-02
 - [x] **ColorInput**
-- [ ] **CurrencyInput** — locale-aware, `Intl.NumberFormat`.
-- [ ] **PercentageInput**
+- [x] **CurrencyInput** — locale-aware, `Intl.NumberFormat`. ✅ done 2026-11-15
+- [x] **PercentageInput** ✅ done 2026-11-15
 - [ ] **PhoneNumberInput** — country code select plus subscriber number.
 - [ ] **ImageInput** — upload with preview and clear.
 

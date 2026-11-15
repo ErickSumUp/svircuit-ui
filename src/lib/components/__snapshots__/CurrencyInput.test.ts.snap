@@ -1,0 +1,57 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match the snapshot 1`] = `
+<div>
+  <div
+    class="field m svelte-1xoah4t"
+  >
+    <label
+      class="label svelte-1xoah4t"
+      for="amount"
+    >
+      <span
+        class="label-text svelte-1xoah4t"
+      >
+        Amount 
+        <!---->
+      </span>
+    </label>
+     
+    <div
+      class="wrapper svelte-1xoah4t"
+    >
+      <span
+        class="currency suffix svelte-1xoah4t"
+        id="currency-input-c1-symbol"
+      >
+        €
+      </span>
+       
+      <input
+        aria-describedby="currency-input-c1-symbol currency-input-c1-hint"
+        class="base has-suffix svelte-1xoah4t"
+        id="amount"
+        inputmode="decimal"
+        placeholder="123,45"
+        type="text"
+      />
+    </div>
+     
+    <div
+      class="validation-hint svelte-1xoah4t"
+      id="currency-input-c1-hint"
+    >
+      Excluding VAT
+    </div>
+    <!---->
+     
+    <span
+      aria-live="polite"
+      role="status"
+    >
+      <!---->
+    </span>
+  </div>
+  
+</div>
+`;
