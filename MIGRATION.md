@@ -10,6 +10,28 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-11-15 — SideNavigation `contained` ✅
+
+- **New `contained` prop (ours only).** Consumers run inside a reverse-proxied shell with circuit's
+  SideNavigation, and the two overlapped: both are fixed to the viewport's left edge, both set
+  `--side-navigation-width` on the document (ours also removed the host's value on unmount), and
+  our bottom fade was fixed to the viewport. With `contained`, the desktop navigation is
+  `position: relative` at the full height of its container and scrolls on its own, defines
+  `--side-navigation-width` on itself instead of the document, and its bottom fade is
+  `position: sticky` inside its own scroll area. Breakpoints stay viewport-based, matching the
+  host, and the mobile modal is unchanged. `SIDE_NAVIGATION_WIDTH` is exported for the
+  container's column, like `TOP_NAVIGATION_HEIGHT`.
+- **No `$effect` left.** The document's `--side-navigation-width` is now CSS,
+  `:global(html):has(.desktop:not(.contained))`, instead of circuit's effect that writes and removes
+  an inline style: it applies while a non-contained navigation is mounted and never touches a
+  value the host set inline. Opening and closing the modal (`showModal()` has no declarative
+  form) is an `{@attach}` on the dialog that re-runs when `open` or the viewport changes. Keep
+  effects out of components: prefer CSS, then event handlers, then attachments.
+- New Contained story (a regular SideNavigation plays the host), a docs section and 3 tests.
+  Checked in Chrome at 1280px and 390px: the host at 0–240px and ours at 240–480px, the document
+  variable untouched, ours scrolling on its own with a sticky logo and fade, the modal on mobile,
+  and the Base story unchanged.
+
 ### 2026-11-15 — SideNavigation is atomic ✅
 
 - **SideNavigation moved to `src/lib/components/`** (with its test and snapshot). It imports no

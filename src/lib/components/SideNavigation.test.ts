@@ -186,6 +186,29 @@ describe('SideNavigation', () => {
     expect(getDesktop(container).firstElementChild).toHaveAttribute('inert');
   });
 
+  test.each([false, true])(
+    'should keep a width the host set on the document (contained: %s)',
+    (contained) => {
+      mockViewport(false);
+      const root = document.documentElement;
+      root.style.setProperty('--side-navigation-width', '320px');
+      const { unmount } = render(SideNavigation, { ...baseProps, contained });
+
+      expect(root.style.getPropertyValue('--side-navigation-width')).toBe('320px');
+      unmount();
+      expect(root.style.getPropertyValue('--side-navigation-width')).toBe('320px');
+
+      root.style.removeProperty('--side-navigation-width');
+    }
+  );
+
+  test('should mark a contained navigation', () => {
+    mockViewport(false);
+    const { container } = render(SideNavigation, { ...baseProps, contained: true });
+
+    expect(getDesktop(container)).toHaveClass('desktop', 'contained');
+  });
+
   test('should not open the modal on large viewports', () => {
     mockViewport(false);
     render(SideNavigation, { ...baseProps, open: true });
