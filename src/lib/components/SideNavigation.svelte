@@ -312,6 +312,7 @@
     class="content hide-scrollbar"
     class:loading={isLoading}
     aria-busy={isLoading ? 'true' : undefined}
+    inert={isLoading || undefined}
     {...rest}
   >
     {#if suffix === 'desktop' && skipNavigationHref && skipNavigationLabel}
@@ -324,12 +325,9 @@
       {#each groups as group (group.id)}
         {@const labelId = `${uid}-${group.id}-${suffix}`}
         <nav aria-labelledby={labelId}>
-          <h2
-            id={labelId}
-            class={['group-label', 'skeleton', group.hideLabel && 'visually-hidden']}
-          >
-            {group.label}
-          </h2>
+          <div class={['group-skeleton', 'skeleton', group.hideLabel && 'visually-hidden']}>
+            <h2 id={labelId} class="group-label">{group.label}</h2>
+          </div>
           <ul class="list">
             {#each group.items as item, index (item.label)}
               {@render primaryItem(item, `${group.id}-${index}`, suffix)}
@@ -414,6 +412,33 @@
     }
   }
 
+  /* Skip link — inlined from the SkipLink component, keep the two in step */
+  .skip-link {
+    font-size: var(--cui-body-m-font-size);
+    font-weight: var(--cui-font-weight-regular);
+    line-height: var(--cui-body-m-line-height);
+    color: var(--cui-fg-accent);
+    text-decoration: underline;
+    text-decoration-skip-ink: auto;
+    letter-spacing: var(--cui-letter-spacing);
+    border-radius: var(--cui-border-radius-bit);
+    outline: none;
+  }
+
+  .skip-link:hover {
+    color: var(--cui-fg-accent-hovered);
+  }
+
+  .skip-link:active {
+    color: var(--cui-fg-accent-pressed);
+  }
+
+  .skip-link:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--cui-bg-normal),
+      0 0 0 4px var(--cui-border-focus);
+  }
+
   .skip-link {
     position: absolute;
     top: var(--cui-spacings-byte);
@@ -424,7 +449,6 @@
     padding: var(--cui-spacings-bit);
     margin: -1px;
     overflow: hidden;
-    color: var(--cui-fg-normal);
     white-space: nowrap;
     background-color: var(--cui-bg-accent);
     clip-path: rect(0 0 0 0);
@@ -454,8 +478,13 @@
     height: 100%;
   }
 
+  /* Like circuit's Skeleton, so the placeholder includes the label's margin. */
+  .group-skeleton {
+    display: inline-block;
+    line-height: 0;
+  }
+
   .group-label {
-    width: fit-content;
     height: var(--cui-compact-s-line-height);
     padding: 0 var(--cui-spacings-kilo);
     margin: 0 0 var(--cui-spacings-kilo);

@@ -70,12 +70,12 @@ export type { Link, Group, LinkBadge };
 export { default as Hamburger } from './components/Hamburger.svelte';
 export { default as TopNavigation, TOP_NAVIGATION_HEIGHT } from './stories/TopNavigation.svelte';
 export type { UtilityLink, CustomLink } from './stories/TopNavigation.svelte';
-export { default as SideNavigation } from './stories/SideNavigation.svelte';
+export { default as SideNavigation } from './components/SideNavigation.svelte';
 export type {
   NavigationGroup,
   PrimaryNavigationItem,
   NavigationItem
-} from './stories/SideNavigation.svelte';
+} from './components/SideNavigation.svelte';
 import NotificationToastsSection, {
   addToast
 } from '$lib/components/NotificationToastsSection.svelte';

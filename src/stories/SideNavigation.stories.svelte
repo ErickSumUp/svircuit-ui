@@ -1,5 +1,5 @@
 <script lang="ts" module>
-  import SideNavigation from '$lib/stories/SideNavigation.svelte';
+  import SideNavigation from '$lib/components/SideNavigation.svelte';
   import { defineMeta } from '@storybook/addon-svelte-csf';
 
   const { Story } = defineMeta({
@@ -12,7 +12,7 @@
 </script>
 
 <script lang="ts">
-  import type { NavigationGroup } from '$lib/stories/SideNavigation.svelte';
+  import type { NavigationGroup } from '$lib/components/SideNavigation.svelte';
   import Hamburger from '$lib/components/Hamburger.svelte';
   import Body from '$lib/components/Body.svelte';
   import Headline from '$lib/components/Headline.svelte';

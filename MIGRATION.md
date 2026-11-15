@@ -10,6 +10,22 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-11-15 — SideNavigation is atomic ✅
+
+- **SideNavigation moved to `src/lib/components/`** (with its test and snapshot). It imports no
+  other component: the skip link, the loading placeholders, the close button and the icons stay
+  inlined, although circuit composes SkipLink, Skeleton and SkeletonContainer. **Decision:** keep
+  components as independent as possible; compose only where a component can't reasonably inline
+  its parts. The public export and its types are unchanged.
+- Synced the inlined parts with circuit, which hasn't changed SideNavigation since the port: the
+  skip link now has SkipLink's link styles (`body-m`, `fg-accent`, underline, focus ring) instead of
+  `fg-normal` text; the content is `inert` while loading, as circuit's SkeletonContainer makes it;
+  the group label sits in an inline-block placeholder wrapper, as circuit's Skeleton does, so the
+  placeholder covers the label and its margin (27px against circuit's 28px). `hideLabel` hides the
+  wrapper.
+- Compared the Loading story in Chrome with circuit.sumup.com at 1280px and 390px: every
+  placeholder's position matches, sizes are 1px to 9px smaller and radii 8px against 10px (Phase 0.1).
+
 ### 2026-11-03 — ColorInput ✅
 
 - **ColorInput** (Phase 6) is new, circuit's ColorInput with the Field parts and Input's base CSS
@@ -849,7 +865,9 @@ is deferred, Phase 1 (typography) is independent and can go first.
   markup, logic and styles that circuit spreads across sub-components. Components never import other
   components.
 - **Story components.** Compositions that are too large to be atomic (`ButtonGroup`, `Pagination`,
-  `DateInput`, `SideNavigation`) live in `src/lib/stories/` and may compose atomic components.
+  `DateInput`) live in `src/lib/stories/` and may compose atomic components. Prefer atomic: a
+  component that can inline its parts does, even where circuit composes them (SideNavigation,
+  2026-11-15).
 - **Native over libraries.** Popover API, CSS anchor positioning, `<dialog>`, `Intl`, container
   queries and `prefers-color-scheme` instead of JS dependencies.
 - **Native authoring where the element is expressive.** Prefer letting the consumer write the markup
@@ -1205,8 +1223,8 @@ port the parts that are about behaviour and looks rather than architecture.
 - [x] **AspectRatio** — aspect-ratio wrapper. ✅ done 2026-10-26
 - [x] **Image** — with the object-fit and loading behavior circuit ships. ✅ done 2026-10-26
 - [x] **Avatar** — `variant` object/identity, sizes, initials fallback. ✅ done 2026-11-02
-- [x] **Skeleton** — loading placeholder. ✅ done 2026-11-01. SideNavigation still inlines its own
-      placeholder CSS for `isLoading`.
+- [x] **Skeleton** — loading placeholder. ✅ done 2026-11-01. SideNavigation (atomic) inlines its
+      own placeholder CSS for `isLoading`; keep the two in step.
 - [x] **Timestamp** — relative and absolute formatting via `Intl.RelativeTimeFormat`. ✅ done 2026-11-01
 
 ---

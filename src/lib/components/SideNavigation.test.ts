@@ -108,7 +108,9 @@ describe('SideNavigation', () => {
     });
     const desktop = within(getDesktop(container));
 
-    expect(desktop.getByRole('heading', { name: 'Your shortcuts' })).toHaveClass('visually-hidden');
+    expect(desktop.getByRole('heading', { name: 'Your shortcuts' }).parentElement).toHaveClass(
+      'visually-hidden'
+    );
     expect(desktop.getByRole('navigation', { name: 'Your shortcuts' })).toBeInTheDocument();
   });
 
@@ -181,6 +183,7 @@ describe('SideNavigation', () => {
     const { container } = render(SideNavigation, { ...baseProps, isLoading: true });
 
     expect(getDesktop(container).firstElementChild).toHaveAttribute('aria-busy', 'true');
+    expect(getDesktop(container).firstElementChild).toHaveAttribute('inert');
   });
 
   test('should not open the modal on large viewports', () => {

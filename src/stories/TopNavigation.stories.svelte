@@ -16,8 +16,8 @@
 
 <script lang="ts">
   import { MediaQuery } from 'svelte/reactivity';
-  import type { NavigationGroup } from '$lib/stories/SideNavigation.svelte';
-  import SideNavigation from '$lib/stories/SideNavigation.svelte';
+  import type { NavigationGroup } from '$lib/components/SideNavigation.svelte';
+  import SideNavigation from '$lib/components/SideNavigation.svelte';
   import Body from '$lib/components/Body.svelte';
   import Headline from '$lib/components/Headline.svelte';
   import SumUpLogo from '$lib/components/SumUpLogo.svelte';

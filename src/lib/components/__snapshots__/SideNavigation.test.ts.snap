@@ -3,42 +3,46 @@
 exports[`SideNavigation > should match the snapshot 1`] = `
 <div>
   <div
-    class="desktop svelte-1v4eq8g"
+    class="desktop svelte-1dsy72j"
   >
     <div
-      class="content hide-scrollbar svelte-1v4eq8g"
+      class="content hide-scrollbar svelte-1dsy72j"
     >
       <!---->
        
       <!---->
        
       <div
-        class="sections svelte-1v4eq8g"
+        class="sections svelte-1dsy72j"
       >
         <nav
           aria-labelledby="c1-shortcuts-desktop"
-          class="svelte-1v4eq8g"
+          class="svelte-1dsy72j"
         >
-          <h2
-            class="group-label skeleton svelte-1v4eq8g"
-            id="c1-shortcuts-desktop"
+          <div
+            class="group-skeleton skeleton svelte-1dsy72j"
           >
-            Your shortcuts
-          </h2>
+            <h2
+              class="group-label svelte-1dsy72j"
+              id="c1-shortcuts-desktop"
+            >
+              Your shortcuts
+            </h2>
+          </div>
            
           <ul
-            class="list svelte-1v4eq8g"
+            class="list svelte-1dsy72j"
           >
             <li
-              class="primary-item svelte-1v4eq8g"
+              class="primary-item svelte-1dsy72j"
             >
               <a
-                class="item svelte-1v4eq8g"
+                class="item svelte-1dsy72j"
                 data-focus-list="c1-desktop"
                 href="/payouts"
               >
                 <span
-                  class="label-container skeleton svelte-1v4eq8g"
+                  class="label-container skeleton svelte-1dsy72j"
                 >
                   <svg
                     aria-hidden="true"
@@ -64,7 +68,7 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                   <!---->
                    
                   <span
-                    class="label svelte-1v4eq8g"
+                    class="label svelte-1dsy72j"
                   >
                     Payouts
                   </span>
@@ -88,31 +92,35 @@ exports[`SideNavigation > should match the snapshot 1`] = `
         </nav>
         <nav
           aria-labelledby="c1-business-desktop"
-          class="svelte-1v4eq8g"
+          class="svelte-1dsy72j"
         >
-          <h2
-            class="group-label skeleton svelte-1v4eq8g"
-            id="c1-business-desktop"
+          <div
+            class="group-skeleton skeleton svelte-1dsy72j"
           >
-            Your business
-          </h2>
+            <h2
+              class="group-label svelte-1dsy72j"
+              id="c1-business-desktop"
+            >
+              Your business
+            </h2>
+          </div>
            
           <ul
-            class="list svelte-1v4eq8g"
+            class="list svelte-1dsy72j"
           >
             <li
-              class="primary-item svelte-1v4eq8g"
+              class="primary-item svelte-1dsy72j"
             >
               <button
                 aria-controls="c1-business-0-desktop-items"
                 aria-current="page"
                 aria-expanded="true"
-                class="item svelte-1v4eq8g"
+                class="item svelte-1dsy72j"
                 data-focus-list="c1-desktop"
                 type="button"
               >
                 <span
-                  class="label-container skeleton svelte-1v4eq8g"
+                  class="label-container skeleton svelte-1dsy72j"
                 >
                   <svg
                     aria-hidden="true"
@@ -130,7 +138,7 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                   <!---->
                    
                   <span
-                    class="label svelte-1v4eq8g active"
+                    class="label svelte-1dsy72j active"
                   >
                     Items
                   </span>
@@ -140,13 +148,13 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                  
                 <svg
                   aria-hidden="true"
-                  class="chevron svelte-1v4eq8g chevron-up"
+                  class="chevron svelte-1dsy72j chevron-up"
                   height="16"
                   viewBox="0 0 16 16"
                   width="16"
                 >
                   <path
-                    class="svelte-1v4eq8g"
+                    class="svelte-1dsy72j"
                     d="M11.528 6.528a.667.667 0 0 1 .944.944l-4 4a.667.667 0 0 1-.944 0l-4-4a.667.667 0 0 1 .944-.944L8 10.057z"
                     fill="currentColor"
                   />
@@ -161,23 +169,23 @@ exports[`SideNavigation > should match the snapshot 1`] = `
               <!---->
                
               <div
-                class="collapsible svelte-1v4eq8g expanded"
+                class="collapsible svelte-1dsy72j expanded"
                 id="c1-business-0-desktop-items"
               >
                 <ul
-                  class="secondary-list svelte-1v4eq8g"
+                  class="secondary-list svelte-1dsy72j"
                 >
                   <li
-                    class="svelte-1v4eq8g"
+                    class="svelte-1dsy72j"
                   >
                     <a
                       aria-current="page"
-                      class="item svelte-1v4eq8g"
+                      class="item svelte-1dsy72j"
                       data-focus-list="c1-business-0-desktop-items"
                       href="/items/catalog"
                     >
                       <span
-                        class="label secondary-label skeleton svelte-1v4eq8g active"
+                        class="label secondary-label skeleton svelte-1dsy72j active"
                       >
                         Catalog
                       </span>
@@ -191,30 +199,30 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                     <!---->
                   </li>
                   <li
-                    class="svelte-1v4eq8g"
+                    class="svelte-1dsy72j"
                   >
                     <a
                       aria-describedby="c1-business-0-desktop-1-external"
-                      class="item svelte-1v4eq8g"
+                      class="item svelte-1dsy72j"
                       data-focus-list="c1-business-0-desktop-items"
                       href="/items/reports"
                       target="_blank"
                     >
                       <span
-                        class="label secondary-label skeleton svelte-1v4eq8g"
+                        class="label secondary-label skeleton svelte-1dsy72j"
                       >
                         Reports
                       </span>
                        
                       <svg
                         aria-hidden="true"
-                        class="external svelte-1v4eq8g"
+                        class="external svelte-1dsy72j"
                         height="16"
                         viewBox="0 0 16 16"
                         width="16"
                       >
                         <path
-                          class="svelte-1v4eq8g"
+                          class="svelte-1dsy72j"
                           d="M1.25 12.667V3.333A2.083 2.083 0 0 1 3.333 1.25h4a.75.75 0 0 1 0 1.5h-4a.583.583 0 0 0-.583.583v9.334a.583.583 0 0 0 .583.583h9.334a.583.583 0 0 0 .583-.583v-4a.75.75 0 0 1 1.5 0v4a2.083 2.083 0 0 1-2.083 2.083H3.333a2.083 2.083 0 0 1-2.083-2.083M14.75 6a.75.75 0 0 1-1.5 0V3.81L8.53 8.53a.75.75 0 1 1-1.06-1.06l4.72-4.72H10a.75.75 0 0 1 0-1.5h4a.75.75 0 0 1 .75.75z"
                           fill="currentColor"
                         />
@@ -225,7 +233,7 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                      
                     <!---->
                     <span
-                      class="visually-hidden svelte-1v4eq8g"
+                      class="visually-hidden svelte-1dsy72j"
                       id="c1-business-0-desktop-1-external"
                     >
                       Opens in a new tab
@@ -239,17 +247,17 @@ exports[`SideNavigation > should match the snapshot 1`] = `
               <!---->
             </li>
             <li
-              class="primary-item svelte-1v4eq8g"
+              class="primary-item svelte-1dsy72j"
             >
               <a
                 aria-describedby="c1-business-1-desktop-external"
-                class="item svelte-1v4eq8g"
+                class="item svelte-1dsy72j"
                 data-focus-list="c1-desktop"
                 href="/documents"
                 target="_blank"
               >
                 <span
-                  class="label-container skeleton svelte-1v4eq8g"
+                  class="label-container skeleton svelte-1dsy72j"
                 >
                   <svg
                     aria-hidden="true"
@@ -268,7 +276,7 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                   <!---->
                    
                   <span
-                    class="label svelte-1v4eq8g"
+                    class="label svelte-1dsy72j"
                   >
                     Documents
                   </span>
@@ -276,13 +284,13 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                  
                 <svg
                   aria-hidden="true"
-                  class="external svelte-1v4eq8g"
+                  class="external svelte-1dsy72j"
                   height="16"
                   viewBox="0 0 16 16"
                   width="16"
                 >
                   <path
-                    class="svelte-1v4eq8g"
+                    class="svelte-1dsy72j"
                     d="M1.25 12.667V3.333A2.083 2.083 0 0 1 3.333 1.25h4a.75.75 0 0 1 0 1.5h-4a.583.583 0 0 0-.583.583v9.334a.583.583 0 0 0 .583.583h9.334a.583.583 0 0 0 .583-.583v-4a.75.75 0 0 1 1.5 0v4a2.083 2.083 0 0 1-2.083 2.083H3.333a2.083 2.083 0 0 1-2.083-2.083M14.75 6a.75.75 0 0 1-1.5 0V3.81L8.53 8.53a.75.75 0 1 1-1.06-1.06l4.72-4.72H10a.75.75 0 0 1 0-1.5h4a.75.75 0 0 1 .75.75z"
                     fill="currentColor"
                   />
@@ -296,7 +304,7 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                
               <!---->
               <span
-                class="visually-hidden svelte-1v4eq8g"
+                class="visually-hidden svelte-1dsy72j"
                 id="c1-business-1-desktop-external"
               >
                 Opens in a new tab
@@ -317,45 +325,49 @@ exports[`SideNavigation > should match the snapshot 1`] = `
    
   <dialog
     aria-label="Side navigation"
-    class="mobile svelte-1v4eq8g"
+    class="mobile svelte-1dsy72j"
   >
     <div
-      class="mobile-content svelte-1v4eq8g"
+      class="mobile-content svelte-1dsy72j"
     >
       <div
-        class="content hide-scrollbar svelte-1v4eq8g"
+        class="content hide-scrollbar svelte-1dsy72j"
       >
         <!---->
          
         <!---->
          
         <div
-          class="sections svelte-1v4eq8g"
+          class="sections svelte-1dsy72j"
         >
           <nav
             aria-labelledby="c1-shortcuts-mobile"
-            class="svelte-1v4eq8g"
+            class="svelte-1dsy72j"
           >
-            <h2
-              class="group-label skeleton svelte-1v4eq8g"
-              id="c1-shortcuts-mobile"
+            <div
+              class="group-skeleton skeleton svelte-1dsy72j"
             >
-              Your shortcuts
-            </h2>
+              <h2
+                class="group-label svelte-1dsy72j"
+                id="c1-shortcuts-mobile"
+              >
+                Your shortcuts
+              </h2>
+            </div>
              
             <ul
-              class="list svelte-1v4eq8g"
+              class="list svelte-1dsy72j"
             >
               <li
-                class="primary-item svelte-1v4eq8g"
+                class="primary-item svelte-1dsy72j"
               >
                 <a
-                  class="item svelte-1v4eq8g"
+                  class="item svelte-1dsy72j"
                   data-focus-list="c1-mobile"
                   href="/payouts"
                 >
                   <span
-                    class="label-container skeleton svelte-1v4eq8g"
+                    class="label-container skeleton svelte-1dsy72j"
                   >
                     <svg
                       aria-hidden="true"
@@ -381,7 +393,7 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                     <!---->
                      
                     <span
-                      class="label svelte-1v4eq8g"
+                      class="label svelte-1dsy72j"
                     >
                       Payouts
                     </span>
@@ -405,31 +417,35 @@ exports[`SideNavigation > should match the snapshot 1`] = `
           </nav>
           <nav
             aria-labelledby="c1-business-mobile"
-            class="svelte-1v4eq8g"
+            class="svelte-1dsy72j"
           >
-            <h2
-              class="group-label skeleton svelte-1v4eq8g"
-              id="c1-business-mobile"
+            <div
+              class="group-skeleton skeleton svelte-1dsy72j"
             >
-              Your business
-            </h2>
+              <h2
+                class="group-label svelte-1dsy72j"
+                id="c1-business-mobile"
+              >
+                Your business
+              </h2>
+            </div>
              
             <ul
-              class="list svelte-1v4eq8g"
+              class="list svelte-1dsy72j"
             >
               <li
-                class="primary-item svelte-1v4eq8g"
+                class="primary-item svelte-1dsy72j"
               >
                 <button
                   aria-controls="c1-business-0-mobile-items"
                   aria-current="page"
                   aria-expanded="true"
-                  class="item svelte-1v4eq8g"
+                  class="item svelte-1dsy72j"
                   data-focus-list="c1-mobile"
                   type="button"
                 >
                   <span
-                    class="label-container skeleton svelte-1v4eq8g"
+                    class="label-container skeleton svelte-1dsy72j"
                   >
                     <svg
                       aria-hidden="true"
@@ -447,7 +463,7 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                     <!---->
                      
                     <span
-                      class="label svelte-1v4eq8g active"
+                      class="label svelte-1dsy72j active"
                     >
                       Items
                     </span>
@@ -457,13 +473,13 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                    
                   <svg
                     aria-hidden="true"
-                    class="chevron svelte-1v4eq8g chevron-up"
+                    class="chevron svelte-1dsy72j chevron-up"
                     height="16"
                     viewBox="0 0 16 16"
                     width="16"
                   >
                     <path
-                      class="svelte-1v4eq8g"
+                      class="svelte-1dsy72j"
                       d="M11.528 6.528a.667.667 0 0 1 .944.944l-4 4a.667.667 0 0 1-.944 0l-4-4a.667.667 0 0 1 .944-.944L8 10.057z"
                       fill="currentColor"
                     />
@@ -478,23 +494,23 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                 <!---->
                  
                 <div
-                  class="collapsible svelte-1v4eq8g expanded"
+                  class="collapsible svelte-1dsy72j expanded"
                   id="c1-business-0-mobile-items"
                 >
                   <ul
-                    class="secondary-list svelte-1v4eq8g"
+                    class="secondary-list svelte-1dsy72j"
                   >
                     <li
-                      class="svelte-1v4eq8g"
+                      class="svelte-1dsy72j"
                     >
                       <a
                         aria-current="page"
-                        class="item svelte-1v4eq8g"
+                        class="item svelte-1dsy72j"
                         data-focus-list="c1-business-0-mobile-items"
                         href="/items/catalog"
                       >
                         <span
-                          class="label secondary-label skeleton svelte-1v4eq8g active"
+                          class="label secondary-label skeleton svelte-1dsy72j active"
                         >
                           Catalog
                         </span>
@@ -508,30 +524,30 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                       <!---->
                     </li>
                     <li
-                      class="svelte-1v4eq8g"
+                      class="svelte-1dsy72j"
                     >
                       <a
                         aria-describedby="c1-business-0-mobile-1-external"
-                        class="item svelte-1v4eq8g"
+                        class="item svelte-1dsy72j"
                         data-focus-list="c1-business-0-mobile-items"
                         href="/items/reports"
                         target="_blank"
                       >
                         <span
-                          class="label secondary-label skeleton svelte-1v4eq8g"
+                          class="label secondary-label skeleton svelte-1dsy72j"
                         >
                           Reports
                         </span>
                          
                         <svg
                           aria-hidden="true"
-                          class="external svelte-1v4eq8g"
+                          class="external svelte-1dsy72j"
                           height="16"
                           viewBox="0 0 16 16"
                           width="16"
                         >
                           <path
-                            class="svelte-1v4eq8g"
+                            class="svelte-1dsy72j"
                             d="M1.25 12.667V3.333A2.083 2.083 0 0 1 3.333 1.25h4a.75.75 0 0 1 0 1.5h-4a.583.583 0 0 0-.583.583v9.334a.583.583 0 0 0 .583.583h9.334a.583.583 0 0 0 .583-.583v-4a.75.75 0 0 1 1.5 0v4a2.083 2.083 0 0 1-2.083 2.083H3.333a2.083 2.083 0 0 1-2.083-2.083M14.75 6a.75.75 0 0 1-1.5 0V3.81L8.53 8.53a.75.75 0 1 1-1.06-1.06l4.72-4.72H10a.75.75 0 0 1 0-1.5h4a.75.75 0 0 1 .75.75z"
                             fill="currentColor"
                           />
@@ -542,7 +558,7 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                        
                       <!---->
                       <span
-                        class="visually-hidden svelte-1v4eq8g"
+                        class="visually-hidden svelte-1dsy72j"
                         id="c1-business-0-mobile-1-external"
                       >
                         Opens in a new tab
@@ -556,17 +572,17 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                 <!---->
               </li>
               <li
-                class="primary-item svelte-1v4eq8g"
+                class="primary-item svelte-1dsy72j"
               >
                 <a
                   aria-describedby="c1-business-1-mobile-external"
-                  class="item svelte-1v4eq8g"
+                  class="item svelte-1dsy72j"
                   data-focus-list="c1-mobile"
                   href="/documents"
                   target="_blank"
                 >
                   <span
-                    class="label-container skeleton svelte-1v4eq8g"
+                    class="label-container skeleton svelte-1dsy72j"
                   >
                     <svg
                       aria-hidden="true"
@@ -585,7 +601,7 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                     <!---->
                      
                     <span
-                      class="label svelte-1v4eq8g"
+                      class="label svelte-1dsy72j"
                     >
                       Documents
                     </span>
@@ -593,13 +609,13 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                    
                   <svg
                     aria-hidden="true"
-                    class="external svelte-1v4eq8g"
+                    class="external svelte-1dsy72j"
                     height="16"
                     viewBox="0 0 16 16"
                     width="16"
                   >
                     <path
-                      class="svelte-1v4eq8g"
+                      class="svelte-1dsy72j"
                       d="M1.25 12.667V3.333A2.083 2.083 0 0 1 3.333 1.25h4a.75.75 0 0 1 0 1.5h-4a.583.583 0 0 0-.583.583v9.334a.583.583 0 0 0 .583.583h9.334a.583.583 0 0 0 .583-.583v-4a.75.75 0 0 1 1.5 0v4a2.083 2.083 0 0 1-2.083 2.083H3.333a2.083 2.083 0 0 1-2.083-2.083M14.75 6a.75.75 0 0 1-1.5 0V3.81L8.53 8.53a.75.75 0 1 1-1.06-1.06l4.72-4.72H10a.75.75 0 0 1 0-1.5h4a.75.75 0 0 1 .75.75z"
                       fill="currentColor"
                     />
@@ -613,7 +629,7 @@ exports[`SideNavigation > should match the snapshot 1`] = `
                  
                 <!---->
                 <span
-                  class="visually-hidden svelte-1v4eq8g"
+                  class="visually-hidden svelte-1dsy72j"
                   id="c1-business-1-mobile-external"
                 >
                   Opens in a new tab
@@ -634,19 +650,19 @@ exports[`SideNavigation > should match the snapshot 1`] = `
      
     <button
       aria-label="Close navigation"
-      class="close-button svelte-1v4eq8g"
+      class="close-button svelte-1dsy72j"
       title="Close navigation"
       type="button"
     >
       <svg
         aria-hidden="true"
-        class="svelte-1v4eq8g"
+        class="svelte-1dsy72j"
         height="24"
         viewBox="0 0 24 24"
         width="24"
       >
         <path
-          class="svelte-1v4eq8g"
+          class="svelte-1dsy72j"
           d="M17.293 5.293a1 1 0 1 1 1.414 1.414L13.414 12l5.293 5.293a1 1 0 0 1-1.414 1.414L12 13.414l-5.293 5.293a1 1 0 1 1-1.414-1.414L10.586 12 5.293 6.707a1 1 0 1 1 1.414-1.414L12 10.586z"
           fill="currentColor"
         />
