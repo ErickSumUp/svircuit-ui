@@ -35,17 +35,58 @@ The select component supports 2 different sizes:
 
 <Canvas withToolbar={true} of={Stories.Sizes} />
 
-## Placeholders
+## How to use it
 
-Placeholders are used to indicate what options are available in the select dropdown. They are not selectable
-but should be clear and concise.
+Pass the `options`, each with a `label` and a `value`, and bind `value` to the selected value.
+You can pass `<option>` elements as children instead. Other attributes, such as `name`, go on the
+select; `class` and `style` go on the wrapper. The `id` is generated unless you pass one, and the
+validation hint's `id` is merged into `aria-describedby`.
 
-Placeholders should be used to indicate what options are available in the select dropdown.
+```svelte
+<script>
+  import { Select } from 'svircuit-ui';
 
-Use **selected** and **disabled** properties in an option to create a placeholder.
+  let value = $state();
+</script>
 
-<Canvas withToolbar={true} of={Stories.Placeholder} />
+<Select
+  label="Countries"
+  placeholder="Select an option"
+  options={[
+    { label: 'Germany', value: 'DE' },
+    { label: 'France', value: 'FR' }
+  ]}
+  bind:value
+/>
+```
 
-## Usages
+<Canvas of={Stories.WithOptionElements} />
 
-<Canvas withToolbar={true} of={Stories.Pagination} />
+## Placeholder
+
+The select starts on an empty option with the `placeholder` text. For an optional select, the
+empty option stays in the list, so users can clear their choice. For a `required` select, it is
+removed once an option is chosen, because an empty value isn't allowed.
+
+<Canvas of={Stories.Optional} />
+
+<Canvas of={Stories.Required} />
+
+## Validations
+
+Use the `validationHint` to communicate the expected response to users, and the `invalid` prop to
+require a change.
+
+<Canvas of={Stories.Invalid} />
+
+### Disabled
+
+<Canvas of={Stories.Disabled} />
+
+## Prefix
+
+The `prefix` snippet renders before the select, usually an icon such as a flag. Put the `class` it
+receives on the root element, which positions it and reserves space for it. It also receives the
+selected `value`.
+
+<Canvas of={Stories.WithPrefix} />

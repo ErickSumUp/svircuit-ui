@@ -1,108 +1,170 @@
 <script lang="ts" module>
   import Select from '$lib/components/Select.svelte';
-  import Stack from '$lib/components/Stack.svelte';
   import { defineMeta } from '@storybook/addon-svelte-csf';
   import type { ComponentProps } from 'svelte';
 
   const { Story } = defineMeta({
     title: 'Forms/Select',
     component: Select,
-    argTypes: {
-      label: {
-        control: { type: 'text', defaultValue: 'Select' }
-      },
-      size: {
-        options: ['s', 'm']
-      }
-    },
     parameters: {
       layout: 'centered'
+    },
+    argTypes: {
+      size: { control: 'select', options: ['s', 'm'] }
+    },
+    args: {
+      name: 'select',
+      label: 'Countries',
+      placeholder: 'Select an option',
+      options: [
+        { label: 'United States', value: 'US' },
+        { label: 'Germany', value: 'DE' },
+        { label: 'France', value: 'FR' }
+      ]
     }
   });
 
-  type Args = Omit<ComponentProps<typeof Select>, 'children' | 'id'>;
+  type Args = ComponentProps<typeof Select>;
 </script>
 
 <script lang="ts">
-  let page_size = 10;
+  import Stack from '$lib/components/Stack.svelte';
+
+  let value = $state<string | number>();
+  let valuePrefix = $state<string | number>('US');
 </script>
 
-<Story name="Base" args={{ size: 'm', ariaDescribedBy: 'country' }}>
-  {#snippet template({ ...args }: Args)}
-    <Select id="country" {...args}>
-      <option value="" disabled selected>Select an option</option>
-      <option value="US">United States</option>
-      <option value="DE">Germany</option>
-      <option value="FR">France</option>
-    </Select>
+{#snippet flag({ class: className, value }: { class: string; value: string | number | undefined })}
+  {#if value === 'US'}
+    <span class={className} style="display: flex">
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16" aria-hidden="true">
+        <path
+          fill="#d8dde1"
+          fill-rule="evenodd"
+          d="M1.882 2h12.236C15.158 2 16 2.843 16 3.882v7.53c0 1.04-.843 1.882-1.882 1.882H1.882A1.88 1.88 0 0 1 0 11.412v-7.53C0 2.842.843 2 1.882 2m0 .47c-.78 0-1.411.633-1.411 1.412v7.53c0 .78.632 1.411 1.411 1.411h12.236a1.41 1.41 0 0 0 1.411-1.411v-7.53a1.41 1.41 0 0 0-1.411-1.411z"
+          clip-rule="evenodd"
+        />
+        <g fill-rule="evenodd" clip-rule="evenodd">
+          <path
+            fill="#fff"
+            d="M2 2.5h11.925c.87 0 1.575.713 1.575 1.592v7.128c0 .88-.705 1.592-1.575 1.592H2.075A1.58 1.58 0 0 1 .5 11.22V4.017C.5 3.179 1.172 2.5 2 2.5"
+          />
+          <path
+            fill="#ff2b2d"
+            d="M15.3 3.258H8V2.5h6a1.5 1.5 0 0 1 1.3.758M8 4.83h7.5v-.758H8zm0 1.597h7.5v-.759H8zm0 1.596h7.5v-.758H8zM.5 9.62h15v-.76H.5zm0 1.596h15v-.758H.5zm14.8.838H.7c.26.454.745.758 1.3.758h12c.556 0 1.04-.304 1.3-.758"
+          />
+          <path fill="#1a3179" d="M.5 8.023H8V2.5H2c-.83 0-1.5.679-1.5 1.517z" />
+          <path
+            fill="#fff"
+            d="M1.606 3.225a.17.17 0 0 1-.049.12.166.166 0 0 1-.284-.12.17.17 0 0 1 .05-.117.166.166 0 0 1 .283.117m1.094 0a.17.17 0 0 1-.05.117.166.166 0 0 1-.283-.117.17.17 0 0 1 .05-.117.166.166 0 0 1 .283.117m1.165 0a.17.17 0 0 1-.049.12.166.166 0 0 1-.284-.12.17.17 0 0 1 .05-.117.166.166 0 0 1 .283.117m1.11 0a.17.17 0 0 1-.049.12.166.166 0 0 1-.284-.12.17.17 0 0 1 .05-.117.166.166 0 0 1 .283.117m1.165 0a.17.17 0 0 1-.048.12.166.166 0 0 1-.285-.12.17.17 0 0 1 .05-.117.166.166 0 0 1 .283.117m1.094 0a.17.17 0 0 1-.103.156.17.17 0 0 1-.181-.037.17.17 0 0 1 .118-.287c.092 0 .166.075.166.168m-5.042.481a.17.17 0 0 1-.05.117.166.166 0 0 1-.283-.117.167.167 0 1 1 .333 0m1.166 0a.17.17 0 0 1-.05.117.166.166 0 0 1-.283-.117.167.167 0 1 1 .333 0m1.11 0a.17.17 0 0 1-.05.117.166.166 0 0 1-.284-.117.167.167 0 1 1 .333 0zm1.165 0a.17.17 0 0 1-.102.159.165.165 0 0 1-.22-.094.2.2 0 0 1-.011-.065.17.17 0 0 1 .049-.12.166.166 0 0 1 .235.001.17.17 0 0 1 .049.12zm1.094 0a.17.17 0 0 1-.05.117.166.166 0 0 1-.283-.117.167.167 0 1 1 .333 0m-5.121.537a.17.17 0 0 1-.103.155.17.17 0 0 1-.181-.036.169.169 0 0 1 .117-.288c.092 0 .167.076.167.169m1.094 0a.17.17 0 0 1-.05.117.166.166 0 0 1-.283-.117.17.17 0 0 1 .048-.12.166.166 0 0 1 .285.12m1.165 0a.17.17 0 0 1-.103.155.17.17 0 0 1-.181-.036.169.169 0 0 1 .118-.288c.091 0 .166.076.166.169m1.11 0a.17.17 0 0 1-.103.155.17.17 0 0 1-.181-.036.17.17 0 0 1 .117-.288c.092 0 .167.076.167.169m1.165 0a.17.17 0 0 1-.103.155.17.17 0 0 1-.181-.036.169.169 0 0 1 .118-.288c.092 0 .166.076.166.169m1.094 0a.17.17 0 0 1-.103.155.17.17 0 0 1-.181-.036.17.17 0 0 1-.049-.12.17.17 0 0 1 .102-.158.165.165 0 0 1 .22.093.2.2 0 0 1 .011.066m-5.042.48a.17.17 0 0 1-.05.118.166.166 0 0 1-.283-.117c0-.093.075-.169.167-.169s.166.076.166.169zm1.166 0a.17.17 0 0 1-.05.118.166.166 0 0 1-.283-.117.17.17 0 0 1 .102-.16.165.165 0 0 1 .22.094.2.2 0 0 1 .01.066zm1.11 0a.17.17 0 0 1-.05.118.166.166 0 0 1-.284-.117c0-.093.075-.169.167-.169s.166.076.166.169zm1.165 0a.17.17 0 0 1-.102.16.165.165 0 0 1-.22-.094.2.2 0 0 1-.011-.066.17.17 0 0 1 .049-.119.166.166 0 0 1 .235 0 .17.17 0 0 1 .049.12zm1.094 0a.17.17 0 0 1-.05.118.166.166 0 0 1-.283-.117c0-.093.074-.169.166-.169s.167.076.167.169zm-5.121.538a.17.17 0 0 1-.103.155.165.165 0 0 1-.218-.091.17.17 0 0 1 .037-.184.166.166 0 0 1 .235 0 .17.17 0 0 1 .049.12m1.094 0a.17.17 0 0 1-.05.117.166.166 0 0 1-.283-.117c0-.094.074-.169.166-.169s.167.075.167.169m1.165 0a.17.17 0 0 1-.049.119.166.166 0 0 1-.284-.12.17.17 0 0 1 .05-.119.166.166 0 0 1 .235 0 .17.17 0 0 1 .048.12m1.11 0a.17.17 0 0 1-.103.155.165.165 0 0 1-.218-.091.17.17 0 0 1 .037-.184.166.166 0 0 1 .284.12m1.165 0a.17.17 0 0 1-.049.119.166.166 0 0 1-.284-.12.17.17 0 0 1 .05-.119.166.166 0 0 1 .283.12m1.094 0a.17.17 0 0 1-.103.155.17.17 0 0 1-.181-.036.17.17 0 0 1-.049-.12.167.167 0 0 1 .23-.155.17.17 0 0 1 .103.156m-5.042.48a.167.167 0 0 1-.259.14.17.17 0 0 1-.07-.172.17.17 0 0 1 .13-.132.165.165 0 0 1 .171.071.17.17 0 0 1 .028.094zm1.166 0a.167.167 0 0 1-.26.14.17.17 0 0 1-.07-.172.17.17 0 0 1 .13-.132.165.165 0 0 1 .172.071.17.17 0 0 1 .028.094zm1.11 0a.17.17 0 0 1-.103.156.165.165 0 0 1-.218-.09.17.17 0 0 1 .036-.185.166.166 0 0 1 .284.12zm1.165 0a.17.17 0 0 1-.103.156.17.17 0 0 1-.181-.036.17.17 0 0 1 .117-.288c.092 0 .167.076.167.169zm1.094 0a.17.17 0 0 1-.05.12.166.166 0 0 1-.284-.12.17.17 0 0 1 .05-.119.166.166 0 0 1 .284.12zm-5.121.538a.17.17 0 0 1-.049.119.166.166 0 0 1-.284-.12.17.17 0 0 1 .05-.116.166.166 0 0 1 .283.117m1.094 0a.17.17 0 0 1-.05.116.166.166 0 0 1-.283-.116.17.17 0 0 1 .05-.117.166.166 0 0 1 .283.117m1.165 0a.17.17 0 0 1-.049.119.166.166 0 0 1-.284-.12.17.17 0 0 1 .05-.116.166.166 0 0 1 .283.117m1.11 0a.17.17 0 0 1-.049.119.166.166 0 0 1-.284-.12.17.17 0 0 1 .05-.116.166.166 0 0 1 .283.117m1.165 0a.17.17 0 0 1-.048.119.166.166 0 0 1-.285-.12.17.17 0 0 1 .05-.116.166.166 0 0 1 .283.117m1.094 0a.17.17 0 0 1-.103.155.17.17 0 0 1-.181-.037.17.17 0 0 1 .118-.287.165.165 0 0 1 .154.104.2.2 0 0 1 .012.065m-5.042.48a.17.17 0 0 1-.05.117.166.166 0 0 1-.283-.117.167.167 0 1 1 .333 0m1.166 0a.17.17 0 0 1-.05.117.166.166 0 0 1-.283-.117.167.167 0 1 1 .333 0m1.11 0a.166.166 0 0 1-.284.119.17.17 0 0 1 .117-.287c.092 0 .166.075.166.168zm1.165 0a.17.17 0 0 1-.05.116.166.166 0 1 1 .037-.18.2.2 0 0 1 .013.064m1.094 0a.166.166 0 0 1-.284.119.17.17 0 0 1 .117-.287c.092 0 .167.075.167.168m-5.121.537a.17.17 0 0 1-.05.117.166.166 0 0 1-.283-.117.17.17 0 0 1 .048-.119.17.17 0 0 1 .118-.05c.092 0 .167.076.167.17zm1.094 0a.17.17 0 0 1-.05.117.166.166 0 0 1-.283-.117.166.166 0 0 1 .285-.119.17.17 0 0 1 .048.12zm1.165 0a.17.17 0 0 1-.05.117.166.166 0 0 1-.283-.117.17.17 0 0 1 .049-.119.17.17 0 0 1 .118-.05c.091 0 .166.076.166.17zm1.11 0a.17.17 0 0 1-.05.117.166.166 0 0 1-.283-.117.17.17 0 0 1 .048-.119.17.17 0 0 1 .118-.05c.092 0 .167.076.167.17zm1.165 0a.17.17 0 0 1-.05.116.166.166 0 1 1-.116-.284c.092 0 .166.075.166.168m1.094 0a.167.167 0 0 1-.166.168.17.17 0 0 1-.118-.049.17.17 0 0 1 .118-.287.165.165 0 0 1 .154.104.2.2 0 0 1 .012.064"
+          />
+        </g>
+      </svg>
+    </span>
+  {:else if value === 'DE'}
+    <span class={className} style="display: flex">
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16" aria-hidden="true">
+        <path
+          fill="#d8dde1"
+          fill-rule="evenodd"
+          d="M1.882 2h12.236C15.158 2 16 2.843 16 3.882v7.53c0 1.04-.843 1.882-1.882 1.882H1.882A1.88 1.88 0 0 1 0 11.412v-7.53C0 2.842.843 2 1.882 2m0 .47c-.78 0-1.411.633-1.411 1.412v7.53c0 .78.632 1.411 1.411 1.411h12.236a1.41 1.41 0 0 0 1.411-1.411v-7.53a1.41 1.41 0 0 0-1.411-1.411z"
+          clip-rule="evenodd"
+        />
+        <g fill-rule="evenodd" clip-rule="evenodd">
+          <path
+            fill="#090909"
+            d="M14.225 2.5H1.775C1.071 2.5.5 3.086.5 3.808v2.123h15V3.808c0-.722-.57-1.308-1.275-1.308"
+          />
+          <path fill="#fd282f" d="M.5 5.93h15v3.451H.5v-3.45z" />
+          <path
+            fill="#ffd703"
+            d="M.5 11.505c0 .722.57 1.308 1.275 1.308h12.45c.704 0 1.275-.586 1.275-1.309V9.383H.5z"
+          />
+        </g>
+      </svg>
+    </span>
+  {:else if value === 'FR'}
+    <span class={className} style="display: flex">
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16" aria-hidden="true">
+        <path
+          fill="#d8dde1"
+          fill-rule="evenodd"
+          d="M1.882 2h12.236C15.158 2 16 2.843 16 3.882v7.53c0 1.04-.843 1.882-1.882 1.882H1.882A1.88 1.88 0 0 1 0 11.412v-7.53C0 2.842.843 2 1.882 2m0 .47c-.78 0-1.411.633-1.411 1.412v7.53c0 .78.632 1.411 1.411 1.411h12.236a1.41 1.41 0 0 0 1.411-1.411v-7.53a1.41 1.41 0 0 0-1.411-1.411z"
+          clip-rule="evenodd"
+        />
+        <g fill-rule="evenodd" clip-rule="evenodd">
+          <path
+            fill="#00578b"
+            d="M1.775 2.5C1.07 2.5.5 3.086.5 3.808v7.696c0 .723.57 1.308 1.275 1.308h3.719V2.5h-3.72z"
+          />
+          <path fill="#f9f9f9" d="M5.494 2.5h5.013v10.312H5.494z" />
+          <path
+            fill="#ee2734"
+            d="M14.225 2.5h-3.718v10.312h3.718c.704 0 1.275-.585 1.275-1.308V3.808c0-.722-.57-1.308-1.275-1.308"
+          />
+        </g>
+      </svg>
+    </span>
+  {/if}
+{/snippet}
+
+<Story name="Base">
+  {#snippet template(args: Args)}
+    <Select {...args} bind:value />
+  {/snippet}
+</Story>
+
+<Story name="Invalid" args={{ validationHint: 'This field is required', invalid: true }}>
+  {#snippet template(args: Args)}
+    <Select {...args} />
+  {/snippet}
+</Story>
+
+<Story name="Optional" args={{ optionalLabel: 'optional' }}>
+  {#snippet template(args: Args)}
+    <Select {...args} />
+  {/snippet}
+</Story>
+
+<Story name="Required" args={{ required: true, optionalLabel: 'optional' }}>
+  {#snippet template(args: Args)}
+    <Select {...args} />
+  {/snippet}
+</Story>
+
+<Story name="With prefix">
+  {#snippet template(args: Args)}
+    <Select {...args} prefix={flag} bind:value={valuePrefix} />
+  {/snippet}
+</Story>
+
+<Story name="Hidden label" args={{ hideLabel: true }}>
+  {#snippet template(args: Args)}
+    <Select {...args} />
   {/snippet}
 </Story>
 
 <Story name="Sizes">
-  {#snippet template()}
+  {#snippet template(args: Args)}
     <Stack>
-      <Select
-        label="Size"
-        id="size"
-        ariaDescribedBy="size selected"
-        size="s"
-        bind:value={page_size}
-      >
-        <option value={0} disabled>S</option>
-        <option value={10}>10</option>
-        <option value={20}>20</option>
-      </Select>
-      <Select
-        label="Size"
-        id="size"
-        ariaDescribedBy="size selected"
-        size="m"
-        bind:value={page_size}
-      >
-        <option value={0} disabled>M</option>
-        <option value={10}>10</option>
-        <option value={20}>20</option>
-      </Select>
+      <Select {...args} size="s" />
+      <Select {...args} size="m" />
     </Stack>
   {/snippet}
 </Story>
 
-<Story name="Placeholder">
+<Story name="Disabled" args={{ disabled: true, validationHint: 'Shipping is not available yet' }}>
+  {#snippet template(args: Args)}
+    <Select {...args} />
+  {/snippet}
+</Story>
+
+<Story name="With option elements">
   {#snippet template()}
-    <Select label="Countries" id="country" ariaDescribedBy="country selected">
-      <option value="" disabled selected>Select an option</option>
+    <Select label="Page size" placeholder="Select a size">
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="50">50</option>
     </Select>
-  {/snippet}
-</Story>
-
-<Story name="Pagination">
-  {#snippet template()}
-    <Stack>
-      <Select
-        label="Page size"
-        hideLabel={true}
-        size="s"
-        id="page-size"
-        ariaDescribedBy="page-size selected"
-        bind:value={page_size}
-      >
-        <option value={10}>10</option>
-        <option value={20}>20</option>
-        <option value={50}>50</option>
-        <option value={100}>100</option>
-      </Select>
-      <Select
-        label="Page size"
-        hideLabel={true}
-        id="page-size"
-        ariaDescribedBy="page-size selected"
-        bind:value={page_size}
-      >
-        <option value={10}>10</option>
-        <option value={20}>20</option>
-        <option value={50}>50</option>
-        <option value={100}>100</option>
-      </Select>
-    </Stack>
   {/snippet}
 </Story>

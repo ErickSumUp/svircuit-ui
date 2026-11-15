@@ -1,0 +1,63 @@
+import * as Stories from './ColorInput.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# ColorInput
+
+The ColorInput lets users type a color as a hex code or pick it with the browser's native color
+picker.
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Usage
+
+Use it to let users pick a color to personalize content, such as a theme, a profile or other
+customizable parts of a product.
+
+## How to use it
+
+Bind `value` to read and set the color, a hex code such as `#99ffbb`. The picker and the text field
+stay in sync: typing only updates `value` once the text is a valid 3- or 6-digit hex code, which is
+then normalized to lowercase `#rrggbb`. Pasting a code with or without `#` updates both.
+
+Other attributes, such as `name`, `oninput` or `onchange`, go on the native color input. Its
+`input` and `change` events also fire when a valid code is typed or pasted. `class` and `style` go
+on the wrapping `fieldset`.
+
+## Validations
+
+Use `validationHint` to communicate the state of the field, along with one of these props:
+
+- stand-alone: the user is told what is expected.
+- `invalid`: the value is invalid.
+- `hasWarning`: the value is not recommended but still valid.
+- `showValid`: the value is valid. Use sparingly.
+
+<Canvas of={Stories.Validations} />
+
+## Optional
+
+Use `optionalLabel` to mark the field as optional. It's only shown when `required` is falsy.
+
+<Canvas of={Stories.Optional} />
+
+## Readonly
+
+With `readonly`, the text field can be selected and copied but not edited, and the color picker is
+disabled.
+
+<Canvas of={Stories.Readonly} />
+
+## Disabled
+
+Disabled fields can be confusing, so use them with caution. Only disable the field to communicate
+that an option that existed before isn't available now. Consider hiding the field instead, or
+explain why it's disabled.
+
+<Canvas of={Stories.Disabled} />
+
+## Sizes
+
+<Canvas of={Stories.Sizes} />

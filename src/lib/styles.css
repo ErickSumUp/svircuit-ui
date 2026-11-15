@@ -411,7 +411,7 @@
   --cui-font-stack-display:
     'SumUp Black', 'SumUp Black fallback', Arial, system-ui, sans-serif, 'Segoe UI', Roboto,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  --cui-font-stack-mono: 'Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace';
+  --cui-font-stack-mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
 
   /* Font weights */
   --cui-font-weight-regular: 375;

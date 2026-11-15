@@ -10,6 +10,48 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-11-03 — ColorInput ✅
+
+- **ColorInput** (Phase 6) is new, circuit's ColorInput with the Field parts and Input's base CSS
+  inlined: a `fieldset` whose legend names a native color picker and a hex text field. Bind
+  `value` (`#rrggbb`). Typing or pasting a valid 3- or 6-digit code (with or without `#`) updates
+  the picker and fires its `input` and `change` events, as circuit does; other attributes go on the
+  picker, `class` and `style` on the fieldset. `readonly` makes the text read-only and disables the
+  picker. Full validity (`invalid`, `hasWarning`, `showValid`). The color helpers
+  (`isValidColor`, `normalizeColor`, `isSameColor`) are module exports.
+- Stories follow circuit's (Base, Optional, Readonly, Disabled, Validations, Sizes), with tests.
+- **Global CSS fix:** `--cui-font-stack-mono` was one quoted string, so it named a single
+  non-existent font and fell back to the default; it's now circuit's unquoted list. ColorInput is
+  the first user.
+- Compared in Chrome with circuit.sumup.com: picker 48px and swatch 24px at size `m`, the `#`
+  symbol, the monospace text, radii, the readonly, disabled and validation states, and the layout
+  of every story. Font sizes are 1px smaller, the Phase 0.1 token drift.
+
+### 2026-11-03 — Select ✅
+
+- **Select** (Phase 2.2) is circuit's Select with the Field parts inlined. **Breaking:** `label` is
+  required and `id` optional (generated with `$props.id()`); `name` no longer defaults to
+  `'select'`; `ariaDescribedBy` is the native `aria-describedby`, merged with the hint's `id`; the
+  duplicated `aria-label` is dropped; the `prefix` snippet receives `{ class, value }`, as Input's
+  does; the never-rendered `suffix` is gone (circuit has none). **New:** `options` (exported
+  `SelectOption` type), with `<option>` children still supported, and `placeholder`, the text of an
+  empty option. **Deviation:** circuit drops the empty option once a controlled `value` is set, so
+  it stays in uncontrolled use and vanishes in controlled use; ours always tracks its value, so it
+  follows `required` instead: optional selects keep it, so the choice can be cleared, and required
+  selects drop it once an option is chosen. Fixed: `size` drives circuit's
+  `--field-input-*` variables, so font size, padding and radius scale; label and hint are `body-s`
+  (compact-s at size `s`); the chevron is centred with `translateY(-50%)` and keeps it when
+  pressed, so it no longer jumps; `min-width: max-content` is gone; the disabled hint is
+  `fg-subtle-disabled` and the disabled chevron dims; the border and inset focus shadow are
+  circuit's; v2 chevron and alert icons.
+- Stories follow circuit's (Base, Invalid, Optional, With prefix, Hidden label, Sizes), plus
+  Required, Disabled and With option elements. With prefix inlines circuit's v2 16px US, DE and FR flags.
+  The Pagination and Placeholder stories are dropped: Pagination has its own, and the placeholder
+  is a prop now. First unit tests for Select.
+- Compared in Chrome with circuit.sumup.com: height at both sizes, padding, chevron box and colour,
+  prefix box, border and radius, the invalid state and the placeholder option. Font sizes are 1px
+  smaller and size `s` has an 8px radius against 10px, the Phase 0.1 token drift.
+
 ### 2026-11-03 — SearchInput ✅
 
 - **SearchInput** (Phase 2.3) is circuit's SearchInput. Circuit wraps its Input; ours inlines the
@@ -826,13 +868,13 @@ is deferred, Phase 1 (typography) is independent and can go first.
 Circuit has 74 components. We share 30 with it, 32 do not exist here yet, and 4 are our own
 inventions (`Stack`, `Spacer`, `TestText`, plus the story components).
 
-| Status         | Components                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| In sync        | Input, SearchInput, Selector, SelectorGroup, InputRadio, InputRadioGroup, Checkbox, CheckboxGroup, Toggle, TextArea, Toggletip, Callout, ButtonGroup, TopNavigation, ActionMenu, Dialog (circuit's Modal), Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Avatar, TierIndicator, SumUpLogo, Tooltip, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
-| Minor drift    | DateInput                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| Major drift    | Select, Table, NotificationToast                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Status         | Components                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| In sync        | ColorInput, Select, Input, SearchInput, Selector, SelectorGroup, InputRadio, InputRadioGroup, Checkbox, CheckboxGroup, Toggle, TextArea, Toggletip, Callout, ButtonGroup, TopNavigation, ActionMenu, Dialog (circuit's Modal), Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Avatar, TierIndicator, SumUpLogo, Tooltip, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
+| Minor drift    | DateInput                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Major drift    | Table, NotificationToast                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
 Colors are fully in sync — every token in circuit's `light.ts` exists in our `styles.css`.
 
@@ -921,7 +963,7 @@ We have no equivalent, so all six form components re-inline that markup and have
 
 ---
 
-## Phase 2 — Sync the existing form fields
+## Phase 2 — Sync the existing form fields ✅ done 2026-11-03
 
 Do these after 0.2, in this order — `SearchInput` is a wrapper over `Input` upstream.
 
@@ -938,19 +980,19 @@ Do these after 0.2, in this order — `SearchInput` is a wrapper over `Input` up
 - [x] Clean up the `<style>` block — `.wrapper`, `.prefix`/`.suffix` and `.validation-hint-invalid` are
       each defined two or three times, and `.icon` is unused.
 
-### 2.2 Select — major drift (M)
+### 2.2 Select — major drift (M) ✅ done 2026-11-03
 
-- [ ] Add `options: SelectOption[]` and `placeholder` (renders a leading empty `<option>` when nothing
+- [x] Add `options: SelectOption[]` and `placeholder` (renders a leading empty `<option>` when nothing
       is selected; without it there is no "no selection" state). `hasWarning`/`showValid` are
       deliberately absent upstream, so those are not gaps.
-- [ ] `label` should be required (ours defaults to `''`), and `name` must not default to `'select'` —
+- [x] `label` should be required (ours defaults to `''`), and `name` must not default to `'select'` —
       two selects on one page collide today.
-- [ ] The declared `suffix` snippet is never rendered. Either wire it up or drop it.
-- [ ] Move `size` onto the wrapper variables instead of per-element `class:s`/`class:m`, which
+- [x] The declared `suffix` snippet is never rendered. Either wire it up or drop it.
+- [x] Move `size` onto the wrapper variables instead of per-element `class:s`/`class:m`, which
       currently leaves font size and border radius fixed.
-- [ ] Center the chevron with `top: 50%; translateY(-50%)`; the pressed state drops the translate today,
+- [x] Center the chevron with `top: 50%; translateY(-50%)`; the pressed state drops the translate today,
       so it visibly jumps.
-- [ ] Remove `min-width: max-content` (lets a long option push the select past its container) and fix
+- [x] Remove `min-width: max-content` (lets a long option push the select past its container) and fix
       the disabled hint color (`fg-subtle-disabled`, not `fg-danger-disabled`).
 
 ### 2.3 SearchInput — major drift (M) ✅ done 2026-11-03
@@ -1176,7 +1218,7 @@ port the parts that are about behaviour and looks rather than architecture.
 - [x] **Toggle** — switch with label and description. ✅ done 2026-11-02
 - [x] **CheckboxGroup** — options array, shared validation. ✅ done 2026-11-02
 - [x] **Selector** and **SelectorGroup** — card-style radio/checkbox. ✅ done 2026-11-02
-- [ ] **ColorInput**
+- [x] **ColorInput**
 - [ ] **CurrencyInput** — locale-aware, `Intl.NumberFormat`.
 - [ ] **PercentageInput**
 - [ ] **PhoneNumberInput** — country code select plus subscriber number.

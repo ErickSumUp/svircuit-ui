@@ -1,0 +1,61 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <fieldset
+    class="fieldset m svelte-4dtedr"
+  >
+    <legend
+      class="legend svelte-4dtedr"
+      id="color-input-c1-label"
+    >
+      <span
+        class="label-text svelte-4dtedr"
+      >
+        Color 
+        <!---->
+      </span>
+    </legend>
+     
+    <div
+      class="wrapper svelte-4dtedr"
+    >
+      <label
+        class="picker svelte-4dtedr"
+        for="color-input-c1-picker"
+      >
+        <input
+          aria-labelledby="color-input-c1-label"
+          class="color-input svelte-4dtedr"
+          id="color-input-c1-picker"
+          type="color"
+        />
+      </label>
+       
+      <span
+        class="symbol svelte-4dtedr"
+      >
+        #
+      </span>
+       
+      <input
+        aria-labelledby="color-input-c1-label"
+        class="base input svelte-4dtedr"
+        maxlength="6"
+        pattern="[0-9a-f]{3,6}"
+        type="text"
+      />
+    </div>
+     
+    <!---->
+     
+    <span
+      aria-live="polite"
+      role="status"
+    >
+      <!---->
+    </span>
+  </fieldset>
+  
+</div>
+`;

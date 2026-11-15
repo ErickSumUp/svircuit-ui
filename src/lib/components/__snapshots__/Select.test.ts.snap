@@ -1,0 +1,85 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should match story case 1`] = `
+<div>
+  <div
+    class="field m svelte-t5ihcw"
+  >
+    <label
+      class="label svelte-t5ihcw"
+      for="countries"
+    >
+      <span
+        class="label-text svelte-t5ihcw"
+      >
+        Countries 
+        <!---->
+      </span>
+    </label>
+     
+    <div
+      class="wrapper svelte-t5ihcw"
+    >
+      <!---->
+       
+      <select
+        class="base svelte-t5ihcw"
+        id="countries"
+      >
+        <!---->
+        <option
+          value=""
+        >
+          Select an option
+        </option>
+        <!---->
+        <!---->
+        <option
+          value="US"
+        >
+          United States
+        </option>
+        <option
+          value="DE"
+        >
+          Germany
+        </option>
+        <option
+          disabled=""
+          value="FR"
+        >
+          France
+        </option>
+        
+        <!---->
+        <!---->
+      </select>
+       
+      <svg
+        aria-hidden="true"
+        class="icon svelte-t5ihcw"
+        fill="none"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <path
+          d="M17.293 8.293a1 1 0 1 1 1.414 1.414l-6 6a1 1 0 0 1-1.414 0l-6-6a1 1 0 1 1 1.414-1.414L12 13.586z"
+          fill="currentColor"
+        />
+      </svg>
+      <!---->
+    </div>
+     
+    <!---->
+     
+    <span
+      aria-live="polite"
+      role="status"
+    >
+      <!---->
+    </span>
+  </div>
+  
+</div>
+`;
