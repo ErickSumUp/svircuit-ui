@@ -20,6 +20,7 @@ export { default as CheckboxGroup } from './stories/CheckboxGroup.svelte';
 export type { CheckboxGroupOption } from './stories/CheckboxGroup.svelte';
 export { default as Pagination } from './stories/Pagination.svelte';
 export { default as Input } from './components/Input.svelte';
+export { default as SearchInput } from './components/SearchInput.svelte';
 export { default as ColorInput } from './components/ColorInput.svelte';
 export { default as CurrencyInput } from './components/CurrencyInput.svelte';
 export { default as PercentageInput } from './components/PercentageInput.svelte';

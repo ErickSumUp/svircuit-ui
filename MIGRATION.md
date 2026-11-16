@@ -10,6 +10,12 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-11-16 — SearchInput exported
+
+- `SearchInput` was ported on 2026-11-03 but missing from `src/lib/index.ts`; it is now exported.
+  Every component in `src/lib/components/` and `src/lib/stories/` is exported, except
+  `TestText.svelte`, which is a test helper. `npm run package` and publint pass.
+
 ### 2026-11-16 — No `$effect` left in the library
 
 - **Every `$effect` is gone** from `src/lib`, following the rule: CSS, then event handlers, then
