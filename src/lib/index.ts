@@ -24,6 +24,10 @@ export { default as ColorInput } from './components/ColorInput.svelte';
 export { default as CurrencyInput } from './components/CurrencyInput.svelte';
 export { default as PercentageInput } from './components/PercentageInput.svelte';
 export { default as ImageInput } from './components/ImageInput.svelte';
+export {
+  default as PhoneNumberInput,
+  type CountryCodeOption
+} from './components/PhoneNumberInput.svelte';
 export { default as TextArea } from './components/TextArea.svelte';
 export { default as Spacer } from './components/Spacer.svelte';
 export { default as Table } from './components/Table.svelte';
@@ -87,6 +91,8 @@ import NotificationToastsSection, {
 } from '$lib/components/NotificationToastsSection.svelte';
 export { NotificationToastsSection, addToast };
 export { default as Dialog } from './components/Dialog.svelte';
+export { default as SidePanel } from './components/SidePanel.svelte';
+export { default as SidePanelProvider } from './components/SidePanelProvider.svelte';
 export { default as ActionMenu } from './stories/ActionMenu.svelte';
 export type { ActionMenuAction, ActionMenuDivider } from './stories/ActionMenu.svelte';
 export { default as InputRadio } from './components/InputRadio.svelte';

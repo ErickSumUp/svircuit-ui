@@ -592,6 +592,7 @@
             aria-invalid={invalid}
             aria-describedby={index === 0 && showsHint ? validationHintId : undefined}
             placeholder={limit.placeholder}
+            autocomplete={autocomplete === 'bday' ? `bday-${type}` : undefined}
             value={current === '' ? '' : current}
             {required}
             {disabled}

@@ -1,0 +1,82 @@
+import * as Stories from './SidePanel.stories.svelte';
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta of={Stories} />
+
+# SidePanel
+
+The side panel component provides an additional surface for displaying contextual information that
+can support the screen's primary content.
+
+_Note: the examples for the side panel component are best viewed in canvas mode._
+
+<Canvas withToolbar={true} of={Stories.Base} />
+<Controls />
+
+## Usage guidelines
+
+- **Do** use the side panel to show short-lived contextual information as part of the user's
+  workflow.
+- **Do** only show the side panel upon user interaction with its triggering element.
+- **Do** open a secondary side panel on top of the first, only by triggering an element from within
+  the first panel.
+- **Do not** use the side panel as a permanent layout element. It should always be dismissible.
+
+## Accessibility
+
+On viewports of 768px and wider the side panel is non-modal: users can interact with the rest of the
+application, and focus is not trapped. On smaller viewports the side panel is modal and covers the
+screen, so the rest of the application is not accessible while it's open.
+
+The panel is a native `dialog` element, labelled by its headline. The Escape key closes the topmost
+panel, or goes back when it has a back button.
+
+## Usage in code
+
+First, wrap the primary content of your application in the `SidePanelProvider`. On larger viewports
+the primary content narrows while a side panel inside it is open. The provider is only a styled
+container: unlike circuit's, it holds no state.
+
+```svelte
+<SidePanelProvider>
+  <!-- Your primary content here... -->
+</SidePanelProvider>
+```
+
+Then render a `SidePanel` and open it with `bind:open`. The panel closes with its close button (shown
+when `closeButtonLabel` is set) or the Escape key.
+
+```svelte
+<script lang="ts">
+  let open = $state(false);
+</script>
+
+<Button onclick={() => (open = true)}>Show more</Button>
+
+<SidePanel bind:open headline="More information" closeButtonLabel="Close">
+  <Body>Some additional information</Body>
+</SidePanel>
+```
+
+### Differences from circuit
+
+Circuit opens side panels imperatively with the `useSidePanel` hook (`setSidePanel`,
+`updateSidePanel`, `removeSidePanel`) and keeps them in the provider's state. Here the panel is a
+regular component, so those functions map to plain state:
+
+- **set:** set `open` to `true` and render the content you need.
+- **update:** change the content. It's reactive.
+- **remove:** set `open` to `false`.
+- **stack:** render a second `SidePanel` inside the first one. Pass `onback` and `backButtonLabel`
+  to show its back button, which should close only that panel. Circuit's `group` prop is not needed.
+- **render props:** the `onBack` and `onClose` render props are not needed either, because the
+  content can update the same state.
+
+Closing a stacked panel with its close button should close the entire stack: set every panel's `open`
+to `false` in its `onclose`.
+
+<Canvas withToolbar={true} of={Stories.UpdateAndRemove} />
+
+It is possible to delay or cancel the closing of a side panel by returning a promise from `onclose`.
+A rejected promise keeps the panel open. This can be useful to prompt users to confirm closing the
+panel when they have entered information but haven't saved it yet.

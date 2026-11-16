@@ -10,7 +10,65 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
-### 2026-11-15 — ImageInput ✅, PhoneNumberInput waiting for a decision
+### 2026-11-15 — PhoneNumberInput ✅
+
+- **PhoneNumberInput** (Phase 6) is new and atomic: circuit's FieldSet parts, Input and the
+  parsing and normalizing service (`parsePhoneNumber`, `normalizePhoneNumber`, both exported) are
+  inlined. The number is reported in the E.164 format through a bindable `value` and
+  `onchange(value)`; other attributes such as `name` go to a hidden input, as in circuit. A value
+  set from outside replaces the fields without an `$effect`, like CurrencyInput.
+- **Decision (agreed with the user):** the country code is a **native `select`**, not circuit's
+  AutocompleteInput ([#3624](https://github.com/sumup-oss/circuit-ui/pull/3624)). Its list shows
+  "Country (+code)" sorted by name (`Intl.DisplayNames`), like circuit's select before #3624. To
+  look like circuit's current field, the select's own text is transparent and the code is laid over
+  it, so the closed field shows only "+1"; screen readers still get the country name. No chevron,
+  as in circuit. **Flags** are opt-in: `countryCode.prefix` is a snippet receiving the selected
+  `country`; nothing is loaded from circuit's CDN by default. The stories pass circuit's CDN flag
+  images through it.
+- **API:** circuit's `countryCode` and `subscriberNumber` objects are kept. Dropped: the top-level
+  and `subscriberNumber.defaultValue` (use `value`) and the refs. `countryCode.onChange` and
+  `subscriberNumber.onChange` are `countryCode.onchange` (the select's `change` event) and
+  `subscriberNumber.oninput`. Pasting a full number calls only the top-level `onchange`, once
+  (circuit calls each field's handler too). The fieldset has no `aria-invalid`/`aria-required`,
+  which aren't valid on a group; the select and input carry them. A read-only country code is a
+  read-only input showing the code, as in circuit's select version.
+- Stories follow circuit's (Base, Validations, Readonly, Optional, Disabled, Sizes; "With prefix"
+  is "Without prefix", since ours has none by default), with a docs page and 29 tests (including
+  the service). Compared in Chrome with circuit.sumup.com at 800px and 390px: the 40% country box,
+  48px height, flag and code offsets, the shared 1px border, the stacked mobile layout and the
+  radii match; fonts differ by the Phase 0.1 drift. Selecting, typing mid-number (caret kept),
+  pasting `+1 202 555 0132` and the focus ring work in Chrome.
+
+### 2026-11-15 — SidePanel ✅
+
+- **SidePanel** (Phase 8) is new and atomic: circuit's Header, its tertiary back IconButton and
+  CloseButton are inlined, with the v2 24px `arrow_left` and `close` icons. It's a native `dialog`,
+  non-modal (`show()`) from 768px and a full-screen modal (`showModal()`) below. An attachment opens
+  and closes it from `bind:open`, and reopens it in the other mode when the viewport crosses 768px,
+  with no `$effect`. The slide in and out is CSS (`@starting-style`, `display`/`overlay`
+  `allow-discrete`), like Dialog, instead of circuit's timeouts.
+- **API:** circuit's `useSidePanel` hook (`setSidePanel`, `updateSidePanel`, `removeSidePanel`,
+  `group`, the `onBack`/`onClose` render props) is replaced by a declarative component:
+  `<SidePanel bind:open headline onclose onback backButtonLabel closeButtonLabel>`. A stacked panel
+  is a second SidePanel rendered inside the first. `onclose` runs on the close button and Escape;
+  a rejected promise keeps the panel open, as in circuit. Escape only reaches the topmost open
+  panel, and goes back when it has `onback`, as circuit's does.
+- **SidePanelProvider** keeps circuit's name but holds no state: a wrapper that narrows by
+  `--side-panel-width` (440px) while it `:has()` an open panel, from 768px. Both fall back to 440px
+  when the property isn't set.
+- **Deviations:** the sticky header's z-index is 1 rather than `--cui-z-index-header`, so a stacked
+  panel inside the content isn't covered by its parent's header. The open panel has `transform:
+none` rather than `translateX(0)`, so the stacked panel stays positioned against the viewport.
+  As with SecondaryNavigation, the panel is offset by `--top-navigation-height` only when an
+  ancestor sets it (see the TopNavigation entry).
+- Stories follow circuit's (Base with a stacked panel, Update and remove), with a docs page and 11
+  tests. Compared in Chrome with circuit.sumup.com at 1280px and 390px: the narrowed content
+  (840px), the panel's position, border, padding and fade, the header, buttons and headline offsets
+  (including circuit's 56px headline margin next to the back button), modality and Escape on a
+  stack all match; the headline is 18px instead of 19px (Phase 0.1 drift). Focus returns to the
+  opener on close.
+
+### 2026-11-15 — ImageInput ✅, PhoneNumberInput waiting for a decision (since resolved)
 
 - **ImageInput** (Phase 6) is new and atomic: circuit's FieldWrapper parts, IconButton (secondary,
   size `s`, with the v2 16px `plus` and `delete` icons), Spinner and the clear button's Tooltip are
@@ -973,13 +1031,13 @@ is deferred, Phase 1 (typography) is independent and can go first.
 Circuit has 74 components. We share 30 with it, 32 do not exist here yet, and 4 are our own
 inventions (`Stack`, `Spacer`, `TestText`, plus the story components).
 
-| Status         | Components                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| In sync        | ImageInput, PercentageInput, CurrencyInput, ColorInput, Select, Input, SearchInput, Selector, SelectorGroup, InputRadio, InputRadioGroup, Checkbox, CheckboxGroup, Toggle, TextArea, Toggletip, Callout, ButtonGroup, TopNavigation, ActionMenu, Dialog (circuit's Modal), Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Avatar, TierIndicator, SumUpLogo, Tooltip, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
-| Minor drift    | DateInput                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| Major drift    | Table, NotificationToast                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Status         | Components                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| In sync        | PhoneNumberInput, SidePanel, SidePanelProvider, ImageInput, PercentageInput, CurrencyInput, ColorInput, Select, Input, SearchInput, Selector, SelectorGroup, InputRadio, InputRadioGroup, Checkbox, CheckboxGroup, Toggle, TextArea, Toggletip, Callout, ButtonGroup, TopNavigation, ActionMenu, Dialog (circuit's Modal), Body, Headline, Hr, AspectRatio, Image, Skeleton, Timestamp, SkipLink, Tabs, NotificationInline, NotificationBanner, NotificationModal, NotificationFullscreen, Avatar, TierIndicator, SumUpLogo, Tooltip, Popover, SideNavigation, Hamburger, Anchor, Compact, Display, List, Numeral, Status, Calendar, Card, CardFooter, CardHeader, Button, CloseButton, Tag, ListItem, ListItemGroup, ProgressBar, Spinner, Pagination |
+| Minor drift    | DateInput                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Major drift    | Table, NotificationToast                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Dead / removed | ~~CircleButton~~ (deleted), SubHeadline, SecondaryNavigation (deprecated), ~~the duplicate `src/lib/SideNavigation.svelte`~~ (deleted)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Ours only      | Stack, Spacer (no circuit equivalent; the closest relatives are in circuit's `legacy/` folder)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
 Colors are fully in sync — every token in circuit's `light.ts` exists in our `styles.css`.
 
@@ -1326,10 +1384,13 @@ port the parts that are about behaviour and looks rather than architecture.
 - [x] **ColorInput**
 - [x] **CurrencyInput** — locale-aware, `Intl.NumberFormat`. ✅ done 2026-11-15
 - [x] **PercentageInput** ✅ done 2026-11-15
-- [ ] **PhoneNumberInput** — country code select plus subscriber number.
+- [x] **PhoneNumberInput** — country code select plus subscriber number. ✅ done 2026-11-15
 - [x] **ImageInput** — upload with preview and clear. ✅ done 2026-11-15
 
-Also here: **DateInput** is missing `defaultValue` and `autoComplete="bday"` from the original port.
+Also here: **DateInput** ~~is missing `defaultValue` and `autoComplete="bday"` from the original
+port~~ ✅ 2026-11-15: `autocomplete="bday"` now also sets `bday-day`, `bday-month` and `bday-year` on
+the segments, as circuit does, so browsers can autofill them; DateInput got its first tests.
+`defaultValue` isn't ported: the bindable `value` is the initial value, the one prop shape.
 `closeCalendarButtonLabel` was added with the Popover migration on 2026-10-27.
 
 ---
@@ -1350,7 +1411,7 @@ Also here: **DateInput** is missing `defaultValue` and `autoComplete="bday"` fro
 - [x] **Hamburger** ✅ done 2026-10-27
 - [x] **Tabs** (Tab, TabList, TabPanel inlined into one atomic component) ✅ done 2026-11-01
 - [x] **TopNavigation** (+ utility links) ✅ done 2026-11-02
-- [ ] **SidePanel**
+- [x] **SidePanel** (+ SidePanelProvider) ✅ done 2026-11-15
 - [x] **SideNavigation rewrite** ✅ done 2026-10-27 (see the progress log). Still open: removing the
       deprecated SecondaryNavigation. The secondary link `tier` is dropped: circuit removed it in
       the navigation revamp (#3821).
