@@ -23,6 +23,7 @@ export { default as Input } from './components/Input.svelte';
 export { default as ColorInput } from './components/ColorInput.svelte';
 export { default as CurrencyInput } from './components/CurrencyInput.svelte';
 export { default as PercentageInput } from './components/PercentageInput.svelte';
+export { default as ImageInput } from './components/ImageInput.svelte';
 export { default as TextArea } from './components/TextArea.svelte';
 export { default as Spacer } from './components/Spacer.svelte';
 export { default as Table } from './components/Table.svelte';
