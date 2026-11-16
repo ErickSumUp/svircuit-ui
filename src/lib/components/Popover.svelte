@@ -130,9 +130,9 @@
    * where the Popover API is unavailable, in which case the content is always
    * visible.
    */
-  $effect(() => {
-    popover.togglePopover?.(open);
-  });
+  function syncOpen(element: HTMLDivElement) {
+    element.togglePopover?.(open);
+  }
 </script>
 
 <div class="trigger" style="anchor-name: {anchorName};">
@@ -141,6 +141,7 @@
 
 <div
   bind:this={popover}
+  {@attach syncOpen}
   id={contentId}
   popover="auto"
   role="dialog"

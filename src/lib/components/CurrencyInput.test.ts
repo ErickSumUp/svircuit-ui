@@ -171,6 +171,15 @@ describe('value', () => {
     expect(getInput()).toHaveValue('99,9');
   });
 
+  test('should keep typing after a value set from outside', async () => {
+    render(CurrencyInputExample);
+
+    await userEvent.click(screen.getByRole('button', { name: 'Set' }));
+    await userEvent.type(getInput(), '0');
+
+    expect(getInput()).toHaveValue('99,90');
+  });
+
   test('should call oninput', async () => {
     const oninput = vi.fn();
     render(CurrencyInput, { ...baseProps, oninput });

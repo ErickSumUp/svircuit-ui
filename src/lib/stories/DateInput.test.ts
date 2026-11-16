@@ -43,6 +43,26 @@ describe('segments', () => {
 
     expect(onchange).toHaveBeenLastCalledWith('2017-08-28');
   });
+
+  test('should show a date set from outside and keep editing it', async () => {
+    const onchange = vi.fn();
+    const { rerender } = render(DateInput, { ...baseProps, value: '2017-08-28', onchange });
+
+    await rerender({ value: '2020-01-15', onchange });
+    expect(getSegments().map((segment) => segment.value)).toEqual(['15', '1', '2020']);
+
+    await userEvent.clear(getSegments()[0]);
+    await userEvent.type(getSegments()[0], '20');
+    expect(onchange).toHaveBeenLastCalledWith('2020-01-20');
+  });
+
+  test('should keep a partly typed date when the value is cleared', async () => {
+    render(DateInput, baseProps);
+
+    await userEvent.type(getSegments()[0], '28');
+
+    expect(getSegments()[0]).toHaveValue('28');
+  });
 });
 
 describe('autocomplete', () => {

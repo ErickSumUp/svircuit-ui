@@ -60,10 +60,10 @@
   const headlineId = $props.id();
   let dialog: HTMLDialogElement;
 
-  $effect(() => {
-    if (open && !dialog.open) dialog.showModal();
-    else if (!open && dialog.open) dialog.close();
-  });
+  function syncOpen(element: HTMLDialogElement) {
+    if (open && !element.open) element.showModal();
+    else if (!open && element.open) element.close();
+  }
 
   function handleClose() {
     open = false;
@@ -94,6 +94,7 @@
 <dialog
   {...rest}
   bind:this={dialog}
+  {@attach syncOpen}
   class="base"
   aria-labelledby={headlineId}
   onclose={handleClose}

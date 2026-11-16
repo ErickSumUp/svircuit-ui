@@ -100,9 +100,11 @@
     popover.hidePopover?.();
   }
 
-  $effect(() => () => {
-    if (hideActive === hide) hideActive = null;
-  });
+  function releaseOnDestroy() {
+    return () => {
+      if (hideActive === hide) hideActive = null;
+    };
+  }
 
   function handleFocusIn(event: FocusEvent) {
     if ((event.target as Element).matches(':focus-visible')) show();
@@ -135,6 +137,7 @@
 <div
   {...rest}
   bind:this={popover}
+  {@attach releaseOnDestroy}
   id={tooltipId}
   popover="manual"
   role="tooltip"

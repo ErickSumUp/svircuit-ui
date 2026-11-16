@@ -120,6 +120,17 @@ describe('state', () => {
     expect(getText()).toHaveValue('123456');
     expect(getPicker()).toHaveValue('#123456');
   });
+
+  test('should keep the typed text after a value set from outside', async () => {
+    const { rerender } = render(ColorInput, baseProps);
+
+    await rerender({ value: '#123456' });
+    await userEvent.clear(getText());
+    await userEvent.type(getText(), 'abc');
+
+    expect(getText()).toHaveValue('abc');
+    expect(getPicker()).toHaveValue('#aabbcc');
+  });
 });
 
 describe('user interactions', () => {

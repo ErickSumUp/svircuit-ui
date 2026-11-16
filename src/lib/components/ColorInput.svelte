@@ -95,15 +95,13 @@
 
   let picker: HTMLInputElement | undefined = $state();
   let text = $state(untrack(() => value?.trim().replace('#', '') ?? ''));
-
-  $effect(() => {
-    const color = value;
-    untrack(() => {
-      if (color && !isSameColor(text, color)) {
-        text = color.trim().replace('#', '');
-      }
-    });
-  });
+  let reportedValue = $state(untrack(() => value));
+  // A value set from outside replaces the typed text, unless it's the same color.
+  const shownText = $derived(
+    value && value !== reportedValue && !isSameColor(text, value)
+      ? value.trim().replace('#', '')
+      : text
+  );
 
   const validity = $derived(
     disabled
@@ -130,11 +128,17 @@
   }
 
   function handlePickerInput(event: Event & { currentTarget: HTMLInputElement }) {
-    value = event.currentTarget.value;
+    const color = event.currentTarget.value;
+    if (!isSameColor(text, color)) {
+      text = color.replace('#', '');
+    }
+    reportedValue = color;
+    value = color;
     rest.oninput?.(event);
   }
 
   function handleTextInput(event: Event & { currentTarget: HTMLInputElement }) {
+    reportedValue = value;
     text = event.currentTarget.value;
     updatePicker(text);
   }
@@ -148,6 +152,7 @@
       return;
     }
     event.preventDefault();
+    reportedValue = value;
     text = pasted.replace('#', '');
     updatePicker(pasted);
   }
@@ -195,7 +200,7 @@
       pattern={'[0-9a-f]{3,6}'}
       {readonly}
       {disabled}
-      value={text}
+      value={shownText}
       placeholder={placeholder?.replace('#', '')}
       oninput={handleTextInput}
       onpaste={handlePaste}

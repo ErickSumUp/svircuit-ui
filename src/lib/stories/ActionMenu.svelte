@@ -90,14 +90,14 @@
 
   /* Like circuit, the first action receives focus when the menu opens, or the
      last one when it was opened with the up arrow. */
-  $effect(() => {
+  function focusOnOpen() {
     if (!open) return;
     tick().then(() => {
       const items = getItems();
       (focusLast ? items.at(-1) : items[0])?.focus();
       focusLast = false;
     });
-  });
+  }
 
   function handleTriggerKeyDown(event: KeyboardEvent) {
     if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
@@ -136,7 +136,7 @@
 
   {#snippet children({ close })}
     <!-- svelte-ignore a11y_no_static_element_interactions -->
-    <div bind:this={menu} class="menu" onkeydown={handleMenuKeyDown}>
+    <div bind:this={menu} {@attach focusOnOpen} class="menu" onkeydown={handleMenuKeyDown}>
       {#each actions as action, index (index)}
         {#if isDivider(action)}
           <hr class="divider" aria-hidden="true" />

@@ -10,6 +10,30 @@ Design tokens: `../experimental/circuit-ui/packages/design-tokens/themes/`
 
 Newest first. Each entry records what was completed and anything the next session needs to know.
 
+### 2026-11-16 — No `$effect` left in the library
+
+- **Every `$effect` is gone** from `src/lib`, following the rule: CSS, then event handlers, then
+  attachments.
+  - **Popover, Toggletip, NotificationModal:** syncing `open` to the element is an `{@attach}` on
+    it, like SidePanel.
+  - **Tooltip:** the module-level "active tooltip" is released in an attachment's teardown.
+  - **Timestamp:** the refresh timer is an attachment keyed on the unit's interval, so it only
+    restarts when the interval changes rather than on every tick. The `onMount` that sets the first
+    "now" after hydration stays.
+  - **ActionMenu:** focusing the first (or, after ArrowUp, the last) action on open is an
+    attachment on the menu.
+  - **Calendar:** `onmonthschange` is called where the visible months change (navigation, swipes,
+    keyboard focus), and once on mount from an attachment, as circuit's effect does.
+  - **ColorInput and DateInput:** a value set from outside is shown by comparing it with the last
+    value the component reported, like CurrencyInput.
+- **Fix:** that "last reported value" must be `$state`. As a plain variable, the derived that
+  compares it can keep showing the outside value: DateInput stopped reporting changes after an
+  outside value was set (the segments changed without the value changing). CurrencyInput,
+  PercentageInput, ColorInput and PhoneNumberInput use `$state` for it too now. New tests cover
+  editing after an outside value in DateInput, ColorInput and CurrencyInput.
+- Checked in Chrome: ActionMenu focuses the first action on click and the last on ArrowUp, and the
+  controlled Popover opens and closes.
+
 ### 2026-11-15 — PhoneNumberInput ✅
 
 - **PhoneNumberInput** (Phase 6) is new and atomic: circuit's FieldSet parts, Input and the

@@ -313,8 +313,14 @@
     return true;
   }
 
+  function setFirstMonth(month: string) {
+    if (month === firstMonth) return;
+    firstMonth = month;
+    onmonthschange?.(months);
+  }
+
   function shiftMonths(amount: number) {
-    firstMonth = addMonthsToMonth(firstMonth, amount);
+    setFirstMonth(addMonthsToMonth(firstMonth, amount));
 
     // The focused date follows along only when it is scrolled out of view.
     if (!months.includes(monthOf(focusedDate))) {
@@ -328,9 +334,9 @@
     // Scroll the visible months to the newly focused date, if needed.
     const month = monthOf(date);
     if (month < months[0]) {
-      firstMonth = month;
+      setFirstMonth(month);
     } else if (month > months[months.length - 1]) {
-      firstMonth = addMonthsToMonth(month, -(numberOfMonths - 1));
+      setFirstMonth(addMonthsToMonth(month, -(numberOfMonths - 1)));
     }
 
     // Focus the day on the next frame, once the grid has been rerendered. The
@@ -449,12 +455,13 @@
 
   const uid = $props.id();
 
-  $effect(() => {
-    onmonthschange?.(months);
-  });
+  // Reports the initial months once, like circuit; later changes are reported where they happen.
+  function reportInitialMonths() {
+    untrack(() => onmonthschange?.(months));
+  }
 </script>
 
-<div bind:this={calendar} role="group" {...rest}>
+<div bind:this={calendar} {@attach reportInitialMonths} role="group" {...rest}>
   <div class="header">
     <div class="prev">
       <button

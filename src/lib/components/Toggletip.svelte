@@ -186,9 +186,9 @@
    * where the Popover API is unavailable, in which case the content is always
    * visible.
    */
-  $effect(() => {
-    popover.togglePopover?.(open);
-  });
+  function syncOpen(element: HTMLDivElement) {
+    element.togglePopover?.(open);
+  }
 </script>
 
 <svelte:window onresize={() => open && measureSide()} />
@@ -203,6 +203,7 @@
 
 <div
   bind:this={popover}
+  {@attach syncOpen}
   id={contentId}
   popover="auto"
   ontoggle={handleToggle}

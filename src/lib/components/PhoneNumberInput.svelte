@@ -213,7 +213,7 @@
   const initial = untrack(() => parsePhoneNumber(value, countryCode.options));
   let country = $state(untrack(() => initial.countryCode ?? countryCode.defaultValue ?? ''));
   let subscriber = $state(initial.subscriberNumber ?? '');
-  let reportedValue = untrack(() => value);
+  let reportedValue = $state(untrack(() => value));
 
   // A value set from outside replaces what the user entered.
   const external = $derived(

@@ -110,11 +110,13 @@
     now = Date.now();
   });
 
-  $effect(() => {
-    if (!relative) return;
-    const timer = setInterval(() => (now = Date.now()), relative.interval);
+  const interval = $derived(relative?.interval);
+
+  function refresh() {
+    if (!interval) return;
+    const timer = setInterval(() => (now = Date.now()), interval);
     return () => clearInterval(timer);
-  });
+  }
 </script>
 
 <!--
@@ -122,7 +124,7 @@
   Displays a human readable date time, relative ("2 hours ago") or absolute
   ("January 1, 2020").
 -->
-<time {...rest} class={['base', className]} datetime={parsed.instant} {title}>
+<time {...rest} {@attach refresh} class={['base', className]} datetime={parsed.instant} {title}>
   {relative?.label ?? absoluteLabel}
 </time>
 

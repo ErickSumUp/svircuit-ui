@@ -229,9 +229,15 @@
   const today = todaysDate();
   const initial = parse(value);
 
-  let year: DateValue = $state(initial.year);
-  let month: DateValue = $state(initial.month);
-  let day: DateValue = $state(initial.day);
+  let typed = $state(initial);
+  let reportedValue = $state(value);
+  /* A date set from the outside replaces the segments; clearing the value from
+     the outside keeps what the user is typing, since an incomplete date also
+     reports an empty string. */
+  const shown = $derived(value && value !== reportedValue ? parse(value) : typed);
+  const year = $derived(shown.year);
+  const month = $derived(shown.month);
+  const day = $derived(shown.day);
 
   /* The staged calendar selection, which is what the calendar highlights. On
      wide screens it is committed as soon as the user picks a date. */
@@ -242,17 +248,6 @@
   const date = $derived(toISO(year, month, day));
   const minimum = $derived(parse(min));
   const maximum = $derived(parse(max));
-
-  /* Keep the segments in step when the value is changed from the outside,
-     without undoing what the user is currently typing. */
-  $effect(() => {
-    if (value && value !== date) {
-      const parsed = parse(value);
-      year = parsed.year;
-      month = parsed.month;
-      day = parsed.day;
-    }
-  });
 
   /**
    * The segments of a date in the current locale, in their locale-specific
@@ -331,15 +326,17 @@
    * and publishes the resulting date.
    */
   function update(changes: Partial<Record<SegmentType, DateValue>>) {
-    year = clampValue(year, changes.year, limits.year.min, limits.year.max);
-    month = clampValue(month, changes.month, limits.month.min, limits.month.max);
+    typed = { year, month, day };
+    reportedValue = value;
+    typed.year = clampValue(year, changes.year, limits.year.min, limits.year.max);
+    typed.month = clampValue(month, changes.month, limits.month.min, limits.month.max);
     // The day is clamped last, so that it can respect the new month's length.
     const maxDay = year !== '' && month !== '' ? daysInMonth(year, month) : 31;
-    day = clampValue(day, changes.day, MIN_DAY, maxDay);
+    typed.day = clampValue(day, changes.day, MIN_DAY, maxDay);
 
     const nextValue = toISO(year, month, day);
-
     if (nextValue !== value) {
+      reportedValue = nextValue;
       value = nextValue;
       onchange?.(nextValue);
     }

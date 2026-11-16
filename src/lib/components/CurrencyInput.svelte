@@ -205,7 +205,7 @@
   // what a number can't, like a trailing decimal separator while typing.
   let numeric = $state(untrack(() => toNumericString(value, format)));
   // The last value this input reported. Any other value was set from outside.
-  let reportedValue = untrack(() => value);
+  let reportedValue = $state(untrack(() => value));
   const text = $derived(
     formatNumericString(value === reportedValue ? numeric : toNumericString(value, format), format)
   );
