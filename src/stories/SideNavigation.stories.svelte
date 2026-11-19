@@ -93,23 +93,6 @@
     groups
   };
 
-  const hostGroups: NavigationGroup[] = [
-    {
-      id: 'host',
-      label: 'Host',
-      items: [
-        { icon: Bookings, activeIcon: BookingsFilled, label: 'Host home', href: '/#host' },
-        {
-          icon: Items,
-          activeIcon: ItemsFilled,
-          label: 'Your app',
-          href: '/#app',
-          isActive: true
-        }
-      ]
-    }
-  ];
-
   let open = $state(false);
 </script>
 
@@ -162,19 +145,6 @@
   {/snippet}
 </Story>
 
-<!-- The first navigation plays an app shell that already has one, such as a circuit-ui host. -->
-<Story name="Contained">
-  {#snippet template()}
-    <SideNavigation label="Host navigation" groups={hostGroups} />
-    <div class="host-content">
-      <div class="app">
-        <SideNavigation {...baseArgs} {logo} bind:open contained />
-        <div class="app-content">{@render page()}</div>
-      </div>
-    </div>
-  {/snippet}
-</Story>
-
 <style>
   .logo {
     padding-top: var(--cui-spacings-kilo);
@@ -195,24 +165,9 @@
     margin-left: var(--cui-spacings-byte);
   }
 
-  .app {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    height: 100dvh;
-  }
-
-  .app-content {
-    overflow-y: auto;
-  }
-
   @media (min-width: 1024px) {
-    .main,
-    .host-content {
+    .main {
       margin-left: var(--side-navigation-width);
-    }
-
-    .app-content .main {
-      margin-left: 0;
     }
 
     .hamburger {

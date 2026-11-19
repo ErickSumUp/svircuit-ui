@@ -3,8 +3,6 @@
 
   type Icon = Component<{ size?: '24'; 'aria-hidden'?: 'true' }>;
 
-  export const SIDE_NAVIGATION_WIDTH = '240px';
-
   export interface NavigationItem {
     /**
      * Short label to describe the target of the link.
@@ -108,14 +106,6 @@
      * Rendered above the groups, e.g. a logo linking to the home page.
      */
     logo?: Snippet;
-    /**
-     * Keeps the navigation inside its container instead of fixing it to the
-     * viewport's left edge, and leaves `--side-navigation-width` on the
-     * document untouched. Use it when the page already has a side navigation,
-     * e.g. an app shell around your app. The container lays it out: give it
-     * a height and a `SIDE_NAVIGATION_WIDTH` column. Default: false.
-     */
-    contained?: boolean;
   }
 
   let {
@@ -128,7 +118,6 @@
     skipNavigationHref,
     skipNavigationLabel,
     logo,
-    contained = false,
     class: className,
     ...rest
   }: Props = $props();
@@ -342,7 +331,7 @@
   </div>
 {/snippet}
 
-<div class={['desktop', contained && 'contained', className]}>
+<div class={['desktop', className]}>
   {@render navigationContent('desktop')}
 </div>
 
@@ -410,16 +399,9 @@
     border-right: var(--cui-border-width-kilo) solid var(--cui-border-subtle);
   }
 
-  /* Lets the page offset its content by the navigation's width. Keep in step with SIDE_NAVIGATION_WIDTH. */
-  :global(html):has(.desktop:not(.contained)) {
+  /* Lets the page offset its content by the navigation's width. */
+  :global(html):has(.desktop) {
     --side-navigation-width: 240px;
-  }
-
-  .contained {
-    --side-navigation-width: 240px;
-
-    position: relative;
-    height: 100%;
   }
 
   @media (min-width: 1024px) {
@@ -578,16 +560,6 @@
         color-mix(in srgb, var(--cui-bg-normal) 66%, transparent),
         color-mix(in srgb, var(--cui-bg-normal) 100%, transparent)
       );
-    }
-
-    /* The negative margin cancels the space the fade and the gap before it take up. */
-    .contained .content::after {
-      position: sticky;
-      bottom: 0;
-      left: auto;
-      flex-shrink: 0;
-      width: auto;
-      margin-top: calc(-1 * (var(--cui-spacings-giga) + var(--cui-spacings-tera)));
     }
   }
 

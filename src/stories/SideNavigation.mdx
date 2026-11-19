@@ -44,33 +44,6 @@ From 1024px, the navigation is fixed to the left edge of the viewport. It sets `
 }
 ```
 
-### Inside an app shell
-
-If your app runs inside a shell that already has a side navigation, such as a circuit-ui host, the two would overlap: both are fixed to the left edge and both set `--side-navigation-width` on the document. Pass `contained` to keep the navigation inside its container instead. It then leaves the document alone and fills the height of its container, scrolling on its own. Give the container a height and a column for it, `SIDE_NAVIGATION_WIDTH` wide:
-
-```svelte
-<div class="app">
-  <SideNavigation {groups} contained bind:open label="Side navigation" />
-  <main>…</main>
-</div>
-
-<style>
-  .app {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    height: 100dvh;
-  }
-
-  main {
-    overflow-y: auto;
-  }
-</style>
-```
-
-The column is `auto`, because the navigation is hidden below 1024px. There it is still a modal over the whole page.
-
-<Canvas of={Stories.Contained} />
-
 ### Small viewports
 
 Below 1024px, the SideNavigation is displayed as a modal. Bind `open` to the button that toggles it (usually a hamburger in the top navigation). It closes via its close button, the Escape key, a click outside, or when a link is clicked, and calls `onclose`. Provide `label` and `closeButtonLabel` for the accessibility of the modal and its close button.

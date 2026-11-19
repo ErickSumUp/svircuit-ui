@@ -163,6 +163,17 @@ none` rather than `translateX(0)`, so the stacked panel stays positioned against
   sequence (grouping, backspace over a delimiter, inserting mid-number, minus, select-all and
   retype, blur) gives identical text and caret positions on both.
 
+### 2026-11-19 — SideNavigation `contained` reverted ✅
+
+- **Removed the `contained` prop, its styles, story, docs section and tests, and the
+  `SIDE_NAVIGATION_WIDTH` export.** Its premise was wrong: the Backoffice Hive shell has no side
+  navigation, only circuit's TopNavigation and a slide-out drawer. Our navigation covered that
+  drawer because the consumer gave the shell's `#navigation` mount point a `z-index` on a flex
+  item, which created a stacking context that capped the drawer at 800. The fix belongs in the
+  consumer: don't give `#navigation` a z-index.
+- Kept from that entry: `--side-navigation-width` set from CSS, now `:global(html):has(.desktop)`,
+  and the modal sync as an `{@attach}`. Both replace circuit's effects with the same behaviour.
+
 ### 2026-11-15 — SideNavigation `contained` ✅
 
 - **New `contained` prop (ours only).** Consumers run inside a reverse-proxied shell with circuit's
